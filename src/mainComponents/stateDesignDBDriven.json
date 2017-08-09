@@ -1,0 +1,71 @@
+{
+    "userLoggedIn": false,
+    "loggedInUserDetails": {
+        "EMAILADDRESS": "",
+        "FIRSTNAME": "",
+        "LASTNAME": "",
+        "PASSWORDHASH": "",
+        "PASSWORDSALT": ""
+    },
+    "USER": {
+        "EMAILADDRESS": "",
+        "FIRSTNAME": "",
+        "LASTNAME": "",
+        "PASSWORDHASH": "",
+        "PASSWORDSALT": ""
+    },
+    "USERINFORMATION": [
+        {
+            "EMAILADDRESS": "",
+            "FIRSTNAME": "",
+            "LASTNAME": ""
+        },
+        {
+            "EMAILADDRESS": "",
+            "FIRSTNAME": "",
+            "LASTNAME": ""
+        },
+        {
+            "EMAILADDRESS": "",
+            "FIRSTNAME": "",
+            "LASTNAME": ""
+        }
+    ],
+    "TRANSACTION": [
+        {
+            "CREDITOR": "",
+            "GROSS": 0,
+            "DEBTOR": "",
+            "REFERENCE": "",
+            "DATE": ""
+        },
+        {
+            "CREDITOR": "",
+            "GROSS": 0,
+            "DEBTOR": "",
+            "REFERENCE": "",
+            "DATE": ""
+        },
+        {
+            "CREDITOR": "",
+            "GROSS": 0,
+            "DEBTOR": "",
+            "REFERENCE": "",
+            "DATE": ""
+        }
+    ],
+    "TRANSACTIONSUMMARY": {
+        "gridObj": {}
+    },
+    "TRANSACTIONHISTORYSUMMARY": [
+        {
+            "historicTransactions": {
+                "CREDITOR": "",
+                "GROSS": 0,
+                "DEBTOR": "",
+                "REFERENCE": "",
+                "DATE": ""
+            }
+        }
+    ]
+}

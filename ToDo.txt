@@ -1,0 +1,14 @@
+Needs Implementing: 
+Login
+Logout
+Balance
+History
+Details
+Payday
+Stacks
+
+Rework:
+nav bar into side panel on desktop - look at pulling in react-nav-bar
+API return better error messages (e.g. user already exists)
+Make userId field and keep email address separate
+Material Design for UI - look into material-ui https://github.com/callemall/material-ui o.e.  https://hackernoon.com/the-coolest-react-ui-frameworks-for-your-new-react-app-ad699fffd651 

@@ -1,0 +1,43 @@
+{
+  "homepage": "http://housemoney.surge.sh/",
+  "name": "housemoneyv2",
+  "version": "2.0.0",
+  "private": true,
+  "dependencies": {
+    "history": "^4.6.3",
+    "react": "^15.6.1",
+    "react-data-grid": "^2.0.51",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "redux": "^3.7.1",
+    "redux-actions": "^2.2.1",
+    "redux-persist": "^4.8.3",
+    "redux-promise": "^0.5.3",
+    "redux-promise-middleware": "^4.2.1",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "prettier": "^1.5.2",
+    "react-scripts": "1.0.10",
+    "redux-logger": "^3.0.6",
+    "set-default-browser": "^1.0.0",
+    "surge": "^0.19.0",
+    "webpack": "^3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && cd ./build && rename index.html 200.html && surge -p ./ -d housemoney.surge.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+//EDLAPTOP/Repos/HMAppV2.git"
+  }
+}

@@ -1,0 +1,285 @@
+html {
+  width: 100%;
+  height: 100%;
+  color: #004989;
+  background-color: #222222;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #004989;
+  background-color: #222222;
+}
+
+html {
+  display: table;
+  padding-top: 10em;
+  padding-bottom: 7em;
+}
+
+hr {
+  border-top: 1px solid #777777;
+}
+
+.form-control {
+  color: #adadad;
+  background-color: #222222;
+}
+
+.ui-datepicker {
+  background-color: #333;
+  color: #adadad;
+}
+
+.navbar.center .nav,
+.navbar.center .nav > li {
+  float: none;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding-top: 2%;
+}
+
+.center .navbar-inner {
+  text-align: center;
+}
+
+.navbar-brand {
+  color: #999999;
+  float: left;
+  height: 19%;
+}
+
+.navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-brand:hover {
+  color: #999999;
+  background-color: #333;
+  outline: none;
+}
+
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+  float: right;
+}
+
+.navbar-brand span {
+  font: 32px/1.1em Signika, sans-serif;
+  text-transform: uppercase;
+}
+
+.navbar-inverse,
+.dropdown-menu-item,
+.dropdown-menu,
+.dropdown {
+  background-color: #004989;
+}
+
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse .navbar-nav > li > a:hover,
+.dropdown-menu-item:hover > a:hover,
+.dropdown-menu:hover > a:hover {
+  color: #666666;
+  outline: none;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.dropdown-menu-item:hover > a:hover,
+.dropdown-menu:hover > a:hover {
+  background-color: #333;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.dropdown-menu-item > a,
+.dropdown-menu > li > a {
+  color: #5b8da9;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.in.navbar-collapse {
+  overflow-x: hidden;
+}
+
+.footer-sign {
+  font-size: xx-small;
+  float: right;
+}
+
+.footer-desc {
+  color: #333333;
+  padding-top: 10px;
+}
+
+.btn-posn {
+  margin-top: 2em;
+}
+
+.btn-default {
+  color: #adadad;
+  background-color: #444;
+  border-color: #444;
+  cursor: pointer !important;
+}
+
+.btn-default.active,
+.btn-default.focus,
+.btn-default:active,
+.btn-default:focus,
+.btn-default:hover,
+.open > .dropdown-toggle.btn-default {
+  color: #333333;
+  background-color: #444;
+  border-color: #777777;
+}
+
+.btn.focus,
+.btn:focus,
+.btn:hover {
+  color: #adadad;
+  text-decoration: none;
+}
+
+input.ng-valid.ng-dirty {
+  border: #4cff00 1px solid;
+}
+
+[contenteditable].ng-invalid,
+input.ng-invalid.ng-dirty {
+  border: #ff0000 1px solid;
+}
+
+[contenteditable] {
+  border: 1px solid black;
+  background-color: #333333;
+  min-height: 8em;
+  margin-bottom: 20px;
+}
+
+.resourceCell {
+  overflow-y: auto;
+  max-height: 150px;
+  border: outset 2px #8eafe6;
+  box-shadow: 1px 2px 1px 1px #004989;
+  border-radius: 5px;
+}
+
+.linkCollection {
+  width: 100%;
+}
+
+.linkCollection > a:link {
+  background-color: transparent;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 2px #8eafe6 solid;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px #004989;
+  text-decoration: none !important;
+  padding-left: 3px;
+  line-height: 2em;
+}
+
+.linkCollection > a:visited {
+  text-decoration: none !important;
+  background-color: #337ab7;
+}
+
+.linkCollection > a:hover {
+  text-decoration: none !important;
+  background-color: #ffd800;
+  cursor: pointer;
+}
+
+.linkCollection > a:active {
+  text-decoration: none !important;
+  background-color: #ffd800;
+}
+
+.tooltip-inner {
+  background-color: #ffd800 !important;
+  color: #004989;
+}
+
+.disablea {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.hidden {
+  visibility: hidden;
+  cursor: none;
+}
+
+.dropdown:hover .dropdown-menu {
+  text-align: left;
+  display: block;
+  margin-top: 0;
+}
+
+.dropdown {
+  text-align: left;
+}
+
+.table-header > tr > td {
+  font-weight: bold;
+  font: 14;
+  text-decoration: underline;
+}
+
+.sublist-row > td {
+  line-height: 1.3 !important;
+}
+
+.sublist-header > td {
+  line-height: 2.0 !important;
+}
+
+.table tfoot > tr > td,
+.table tbody > tr > td {
+  border-top: 1px solid #777777;
+}
+
+.sublist-row {
+  color: rgba(119, 119, 119, 0.81) !important;
+}
+
+.grid,
+.ui-grid-cell-contents,
+.ui-grid-header-cell,
+.ui-grid-render-container {
+  color: #adadad;
+  border-color: black;
+  background-color: #333333 !important;
+  width: 400px;
+}
+
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+  max-width: 280px;
+}
+
+a:hover,
+a:focus {
+  color: #999999;
+  text-decoration: none;
+}
