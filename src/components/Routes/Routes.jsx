@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
 
-import Login from "../pageComponents/login";
-import Logout from "../pageComponents/logout";
-import Register from "../pageComponents/register";
-import Balance from "../pageComponents/balance";
-import MyHistory from "../pageComponents/myHistory";
-import Details from "../pageComponents/details";
-import Payday from "../pageComponents/payday";
-import Stacks from "../pageComponents/stacks";
-import ChangePassword from "../pageComponents/changePassword";
-import EditUser from "../pageComponents/editUser";
+import Login from "../../pageComponents/login";
+import Logout from "../../pageComponents/logout";
+import Register from "../../pageComponents/register";
+import Balance from "../../pageComponents/balance";
+import MyHistory from "../../pageComponents/myHistory";
+import Details from "../../pageComponents/details";
+import Payday from "../../pageComponents/payday";
+import Stacks from "../../pageComponents/stacks";
+import ChangePassword from "../../pageComponents/changePassword";
+import EditUser from "../../pageComponents/editUser";
 
 class Routes extends Component {
   getRoutes() {
