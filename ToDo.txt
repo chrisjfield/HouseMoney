@@ -15,3 +15,4 @@ Material Design for UI - look into material-ui https://github.com/callemall/mate
 Offline loading with service worker
 Server side rendering for flicker
 share the load click bug (does not un hover)
+deprecate old repo server
