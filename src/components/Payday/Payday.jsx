@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import Checkbox from "./checkbox";
+import Checkbox from "./Checkbox";
+import { getUserList } from "./paydayActions";
+import { connect } from "react-redux";
 
 const items = ["One", "Two", "Three"];
 
 class Payday extends Component {
   componentWillMount = () => {
+    const { dispatch } = this.props;
+    dispatch(getUserList());
     this.selectedCheckboxes = new Set();
   };
 
@@ -72,4 +76,12 @@ class Payday extends Component {
   }
 }
 
-export default Payday;
+// Retrieve data from store as props
+function mapStateToProps(state) {
+  return {
+    //showAddUser: getShowAddUser(state),
+    //users: postUser(state) // ED! this was firing post user when sub clicked... need to understand wtf this is doing / for
+  };
+}
+
+export default connect(mapStateToProps)(Payday);

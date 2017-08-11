@@ -1,7 +1,7 @@
 import apiCall from "../../helpers/apiHelper";
 
 // Export Actions
-export const RECEIVE_USER = "RECIEVE_USER";
+export const RECEIVE_USER = "RECEIVE_USER";
 
 export function postUser(USER) {
   const request = apiCall("POST", "Users/PostUser", USER);

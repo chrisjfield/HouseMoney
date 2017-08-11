@@ -8,7 +8,7 @@ import Register from "../../pageComponents/register";
 import Balance from "../../pageComponents/balance";
 import MyHistory from "../../pageComponents/myHistory";
 import Details from "../../pageComponents/details";
-import Payday from "../../pageComponents/payday";
+import Payday from "../Payday";
 import Stacks from "../../pageComponents/stacks";
 import ChangePassword from "../../pageComponents/changePassword";
 import EditUser from "../../pageComponents/editUser";
