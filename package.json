@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "history": "^4.6.3",
+    "material-ui": "^0.18.7",
     "react": "^15.6.1",
     "react-data-grid": "^2.0.51",
     "react-dom": "^15.6.1",
@@ -12,12 +13,14 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.1",
     "redux-actions": "^2.2.1",
     "redux-persist": "^4.8.3",
     "redux-promise": "^0.5.3",
     "redux-promise-middleware": "^4.2.1",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "eslint": "^4.3.0",

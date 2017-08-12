@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "./loginActions";
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
 
 class Login extends Component {
   constructor(props) {
@@ -32,40 +34,36 @@ class Login extends Component {
   }
 
   render() {
+    const styles = {
+      container: {
+        textAlign: "center"
+      }
+    };
     return (
-      <form
-        className="col-lg-4 col-lg-offset-4 form-main"
-        onSubmit={this.handleLogin}
-      >
-        <h2>Please Login</h2>
-        <div className="form-group">
-          <label>Email Address:</label>
-          <input
+      <form style={styles.container} onSubmit={this.handleLogin}>
+        <h1>Please Login</h1>
+        <div>
+          <TextField
             name="EMAILADDRESS"
             type="text"
-            placeholder="Enter email address"
+            placeholder="Email Address"
             className="form-control"
             required
             onChange={this.handleInputChange}
           />
         </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
+        <div>
+          <TextField
             name="PASSWORD"
             type="password"
-            placeholder="**********"
+            placeholder="Password"
             className="form-control"
             autoComplete="current-password"
             required
             onChange={this.handleInputChange}
           />
         </div>
-        <input
-          type="submit"
-          className="btn btn-primary btn-default"
-          value="Login"
-        />
+        <RaisedButton type="submit" label="Login" />
       </form>
     );
   }
