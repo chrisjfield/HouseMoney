@@ -1,8 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import receiveUser from "./navActions";
 
 class Nav extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    const { dispatch } = this.props;
+    dispatch(receiveUser({}, false));
+  }
+
   getNav() {
     const isLoggedIn = this.props.isLoggedIn;
     let navOptions;
@@ -11,7 +23,7 @@ class Nav extends Component {
         <div id="navbar" className="collapse navbar-collapse">
           <ul className="nav navbar-nav">
             <li>
-              <Link to="/Logout">Logout</Link>
+              <a onClick={this.handleLogout}>Logout</a>
             </li>
             <li className="dropdown">
               <a

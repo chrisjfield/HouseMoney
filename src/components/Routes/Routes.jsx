@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
 
 import Login from "../Login";
-import Logout from "../../pageComponents/logout";
 import Register from "../Register";
 import Balance from "../../pageComponents/balance";
 import MyHistory from "../../pageComponents/myHistory";
@@ -21,7 +20,6 @@ class Routes extends Component {
       routes = (
         <Switch>
           <Route exact path="/" component={Balance} />
-          <Route path="/Logout" component={Logout} />
           <Route path="/Balance" component={Balance} />
           <Route path="/History" component={MyHistory} />
           <Route path="/Details" component={Details} />
