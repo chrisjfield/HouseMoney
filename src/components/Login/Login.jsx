@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "./loginActions";
 import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
 
 class Login extends Component {
   constructor(props) {
@@ -36,7 +36,8 @@ class Login extends Component {
   render() {
     const styles = {
       container: {
-        textAlign: "center"
+        textAlign: "center",
+        "margin-top": "50px"
       }
     };
     return (
@@ -63,7 +64,7 @@ class Login extends Component {
             onChange={this.handleInputChange}
           />
         </div>
-        <RaisedButton type="submit" label="Login" />
+        <FlatButton type="submit" label="Login" />
       </form>
     );
   }
