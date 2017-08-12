@@ -1,12 +1,25 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import TextField from "material-ui/TextField";
+import FlatButton from "material-ui/FlatButton";
+import Snackbar from "material-ui/Snackbar";
+import DatePicker from "material-ui/DatePicker";
 import Checkbox from "./Checkbox";
 import { getUserList } from "./paydayActions";
-import { connect } from "react-redux";
-import Snackbar from "material-ui/Snackbar";
 
 const items = ["One", "Two", "Three"];
 
 class Payday extends Component {
+  constructor(props) {
+    super(props);
+    this.styles = {
+      container: {
+        textAlign: "center",
+        "margin-top": "50px"
+      }
+    };
+  }
+
   componentWillMount = () => {
     const { dispatch } = this.props;
     dispatch(getUserList());
@@ -40,39 +53,36 @@ class Payday extends Component {
 
   render() {
     return (
-      <div className="col-sm-4 col-sm-offset-4 form-main">
-        <h2>Add a Transaction </h2>
-        <form name="paydayForm" noValidate>
-          <h3> Creditor is . </h3>
-          {this.createCheckboxes()}
-          <div className="form-group">
-            <label>Amount :</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="0.00"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Date :</label>
-            <input type="date" className="form-control" required />
-          </div>
-          <div className="form-group">
-            <label>Reference :</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Reference"
-            />
-          </div>
-          <input
-            type="submit"
-            className="btn btn-primary btn-default"
-            value="Add Transaction"
+      <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
+        <h1>Add a Transaction </h1>
+        <h2> Creditor is . </h2>
+        {this.createCheckboxes()}
+        <div>
+          <TextField
+            type="number"
+            hintText="0.00"
+            floatingLabelText="Value"
+            required
           />
-        </form>
-      </div>
+        </div>
+        <div>
+          <DatePicker
+            floatingLabelText="Date"
+            autoOk={true}
+            container="inline"
+            mode="landscape"
+            required
+          />
+        </div>
+        <div>
+          <TextField
+            type="text"
+            hintText="Weekly Shop"
+            floatingLabelText="Reference"
+          />
+        </div>
+        <FlatButton type="submit" label="Add" />
+      </form>
     );
   }
 }

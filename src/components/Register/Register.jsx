@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import TextField from "material-ui/TextField";
+import FlatButton from "material-ui/FlatButton";
 import { postUser } from "./registerActions";
 
 class Register extends Component {
@@ -10,6 +12,13 @@ class Register extends Component {
       SURNAME: "",
       EMAILADDRESS: "",
       PASSWORD: ""
+    };
+
+    this.styles = {
+      container: {
+        textAlign: "center",
+        "margin-top": "50px"
+      }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -34,61 +43,46 @@ class Register extends Component {
   }
 
   render() {
-    const styles = {
-      container: {
-        textAlign: "center"
-      }
-    };
     return (
-      <form style={styles.container} onSubmit={this.handleLogin}>
-        <div className="form-content">
-          <h2 className="form-title">Register</h2>
-          <div className="form-group">
-            <label>First Name:</label>
-            <input
-              name="FIRSTNAME"
-              placeholder="First Name"
-              className="form-control"
-              required
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Last Name:</label>
-            <input
-              name="SURNAME"
-              placeholder="Last Name"
-              className="form-control"
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Email Address:</label>
-            <input
-              name="EMAILADDRESS"
-              placeholder="email@example.com"
-              className="form-control"
-              required
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Password:</label>
-            <input
-              name="PASSWORD"
-              type="password"
-              placeholder="**********"
-              className="form-control"
-              required
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <input
-            type="submit"
-            value="Submit"
-            className="btn btn-primary btn-default"
+      <form style={this.styles.container} onSubmit={this.handleLogin}>
+        <h1>Register</h1>
+        <div>
+          <TextField
+            name="FIRSTNAME"
+            hintText="My name"
+            floatingLabelText="First Name"
+            required
+            onChange={this.handleInputChange}
           />
         </div>
+        <div>
+          <TextField
+            name="SURNAME"
+            hintText="My surname"
+            floatingLabelText="Last Name"
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div>
+          <TextField
+            name="EMAILADDRESS"
+            hintText="example@email.com"
+            floatingLabelText="Email Address"
+            required
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div>
+          <TextField
+            name="PASSWORD"
+            type="password"
+            hintText="**********"
+            floatingLabelText="Password"
+            required
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <FlatButton type="submit" label="Sign Up" />
       </form>
     );
   }

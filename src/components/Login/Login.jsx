@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loginUser } from "./loginActions";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
+import { loginUser } from "./loginActions";
 
 class Login extends Component {
   constructor(props) {
@@ -10,6 +10,13 @@ class Login extends Component {
     this.state = {
       EMAILADDRESS: "",
       PASSWORD: ""
+    };
+
+    this.styles = {
+      container: {
+        textAlign: "center",
+        "margin-top": "50px"
+      }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -34,21 +41,15 @@ class Login extends Component {
   }
 
   render() {
-    const styles = {
-      container: {
-        textAlign: "center",
-        "margin-top": "50px"
-      }
-    };
     return (
-      <form style={styles.container} onSubmit={this.handleLogin}>
-        <h1>Please Login</h1>
+      <form style={this.styles.container} onSubmit={this.handleLogin}>
+        <h1>Welcome</h1>
         <div>
           <TextField
             name="EMAILADDRESS"
             type="text"
-            placeholder="Email Address"
-            className="form-control"
+            hintText="example@email.com"
+            floatingLabelText="Email Address"
             required
             onChange={this.handleInputChange}
           />
@@ -57,8 +58,8 @@ class Login extends Component {
           <TextField
             name="PASSWORD"
             type="password"
-            placeholder="Password"
-            className="form-control"
+            hintText="**********"
+            floatingLabelText="Password"
             autoComplete="current-password"
             required
             onChange={this.handleInputChange}
