@@ -7,23 +7,17 @@ import App from "./components/App";
 import store from "./mainComponents/store";
 import history from "./mainComponents/history";
 import injectTapEventPlugin from "react-tap-event-plugin";
-import { darkBaseTheme } from "material-ui/styles/colors";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import "./css/index.css";
 import WebFont from "webfontloader";
-
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: darkBaseTheme
-  }
-});
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import { muiTheme } from "./mainComponents/themes";
 
 WebFont.load({
   google: {
     families: ["Titillium Web:300,400,700", "sans-serif"]
   }
 });
+
 const mountApp = document.getElementById("root");
 
 // Needed for onTouchTap

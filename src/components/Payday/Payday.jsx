@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Checkbox from "./Checkbox";
 import { getUserList } from "./paydayActions";
 import { connect } from "react-redux";
+import Snackbar from "material-ui/Snackbar";
 
 const items = ["One", "Two", "Three"];
 
@@ -75,6 +76,15 @@ class Payday extends Component {
     );
   }
 }
+
+/* ED! Look into this for confirming submission of transaction
+          <Snackbar
+            open={this.state.transactionSaved}
+            message="Transaction added"
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestClose}
+          />
+*/
 
 // Retrieve data from store as props
 function mapStateToProps(state) {

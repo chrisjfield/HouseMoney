@@ -34,11 +34,13 @@ class Register extends Component {
   }
 
   render() {
+    const styles = {
+      container: {
+        textAlign: "center"
+      }
+    };
     return (
-      <form
-        className="col-sm-4 col-sm-offset-4 form-main"
-        onSubmit={this.handleAddUser}
-      >
+      <form style={styles.container} onSubmit={this.handleLogin}>
         <div className="form-content">
           <h2 className="form-title">Register</h2>
           <div className="form-group">
