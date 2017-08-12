@@ -18,6 +18,7 @@ class Payday extends Component {
         "margin-top": "50px"
       }
     };
+    this.currentDate = new Date();
   }
 
   componentWillMount = () => {
@@ -71,6 +72,7 @@ class Payday extends Component {
             autoOk={true}
             container="inline"
             mode="landscape"
+            defaultDate={this.currentDate}
             required
           />
         </div>

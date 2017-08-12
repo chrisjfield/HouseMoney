@@ -32,11 +32,11 @@ class Nav extends Component {
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
         <MenuItem>
-          <Link to="/Register">Sign Up</Link>
+          <Link to="/Login">Login</Link>
         </MenuItem>
 
         <MenuItem>
-          <Link to="/Login">Login</Link>
+          <Link to="/Register">Sign Up</Link>
         </MenuItem>
       </IconMenu>
     );
