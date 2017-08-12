@@ -1,6 +1,6 @@
-import { RECEIVE_USER } from "./loginActions";
+import { RECEIVE_USER } from "../Nav/navActions";
 
-const loginReducer = (state = { isLoggedIn: false }, action) => {
+const navReducer = (state = { isLoggedIn: false }, action) => {
   switch (action.type) {
     case RECEIVE_USER:
       return Object.assign({}, state, {
@@ -13,4 +13,4 @@ const loginReducer = (state = { isLoggedIn: false }, action) => {
 };
 
 // Export Reducer
-export default loginReducer;
+export default navReducer;

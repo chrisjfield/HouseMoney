@@ -56,7 +56,7 @@ class Routes extends Component {
 
 const mapStateToProps = store => {
   return {
-    isLoggedIn: store.loginReducer.isLoggedIn
+    isLoggedIn: store.navReducer.isLoggedIn
   };
 };
 

@@ -92,7 +92,7 @@ class Nav extends Component {
 // Retrieve data from store as props
 const mapStateToProps = store => {
   return {
-    isLoggedIn: store.loginReducer.isLoggedIn
+    isLoggedIn: store.navReducer.isLoggedIn
   };
 };
 
