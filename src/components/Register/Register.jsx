@@ -1,17 +1,43 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { postUser } from "../Login/loginActions";
 
-export class UserCreateWidget extends Component {
+class Register extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      FIRSTNAME: "",
+      SURNAME: "",
+      EMAILADDRESS: "",
+      PASSWORD: ""
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleAddUser = this.handleAddUser.bind(this);
+  }
+
+  handleAddUser(event) {
+    event.preventDefault();
+    const { dispatch, history } = this.props,
+      USER = this.state;
+    dispatch(postUser(USER)).then(history.push("/Payday"));
+  }
+
+  handleInputChange(event) {
+    const target = event.target,
+      value = target.type === "checkbox" ? target.checked : target.value,
+      name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
   render() {
-    const { handleInputChange, handleAddUser } = this.props;
-    //replace true with  when set
-    // <FormattedMessage id="createNewUser" />
-    //ED! Need to figure out how to add messages to props so the default shit comes through and the label names, register message are lang indep properly.
     return (
       <form
         className="col-sm-4 col-sm-offset-4 form-main"
-        onSubmit={handleAddUser}
+        onSubmit={this.handleAddUser}
       >
         <div className="form-content">
           <h2 className="form-title">Register</h2>
@@ -22,7 +48,7 @@ export class UserCreateWidget extends Component {
               placeholder="First Name"
               className="form-control"
               required
-              onChange={handleInputChange}
+              onChange={this.handleInputChange}
             />
           </div>
           <div className="form-group">
@@ -31,7 +57,7 @@ export class UserCreateWidget extends Component {
               name="SURNAME"
               placeholder="Last Name"
               className="form-control"
-              onChange={handleInputChange}
+              onChange={this.handleInputChange}
             />
           </div>
           <div className="form-group">
@@ -41,7 +67,7 @@ export class UserCreateWidget extends Component {
               placeholder="email@example.com"
               className="form-control"
               required
-              onChange={handleInputChange}
+              onChange={this.handleInputChange}
             />
           </div>
           <div className="form-group">
@@ -52,7 +78,7 @@ export class UserCreateWidget extends Component {
               placeholder="**********"
               className="form-control"
               required
-              onChange={handleInputChange}
+              onChange={this.handleInputChange}
             />
           </div>
           <input
@@ -66,11 +92,7 @@ export class UserCreateWidget extends Component {
   }
 }
 
-UserCreateWidget.propTypes = {
-  handleInputChange: PropTypes.func.isRequired,
-  handleAddUser: PropTypes.func.isRequired
-};
-
+// Retrieve data from store as props
 function mapStateToProps(state) {
   const { USER } = state;
 
@@ -79,4 +101,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(UserCreateWidget);
+export default connect(mapStateToProps)(Register);

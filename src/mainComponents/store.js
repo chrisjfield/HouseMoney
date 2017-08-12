@@ -12,7 +12,7 @@ const rmiddleware = routerMiddleware(history);
 
 const store = createStore(
   rootReducer,
-  { userReducer: { isLoggedIn: false } },
+  { loginReducer: { isLoggedIn: false } },
   compose(applyMiddleware(thunk, logger, rmiddleware), autoRehydrate())
 );
 

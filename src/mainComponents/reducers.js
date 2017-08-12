@@ -5,12 +5,12 @@ import { combineReducers } from "redux";
 
 // Import Reducers
 
-import userReducer from "../actions/user/userReducer";
+import loginReducer from "../components/Login/loginReducer";
 import paydayReducer from "../components/Payday/paydayReducer";
 
 // Combine all reducers into one root reducer
 const rootReducer = combineReducers({
-  userReducer,
+  loginReducer,
   paydayReducer
 });
 

@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 class Nav extends Component {
   getNav() {
     const isLoggedIn = this.props.isLoggedIn;
+    let navOptions;
     if (isLoggedIn) {
-      return (
+      navOptions = (
         <div id="navbar" className="collapse navbar-collapse">
           <ul className="nav navbar-nav">
             <li>
@@ -44,7 +45,7 @@ class Nav extends Component {
         </div>
       );
     } else {
-      return (
+      navOptions = (
         <div id="navbar" className="collapse navbar-collapse">
           <ul className="nav navbar-nav">
             <li>
@@ -57,6 +58,7 @@ class Nav extends Component {
         </div>
       );
     }
+    return navOptions;
   }
 
   render() {
@@ -90,7 +92,7 @@ class Nav extends Component {
 // Retrieve data from store as props
 const mapStateToProps = store => {
   return {
-    isLoggedIn: store.userReducer.isLoggedIn
+    isLoggedIn: store.loginReducer.isLoggedIn
   };
 };
 

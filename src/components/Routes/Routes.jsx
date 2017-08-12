@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
 
-import Login from "../../pageComponents/login";
+import Login from "../Login";
 import Logout from "../../pageComponents/logout";
-import Register from "../../pageComponents/register";
+import Register from "../Register";
 import Balance from "../../pageComponents/balance";
 import MyHistory from "../../pageComponents/myHistory";
 import Details from "../../pageComponents/details";
@@ -16,8 +16,9 @@ import EditUser from "../../pageComponents/editUser";
 class Routes extends Component {
   getRoutes() {
     const isLoggedIn = this.props.isLoggedIn;
+    let routes;
     if (isLoggedIn) {
-      return (
+      routes = (
         <Switch>
           <Route exact path="/" component={Balance} />
           <Route path="/Logout" component={Logout} />
@@ -32,7 +33,7 @@ class Routes extends Component {
         </Switch>
       );
     } else {
-      return (
+      routes = (
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/Login" component={Login} />
@@ -41,6 +42,7 @@ class Routes extends Component {
         </Switch>
       );
     }
+    return routes;
   }
 
   render() {
@@ -54,7 +56,7 @@ class Routes extends Component {
 
 const mapStateToProps = store => {
   return {
-    isLoggedIn: store.userReducer.isLoggedIn
+    isLoggedIn: store.loginReducer.isLoggedIn
   };
 };
 

@@ -1,14 +1,41 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { loginUser } from "./loginActions";
 
-export class UserLoginWidget extends Component {
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      EMAILADDRESS: "",
+      PASSWORD: ""
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin(event) {
+    event.preventDefault();
+    const { dispatch, history } = this.props,
+      LOGIN = this.state;
+    dispatch(loginUser(LOGIN)).then(() => history.push("/Balance"));
+  }
+
+  handleInputChange(event) {
+    const target = event.target,
+      value = target.type === "checkbox" ? target.checked : target.value,
+      name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
   render() {
-    const { handleInputChange, handleLogin } = this.props;
     return (
       <form
         className="col-lg-4 col-lg-offset-4 form-main"
-        onSubmit={handleLogin}
+        onSubmit={this.handleLogin}
       >
         <h2>Please Login</h2>
         <div className="form-group">
@@ -19,7 +46,7 @@ export class UserLoginWidget extends Component {
             placeholder="Enter email address"
             className="form-control"
             required
-            onChange={handleInputChange}
+            onChange={this.handleInputChange}
           />
         </div>
         <div className="form-group">
@@ -31,7 +58,7 @@ export class UserLoginWidget extends Component {
             className="form-control"
             autoComplete="current-password"
             required
-            onChange={handleInputChange}
+            onChange={this.handleInputChange}
           />
         </div>
         <input
@@ -44,11 +71,7 @@ export class UserLoginWidget extends Component {
   }
 }
 
-UserLoginWidget.propTypes = {
-  handleInputChange: PropTypes.func.isRequired,
-  handleLogin: PropTypes.func.isRequired
-};
-
+// Retrieve data from store as props
 function mapStateToProps(state) {
   const { USER } = state;
 
@@ -57,4 +80,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(UserLoginWidget);
+export default connect(mapStateToProps)(Login);

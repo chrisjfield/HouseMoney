@@ -33,10 +33,3 @@ export function loginUser(LOGIN) {
     return request.then(json => dispatch(receiveUser(LOGIN, true)));
   };
 }
-
-/* working api call
-fetch(`http://localhost:58399/api/Users/GetUserInformation`)
-        .then(response => response.json())
-        .then(json => dispatch(receiveUser(USER, json)));
-    }; 
-*/

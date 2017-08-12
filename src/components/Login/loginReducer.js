@@ -1,6 +1,6 @@
-import { RECEIVE_USER } from "./userActions";
+import { RECEIVE_USER } from "./loginActions";
 
-const userReducer = (state = { isLoggedIn: false }, action) => {
+const loginReducer = (state = { isLoggedIn: false }, action) => {
   switch (action.type) {
     case RECEIVE_USER:
       return Object.assign({}, state, {
@@ -13,4 +13,4 @@ const userReducer = (state = { isLoggedIn: false }, action) => {
 };
 
 // Export Reducer
-export default userReducer;
+export default loginReducer;
