@@ -10,11 +10,10 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 export const muiTheme = getMuiTheme({
   palette: {
     primary1Color: blue900,
-    accent1Color: darkBlack,
     textColor: grey400,
     alternateTextColor: grey500,
     borderColor: darkBlack,
-    pickerHeaderColor: darkBlack,
+    pickerHeaderColor: blue900,
     shadowColor: fullBlack
   }
 });

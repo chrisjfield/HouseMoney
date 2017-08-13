@@ -17,7 +17,7 @@ class Register extends Component {
     this.styles = {
       container: {
         textAlign: "center",
-        "margin-top": "50px"
+        marginTop: "50px"
       }
     };
 

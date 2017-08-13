@@ -4,13 +4,20 @@ import { connect } from "react-redux";
 import receiveUser from "./navActions";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
+import Menu from "material-ui/svg-icons/navigation/menu";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
-import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 
 class Nav extends Component {
   constructor(props) {
     super(props);
+
+    this.styles = {
+      menuItems: {
+        "text-decoration": "none",
+        color: "#BDBDBD"
+      }
+    };
 
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -25,18 +32,22 @@ class Nav extends Component {
       <IconMenu
         iconButtonElement={
           <IconButton>
-            <MoreVertIcon />
+            <Menu />
           </IconButton>
         }
         targetOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
         <MenuItem>
-          <Link to="/Login">Login</Link>
+          <Link style={this.styles.menuItems} to="/Login">
+            Login
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <Link to="/Register">Sign Up</Link>
+          <Link style={this.styles.menuItems} to="/Register">
+            Sign Up
+          </Link>
         </MenuItem>
       </IconMenu>
     );
@@ -47,52 +58,68 @@ class Nav extends Component {
       <IconMenu
         iconButtonElement={
           <IconButton>
-            <MoreVertIcon />
+            <Menu />
           </IconButton>
         }
         targetOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
         <MenuItem>
-          <Link to="/Payday">Payday</Link>
+          <Link style={this.styles.menuItems} to="/Payday">
+            Payday
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <Link to="/Stacks">Stacks</Link>
+          <Link style={this.styles.menuItems} to="/Stacks">
+            Stacks
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <Link to="/Balance">Balance</Link>
+          <Link style={this.styles.menuItems} to="/Balance">
+            Balance
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <Link to="/History">History</Link>
+          <Link style={this.styles.menuItems} to="/History">
+            History
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <Link to="/Details">Account</Link>
+          <Link style={this.styles.menuItems} to="/Details">
+            Account
+          </Link>
         </MenuItem>
 
         <MenuItem>
-          <a onClick={this.handleLogout}>Logout</a>
+          <a style={this.styles.menuItems} onClick={this.handleLogout}>
+            Logout
+          </a>
         </MenuItem>
       </IconMenu>
     );
   }
 
+  // navToHome() {
+  //   const { history } = this.props;
+  //   history.push("/");
+  // }
+
   render() {
     return (
-      <div>
-        <AppBar
-          title="Share the Load"
-          iconElementLeft={<div />}
-          iconElementRight={
-            this.props.isLoggedIn
-              ? this.getLoggedInOptions()
-              : this.getLoggedOutOptions()
-          }
-        />
-      </div>
+      <AppBar
+        title="Share the Load"
+        // onTitleTouchTap={this.navToHome()}
+        iconElementLeft={<div />}
+        iconElementRight={
+          this.props.isLoggedIn
+            ? this.getLoggedInOptions()
+            : this.getLoggedOutOptions()
+        }
+      />
     );
   }
 }
