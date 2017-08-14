@@ -1,14 +1,23 @@
 import React, { Component } from "react";
 
 class myHistory extends Component {
+  constructor(props) {
+    super(props);
+    this.styles = {
+      container: {
+        textAlign: "center",
+        marginTop: "50px"
+      }
+    };
+  }
   render() {
     return (
-      <form name="historyForm" noValidate>
+      <form name="historyForm" style={this.styles.container}>
         <div id="balance" className="container leftrightjustify">
           <h1>My Transactions</h1>
         </div>
-        <div id="historyTable">
-          <table className="table">
+        <div id="historyTable" style={this.styles.container}>
+          <table className="table" style={this.styles.container}>
             <thead className="table-header">
               <tr className="sublist-header">
                 <td>OTHERS</td>

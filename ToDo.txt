@@ -16,3 +16,9 @@ Offline loading with service worker
 Server side rendering for flicker
 share the load click bug (does not un hover)
 deprecate old repo server
+
+Bugs: 
+
+Clicking on words is the only way to nav 
+    - not the actual buttons 
+    - need to change to icons or something nicer

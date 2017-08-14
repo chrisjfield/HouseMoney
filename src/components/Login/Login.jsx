@@ -72,12 +72,12 @@ class Login extends Component {
 }
 
 // Retrieve data from store as props
-function mapStateToProps(state) {
-  const { USER } = state;
+const mapStateToProps = store => {
+  const { USER } = store;
 
   return {
     USER
   };
-}
+};
 
 export default connect(mapStateToProps)(Login);

@@ -15,7 +15,7 @@ class Payday extends Component {
     this.styles = {
       container: {
         textAlign: "center",
-        "margin-top": "50px"
+        marginTop: "50px"
       }
     };
     this.currentDate = new Date();
@@ -99,11 +99,8 @@ class Payday extends Component {
 */
 
 // Retrieve data from store as props
-function mapStateToProps(state) {
-  return {
-    //showAddUser: getShowAddUser(state),
-    //users: postUser(state) // ED! this was firing post user when sub clicked... need to understand wtf this is doing / for
-  };
-}
+const mapStateToProps = store => {
+  return {};
+};
 
 export default connect(mapStateToProps)(Payday);

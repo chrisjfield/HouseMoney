@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 
 class Details extends Component {
+  constructor(props) {
+    super(props);
+    this.styles = {
+      container: {
+        textAlign: "center",
+        marginTop: "50px"
+      }
+    };
+  }
   generateButton(Path, buttonText) {
     return (
       <button
@@ -14,13 +23,17 @@ class Details extends Component {
   }
 
   render() {
+    /* Need to rewrite this html Ed!*/
     return (
-      <div className="col-sm-4 col-sm-offset-4 form-main">
+      <div
+        className="col-sm-4 col-sm-offset-4 form-main"
+        style={this.styles.container}
+      >
         <h2>Your Details</h2>
         <h3>Email Address: </h3>
         <h3>First Name: </h3>
         <h3>Last Name: </h3>
-        <form name="accountForm">
+        <form name="accountForm" style={this.styles.container}>
           {this.generateButton("/EditUser", "Edit Details")}
           {this.generateButton("/ChangePassword", "Change Password")}
           {this.generateButton("/Login", "Delete User")}

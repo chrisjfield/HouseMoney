@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import receiveUser from "./navActions";
-import AppBar from "material-ui/AppBar";
+import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
 import IconButton from "material-ui/IconButton";
 import Menu from "material-ui/svg-icons/navigation/menu";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
+import ActionHome from "material-ui/svg-icons/action/home";
 
 class Nav extends Component {
   constructor(props) {
@@ -14,7 +15,11 @@ class Nav extends Component {
 
     this.styles = {
       menuItems: {
-        "text-decoration": "none",
+        textDecoration: "none",
+        color: "#BDBDBD"
+      },
+      toolbar: {
+        backgroundColor: "#004989",
         color: "#BDBDBD"
       }
     };
@@ -29,15 +34,7 @@ class Nav extends Component {
 
   getLoggedOutOptions() {
     return (
-      <IconMenu
-        iconButtonElement={
-          <IconButton>
-            <Menu />
-          </IconButton>
-        }
-        targetOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "top" }}
-      >
+      <div>
         <MenuItem>
           <Link style={this.styles.menuItems} to="/Login">
             Login
@@ -49,27 +46,13 @@ class Nav extends Component {
             Sign Up
           </Link>
         </MenuItem>
-      </IconMenu>
+      </div>
     );
   }
 
   getLoggedInOptions() {
     return (
-      <IconMenu
-        iconButtonElement={
-          <IconButton>
-            <Menu />
-          </IconButton>
-        }
-        targetOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "top" }}
-      >
-        <MenuItem>
-          <Link style={this.styles.menuItems} to="/Payday">
-            Payday
-          </Link>
-        </MenuItem>
-
+      <div>
         <MenuItem>
           <Link style={this.styles.menuItems} to="/Stacks">
             Stacks
@@ -79,12 +62,6 @@ class Nav extends Component {
         <MenuItem>
           <Link style={this.styles.menuItems} to="/Balance">
             Balance
-          </Link>
-        </MenuItem>
-
-        <MenuItem>
-          <Link style={this.styles.menuItems} to="/History">
-            History
           </Link>
         </MenuItem>
 
@@ -99,7 +76,7 @@ class Nav extends Component {
             Logout
           </a>
         </MenuItem>
-      </IconMenu>
+      </div>
     );
   }
 
@@ -110,16 +87,37 @@ class Nav extends Component {
 
   render() {
     return (
-      <AppBar
-        title="Share the Load"
-        // onTitleTouchTap={this.navToHome()}
-        iconElementLeft={<div />}
-        iconElementRight={
-          this.props.isLoggedIn
-            ? this.getLoggedInOptions()
-            : this.getLoggedOutOptions()
-        }
-      />
+      <Toolbar style={this.styles.toolbar}>
+        <ToolbarGroup>
+          <IconButton tooltip="Home" href="/">
+            <ActionHome />
+          </IconButton>
+          <ToolbarTitle text="Share The Load" />
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <MenuItem>
+            <Link style={this.styles.menuItems} to="/Payday">
+              Payday
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link style={this.styles.menuItems} to="/History">
+              History
+            </Link>
+          </MenuItem>
+          <IconMenu
+            iconButtonElement={
+              <IconButton tooltip="Menu">
+                <Menu />
+              </IconButton>
+            }
+          >
+            {this.props.isLoggedIn
+              ? this.getLoggedInOptions()
+              : this.getLoggedOutOptions()}
+          </IconMenu>
+        </ToolbarGroup>
+      </Toolbar>
     );
   }
 }
