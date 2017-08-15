@@ -9,7 +9,6 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
-//import { getGridData } from "./stacksActions";
 import apiCall from "../../helpers/apiHelper";
 
 class Stacks extends Component {

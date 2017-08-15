@@ -4,7 +4,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 
 import Login from "../Login";
 import Register from "../Register";
-import Balance from "../../pageComponents/balance";
+import Balance from "../Balance";
 import MyHistory from "../../pageComponents/myHistory";
 import Details from "../../pageComponents/details";
 import Payday from "../Payday";

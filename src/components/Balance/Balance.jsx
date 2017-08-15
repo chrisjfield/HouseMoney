@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import apiCall from "../../helpers/apiHelper";
 
 class Balance extends Component {
   constructor(props) {
@@ -9,7 +10,23 @@ class Balance extends Component {
         marginTop: "50px"
       }
     };
+
+    this.state = {
+      balance: {}
+    };
   }
+
+  componentWillMount = () => {
+    this.getUserData();
+  };
+
+  getUserData() {
+    const request = apiCall("GET", "Users/TransactionSummaries");
+
+    return request.then(json => this.setState({ balance: json }));
+  }
+  //ED! Can use the map stuff from Stacks to create the credits and debts here
+
   render() {
     return (
       <form name="balanceForm" style={this.styles.container}>
