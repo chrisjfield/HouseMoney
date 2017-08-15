@@ -32,7 +32,7 @@ class Nav extends Component {
     dispatch(receiveUser({}, false));
   }
 
-  getLoggedOutOptions() {
+  getLoggedOutMenuOptions() {
     return (
       <div>
         <Link style={this.styles.menuItems} to="/Login">
@@ -46,7 +46,7 @@ class Nav extends Component {
     );
   }
 
-  getLoggedInOptions() {
+  getLoggedInMenuOptions() {
     return (
       <div>
         <Link style={this.styles.menuItems} to="/Stacks">
@@ -68,6 +68,24 @@ class Nav extends Component {
     );
   }
 
+  getLoggedInNavItems() {
+    return (
+      <ToolbarGroup>
+        <Link style={this.styles.menuItems} to="/Payday">
+          <MenuItem>Payday</MenuItem>
+        </Link>
+
+        <Link style={this.styles.menuItems} to="/History">
+          <MenuItem>History</MenuItem>
+        </Link>
+      </ToolbarGroup>
+    );
+  }
+
+  getLoggedOutNavItems() {
+    return undefined;
+  }
+
   render() {
     return (
       <Toolbar style={this.styles.toolbar}>
@@ -80,13 +98,10 @@ class Nav extends Component {
           <ToolbarTitle text="Share The Load" />
         </ToolbarGroup>
         <ToolbarGroup>
-          <Link style={this.styles.menuItems} to="/Payday">
-            <MenuItem>Payday</MenuItem>
-          </Link>
+          {this.props.isLoggedIn
+            ? this.getLoggedInNavItems()
+            : this.getLoggedOutNavItems()}
 
-          <Link style={this.styles.menuItems} to="/History">
-            <MenuItem>History</MenuItem>
-          </Link>
           <IconMenu
             iconButtonElement={
               <IconButton tooltip="Menu">
@@ -95,8 +110,8 @@ class Nav extends Component {
             }
           >
             {this.props.isLoggedIn
-              ? this.getLoggedInOptions()
-              : this.getLoggedOutOptions()}
+              ? this.getLoggedInMenuOptions()
+              : this.getLoggedOutMenuOptions()}
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>
