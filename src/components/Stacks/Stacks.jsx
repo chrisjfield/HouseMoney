@@ -1,86 +1,139 @@
 import React, { Component } from "react";
-import ReactDataGrid from "react-data-grid";
-//import getUserInformation from "../helpers/simpleAPICall";
-//import ApiUtilities from "../helpers/apiUtilities";
+import { connect } from "react-redux";
+import {
+  Table,
+  TableBody,
+  TableFooter,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from "material-ui/Table";
+//import { getGridData } from "./stacksActions";
+import apiCall from "../../helpers/apiHelper";
 
 class Stacks extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   //this.userInfo = {}; // can do shit here Ed
-  //   this.setState((_columns: [{}]));
-  //   this.props._rows = [];
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      userDataReturned: false,
+      userData: {},
+      gridDataReturned: false,
+      gridData: {}
+    };
 
-  createGrid = () => {
-    this._columns = [
-      { key: "id", name: "ID" },
-      { key: "title", name: "Title" },
-      { key: "count", name: "Count" }
-    ];
-    this.createRows();
+    this.styles = {
+      container: {
+        textAlign: "center",
+        marginTop: "50px"
+      },
+      grid: {
+        color: "black"
+      }
+    };
+  }
+
+  componentWillMount = () => {
+    this.getUserData();
+    this.getGridData();
   };
 
-  //helper not behaving here Ed! ApiUtilities or getUserInformation. but basic fetch works
-  // getUserInformation = () => {
-  //   const apiBaseURL = "http://localhost:58399";
-  //   const request = new Request(`${apiBaseURL}/api/Users/GetUserInformation`, {
-  //     method: "GET"
-  //   });
-  //   return fetch(request)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       this._columns = [data];
-  //       this.createRows();
-  //     })
-  //     .catch(e => e);
-  // };
+  getUserData() {
+    const request = apiCall("GET", "Users/GetUserInformation");
 
-  createRows = () => {
-    let rows = [];
-    for (let i = 1; i < 6; i++) {
-      rows.push({
-        id: "Ed",
-        title: i,
-        count: i * 1000
-      });
-    }
+    return request.then(json =>
+      this.setState({ userData: json, userDataReturned: true })
+    );
+  }
 
-    this._rows = rows;
-    // this.buildGrid();
+  getGridData() {
+    const request = apiCall("GET", "TransactionSummaries");
+
+    return request.then(json =>
+      this.setState({ gridData: json, gridDataReturned: true })
+    );
+  }
+
+  createColumn = userData => {
+    const column = (
+      <TableHeaderColumn key={"Column" + userData.EMAILADDRESS}>
+        {userData.EMAILADDRESS}
+      </TableHeaderColumn>
+    );
+
+    return column;
   };
+
+  createRowData = tableRowData => {
+    const row = (
+      <TableRowColumn key={"Data" + tableRowData.USER}>
+        {tableRowData.TOTAL}
+      </TableRowColumn>
+    );
+    return row;
+  };
+
+  createRow = userData => {
+    const rowsData = this.state.gridData.filter(
+      gridElement => gridElement.USER === userData.EMAILADDRESS
+    );
+    const tableRowData = rowsData.map(this.createRowData);
+    return (
+      <TableRow key={"Row" + userData.EMAILADDRESS}>
+        <TableRowColumn key={tableRowData.USER}>
+          {userData.EMAILADDRESS}
+        </TableRowColumn>
+        {tableRowData}
+      </TableRow>
+    );
+  };
+
+  createColumns = () => {
+    const columnData = ["", ...this.state.userData];
+    return columnData.map(this.createColumn);
+  };
+
+  createRows = () => this.state.userData.map(this.createRow);
+
+  createGrid() {
+    const dataGrid = (
+      <Table styles={this.styles.grid} selectable={false}>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+          <TableRow>
+            {this.createColumns()}
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false}>
+          {this.createRows()}
+        </TableBody>
+      </Table>
+    );
+
+    return dataGrid;
+  }
 
   rowGetter = i => {
     return this._rows[i];
   };
 
-  // buildGrid = () => {
-  //   return (
-  //     <ReactDataGrid
-  //       columns={this._columns}
-  //       rowGetter={this.rowGetter}
-  //       rowsCount={this._rows.length}
-  //       minHeight={100}
-  //     />
-  //   );
-  // };
-
   render() {
     return (
-      <div className="col-sm-4 col-sm-offset-4 form-main">
-        <h2>House Money Summary</h2>
+      <div style={this.styles.container}>
+        <h1>House Money Summary</h1>
         <div id="moneyStacksTableContainer">
           <div id="moneyStacksGrid" className="grid" />
-          {this.createGrid()}
-          <ReactDataGrid
-            columns={this._columns}
-            rowGetter={this.rowGetter}
-            rowsCount={this._rows.length}
-            minHeight={250}
-          />
+          {this.state.gridDataReturned & this.state.userDataReturned
+            ? this.createGrid()
+            : undefined}
         </div>
       </div>
     );
   }
 }
 
-export default Stacks;
+// Retrieve data from store as props
+const mapStateToProps = store => {
+  return {};
+};
+
+export default connect(mapStateToProps)(Stacks);
