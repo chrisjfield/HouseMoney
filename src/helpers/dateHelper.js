@@ -9,5 +9,5 @@ class DateHelper {
     return response;
   }
 }
-
+//Replace this with Moment
 export default DateHelper;

@@ -35,17 +35,13 @@ class Nav extends Component {
   getLoggedOutOptions() {
     return (
       <div>
-        <MenuItem>
-          <Link style={this.styles.menuItems} to="/Login">
-            Login
-          </Link>
-        </MenuItem>
+        <Link style={this.styles.menuItems} to="/Login">
+          <MenuItem>Login </MenuItem>
+        </Link>
 
-        <MenuItem>
-          <Link style={this.styles.menuItems} to="/Register">
-            Sign Up
-          </Link>
-        </MenuItem>
+        <Link style={this.styles.menuItems} to="/Register">
+          <MenuItem> Sign Up</MenuItem>
+        </Link>
       </div>
     );
   }
@@ -53,58 +49,44 @@ class Nav extends Component {
   getLoggedInOptions() {
     return (
       <div>
-        <MenuItem>
-          <Link style={this.styles.menuItems} to="/Stacks">
-            Stacks
-          </Link>
-        </MenuItem>
+        <Link style={this.styles.menuItems} to="/Stacks">
+          <MenuItem>Stacks</MenuItem>
+        </Link>
 
-        <MenuItem>
-          <Link style={this.styles.menuItems} to="/Balance">
-            Balance
-          </Link>
-        </MenuItem>
+        <Link style={this.styles.menuItems} to="/Balance">
+          <MenuItem>Balance </MenuItem>
+        </Link>
 
-        <MenuItem>
-          <Link style={this.styles.menuItems} to="/Details">
-            Account
-          </Link>
-        </MenuItem>
+        <Link style={this.styles.menuItems} to="/Details">
+          <MenuItem>Account</MenuItem>
+        </Link>
 
-        <MenuItem>
-          <a style={this.styles.menuItems} onClick={this.handleLogout}>
-            Logout
-          </a>
-        </MenuItem>
+        <a style={this.styles.menuItems} onClick={this.handleLogout}>
+          <MenuItem>Logout</MenuItem>
+        </a>
       </div>
     );
   }
-
-  // navToHome() {
-  //   const { history } = this.props;
-  //   history.push("/");
-  // }
 
   render() {
     return (
       <Toolbar style={this.styles.toolbar}>
         <ToolbarGroup>
-          <IconButton tooltip="Home" href="/">
-            <ActionHome />
-          </IconButton>
+          <Link to="/">
+            <IconButton tooltip="Home">
+              <ActionHome />
+            </IconButton>
+          </Link>
           <ToolbarTitle text="Share The Load" />
         </ToolbarGroup>
         <ToolbarGroup>
-          <MenuItem>
-            <Link style={this.styles.menuItems} to="/Payday">
-              Payday
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <Link style={this.styles.menuItems} to="/History">
-              History
-            </Link>
-          </MenuItem>
+          <Link style={this.styles.menuItems} to="/Payday">
+            <MenuItem>Payday</MenuItem>
+          </Link>
+
+          <Link style={this.styles.menuItems} to="/History">
+            <MenuItem>History</MenuItem>
+          </Link>
           <IconMenu
             iconButtonElement={
               <IconButton tooltip="Menu">
