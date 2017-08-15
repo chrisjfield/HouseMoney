@@ -103,6 +103,8 @@ class Nav extends Component {
             : this.getLoggedOutNavItems()}
 
           <IconMenu
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            targetOrigin={{ horizontal: "right", vertical: "top" }}
             iconButtonElement={
               <IconButton tooltip="Menu">
                 <Menu />
