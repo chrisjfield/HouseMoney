@@ -1,24 +1,17 @@
 Needs Implementing: 
-Login
-Logout
 Balance
 History
 Details
 Payday
-Stacks
 
 Rework:
-nav bar into side panel on desktop - look at pulling in react-nav-bar
-API return better error messages (e.g. user already exists)
+API return better error messages (e.g. user already exists) - rewrite this in .net Core
 Make userId field and keep email address separate
-Material Design for UI - look into material-ui https://github.com/callemall/material-ui o.e.  https://hackernoon.com/the-coolest-react-ui-frameworks-for-your-new-react-app-ad699fffd651 
 Offline loading with service worker
-Server side rendering for flicker
-share the load click bug (does not un hover)
+Server side rendering for instant load
 deprecate old repo server
+Convert to .tsx
 
 Bugs: 
-
-Clicking on words is the only way to nav 
-    - not the actual buttons 
-    - need to change to icons or something nicer
+nav - need to change to Payday and History to icons or something neat
+theme - can't see imputs very well
