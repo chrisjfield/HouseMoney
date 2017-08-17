@@ -16,14 +16,14 @@ class Payday extends Component {
         marginTop: "50px"
       },
       checkbox: {
+        margin: "0 auto",
         marginBottom: 16
       }
     };
     this.currentDate = new Date();
     this.state = {
       userListReturned: false,
-      userList: {},
-      checked: false
+      userList: {}
     };
     this.createCheckbox = this.createCheckbox.bind(this);
     this.updateCheck = this.updateCheck.bind(this);
@@ -41,10 +41,11 @@ class Payday extends Component {
     );
   }
 
-  updateCheck() {
+  updateCheck(key) {
     this.setState(oldState => {
       return {
-        checked: !oldState.checked
+        checkboxList: { key: key, checked: !oldState.checkboxList.checked }
+        // We need to fix this for multiples
       };
     });
   }
@@ -56,17 +57,19 @@ class Payday extends Component {
   createCheckbox = userList => {
     const checkbox = (
       <Checkbox
+        key={userList.EMAILADDRESS}
         label={userList.EMAILADDRESS}
         checked={this.state.checked}
-        onCheck={this.updateCheck.bind(this)}
+        onCheck={this.updateCheck.bind(this, userList.EMAILADDRESS)}
         style={this.styles.checkbox}
       />
     );
     return checkbox;
   };
 
-  createCheckboxes = () => {
-    this.state.userList.map(this.createCheckbox);
+  createCheckboxList = () => {
+    const checkboxList = this.state.userList.map(this.createCheckbox);
+    return checkboxList;
   };
 
   render() {
@@ -75,7 +78,7 @@ class Payday extends Component {
         <h1>Add a Transaction </h1>
         <h2> Creditor is . </h2>
         <div>
-          {this.state.userListReturned ? this.createCheckboxes() : undefined}
+          {this.state.userListReturned ? this.createCheckboxList() : undefined}
         </div>
         <div>
           <TextField
