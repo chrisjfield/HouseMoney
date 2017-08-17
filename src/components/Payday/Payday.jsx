@@ -4,10 +4,8 @@ import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import Snackbar from "material-ui/Snackbar";
 import DatePicker from "material-ui/DatePicker";
-import Checkbox from "./Checkbox";
-import { getUserList } from "./paydayActions";
-
-const items = ["One", "Two", "Three"];
+import apiCall from "../../helpers/apiHelper";
+import Checkbox from "material-ui/Checkbox";
 
 class Payday extends Component {
   constructor(props) {
@@ -16,48 +14,69 @@ class Payday extends Component {
       container: {
         textAlign: "center",
         marginTop: "50px"
+      },
+      checkbox: {
+        marginBottom: 16
       }
     };
     this.currentDate = new Date();
+    this.state = {
+      userListReturned: false,
+      userList: {},
+      checked: false
+    };
+    this.createCheckbox = this.createCheckbox.bind(this);
+    this.updateCheck = this.updateCheck.bind(this);
   }
 
   componentWillMount = () => {
-    const { dispatch } = this.props;
-    dispatch(getUserList());
-    this.selectedCheckboxes = new Set();
+    this.getUserList();
   };
 
-  toggleCheckbox = label => {
-    if (this.selectedCheckboxes.has(label)) {
-      this.selectedCheckboxes.delete(label);
-    } else {
-      this.selectedCheckboxes.add(label);
-    }
-  };
+  getUserList() {
+    const request = apiCall("GET", "Users/GetUserInformation");
+
+    return request.then(json =>
+      this.setState({ userList: json, userListReturned: true })
+    );
+  }
+
+  updateCheck() {
+    this.setState(oldState => {
+      return {
+        checked: !oldState.checked
+      };
+    });
+  }
 
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
-
-    for (const checkbox of this.selectedCheckboxes) {
-      console.log(checkbox, "is selected.");
-    }
   };
 
-  createCheckbox = label =>
-    <Checkbox
-      label={label}
-      handleCheckboxChange={this.toggleCheckbox}
-      key={label}
-    />;
+  createCheckbox = userList => {
+    const checkbox = (
+      <Checkbox
+        label={userList.EMAILADDRESS}
+        checked={this.state.checked}
+        onCheck={this.updateCheck.bind(this)}
+        style={this.styles.checkbox}
+      />
+    );
+    return checkbox;
+  };
 
-  createCheckboxes = () => items.map(this.createCheckbox);
+  createCheckboxes = () => {
+    this.state.userList.map(this.createCheckbox);
+  };
 
   render() {
     return (
       <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
         <h1>Add a Transaction </h1>
         <h2> Creditor is . </h2>
-        {this.createCheckboxes()}
+        <div>
+          {this.state.userListReturned ? this.createCheckboxes() : undefined}
+        </div>
         <div>
           <TextField
             type="number"
