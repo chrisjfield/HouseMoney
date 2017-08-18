@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class myHistory extends Component {
+class ViewTransactions extends Component {
   constructor(props) {
     super(props);
     this.styles = {
@@ -12,11 +12,11 @@ class myHistory extends Component {
   }
   render() {
     return (
-      <form name="historyForm" style={this.styles.container}>
+      <form name="ViewTransactionsForm" style={this.styles.container}>
         <div id="balance" className="container leftrightjustify">
           <h1>My Transactions</h1>
         </div>
-        <div id="historyTable" style={this.styles.container}>
+        <div id="ViewTransactionsTable" style={this.styles.container}>
           <table className="table" style={this.styles.container}>
             <thead className="table-header">
               <tr className="sublist-header">
@@ -61,4 +61,4 @@ class myHistory extends Component {
   }
 }
 
-export default myHistory;
+export default ViewTransactions;

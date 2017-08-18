@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Details extends Component {
+class MyAccount extends Component {
   constructor(props) {
     super(props);
     this.styles = {
@@ -33,7 +33,7 @@ class Details extends Component {
         <h3>Email Address: </h3>
         <h3>First Name: </h3>
         <h3>Last Name: </h3>
-        <form name="accountForm" style={this.styles.container}>
+        <form name="MyAccountForm" style={this.styles.container}>
           {this.generateButton("/EditUser", "Edit Details")}
           {this.generateButton("/ChangePassword", "Change Password")}
           {this.generateButton("/Login", "Delete User")}
@@ -43,4 +43,4 @@ class Details extends Component {
   }
 }
 
-export default Details;
+export default MyAccount;

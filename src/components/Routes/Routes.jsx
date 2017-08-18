@@ -5,12 +5,12 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import Login from "../Login";
 import Register from "../Register";
 import Balance from "../Balance";
-import MyHistory from "../../pageComponents/myHistory";
-import Details from "../../pageComponents/details";
+import ViewTransactions from "../ViewTransactions";
+import MyAccount from "../MyAccount";
 import Payday from "../Payday";
-import Stacks from "../Stacks";
-import ChangePassword from "../../pageComponents/changePassword";
-import EditUser from "../../pageComponents/editUser";
+import HouseSummary from "../HouseSummary";
+import ChangePassword from "../ChangePassword";
+import EditUser from "../EditUser";
 
 class Routes extends Component {
   getRoutes() {
@@ -21,10 +21,10 @@ class Routes extends Component {
         <Switch>
           <Route exact path="/" component={Balance} />
           <Route path="/Balance" component={Balance} />
-          <Route path="/History" component={MyHistory} />
-          <Route path="/Details" component={Details} />
+          <Route path="/ViewTransactions" component={ViewTransactions} />
+          <Route path="/MyAccount" component={MyAccount} />
           <Route path="/Payday" component={Payday} />
-          <Route path="/Stacks" component={Stacks} />
+          <Route path="/HouseSummary" component={HouseSummary} />
           <Route path="/ChangePassword" component={ChangePassword} />
           <Route path="/EditUser" component={EditUser} />
           <Route exact path="*" component={Balance} />

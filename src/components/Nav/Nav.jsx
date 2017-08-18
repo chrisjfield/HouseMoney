@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import receiveUser from "./navActions";
 import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
 import IconButton from "material-ui/IconButton";
+import AddButton from "material-ui/svg-icons/content/add";
+import ViewButton from "material-ui/svg-icons/action/pageview";
 import Menu from "material-ui/svg-icons/navigation/menu";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
@@ -49,16 +51,17 @@ class Nav extends Component {
   getLoggedInMenuOptions() {
     return (
       <div>
-        <Link style={this.styles.menuItems} to="/Stacks">
-          <MenuItem>Stacks</MenuItem>
+        <MenuItem>Logged in as:</MenuItem>
+        <Link style={this.styles.menuItems} to="/HouseSummary">
+          <MenuItem>House Summary</MenuItem>
         </Link>
 
         <Link style={this.styles.menuItems} to="/Balance">
-          <MenuItem>Balance </MenuItem>
+          <MenuItem>My Balance</MenuItem>
         </Link>
 
-        <Link style={this.styles.menuItems} to="/Details">
-          <MenuItem>Account</MenuItem>
+        <Link style={this.styles.menuItems} to="/MyAccount">
+          <MenuItem>My Account</MenuItem>
         </Link>
 
         <a style={this.styles.menuItems} onClick={this.handleLogout}>
@@ -72,11 +75,15 @@ class Nav extends Component {
     return (
       <ToolbarGroup>
         <Link style={this.styles.menuItems} to="/Payday">
-          <MenuItem>Payday</MenuItem>
+          <IconButton tooltip="Add Transaction">
+            <AddButton />
+          </IconButton>
         </Link>
 
-        <Link style={this.styles.menuItems} to="/History">
-          <MenuItem>History</MenuItem>
+        <Link style={this.styles.menuItems} to="/ViewTransactions">
+          <IconButton tooltip="View Transactions">
+            <ViewButton />
+          </IconButton>
         </Link>
       </ToolbarGroup>
     );

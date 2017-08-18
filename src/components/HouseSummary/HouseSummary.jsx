@@ -11,7 +11,7 @@ import {
 } from "material-ui/Table";
 import apiCall from "../../helpers/apiHelper";
 
-class Stacks extends Component {
+class HouseSummary extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -119,8 +119,8 @@ class Stacks extends Component {
     return (
       <div style={this.styles.container}>
         <h1>House Money Summary</h1>
-        <div id="moneyStacksTableContainer">
-          <div id="moneyStacksGrid" className="grid" />
+        <div id="moneyHouseSummaryTableContainer">
+          <div id="moneyHouseSummaryGrid" className="grid" />
           {this.state.gridDataReturned & this.state.userDataReturned
             ? this.createGrid()
             : undefined}
@@ -135,4 +135,4 @@ const mapStateToProps = store => {
   return {};
 };
 
-export default connect(mapStateToProps)(Stacks);
+export default connect(mapStateToProps)(HouseSummary);

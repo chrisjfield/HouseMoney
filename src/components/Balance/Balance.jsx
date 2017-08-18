@@ -25,8 +25,9 @@ class Balance extends Component {
 
     return request.then(json => this.setState({ balance: json }));
   }
-  //ED! Can use the map stuff from Stacks to create the credits and debts here
+  //ED! Can use the map stuff from HouseSummary to create the credits and debts here
 
+  createBalance = () => this.state.userData.map(this.createRow);
   render() {
     return (
       <form name="balanceForm" style={this.styles.container}>

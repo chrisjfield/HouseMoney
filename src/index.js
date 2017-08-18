@@ -2,15 +2,16 @@ import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
-import registerServiceWorker from "./mainComponents/registerServiceWorker";
+
 import App from "./components/App";
-import store from "./mainComponents/store";
-import history from "./mainComponents/history";
+import store from "./main/store";
+import history from "./main/history";
+import registerServiceWorker from "./main/registerServiceWorker";
+import { muiTheme } from "./main/themes";
 import injectTapEventPlugin from "react-tap-event-plugin";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import "./css/index.css";
 import WebFont from "webfontloader";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { muiTheme } from "./mainComponents/themes";
 
 WebFont.load({
   google: {
