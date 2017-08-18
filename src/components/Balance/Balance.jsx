@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import apiCall from "../../helpers/apiHelper";
+import { List, ListItem } from "material-ui/List";
 
 class Balance extends Component {
   constructor(props) {
@@ -8,12 +10,17 @@ class Balance extends Component {
       container: {
         textAlign: "center",
         marginTop: "50px"
+      },
+      balance: {
+        textAlign: "left"
       }
     };
 
     this.state = {
-      balance: {}
+      balance: [],
+      balanceReturned: true
     };
+    this.createBalance = this.createBalance.bind(this);
   }
 
   componentWillMount = () => {
@@ -21,24 +28,47 @@ class Balance extends Component {
   };
 
   getUserData() {
-    const request = apiCall("GET", "Users/TransactionSummaries");
+    const request = apiCall("GET", "TransactionSummaries");
 
-    return request.then(json => this.setState({ balance: json }));
+    return request.then(json =>
+      this.setState({ balance: json, balanceReturned: true })
+    );
   }
-  //ED! Can use the map stuff from HouseSummary to create the credits and debts here
 
-  createBalance = () => this.state.userData.map(this.createRow);
+  createBalance = balance => {
+    const balanceItem = (
+      <ListItem
+        key={balance.OTHERS}
+        primaryText={balance.OTHERS + ": £" + balance.TOTAL.toFixed(2)}
+      />
+    );
+    return balanceItem;
+  };
+
+  createBalanceList = () => {
+    const balanceList = this.state.balance
+      .filter(balanceItem => balanceItem.USER === this.props.loggedInUser)
+      .map(this.createBalance);
+    return balanceList;
+  };
+
   render() {
     return (
       <form name="balanceForm" style={this.styles.container}>
-        <div id="balance" className="container leftrightjustify">
+        <div>
           <h1>My Balance</h1>
-          <h3> Debts: </h3>
-          <h3> Credits: </h3>
+          <List>
+            {this.createBalanceList()}
+          </List>
         </div>
       </form>
     );
   }
 }
 
-export default Balance;
+// Retrieve data from store as props
+const mapStateToProps = store => {
+  return { loggedInUser: store.navReducer.USER.EMAILADDRESS };
+};
+
+export default connect(mapStateToProps)(Balance);
