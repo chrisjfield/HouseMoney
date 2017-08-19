@@ -82,16 +82,18 @@ class ViewTransactions extends Component {
     );
     return (
       <TableRow key={"Row_" + transactionData.PRIMARYKEY}>
-        <TableRowColumn key={"Data_" + transactionData.OTHERS}>
+        <TableRowColumn key={"Data_" + transactionData.PRIMARYKEY + "_OTHERS"}>
           {transactionData.OTHERS}
         </TableRowColumn>
-        <TableRowColumn key={"Data_" + transactionData.AMOUNT}>
+        <TableRowColumn key={"Data_" + transactionData.PRIMARYKEY + "_AMOUNT"}>
           {transactionData.AMOUNT}
         </TableRowColumn>
-        <TableRowColumn key={"Data_" + transactionData.DATE}>
+        <TableRowColumn key={"Data_" + transactionData.PRIMARYKEY + "_DATE"}>
           {formattedDate}
         </TableRowColumn>
-        <TableRowColumn key={"Data_" + transactionData.REFERENCE}>
+        <TableRowColumn
+          key={"Data_" + transactionData.PRIMARYKEY + "_REFERENCE"}
+        >
           {transactionData.REFERENCE}
         </TableRowColumn>
       </TableRow>
