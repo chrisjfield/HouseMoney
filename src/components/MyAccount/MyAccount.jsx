@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import FlatButton from "material-ui/FlatButton";
 import { List, ListItem } from "material-ui/List";
-import apiCall from "../../helpers/apiHelper";
+import { getUser } from "./myAccountActions";
 
 class MyAccount extends Component {
   constructor(props) {
@@ -28,17 +28,11 @@ class MyAccount extends Component {
   };
 
   getUserDetails() {
-    const emailAddress = this.props.loggedInUser,
-      password = "u1", //ED! need to change the API here
-      request = apiCall(
-        "GET",
-        "Users/GetSingleUser",
-        null,
-        "emailAddress=" + emailAddress + "&password=" + password
-      );
-
-    return request.then(json =>
-      this.setState({ userDetails: json, userDetailsReturned: true })
+    const { dispatch } = this.props,
+      EMAILADDRESS = this.props.loggedInUser.EMAILADDRESS,
+      PASSWORD = "u1"; //this.props.loggedInUser.PASSWORD;
+    dispatch(getUser(EMAILADDRESS, PASSWORD)).then(
+      this.setState({ userDetailsReturned: true })
     );
   }
 
@@ -54,7 +48,7 @@ class MyAccount extends Component {
   }
 
   createUserDetails = () => {
-    const userDetails = this.state.userDetails,
+    const userDetails = this.props.loggedInUser,
       userDetailsForm = (
         <List>
           <ListItem
@@ -100,7 +94,7 @@ class MyAccount extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return { loggedInUser: store.navReducer.USER.EMAILADDRESS };
+  return { loggedInUser: store.navReducer.USER };
 };
 
 export default connect(mapStateToProps)(MyAccount);
