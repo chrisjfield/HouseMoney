@@ -16,3 +16,4 @@ Bugs:
 nav - need to change to Payday and ViewTransactions to icons or something neat
 theme - can't see imputs very well
 sort out catch when API call fails
+add in error handling in general

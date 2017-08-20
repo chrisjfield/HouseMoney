@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import apiCall from "../../helpers/apiHelper";
 import { List, ListItem } from "material-ui/List";
+import apiCall from "../../helpers/apiHelper";
 
 class Balance extends Component {
   constructor(props) {
