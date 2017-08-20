@@ -29,7 +29,7 @@ class Register extends Component {
     event.preventDefault();
     const { dispatch, history } = this.props,
       USER = this.state;
-    dispatch(postUser(USER)).then(history.push("/Payday"));
+    dispatch(postUser(USER)).then(history.push("/AddTransaction"));
   }
 
   handleInputChange(event) {

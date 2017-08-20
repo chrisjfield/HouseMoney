@@ -7,7 +7,7 @@ import Register from "../Register";
 import Balance from "../Balance";
 import ViewTransactions from "../ViewTransactions";
 import MyAccount from "../MyAccount";
-import Payday from "../Payday";
+import AddTransaction from "../AddTransaction";
 import HouseSummary from "../HouseSummary";
 import ChangePassword from "../ChangePassword";
 import EditUser from "../EditUser";
@@ -23,7 +23,7 @@ class Routes extends Component {
           <Route path="/Balance" component={Balance} />
           <Route path="/ViewTransactions" component={ViewTransactions} />
           <Route path="/MyAccount" component={MyAccount} />
-          <Route path="/Payday" component={Payday} />
+          <Route path="/AddTransaction" component={AddTransaction} />
           <Route path="/HouseSummary" component={HouseSummary} />
           <Route path="/ChangePassword" component={ChangePassword} />
           <Route path="/EditUser" component={EditUser} />

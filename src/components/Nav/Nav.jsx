@@ -74,7 +74,7 @@ class Nav extends Component {
   getLoggedInNavItems() {
     return (
       <ToolbarGroup>
-        <Link style={this.styles.menuItems} to="/Payday">
+        <Link style={this.styles.menuItems} to="/AddTransaction">
           <IconButton tooltip="Add Transaction">
             <AddButton />
           </IconButton>

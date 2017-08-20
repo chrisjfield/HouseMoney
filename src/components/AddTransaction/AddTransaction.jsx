@@ -6,8 +6,9 @@ import FlatButton from "material-ui/FlatButton";
 import DatePicker from "material-ui/DatePicker";
 import apiCall from "../../helpers/apiHelper";
 import Checkbox from "material-ui/Checkbox";
+import update from "react-addons-update";
 
-class Payday extends Component {
+class AddTransaction extends Component {
   constructor(props) {
     super(props);
     this.styles = {
@@ -23,10 +24,15 @@ class Payday extends Component {
     this.currentDate = new Date();
     this.state = {
       userListReturned: false,
-      userList: {}
+      userList: {},
+      addTransaction: { GROSS: 0, DATE: "", REFERENCE: "" }
     };
     this.createCheckbox = this.createCheckbox.bind(this);
     this.updateCheck = this.updateCheck.bind(this);
+    this.addChecking = this.addChecking.bind(this);
+    this.initialiseState = this.initialiseState.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentWillMount = () => {
@@ -36,22 +42,44 @@ class Payday extends Component {
   getUserList() {
     const request = apiCall("GET", "Users/GetUserInformation");
 
-    return request.then(json =>
-      this.setState({ userList: json, userListReturned: true })
-    );
+    return request.then(json => this.initialiseState(json));
+  }
+
+  initialiseState(userList) {
+    userList.map(this.addChecking);
+    this.setState({
+      userList: userList,
+      userListReturned: true
+    });
+  }
+
+  addChecking(userListItem) {
+    Object.assign(userListItem, { checked: false });
   }
 
   updateCheck(key) {
-    this.setState(oldState => {
-      return {
-        checkboxList: { key: key, checked: !oldState.checkboxList.checked }
-        // We need to fix this for multiples
-      };
-    });
+    // WHAT HAS SCIENCE DOOOOOOOOOOONE
+    var element = this.state.userList.find(thing => thing.EMAILADDRESS === key);
+    element.checked = !element.checked;
+    const newState = update(this.state, {});
+    this.setState(newState);
   }
 
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
+    let payday = [];
+    const debtors = this.state.userList.filter(item => item.checked === true);
+    const dividedGross = this.state.addTransaction.GROSS / (debtors.length + 1);
+    debtors.forEach(function(element) {
+      payday.push({
+        DEBTOR: element.EMAILADDRESS,
+        CREDITOR: this.props.loggedInUser,
+        GROSS: dividedGross,
+        REFERENCE: this.state.addTransaction.REFERENCE,
+        DATE: this.state.addTransaction.DATE
+      });
+    }, this);
+    apiCall("POST", "Transactions/AddTransactionsBulk", payday);
   };
 
   createCheckbox = userList => {
@@ -59,7 +87,11 @@ class Payday extends Component {
       <Checkbox
         key={userList.EMAILADDRESS}
         label={userList.EMAILADDRESS}
-        checked={this.state.checked}
+        checked={
+          this.state.userList.find(
+            thing => thing.EMAILADDRESS === userList.EMAILADDRESS
+          ).checked
+        }
         onCheck={this.updateCheck.bind(this, userList.EMAILADDRESS)}
         style={this.styles.checkbox}
       />
@@ -68,9 +100,27 @@ class Payday extends Component {
   };
 
   createCheckboxList = () => {
-    const checkboxList = this.state.userList.map(this.createCheckbox);
+    const checkboxList = this.state.userList
+      .filter(
+        userListElement =>
+          userListElement.EMAILADDRESS !== this.props.loggedInUser
+      )
+      .map(this.createCheckbox);
     return checkboxList;
   };
+
+  handleInputChange(event) {
+    const target = event.target,
+      value = target.type === "checkbox" ? target.checked : target.value,
+      name = target.name;
+
+    const newState = update(this.state, {
+      addTransaction: {
+        $merge: { [name]: value }
+      }
+    });
+    this.setState(newState);
+  }
 
   render() {
     return (
@@ -82,27 +132,33 @@ class Payday extends Component {
         </div>
         <div>
           <TextField
+            name="GROSS"
             type="number"
             hintText="0.00"
             floatingLabelText="Value"
             required
+            onChange={this.handleInputChange}
           />
         </div>
         <div>
           <DatePicker
+            name="DATE"
             floatingLabelText="Date"
             autoOk={true}
             container="inline"
             mode="landscape"
             defaultDate={this.currentDate}
             required
+            onChange={this.handleInputChange}
           />
         </div>
         <div>
           <TextField
+            name="REFERENCE"
             type="text"
             hintText="Weekly Shop"
             floatingLabelText="Reference"
+            onChange={this.handleInputChange}
           />
         </div>
         <FlatButton type="submit" label="Add" />
@@ -122,7 +178,7 @@ class Payday extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return {};
+  return { loggedInUser: store.navReducer.USER.EMAILADDRESS };
 };
 
-export default connect(mapStateToProps)(Payday);
+export default connect(mapStateToProps)(AddTransaction);
