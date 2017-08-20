@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import FlatButton from "material-ui/FlatButton";
 import { List, ListItem } from "material-ui/List";
-import { getUser } from "./myAccountActions";
 
 class MyAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails: {},
-      userDetailsReturned: false
+      userDetails: {}
     };
     this.styles = {
       container: {
@@ -21,19 +19,6 @@ class MyAccount extends Component {
         marginLeft: "25px"
       }
     };
-  }
-
-  componentWillMount = () => {
-    this.getUserDetails();
-  };
-
-  getUserDetails() {
-    const { dispatch } = this.props,
-      EMAILADDRESS = this.props.loggedInUser.EMAILADDRESS,
-      PASSWORD = "u1"; //this.props.loggedInUser.PASSWORD;
-    dispatch(getUser(EMAILADDRESS, PASSWORD)).then(
-      this.setState({ userDetailsReturned: true })
-    );
   }
 
   generateButton(Path, buttonText) {
@@ -76,9 +61,9 @@ class MyAccount extends Component {
   render() {
     return (
       <form name="MyAccountForm" style={this.styles.container}>
-        <h1>Your Details</h1>
+        <h2>Your Details</h2>
         <div>
-          {this.state.userDetailsReturned
+          {this.state.userDetails
             ? this.createUserDetails()
             : this.createUserDetailsNotFound()}
         </div>

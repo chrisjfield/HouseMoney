@@ -110,7 +110,7 @@ class ViewTransactions extends Component {
   render() {
     return (
       <form name="ViewTransactionsForm" style={this.styles.container}>
-        <h1>My Transactions</h1>
+        <h2>My Transactions</h2>
         <div id="ViewTransactionsTable" style={this.styles.container}>
           {this.state.transactionsReturned && this.state.transactionsData
             ? this.createGrid()

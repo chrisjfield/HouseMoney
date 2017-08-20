@@ -10,6 +10,21 @@ export function loginUser(LOGIN) {
   );
 
   return dispatch => {
-    return request.then(json => dispatch(receiveUser(LOGIN, true)));
+    return request.then(json =>
+      dispatch(getUser(LOGIN.EMAILADDRESS, LOGIN.PASSWORD))
+    );
+  };
+}
+
+export function getUser(emailAddress, password) {
+  const request = apiCall(
+    "GET",
+    "Users/GetSingleUser",
+    null,
+    "emailAddress=" + emailAddress + "&password=" + password
+  );
+
+  return dispatch => {
+    return request.then(json => dispatch(receiveUser(json, true)));
   };
 }

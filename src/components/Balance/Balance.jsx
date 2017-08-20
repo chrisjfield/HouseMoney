@@ -56,7 +56,7 @@ class Balance extends Component {
     return (
       <form name="balanceForm" style={this.styles.container}>
         <div>
-          <h1>My Balance</h1>
+          <h2>My Balance</h2>
           <List>
             {this.createBalanceList()}
           </List>

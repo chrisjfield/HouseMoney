@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import Snackbar from "material-ui/Snackbar";
+//import Snackbar from "material-ui/Snackbar";
 import DatePicker from "material-ui/DatePicker";
 import apiCall from "../../helpers/apiHelper";
 import Checkbox from "material-ui/Checkbox";
@@ -75,8 +75,8 @@ class Payday extends Component {
   render() {
     return (
       <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
-        <h1>Add a Transaction </h1>
-        <h2> Creditor is . </h2>
+        <h2>Add a Transaction </h2>
+        <h3> Creditor is . </h3>
         <div>
           {this.state.userListReturned ? this.createCheckboxList() : undefined}
         </div>

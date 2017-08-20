@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import { loginUser } from "./loginActions";
+import { loginUser, getUser } from "./loginActions";
 
 class Login extends Component {
   constructor(props) {
@@ -27,7 +27,9 @@ class Login extends Component {
     event.preventDefault();
     const { dispatch, history } = this.props,
       LOGIN = this.state;
-    dispatch(loginUser(LOGIN)).then(() => history.push("/Balance"));
+    dispatch(loginUser(LOGIN))
+      .then(dispatch(getUser(this.state.EMAILADDRESS, this.state.PASSWORD)))
+      .then(() => history.push("/Balance"));
   }
 
   handleInputChange(event) {
@@ -43,7 +45,7 @@ class Login extends Component {
   render() {
     return (
       <form style={this.styles.container} onSubmit={this.handleLogin}>
-        <h1>Welcome</h1>
+        <h2>Welcome</h2>
         <div>
           <TextField
             name="EMAILADDRESS"

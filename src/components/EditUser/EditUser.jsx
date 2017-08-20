@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import update from "react-addons-update";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
@@ -9,10 +10,12 @@ class EditUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      CURRENTUSER: "",
-      EMAILADDRESS: "",
-      FIRSTNAME: "",
-      SURNAME: "",
+      userUpdate: {
+        CURRENTUSER: "",
+        EMAILADDRESS: "",
+        FIRSTNAME: "",
+        SURNAME: ""
+      },
       userUpdated: false
     };
     this.styles = {
@@ -28,17 +31,25 @@ class EditUser extends Component {
 
   componentWillMount() {
     this.setState({
-      CURRENTUSER: this.props.loggedInUser.EMAILADDRESS,
-      EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS,
-      FIRSTNAME: this.props.loggedInUser.FIRSTNAME,
-      SURNAME: this.props.loggedInUser.SURNAME
+      userUpdate: this.props.loggedInUser
     });
+    const newState = update(this.state, {
+      userUpdate: {
+        $set: {
+          CURRENTUSER: this.props.loggedInUser.EMAILADDRESS,
+          EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS,
+          FIRSTNAME: this.props.loggedInUser.FIRSTNAME,
+          SURNAME: this.props.loggedInUser.SURNAME
+        }
+      }
+    });
+    this.setState(newState);
   }
 
   handleEditUser(event) {
     event.preventDefault();
     const { dispatch } = this.props,
-      USER = this.state;
+      USER = this.state.userUpdate;
     dispatch(editUser(USER)).then(this.setState({ userUpdated: true }));
   }
 
@@ -47,9 +58,12 @@ class EditUser extends Component {
       value = target.type === "checkbox" ? target.checked : target.value,
       name = target.name;
 
-    this.setState({
-      [name]: value
+    const newState = update(this.state, {
+      userUpdate: {
+        $merge: { [name]: value }
+      }
     });
+    this.setState(newState);
   }
 
   handleRequestClose = () => {
@@ -60,48 +74,46 @@ class EditUser extends Component {
 
   render() {
     return (
-      <div style={this.styles.container}>
-        <h1>Edit User</h1>
-        <form onSubmit={this.handleEditUser}>
-          <div>
-            <TextField
-              name="EMAILADDRESS"
-              hintText="email@example.com"
-              floatingLabelText="Email Address"
-              defaultValue={this.state.CURRENTUSER}
-              required
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div>
-            <TextField
-              name="FIRSTNAME"
-              hintText="My name"
-              floatingLabelText="First Name"
-              defaultValue={this.state.FIRSTNAME}
-              required
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div>
-            <TextField
-              name="SURNAME"
-              hintText="My surname"
-              floatingLabelText="Last Name"
-              defaultValue={this.state.SURNAME}
-              required
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <FlatButton type="submit" label="Update" />
-          <Snackbar
-            open={this.state.userUpdated}
-            message="Details updated"
-            autoHideDuration={4000}
-            onRequestClose={this.handleRequestClose}
+      <form onSubmit={this.handleEditUser} style={this.styles.container}>
+        <h2>Edit User</h2>
+        <div>
+          <TextField
+            name="EMAILADDRESS"
+            hintText="email@example.com"
+            floatingLabelText="Email Address"
+            defaultValue={this.state.userUpdate.CURRENTUSER}
+            required
+            onChange={this.handleInputChange}
           />
-        </form>
-      </div>
+        </div>
+        <div>
+          <TextField
+            name="FIRSTNAME"
+            hintText="My name"
+            floatingLabelText="First Name"
+            defaultValue={this.state.userUpdate.FIRSTNAME}
+            required
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div>
+          <TextField
+            name="SURNAME"
+            hintText="My surname"
+            floatingLabelText="Last Name"
+            defaultValue={this.state.userUpdate.SURNAME}
+            required
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <FlatButton type="submit" label="Update" />
+        <Snackbar
+          open={this.state.userUpdated}
+          message="Details updated"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
+      </form>
     );
   }
 }

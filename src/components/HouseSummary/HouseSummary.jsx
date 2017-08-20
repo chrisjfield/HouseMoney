@@ -117,7 +117,7 @@ class HouseSummary extends Component {
   render() {
     return (
       <div style={this.styles.container}>
-        <h1>House Money Summary</h1>
+        <h2>House Money Summary</h2>
         <div id="moneyHouseSummaryTableContainer">
           <div id="moneyHouseSummaryGrid" className="grid" />
           {this.state.gridDataReturned & this.state.userDataReturned
