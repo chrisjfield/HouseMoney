@@ -58,11 +58,10 @@ class AddTransaction extends Component {
   }
 
   updateCheck(key) {
-    // WHAT HAS SCIENCE DOOOOOOOOOOONE
-    var element = this.state.userList.find(thing => thing.EMAILADDRESS === key);
-    element.checked = !element.checked;
-    const newState = update(this.state, {});
-    this.setState(newState);
+    // this works off references and the fact js refuses to deep clone
+    let checkbox = this.state.userList.find(user => user.EMAILADDRESS === key);
+    checkbox.checked = !checkbox.checked;
+    this.setState(this.state);
   }
 
   handleFormSubmit = formSubmitEvent => {
