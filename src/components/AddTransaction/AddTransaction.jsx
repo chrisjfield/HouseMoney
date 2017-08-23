@@ -25,7 +25,7 @@ class AddTransaction extends Component {
     this.state = {
       userListReturned: false,
       userList: {},
-      addTransaction: { GROSS: 0, DATE: "", REFERENCE: "" }
+      addTransaction: { GROSS: 0, DATE: this.currentDate, REFERENCE: "" }
     };
     this.createCheckbox = this.createCheckbox.bind(this);
     this.updateCheck = this.updateCheck.bind(this);
@@ -33,6 +33,7 @@ class AddTransaction extends Component {
     this.initialiseState = this.initialiseState.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   componentWillMount = () => {
@@ -121,6 +122,17 @@ class AddTransaction extends Component {
     this.setState(newState);
   }
 
+  handleDateChange(dateObj) {
+    const name = "DATE";
+
+    const newState = update(this.state, {
+      addTransaction: {
+        $merge: { [name]: dateObj }
+      }
+    });
+    this.setState(newState);
+  }
+
   render() {
     return (
       <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
@@ -148,7 +160,9 @@ class AddTransaction extends Component {
             mode="landscape"
             defaultDate={this.currentDate}
             required
-            onChange={this.handleInputChange}
+            onChange={(event, dateObj) => {
+              this.handleDateChange(dateObj);
+            }}
           />
         </div>
         <div>
