@@ -1,8 +1,6 @@
 Needs Implementing: 
 Balance
-ViewTransactions
 Details
-AddTransaction
 
 Rework:
 API return better error messages (e.g. user already exists) - rewrite this in .net Core
@@ -17,3 +15,6 @@ nav - need to change to AddTransaction and ViewTransactions to icons or somethin
 theme - can't see imputs very well
 sort out catch when API call fails
 add in error handling in general
+Checkboxes in the wrong place
+Add moments to date and time
+Styling on grids
