@@ -8,3 +8,16 @@ export function editUser(USER) {
     return request.then(json => dispatch(receiveUser(USER, true)));
   };
 }
+
+export function deleteUser(emailAddress) {
+  const request = apiCall(
+    "DELETE",
+    "Users/DeleteUser",
+    null,
+    "emailAddress=" + emailAddress
+  );
+
+  return dispatch => {
+    return request.then(json => dispatch(receiveUser({}, false)));
+  };
+}

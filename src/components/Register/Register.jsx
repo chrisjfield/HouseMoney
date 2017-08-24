@@ -44,7 +44,7 @@ class Register extends Component {
 
   render() {
     return (
-      <form style={this.styles.container} onSubmit={this.handleLogin}>
+      <form style={this.styles.container} onSubmit={this.handleAddUser}>
         <h2>Register</h2>
         <div>
           <TextField

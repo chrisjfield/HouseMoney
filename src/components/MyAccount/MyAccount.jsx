@@ -3,8 +3,9 @@ import update from "react-addons-update";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
+import Dialog from "material-ui/Dialog";
 import Snackbar from "material-ui/Snackbar";
-import { editUser } from "./myAccountActions";
+import { editUser, deleteUser } from "./myAccountActions";
 
 class MyAccount extends Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class MyAccount extends Component {
         SURNAME: ""
       },
       userUpdated: false,
-      enableEditUser: false
+      enableEditUser: false,
+      deleteUser: false
     };
 
     this.styles = {
@@ -33,6 +35,7 @@ class MyAccount extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleEditUser = this.handleEditUser.bind(this);
+    this.handleDeleteUser = this.handleDeleteUser.bind(this);
   }
 
   componentWillMount() {
@@ -52,16 +55,18 @@ class MyAccount extends Component {
     this.setState(newState);
   }
 
-  createUserDetailsNotFound = () => {
-    const notFound = <div>User Details not found</div>;
-    return notFound;
-  };
-
   handleEditUser(event) {
     event.preventDefault();
     const { dispatch } = this.props,
       USER = this.state.userUpdate;
     dispatch(editUser(USER)).then(this.setState({ userUpdated: true }));
+  }
+
+  handleDeleteUser(event) {
+    event.preventDefault();
+    const { dispatch } = this.props,
+      emailAddresss = this.state.userUpdate.EMAILADDRESS;
+    dispatch(deleteUser(emailAddresss));
   }
 
   handleInputChange(event) {
@@ -77,10 +82,18 @@ class MyAccount extends Component {
     this.setState(newState);
   }
 
-  handleRequestClose = () => {
+  handleEditUserClose = () => {
     this.setState({
       userUpdated: false
     });
+  };
+
+  handleDeleteUserOpen = () => {
+    this.setState({ deleteUser: true });
+  };
+
+  handleDeleteUserClose = event => {
+    this.setState({ deleteUser: false });
   };
 
   render() {
@@ -122,11 +135,7 @@ class MyAccount extends Component {
           />
         </div>
         <div>
-          <FlatButton
-            type="submit"
-            label="Update"
-            onClick={() => this.setState({ enableEditUser: false })}
-          />
+          <FlatButton type="submit" label="Update" />
           <FlatButton
             style={this.styles.button}
             label=" Change Password "
@@ -135,15 +144,36 @@ class MyAccount extends Component {
           <FlatButton
             style={this.styles.button}
             label=" Delete "
-            onClick={() => this.props.history.push("/Login")}
+            onClick={this.handleDeleteUserOpen}
           />
         </div>
         <Snackbar
           open={this.state.userUpdated}
           message="Details updated"
           autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
+          onRequestClose={this.handleEditUserClose}
         />
+        <Dialog
+          title="Delete User"
+          actions={[
+            <FlatButton
+              label="No"
+              primary={true}
+              onClick={this.handleDeleteUserClose}
+            />,
+            <FlatButton
+              label="Yes"
+              primary={true}
+              keyboardFocused={true}
+              onClick={this.handleDeleteUser}
+            />
+          ]}
+          modal={false}
+          open={this.state.deleteUser}
+          onRequestClose={this.handleDeleteUserClose}
+        >
+          Are you sure you want to delete your account?
+        </Dialog>
       </form>
     );
   }
