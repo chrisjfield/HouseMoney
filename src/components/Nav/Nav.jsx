@@ -51,17 +51,18 @@ class Nav extends Component {
   getLoggedInMenuOptions() {
     return (
       <div>
-        <MenuItem>Logged in as:</MenuItem>
+        <Link style={this.styles.menuItems} to="/MyAccount">
+          <MenuItem>
+            Logged in as: {this.props.loggedInUser.EMAILADDRESS}
+          </MenuItem>
+        </Link>
+
         <Link style={this.styles.menuItems} to="/HouseSummary">
           <MenuItem>House Summary</MenuItem>
         </Link>
 
         <Link style={this.styles.menuItems} to="/Balance">
           <MenuItem>My Balance</MenuItem>
-        </Link>
-
-        <Link style={this.styles.menuItems} to="/MyAccount">
-          <MenuItem>My Account</MenuItem>
         </Link>
 
         <a style={this.styles.menuItems} onClick={this.handleLogout}>
@@ -131,7 +132,8 @@ class Nav extends Component {
 // Retrieve data from store as props
 const mapStateToProps = store => {
   return {
-    isLoggedIn: store.navReducer.isLoggedIn
+    isLoggedIn: store.navReducer.isLoggedIn,
+    loggedInUser: store.navReducer.loggedInUser
   };
 };
 

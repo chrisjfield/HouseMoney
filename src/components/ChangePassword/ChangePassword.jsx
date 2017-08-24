@@ -30,7 +30,7 @@ class ChangePassword extends Component {
 
   componentWillMount() {
     this.setState({
-      passwordUpdate: { EMAILADDRESS: this.props.loggedInUser }
+      passwordUpdate: { EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS }
     });
   }
 
@@ -109,7 +109,7 @@ class ChangePassword extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return { loggedInUser: store.navReducer.USER.EMAILADDRESS };
+  return { loggedInUser: store.navReducer.loggedInUser };
 };
 
 export default connect(mapStateToProps)(ChangePassword);

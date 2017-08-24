@@ -1,10 +1,13 @@
 import { RECEIVE_USER } from "../Nav/navActions";
 
-const navReducer = (state = { isLoggedIn: false }, action) => {
+const navReducer = (
+  state = { isLoggedIn: false, loggedInUser: { EMAILADDRESS: "" } },
+  action
+) => {
   switch (action.type) {
     case RECEIVE_USER:
       return Object.assign({}, state, {
-        USER: action.USER,
+        loggedInUser: action.USER,
         isLoggedIn: action.isLoggedIn
       });
     default:

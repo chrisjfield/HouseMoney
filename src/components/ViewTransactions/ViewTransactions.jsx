@@ -38,7 +38,7 @@ class ViewTransactions extends Component {
   getGridData() {
     const pageNumber = 1,
       pageSize = 10,
-      emailAddress = this.props.loggedInUser,
+      emailAddress = this.props.loggedInUser.EMAILADDRESS,
       request = apiCall(
         "GET",
         "TransactionHistorySummaries/getUserTransactionHistory?emailAddress=" +
@@ -123,7 +123,7 @@ class ViewTransactions extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return { loggedInUser: store.navReducer.USER.EMAILADDRESS };
+  return { loggedInUser: store.navReducer.loggedInUser };
 };
 
 export default connect(mapStateToProps)(ViewTransactions);

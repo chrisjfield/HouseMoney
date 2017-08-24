@@ -73,7 +73,7 @@ class AddTransaction extends Component {
     debtors.forEach(function(element) {
       payday.push({
         DEBTOR: element.EMAILADDRESS,
-        CREDITOR: this.props.loggedInUser,
+        CREDITOR: this.props.loggedInUser.EMAILADDRESS,
         GROSS: dividedGross,
         REFERENCE: this.state.addTransaction.REFERENCE,
         DATE: this.state.addTransaction.DATE
@@ -103,7 +103,7 @@ class AddTransaction extends Component {
     const checkboxList = this.state.userList
       .filter(
         userListElement =>
-          userListElement.EMAILADDRESS !== this.props.loggedInUser
+          userListElement.EMAILADDRESS !== this.props.loggedInUser.EMAILADDRESS
       )
       .map(this.createCheckbox);
     return checkboxList;
@@ -191,7 +191,7 @@ class AddTransaction extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return { loggedInUser: store.navReducer.USER.EMAILADDRESS };
+  return { loggedInUser: store.navReducer.loggedInUser.EMAILADDRESS };
 };
 
 export default connect(mapStateToProps)(AddTransaction);

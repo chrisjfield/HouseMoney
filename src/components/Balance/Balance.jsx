@@ -47,7 +47,9 @@ class Balance extends Component {
 
   createBalanceList = () => {
     const balanceList = this.state.balance
-      .filter(balanceItem => balanceItem.USER === this.props.loggedInUser)
+      .filter(
+        balanceItem => balanceItem.USER === this.props.loggedInUser.EMAILADDRESS
+      )
       .map(this.createBalance);
     return balanceList;
   };
@@ -68,7 +70,7 @@ class Balance extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return { loggedInUser: store.navReducer.USER.EMAILADDRESS };
+  return { loggedInUser: store.navReducer.loggedInUser };
 };
 
 export default connect(mapStateToProps)(Balance);

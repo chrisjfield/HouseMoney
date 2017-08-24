@@ -12,10 +12,10 @@ class MyAccount extends Component {
     super(props);
     this.state = {
       userUpdate: {
-        CURRENTUSER: "",
-        EMAILADDRESS: "",
-        FIRSTNAME: "",
-        SURNAME: ""
+        CURRENTUSER: this.props.loggedInUser.EMAILADDRESS,
+        EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS,
+        FIRSTNAME: this.props.loggedInUser.FIRSTNAME,
+        SURNAME: this.props.loggedInUser.SURNAME
       },
       userUpdated: false,
       enableEditUser: false,
@@ -36,23 +36,6 @@ class MyAccount extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleEditUser = this.handleEditUser.bind(this);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
-  }
-
-  componentWillMount() {
-    this.setState({
-      userUpdate: this.props.loggedInUser
-    });
-    const newState = update(this.state, {
-      userUpdate: {
-        $set: {
-          CURRENTUSER: this.props.loggedInUser.EMAILADDRESS,
-          EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS,
-          FIRSTNAME: this.props.loggedInUser.FIRSTNAME,
-          SURNAME: this.props.loggedInUser.SURNAME
-        }
-      }
-    });
-    this.setState(newState);
   }
 
   handleEditUser(event) {
@@ -181,7 +164,7 @@ class MyAccount extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return { loggedInUser: store.navReducer.USER };
+  return { loggedInUser: store.navReducer.loggedInUser };
 };
 
 export default connect(mapStateToProps)(MyAccount);
