@@ -10,7 +10,6 @@ import MyAccount from "../MyAccount";
 import AddTransaction from "../AddTransaction";
 import HouseSummary from "../HouseSummary";
 import ChangePassword from "../ChangePassword";
-import EditUser from "../EditUser";
 
 class Routes extends Component {
   getRoutes() {
@@ -26,7 +25,6 @@ class Routes extends Component {
           <Route path="/AddTransaction" component={AddTransaction} />
           <Route path="/HouseSummary" component={HouseSummary} />
           <Route path="/ChangePassword" component={ChangePassword} />
-          <Route path="/EditUser" component={EditUser} />
           <Route exact path="*" component={Balance} />
         </Switch>
       );
