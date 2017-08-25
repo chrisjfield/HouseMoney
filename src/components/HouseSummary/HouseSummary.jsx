@@ -9,6 +9,7 @@ import {
   TableRowColumn
 } from "material-ui/Table";
 import apiCall from "../../helpers/apiHelper";
+import { muiTheme } from "../../main/themes";
 
 class HouseSummary extends Component {
   constructor(props) {
@@ -25,8 +26,13 @@ class HouseSummary extends Component {
         textAlign: "center",
         marginTop: "50px"
       },
-      grid: {
-        color: "black"
+      gridHeader: {
+        backgroundColor: muiTheme.palette.backgroundColor,
+        color: muiTheme.palette.primary1Color
+      },
+      gridDetail: {
+        backgroundColor: muiTheme.palette.backgroundColor,
+        color: muiTheme.palette.textColor
       }
     };
   }
@@ -54,7 +60,10 @@ class HouseSummary extends Component {
 
   createColumn = userData => {
     const column = (
-      <TableHeaderColumn key={"Column" + userData.EMAILADDRESS}>
+      <TableHeaderColumn
+        key={"Column" + userData.EMAILADDRESS}
+        style={this.styles.gridHeader}
+      >
         {userData.EMAILADDRESS}
       </TableHeaderColumn>
     );
@@ -64,7 +73,10 @@ class HouseSummary extends Component {
 
   createRowData = tableRowData => {
     const row = (
-      <TableRowColumn key={"Data" + tableRowData.USER}>
+      <TableRowColumn
+        key={"Data" + tableRowData.USER}
+        style={this.styles.gridDetail}
+      >
         {tableRowData.TOTAL}
       </TableRowColumn>
     );
@@ -78,7 +90,7 @@ class HouseSummary extends Component {
     const tableRowData = rowsData.map(this.createRowData);
     return (
       <TableRow key={"Row" + userData.EMAILADDRESS}>
-        <TableRowColumn key={tableRowData.USER}>
+        <TableRowColumn key={tableRowData.USER} style={this.styles.gridHeader}>
           {userData.EMAILADDRESS}
         </TableRowColumn>
         {tableRowData}
@@ -95,7 +107,7 @@ class HouseSummary extends Component {
 
   createGrid() {
     const dataGrid = (
-      <Table styles={this.styles.grid} selectable={false}>
+      <Table selectable={false}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             {this.createColumns()}

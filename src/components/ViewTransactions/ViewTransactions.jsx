@@ -10,6 +10,7 @@ import {
 } from "material-ui/Table";
 import apiCall from "../../helpers/apiHelper";
 import dateHelper from "../../helpers/dateHelper";
+import { muiTheme } from "../../main/themes";
 
 class ViewTransactions extends Component {
   constructor(props) {
@@ -23,8 +24,13 @@ class ViewTransactions extends Component {
         textAlign: "center",
         marginTop: "50px"
       },
-      grid: {
-        color: "black"
+      gridHeader: {
+        backgroundColor: muiTheme.palette.backgroundColor,
+        color: muiTheme.palette.primary1Color
+      },
+      gridDetail: {
+        backgroundColor: muiTheme.palette.backgroundColor,
+        color: muiTheme.palette.textColor
       }
     };
     this.createGrid = this.createGrid.bind(this);
@@ -56,13 +62,31 @@ class ViewTransactions extends Component {
 
   createGrid() {
     const transactionsGrid = (
-      <Table styles={this.styles.grid} selectable={false}>
+      <Table selectable={false}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
-            <TableHeaderColumn key={"Column_OTHERS"}>OTHERS</TableHeaderColumn>
-            <TableHeaderColumn key={"Column_GROSS"}>GROSS</TableHeaderColumn>
-            <TableHeaderColumn key={"Column_DATE"}>DATE</TableHeaderColumn>
-            <TableHeaderColumn key={"Column_REFERENCE"}>
+            <TableHeaderColumn
+              key={"Column_OTHERS"}
+              style={this.styles.gridHeader}
+            >
+              OTHERS
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              key={"Column_GROSS"}
+              style={this.styles.gridHeader}
+            >
+              GROSS
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              key={"Column_DATE"}
+              style={this.styles.gridHeader}
+            >
+              DATE
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              key={"Column_REFERENCE"}
+              style={this.styles.gridHeader}
+            >
               REFERENCE
             </TableHeaderColumn>
           </TableRow>
@@ -82,17 +106,27 @@ class ViewTransactions extends Component {
     );
     return (
       <TableRow key={"Row_" + transactionData.PRIMARYKEY}>
-        <TableRowColumn key={"Data_" + transactionData.PRIMARYKEY + "_OTHERS"}>
+        <TableRowColumn
+          key={"Data_" + transactionData.PRIMARYKEY + "_OTHERS"}
+          style={this.styles.gridDetail}
+        >
           {transactionData.OTHERS}
         </TableRowColumn>
-        <TableRowColumn key={"Data_" + transactionData.PRIMARYKEY + "_AMOUNT"}>
+        <TableRowColumn
+          key={"Data_" + transactionData.PRIMARYKEY + "_AMOUNT"}
+          style={this.styles.gridDetail}
+        >
           {transactionData.AMOUNT}
         </TableRowColumn>
-        <TableRowColumn key={"Data_" + transactionData.PRIMARYKEY + "_DATE"}>
+        <TableRowColumn
+          key={"Data_" + transactionData.PRIMARYKEY + "_DATE"}
+          style={this.styles.gridDetail}
+        >
           {formattedDate}
         </TableRowColumn>
         <TableRowColumn
           key={"Data_" + transactionData.PRIMARYKEY + "_REFERENCE"}
+          style={this.styles.gridDetail}
         >
           {transactionData.REFERENCE}
         </TableRowColumn>
