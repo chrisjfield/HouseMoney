@@ -82,7 +82,7 @@ class Register extends Component {
             onChange={this.handleInputChange}
           />
         </div>
-        <FlatButton type="submit" label="Sign Up" />
+        <FlatButton type="submit" primary={true} label="Sign Up" />
       </form>
     );
   }

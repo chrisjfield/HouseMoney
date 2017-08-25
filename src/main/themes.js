@@ -5,6 +5,7 @@ export const muiTheme = getMuiTheme({
   palette: {
     primary1Color: blue900,
     textColor: grey400,
-    borderColor: grey700
+    borderColor: grey700,
+    disabledColor: grey700
   }
 });
