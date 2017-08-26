@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { List, ListItem } from "material-ui/List";
 import apiCall from "../../helpers/apiHelper";
 import math from "mathjs";
+import { muiTheme } from "../../main/themes";
 
 class Balance extends Component {
   constructor(props) {
@@ -36,23 +37,34 @@ class Balance extends Component {
   };
 
   createBalance = balance => {
+    const debt = math.round(balance.TOTAL, 2);
+    let colorToSet;
+
+    if (debt < 0) {
+      colorToSet = muiTheme.balance.negativeColor;
+    } else if (debt > 0) {
+      colorToSet = muiTheme.balance.positiveColor;
+    } else {
+      colorToSet = muiTheme.balance.neutralColor;
+    }
+
     const balanceItem = (
       <ListItem
         key={balance.OTHERS}
-        primaryText={
-          balance.OTHERS + ": £" + math.round(balance.TOTAL, 2).toFixed(2)
-        }
+        style={{ color: colorToSet }}
+        primaryText={balance.OTHERS + ": £" + math.abs(debt).toFixed(2)}
       />
     );
     return balanceItem;
   };
 
   createBalanceList = () => {
-    const balanceList = this.state.balance
-      .filter(
-        balanceItem => balanceItem.USER === this.props.loggedInUser.EMAILADDRESS
-      )
-      .map(this.createBalance);
+    const me = this.props.loggedInUser.EMAILADDRESS,
+      balanceList = this.state.balance
+        .filter(
+          balanceItem => balanceItem.USER === me && balanceItem.OTHERS !== me
+        )
+        .map(this.createBalance);
     return balanceList;
   };
 

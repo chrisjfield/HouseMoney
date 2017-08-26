@@ -3,7 +3,9 @@ import {
   grey600,
   grey700,
   grey900,
-  blue900
+  blue900,
+  green800,
+  red800
 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
@@ -20,5 +22,10 @@ export const muiTheme = getMuiTheme({
     canvasColor: grey900,
     alternateTextColor: grey400,
     accent1Color: grey600
+  },
+  balance: {
+    positiveColor: green800,
+    negativeColor: red800,
+    neutralColor: grey400
   }
 });

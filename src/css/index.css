@@ -4,10 +4,6 @@ html {
   background-color: #212121;
 }
 
-div[role="menu"] {
-  background: #212121 !important;
-}
-
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px #212121 inset;
   -webkit-text-fill-color: #bdbdbd;
