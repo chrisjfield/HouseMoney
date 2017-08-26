@@ -20,20 +20,19 @@ class Balance extends Component {
       balance: [],
       balanceReturned: true
     };
-    this.createBalance = this.createBalance.bind(this);
   }
 
   componentWillMount = () => {
     this.getUserData();
   };
 
-  getUserData() {
+  getUserData = () => {
     const request = apiCall("GET", "TransactionSummaries");
 
     return request.then(json =>
       this.setState({ balance: json, balanceReturned: true })
     );
-  }
+  };
 
   createBalance = balance => {
     const balanceItem = (

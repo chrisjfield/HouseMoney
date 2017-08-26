@@ -18,21 +18,18 @@ class Login extends Component {
         marginTop: "50px"
       }
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin(event) {
+  handleLogin = event => {
     event.preventDefault();
     const { dispatch, history } = this.props,
       LOGIN = this.state;
     dispatch(loginUser(LOGIN))
       .then(dispatch(getUser(this.state.EMAILADDRESS, this.state.PASSWORD)))
       .then(() => history.push("/Balance"));
-  }
+  };
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target,
       value = target.type === "checkbox" ? target.checked : target.value,
       name = target.name;
@@ -40,7 +37,7 @@ class Login extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
   render() {
     return (

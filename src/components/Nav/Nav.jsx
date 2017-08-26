@@ -25,14 +25,12 @@ class Nav extends Component {
         color: "#BDBDBD"
       }
     };
-
-    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogout() {
+  handleLogout = () => {
     const { dispatch } = this.props;
     dispatch(receiveUser({}, false));
-  }
+  };
 
   getLoggedOutMenuOptions() {
     return (

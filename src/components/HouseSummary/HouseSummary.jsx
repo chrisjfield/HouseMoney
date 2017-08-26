@@ -42,21 +42,21 @@ class HouseSummary extends Component {
     this.getGridData();
   };
 
-  getUserData() {
+  getUserData = () => {
     const request = apiCall("GET", "Users/GetUserInformation");
 
     return request.then(json =>
       this.setState({ userData: json, userDataReturned: true })
     );
-  }
+  };
 
-  getGridData() {
+  getGridData = () => {
     const request = apiCall("GET", "TransactionSummaries");
 
     return request.then(json =>
       this.setState({ gridData: json, gridDataReturned: true })
     );
-  }
+  };
 
   createColumn = userData => {
     const column = (
@@ -91,7 +91,7 @@ class HouseSummary extends Component {
     return (
       <TableRow key={"Row" + userData.EMAILADDRESS}>
         <TableRowColumn key={tableRowData.USER} style={this.styles.gridHeader}>
-          {userData.EMAILADDRESS}
+          {userData.EMAILADDRESS + " owes"}
         </TableRowColumn>
         {tableRowData}
       </TableRow>
@@ -105,7 +105,7 @@ class HouseSummary extends Component {
 
   createRows = () => this.state.userData.map(this.createRow);
 
-  createGrid() {
+  createGrid = () => {
     const dataGrid = (
       <Table selectable={false}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -120,7 +120,7 @@ class HouseSummary extends Component {
     );
 
     return dataGrid;
-  }
+  };
 
   rowGetter = i => {
     return this._rows[i];

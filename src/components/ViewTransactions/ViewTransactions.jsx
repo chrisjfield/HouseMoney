@@ -33,15 +33,13 @@ class ViewTransactions extends Component {
         color: muiTheme.palette.textColor
       }
     };
-    this.createGrid = this.createGrid.bind(this);
-    this.getGridData = this.getGridData.bind(this);
   }
 
   componentWillMount = () => {
     this.getGridData();
   };
 
-  getGridData() {
+  getGridData = () => {
     const pageNumber = 1,
       pageSize = 10,
       emailAddress = this.props.loggedInUser.EMAILADDRESS,
@@ -58,9 +56,9 @@ class ViewTransactions extends Component {
     return request.then(json =>
       this.setState({ transactionsData: json, transactionsReturned: true })
     );
-  }
+  };
 
-  createGrid() {
+  createGrid = () => {
     const transactionsGrid = (
       <Table selectable={false}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -69,13 +67,13 @@ class ViewTransactions extends Component {
               key={"Column_OTHERS"}
               style={this.styles.gridHeader}
             >
-              OTHERS
+              OWES ME
             </TableHeaderColumn>
             <TableHeaderColumn
               key={"Column_GROSS"}
               style={this.styles.gridHeader}
             >
-              GROSS
+              VALUE
             </TableHeaderColumn>
             <TableHeaderColumn
               key={"Column_DATE"}
@@ -98,7 +96,7 @@ class ViewTransactions extends Component {
     );
 
     return transactionsGrid;
-  }
+  };
 
   createRow = transactionData => {
     const formattedDate = moment(transactionData.DATE).format("Do MMM YYYY");
@@ -134,10 +132,10 @@ class ViewTransactions extends Component {
 
   createRows = () => this.state.transactionsData.map(this.createRow);
 
-  noTransactionsFound() {
+  noTransactionsFound = () => {
     const notFound = <div> No transactions found </div>;
     return notFound;
-  }
+  };
 
   render() {
     return (

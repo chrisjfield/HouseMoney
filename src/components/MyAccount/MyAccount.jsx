@@ -32,27 +32,23 @@ class MyAccount extends Component {
         marginLeft: "25px"
       }
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleEditUser = this.handleEditUser.bind(this);
-    this.handleDeleteUser = this.handleDeleteUser.bind(this);
   }
 
-  handleEditUser(event) {
+  handleEditUser = event => {
     event.preventDefault();
     const { dispatch } = this.props,
       USER = this.state.userUpdate;
     dispatch(editUser(USER)).then(this.setState({ userUpdated: true }));
-  }
+  };
 
-  handleDeleteUser(event) {
+  handleDeleteUser = event => {
     event.preventDefault();
     const { dispatch } = this.props,
       emailAddresss = this.state.userUpdate.EMAILADDRESS;
     dispatch(deleteUser(emailAddresss));
-  }
+  };
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target,
       value = target.type === "checkbox" ? target.checked : target.value,
       name = target.name;
@@ -63,7 +59,7 @@ class MyAccount extends Component {
       }
     });
     this.setState(newState);
-  }
+  };
 
   handleEditUserClose = () => {
     this.setState({

@@ -24,8 +24,6 @@ class ChangePassword extends Component {
         marginTop: "50px"
       }
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
   componentWillMount() {
@@ -34,15 +32,15 @@ class ChangePassword extends Component {
     });
   }
 
-  handlePasswordChange(event) {
+  handlePasswordChange = event => {
     event.preventDefault();
     const updatePassword = this.state.passwordUpdate,
       request = apiCall("PUT", "Users/UpdateUserPassword", updatePassword);
 
     return request.then(json => this.setState({ json, passwordUpdated: true }));
-  }
+  };
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target,
       value = target.type === "checkbox" ? target.checked : target.value,
       name = target.name;
@@ -53,7 +51,7 @@ class ChangePassword extends Component {
       }
     });
     this.setState(newState);
-  }
+  };
 
   handleRequestClose = () => {
     this.setState({
