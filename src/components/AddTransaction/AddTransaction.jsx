@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-//import Snackbar from "material-ui/Snackbar";
+import Snackbar from "material-ui/Snackbar";
 import DatePicker from "material-ui/DatePicker";
 import apiCall from "../../helpers/apiHelper";
 import Checkbox from "material-ui/Checkbox";
@@ -27,7 +27,8 @@ class AddTransaction extends Component {
     this.state = {
       userListReturned: false,
       userList: {},
-      addTransaction: { GROSS: 0, DATE: this.currentDate, REFERENCE: "" }
+      addTransaction: { GROSS: null, DATE: this.currentDate, REFERENCE: "" },
+      transactionAdded: false
     };
     this.createCheckbox = this.createCheckbox.bind(this);
     this.updateCheck = this.updateCheck.bind(this);
@@ -72,7 +73,8 @@ class AddTransaction extends Component {
     let payday = [];
     const debtors = this.state.userList.filter(item => item.checked === true);
     const dividedGross = this.state.addTransaction.GROSS / (debtors.length + 1);
-    debtors.forEach(function(element) {
+
+    debtors.forEach(element => {
       payday.push({
         DEBTOR: element.EMAILADDRESS,
         CREDITOR: this.props.loggedInUser.EMAILADDRESS,
@@ -81,7 +83,15 @@ class AddTransaction extends Component {
         DATE: this.state.addTransaction.DATE
       });
     }, this);
-    apiCall("POST", "Transactions/AddTransactionsBulk", payday);
+
+    apiCall("POST", "Transactions/AddTransactionsBulk", payday)
+      .then(
+        this.setState({
+          transactionAdded: true,
+          addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" }
+        })
+      )
+      .then(this.initialiseState(this.state.userList));
   };
 
   createCheckbox = userList => {
@@ -113,7 +123,7 @@ class AddTransaction extends Component {
 
   handleInputChange(event) {
     const target = event.target,
-      value = target.type === "checkbox" ? target.checked : target.value,
+      value = target.value,
       name = target.name;
 
     const newState = update(this.state, {
@@ -135,6 +145,12 @@ class AddTransaction extends Component {
     this.setState(newState);
   }
 
+  handleTransactionAddedClose = () => {
+    this.setState({
+      transactionAdded: false
+    });
+  };
+
   render() {
     return (
       <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
@@ -150,6 +166,7 @@ class AddTransaction extends Component {
             hintText="0.00"
             floatingLabelText="Value"
             required
+            value={this.state.addTransaction.GROSS}
             onChange={this.handleInputChange}
           />
         </div>
@@ -162,6 +179,7 @@ class AddTransaction extends Component {
             mode="landscape"
             defaultDate={this.currentDate}
             required
+            value={this.state.addTransaction.DATE}
             onChange={(event, dateObj) => {
               this.handleDateChange(dateObj);
             }}
@@ -173,27 +191,25 @@ class AddTransaction extends Component {
             type="text"
             hintText="Weekly Shop"
             floatingLabelText="Reference"
+            value={this.state.addTransaction.REFERENCE}
             onChange={this.handleInputChange}
           />
         </div>
         <FlatButton type="submit" label="Add" />
+        <Snackbar
+          open={this.state.transactionAdded}
+          message="Transaction added"
+          autoHideDuration={4000}
+          onRequestClose={this.handleTransactionAddedClose}
+        />
       </form>
     );
   }
 }
 
-/* ED! Look into this for confirming submission of transaction
-          <Snackbar
-            open={this.state.transactionSaved}
-            message="Transaction added"
-            autoHideDuration={4000}
-            onRequestClose={this.handleRequestClose}
-          />
-*/
-
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return { loggedInUser: store.navReducer.loggedInUser.EMAILADDRESS };
+  return { loggedInUser: store.navReducer.loggedInUser };
 };
 
 export default connect(mapStateToProps)(AddTransaction);
