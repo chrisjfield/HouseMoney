@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { List, ListItem } from "material-ui/List";
 import apiCall from "../../helpers/apiHelper";
+import math from "mathjs";
 
 class Balance extends Component {
   constructor(props) {
@@ -38,7 +39,9 @@ class Balance extends Component {
     const balanceItem = (
       <ListItem
         key={balance.OTHERS}
-        primaryText={balance.OTHERS + ": £" + balance.TOTAL.toFixed(2)}
+        primaryText={
+          balance.OTHERS + ": £" + math.round(balance.TOTAL, 2).toFixed(2)
+        }
       />
     );
     return balanceItem;

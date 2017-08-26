@@ -10,6 +10,7 @@ import {
 } from "material-ui/Table";
 import apiCall from "../../helpers/apiHelper";
 import { muiTheme } from "../../main/themes";
+import math from "mathjs";
 
 class HouseSummary extends Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class HouseSummary extends Component {
         key={"Column" + userData.EMAILADDRESS}
         style={this.styles.gridHeader}
       >
-        {userData.EMAILADDRESS}
+        {userData.EMAILADDRESS ? userData.EMAILADDRESS + " owes" : null}
       </TableHeaderColumn>
     );
 
@@ -77,7 +78,7 @@ class HouseSummary extends Component {
         key={"Data" + tableRowData.USER}
         style={this.styles.gridDetail}
       >
-        {tableRowData.TOTAL}
+        {math.round(tableRowData.TOTAL, 2).toFixed(2)}
       </TableRowColumn>
     );
     return row;
@@ -91,7 +92,7 @@ class HouseSummary extends Component {
     return (
       <TableRow key={"Row" + userData.EMAILADDRESS}>
         <TableRowColumn key={tableRowData.USER} style={this.styles.gridHeader}>
-          {userData.EMAILADDRESS + " owes"}
+          {userData.EMAILADDRESS}
         </TableRowColumn>
         {tableRowData}
       </TableRow>

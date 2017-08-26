@@ -20,19 +20,16 @@ class Register extends Component {
         marginTop: "50px"
       }
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleAddUser = this.handleAddUser.bind(this);
   }
 
-  handleAddUser(event) {
+  handleAddUser = event => {
     event.preventDefault();
     const { dispatch, history } = this.props,
       USER = this.state;
     dispatch(postUser(USER)).then(history.push("/AddTransaction"));
-  }
+  };
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target,
       value = target.type === "checkbox" ? target.checked : target.value,
       name = target.name;
@@ -40,7 +37,7 @@ class Register extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
   render() {
     return (
