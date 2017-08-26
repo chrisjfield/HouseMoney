@@ -8,6 +8,7 @@ import apiCall from "../../helpers/apiHelper";
 import Checkbox from "material-ui/Checkbox";
 import update from "react-addons-update";
 import moment from "moment";
+import math from "mathjs";
 
 class AddTransaction extends Component {
   constructor(props) {
@@ -31,61 +32,54 @@ class AddTransaction extends Component {
       addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" },
       transactionAdded: false
     };
-    this.createCheckbox = this.createCheckbox.bind(this);
-    this.updateCheck = this.updateCheck.bind(this);
-    this.addChecking = this.addChecking.bind(this);
-    this.initialiseState = this.initialiseState.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   componentWillMount = () => {
     this.getUserList();
   };
 
-  getUserList() {
+  getUserList = () => {
     const request = apiCall("GET", "Users/GetUserInformation");
 
     return request.then(json => this.initialiseState(json));
-  }
+  };
 
-  initialiseState(userList) {
+  initialiseState = userList => {
     userList.map(this.addChecking);
     this.setState({
       userList: userList,
       userListReturned: true
     });
-  }
+  };
 
-  addChecking(userListItem) {
+  addChecking = userListItem => {
     Object.assign(userListItem, { checked: false });
-  }
+  };
 
-  updateCheck(key) {
+  updateCheck = key => {
     // this works off references and the fact js refuses to deep clone
     let checkbox = this.state.userList.find(user => user.EMAILADDRESS === key);
     checkbox.checked = !checkbox.checked;
     this.setState(this.state);
-  }
+  };
 
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
-    let payday = [];
     const debtors = this.state.userList.filter(item => item.checked === true),
-      dividedGross = this.state.addTransaction.GROSS / (debtors.length + 1),
-      date = moment(this.state.addTransaction.DATE).format("YYYY MM DD");
-
-    payday = debtors.map(element => {
-      const transaction = {
-        DEBTOR: element.EMAILADDRESS,
-        CREDITOR: this.props.loggedInUser.EMAILADDRESS,
-        GROSS: dividedGross,
-        REFERENCE: this.state.addTransaction.REFERENCE,
-        DATE: date
-      };
-      return transaction;
-    }, this);
+      participants = math.add(debtors.length, 1),
+      value = this.state.addTransaction.GROSS,
+      dividedGross = math.chain(value).divide(participants).round(2).done(),
+      date = moment(this.state.addTransaction.DATE).format("YYYY MM DD"),
+      payday = debtors.map(element => {
+        const transaction = {
+          DEBTOR: element.EMAILADDRESS,
+          CREDITOR: this.props.loggedInUser.EMAILADDRESS,
+          GROSS: dividedGross,
+          REFERENCE: this.state.addTransaction.REFERENCE,
+          DATE: date
+        };
+        return transaction;
+      }, this);
 
     apiCall("POST", "Transactions/AddTransactionsBulk", payday)
       .then(
@@ -124,13 +118,13 @@ class AddTransaction extends Component {
     return checkboxList;
   };
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     this.updateAddTransaction(event.target.name, event.target.value);
-  }
+  };
 
-  handleDateChange(date) {
+  handleDateChange = date => {
     this.updateAddTransaction("DATE", date);
-  }
+  };
 
   updateAddTransaction = (name, value) => {
     const newState = update(this.state, {

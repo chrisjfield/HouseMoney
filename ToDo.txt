@@ -1,6 +1,6 @@
-Needs Implementing: 
+UI Improvements: 
 Balance
-You are logged in as - ui improvements
+You are logged in as:
 
 Bugs: 
 sort out catch when API call fails
@@ -13,4 +13,4 @@ Make userId field and keep email address separate
 Possible improvements:
 Offline loading with service worker
 Server side rendering for instant load
-Add date added value on transaction (current date) 
+Add dateAdded to transaction (current date) 
