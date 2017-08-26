@@ -1,20 +1,16 @@
 Needs Implementing: 
 Balance
-Details
-
-Rework:
-API return better error messages (e.g. user already exists) - rewrite this in .net Core
-Make userId field and keep email address separate
-Offline loading with service worker
-Server side rendering for instant load
-deprecate old repo server
-Convert to .tsx
+You are logged in as - ui improvements
 
 Bugs: 
-nav - need to change to AddTransaction and ViewTransactions to icons or something neat
-theme - can't see imputs very well
 sort out catch when API call fails
 add in error handling in general
-Checkboxes in the wrong place
-Add moments to date and time
-Styling on grids
+
+V3
+API return better error messages (e.g. user already exists) - rewrite this in .net Core
+Make userId field and keep email address separate
+
+Possible improvements:
+Offline loading with service worker
+Server side rendering for instant load
+Add date added value on transaction (current date) 

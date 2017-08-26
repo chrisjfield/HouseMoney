@@ -7,6 +7,7 @@ import DatePicker from "material-ui/DatePicker";
 import apiCall from "../../helpers/apiHelper";
 import Checkbox from "material-ui/Checkbox";
 import update from "react-addons-update";
+import moment from "moment";
 
 class AddTransaction extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class AddTransaction extends Component {
     this.state = {
       userListReturned: false,
       userList: {},
-      addTransaction: { GROSS: null, DATE: this.currentDate, REFERENCE: "" },
+      addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" },
       transactionAdded: false
     };
     this.createCheckbox = this.createCheckbox.bind(this);
@@ -71,17 +72,19 @@ class AddTransaction extends Component {
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
     let payday = [];
-    const debtors = this.state.userList.filter(item => item.checked === true);
-    const dividedGross = this.state.addTransaction.GROSS / (debtors.length + 1);
+    const debtors = this.state.userList.filter(item => item.checked === true),
+      dividedGross = this.state.addTransaction.GROSS / (debtors.length + 1),
+      date = moment(this.state.addTransaction.DATE).format("YYYY MM DD");
 
-    debtors.forEach(element => {
-      payday.push({
+    payday = debtors.map(element => {
+      const transaction = {
         DEBTOR: element.EMAILADDRESS,
         CREDITOR: this.props.loggedInUser.EMAILADDRESS,
         GROSS: dividedGross,
         REFERENCE: this.state.addTransaction.REFERENCE,
-        DATE: this.state.addTransaction.DATE
-      });
+        DATE: date
+      };
+      return transaction;
     }, this);
 
     apiCall("POST", "Transactions/AddTransactionsBulk", payday)
@@ -122,28 +125,21 @@ class AddTransaction extends Component {
   };
 
   handleInputChange(event) {
-    const target = event.target,
-      value = target.value,
-      name = target.name;
+    this.updateAddTransaction(event.target.name, event.target.value);
+  }
 
+  handleDateChange(date) {
+    this.updateAddTransaction("DATE", date);
+  }
+
+  updateAddTransaction = (name, value) => {
     const newState = update(this.state, {
       addTransaction: {
         $merge: { [name]: value }
       }
     });
     this.setState(newState);
-  }
-
-  handleDateChange(dateObj) {
-    const name = "DATE";
-
-    const newState = update(this.state, {
-      addTransaction: {
-        $merge: { [name]: dateObj }
-      }
-    });
-    this.setState(newState);
-  }
+  };
 
   handleTransactionAddedClose = () => {
     this.setState({
