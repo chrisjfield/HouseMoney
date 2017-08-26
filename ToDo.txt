@@ -1,12 +1,13 @@
-UI Improvements: 
-You are logged in as
+To Do:
 check all on Add Transactions
 next page on View Transactions
+
+UI Improvements: 
+You are logged in as
 
 Bugs: 
 sort out catch when API call fails
 add in error handling in general
-cant read snackbar
 
 V3
 API return better error messages (e.g. user already exists) - rewrite this in .net Core

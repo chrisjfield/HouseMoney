@@ -27,5 +27,14 @@ export const muiTheme = getMuiTheme({
     positiveColor: green800,
     negativeColor: red800,
     neutralColor: grey400
+  },
+  toolbar: {
+    color: grey900,
+    backgroundColor: blue900,
+    iconColor: grey400,
+  },
+  snackbar: {
+    color: grey900,
+    backgroundColor: blue900,
   }
 });
