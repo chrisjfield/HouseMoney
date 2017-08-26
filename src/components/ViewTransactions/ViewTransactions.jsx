@@ -9,8 +9,8 @@ import {
   TableRowColumn
 } from "material-ui/Table";
 import apiCall from "../../helpers/apiHelper";
-import dateHelper from "../../helpers/dateHelper";
 import { muiTheme } from "../../main/themes";
+import moment from "moment";
 
 class ViewTransactions extends Component {
   constructor(props) {
@@ -101,9 +101,7 @@ class ViewTransactions extends Component {
   }
 
   createRow = transactionData => {
-    const formattedDate = dateHelper.getLocaleDateTimeString(
-      transactionData.DATE
-    );
+    const formattedDate = moment(transactionData.DATE).format("Do MMM YYYY");
     return (
       <TableRow key={"Row_" + transactionData.PRIMARYKEY}>
         <TableRowColumn
