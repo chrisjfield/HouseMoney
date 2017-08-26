@@ -122,11 +122,13 @@ class MyAccount extends Component {
           <FlatButton
             style={this.styles.button}
             label=" Change Password "
+            secondary={true}
             onClick={() => this.props.history.push("/ChangePassword")}
           />
           <FlatButton
             style={this.styles.button}
             label=" Delete "
+            secondary={true}
             onClick={this.handleDeleteUserOpen}
           />
         </div>

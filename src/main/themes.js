@@ -1,4 +1,10 @@
-import { grey400, grey700, blue900, grey900 } from "material-ui/styles/colors";
+import {
+  grey400,
+  grey600,
+  grey700,
+  grey900,
+  blue900
+} from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
 export const muiTheme = getMuiTheme({
@@ -12,6 +18,7 @@ export const muiTheme = getMuiTheme({
     pickerHeaderColor: blue900,
     pickerBackgroundColor: blue900,
     canvasColor: grey900,
-    alternateTextColor: grey400
+    alternateTextColor: grey400,
+    accent1Color: grey600
   }
 });

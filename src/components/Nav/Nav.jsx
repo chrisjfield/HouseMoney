@@ -53,7 +53,7 @@ class Nav extends Component {
       <div>
         <Link style={this.styles.menuItems} to="/MyAccount">
           <MenuItem>
-            Logged in as: {this.props.loggedInUser.EMAILADDRESS}
+            Logged in as {this.props.loggedInUser.EMAILADDRESS}
           </MenuItem>
         </Link>
 
