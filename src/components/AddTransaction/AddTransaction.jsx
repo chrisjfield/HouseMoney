@@ -18,7 +18,9 @@ class AddTransaction extends Component {
       },
       checkbox: {
         margin: "0 auto",
-        marginBottom: 16
+        marginBottom: 16,
+        float: "centre",
+        width: "5%"
       }
     };
     this.currentDate = new Date();
