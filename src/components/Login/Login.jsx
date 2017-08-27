@@ -69,7 +69,7 @@ class Login extends Component {
           />
         </div>
         <FlatButton type="submit" label="Login" />
-        <ErrorMessage error={this.state.error}/>
+        <ErrorMessage />
       </form>
     );
   }
