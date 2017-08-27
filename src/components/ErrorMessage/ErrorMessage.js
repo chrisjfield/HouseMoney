@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Snackbar from "material-ui/Snackbar";
+import { muiTheme } from "../../main/themes";
 
 class ErrorMessage extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class ErrorMessage extends Component {
           message={error.response.statusText}
           autoHideDuration={4000}
           onRequestClose={this.handleClose}
+          bodyStyle={{ backgroundColor: muiTheme.balance.negativeColor }}
         />
       );
     return errorMessage;
