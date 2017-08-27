@@ -12,6 +12,9 @@ add in error handling in general
 V3
 API return better error messages (e.g. user already exists) - rewrite this in .net Core
 Make userId field and keep email address separate
+Change return from transaction History (let client format data)
+move to free SQL
+.net core API
 
 Possible improvements:
 Offline loading with service worker
