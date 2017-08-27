@@ -7,7 +7,7 @@ const navReducer = (
   switch (action.type) {
     case RECEIVE_USER:
       return Object.assign({}, state, {
-        loggedInUser: action.USER,
+        loggedInUser: action.payload,
         isLoggedIn: action.isLoggedIn
       });
     default:

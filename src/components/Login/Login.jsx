@@ -10,7 +10,8 @@ class Login extends Component {
     super(props);
     this.state = {
       EMAILADDRESS: "",
-      PASSWORD: ""
+      PASSWORD: "",
+      error: {}
     };
 
     this.styles = {
@@ -28,7 +29,7 @@ class Login extends Component {
     dispatch(loginUser(LOGIN))
       .then(() => history.push("/Balance"))
       .catch(error => {
-        this.setState({ errorMessage: error });
+        this.setState({ error: error });
       });
   };
 
@@ -68,7 +69,7 @@ class Login extends Component {
           />
         </div>
         <FlatButton type="submit" label="Login" />
-        <ErrorMessage />
+        <ErrorMessage error={this.state.error}/>
       </form>
     );
   }

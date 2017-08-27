@@ -36,7 +36,7 @@ class ErrorMessage extends Component {
   render() {
     return (
       <div>
-        {this.props.error ? this.buildErrors() : undefined}
+        {!this.props.error.response.ok ? this.buildErrors() : undefined}
       </div>
     );
   }

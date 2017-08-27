@@ -1,6 +1,8 @@
 import apiCall from "../../helpers/apiHelper";
-import receiveUser from "../Nav/navActions";
+import { RECEIVE_USER } from "../Nav/navActions";
 import { ADD_ERROR } from "../ErrorMessage/errorMessageActions";
+
+export const LOGIN_STARTED = "LOGIN_STARTED";
 
 export function loginUser(LOGIN) {
   const request = apiCall(
@@ -11,26 +13,38 @@ export function loginUser(LOGIN) {
   );
 
   return dispatch => {
+    dispatch(loginStarted());
     return request
-      .then(json =>
-        dispatch(
-          receiveUser(
-            {
-              EMAILADDRESS: json.EMAILADDRESS,
-              FIRSTNAME: json.FIRSTNAME,
-              SURNAME: json.SURNAME
-            },
-            true
-          )
-        )
-      )
+      .then(response => dispatch(loginSuccessful(response)))
       .catch(error => {
         console.log(error);
-        dispatch(receiveUser({}, false));
-
-        // Dispatch the generic "global errors" action
-        // This is what makes its way into state.errors
-        dispatch({ type: ADD_ERROR, error: error });
+        dispatch(loginFailure(error));
       });
+  };
+}
+
+function loginStarted() {
+  return {
+    type: LOGIN_STARTED,
+  };
+}
+
+function loginSuccessful(response) {
+  return {
+    type: RECEIVE_USER,
+    payload: {
+      EMAILADDRESS: response.EMAILADDRESS,
+      FIRSTNAME: response.FIRSTNAME,
+      SURNAME: response.SURNAME,
+    },
+    isLoggedIn: true,
+  };
+}
+
+function loginFailure(error) {
+  return {
+    type: ADD_ERROR,
+    error: error,
+    isLoggedIn: false,
   };
 }
