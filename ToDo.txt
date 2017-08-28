@@ -3,11 +3,12 @@ check all on Add Transactions
 next page on View Transactions
 
 UI Improvements: 
-You are logged in as
+You are logged in as - use chips and avatars (same on balance)
+progress when adding transaction
 
 Bugs: 
 sort out catch when API call fails
-add in error handling in general
+add in error handling in general -- My Account (main final problem)
 initialisation of ErrorMessage (comes through blank first time hit after refresh for some reason?)
 
 V3
