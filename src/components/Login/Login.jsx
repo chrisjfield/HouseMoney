@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import { loginUser } from "./loginActions";
+import CircularProgress from "material-ui/CircularProgress";
 import ErrorMessage from "../ErrorMessage";
+import { loginUser } from "./loginActions";
 
 class Login extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class Login extends Component {
             floatingLabelText="Email Address"
             required
             onChange={this.handleInputChange}
+            disabled={this.props.loggingIn}
           />
         </div>
         <div>
@@ -66,9 +68,12 @@ class Login extends Component {
             autoComplete="current-password"
             required
             onChange={this.handleInputChange}
+            disabled={this.props.loggingIn}
           />
         </div>
-        <FlatButton type="submit" label="Login" />
+        <div>
+          {this.props.loggingIn ? <CircularProgress /> : <FlatButton type="submit" label="Login" />}
+        </div>
         <ErrorMessage />
       </form>
     );
@@ -80,7 +85,8 @@ const mapStateToProps = store => {
   const { USER } = store;
 
   return {
-    USER
+    USER,
+    loggingIn: store.loginReducer.loading,
   };
 };
 

@@ -1,11 +1,8 @@
-import { LOGIN_STARTED } from "./loginActions";
+import { LOGIN_STARTED, LOGIN_COMPLETED } from "./loginActions";
 
 function loginReducer(
   state = {
-    loggedInUser: undefined,
     loading: false,
-    updating: false,
-    error: false
   },
   action
 ) {
@@ -14,8 +11,12 @@ function loginReducer(
       return {
         ...state,
         loading: true,
-        error: false
       };
+    case LOGIN_COMPLETED:
+    return {
+      ...state,
+      loading: false,
+    };
     default:
       return state;
   }
