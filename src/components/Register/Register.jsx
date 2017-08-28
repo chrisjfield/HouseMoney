@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import { registerUser } from "./registerActions";
+import CircularProgress from "material-ui/CircularProgress";
 import ErrorMessage from "../ErrorMessage";
+import { registerUser } from "./registerActions";
 
 class Register extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class Register extends Component {
             floatingLabelText="First Name"
             required
             onChange={this.handleInputChange}
+            disabled={this.props.registering}
           />
         </div>
         <div>
@@ -63,6 +65,7 @@ class Register extends Component {
             hintText="My surname"
             floatingLabelText="Last Name"
             onChange={this.handleInputChange}
+            disabled={this.props.registering}
           />
         </div>
         <div>
@@ -72,6 +75,7 @@ class Register extends Component {
             floatingLabelText="Email Address"
             required
             onChange={this.handleInputChange}
+            disabled={this.props.registering}
           />
         </div>
         <div>
@@ -82,9 +86,14 @@ class Register extends Component {
             floatingLabelText="Password"
             required
             onChange={this.handleInputChange}
+            disabled={this.props.registering}
           />
         </div>
-        <FlatButton type="submit" label="Sign Up" />
+        <div>
+          {this.props.registering
+            ? <CircularProgress />
+            : <FlatButton type="submit" label="Sign Up" />}
+        </div>
         <ErrorMessage />
       </form>
     );
@@ -96,7 +105,8 @@ const mapStateToProps = store => {
   const { USER } = store;
 
   return {
-    USER
+    USER,
+    registering: store.registerReducer.loading,
   };
 };
 

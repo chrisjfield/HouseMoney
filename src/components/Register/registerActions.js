@@ -3,6 +3,7 @@ import { RECEIVE_USER } from "../Nav/navActions";
 import { ADD_ERROR } from "../ErrorMessage/errorMessageActions";
 
 export const REGISTER_STARTED = "REGISTER_STARTED";
+export const REGISTER_COMPLETED = "REGISTER_COMPLETED";
 
 export function registerUser(USER) {
   const request = apiCall("POST", "Users/PostUser", USER);
@@ -10,9 +11,13 @@ export function registerUser(USER) {
   return dispatch => {
     dispatch(registerStarted());
     return request
-      .then(response => dispatch(registerSuccessful(response)))
+      .then(response => {
+        dispatch(registerSuccessful(response));
+        dispatch(registerAttemptComplete());
+      })
       .catch(error => {
         dispatch(registerFailure(error));
+        dispatch(registerAttemptComplete());
         throw error;
       });
   };
@@ -41,5 +46,11 @@ function registerFailure(error) {
     type: ADD_ERROR,
     error: error,
     isLoggedIn: false
+  };
+}
+
+function registerAttemptComplete() {
+  return {
+    type: REGISTER_COMPLETED
   };
 }

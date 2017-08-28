@@ -1,11 +1,8 @@
-import { REGISTER_STARTED } from "./registerActions";
+import { REGISTER_STARTED, REGISTER_COMPLETED } from "./registerActions";
 
 function registerReducer(
   state = {
-    loggedInUser: undefined,
-    loading: false,
-    updating: false,
-    error: false
+    loading: false
   },
   action
 ) {
@@ -13,8 +10,12 @@ function registerReducer(
     case REGISTER_STARTED:
       return {
         ...state,
-        loading: true,
-        error: false
+        loading: true
+      };
+    case REGISTER_COMPLETED:
+      return {
+        ...state,
+        loading: false
       };
     default:
       return state;
