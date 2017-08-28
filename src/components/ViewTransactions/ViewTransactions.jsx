@@ -8,9 +8,10 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
-import apiCall from "../../helpers/apiHelper";
+import CircularProgress from "material-ui/CircularProgress";
 import { muiTheme } from "../../main/themes";
 import moment from "moment";
+import apiCall from "../../helpers/apiHelper";
 
 class ViewTransactions extends Component {
   constructor(props) {
@@ -133,8 +134,25 @@ class ViewTransactions extends Component {
   createRows = () => this.state.transactionsData.map(this.createRow);
 
   noTransactionsFound = () => {
-    const notFound = <div> No transactions found </div>;
+    const notFound = (
+      <div>
+        {" "}No transactions found. <p /> Hint: you can click the plus button to
+        add transactions.{" "}
+      </div>
+    );
     return notFound;
+  };
+
+  determineRender = () => {
+    let result;
+    if (!this.state.transactionsReturned) {
+      result = <CircularProgress />;
+    } else if (this.state.transactionsData.length > 0) {
+      result = this.createGrid();
+    } else {
+      result = this.noTransactionsFound();
+    }
+    return result;
   };
 
   render() {
@@ -142,9 +160,7 @@ class ViewTransactions extends Component {
       <form name="ViewTransactionsForm" style={this.styles.container}>
         <h2>My Transactions</h2>
         <div id="ViewTransactionsTable" style={this.styles.container}>
-          {this.state.transactionsReturned && this.state.transactionsData
-            ? this.createGrid()
-            : this.noTransactionsFound()}
+          {this.determineRender()}
         </div>
       </form>
     );
