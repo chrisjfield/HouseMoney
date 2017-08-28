@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import { postUser } from "./registerActions";
+import { registerUser } from "./registerActions";
+import ErrorMessage from "../ErrorMessage";
 
 class Register extends Component {
   constructor(props) {
@@ -26,7 +27,11 @@ class Register extends Component {
     event.preventDefault();
     const { dispatch, history } = this.props,
       USER = this.state;
-    dispatch(postUser(USER)).then(history.push("/AddTransaction"));
+    dispatch(registerUser(USER))
+      .then(() => history.push("/AddTransaction"))
+      .catch(error => {
+        this.setState({ error: error });
+      });
   };
 
   handleInputChange = event => {
@@ -80,6 +85,7 @@ class Register extends Component {
           />
         </div>
         <FlatButton type="submit" label="Sign Up" />
+        <ErrorMessage />
       </form>
     );
   }
