@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { List, ListItem } from "material-ui/List";
-import apiCall from "../../helpers/apiHelper";
+import CircularProgress from "material-ui/CircularProgress";
 import math from "mathjs";
 import { muiTheme } from "../../main/themes";
+import apiCall from "../../helpers/apiHelper";
 
 class Balance extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class Balance extends Component {
 
     this.state = {
       balance: [],
-      balanceReturned: true
+      balanceReturned: false
     };
   }
 
@@ -73,9 +74,11 @@ class Balance extends Component {
       <form name="balanceForm" style={this.styles.container}>
         <div>
           <h2>My Balance</h2>
-          <List>
-            {this.createBalanceList()}
-          </List>
+          {this.state.balanceReturned
+            ? <List>
+                {this.createBalanceList()}
+              </List>
+            : <CircularProgress />}
         </div>
       </form>
     );

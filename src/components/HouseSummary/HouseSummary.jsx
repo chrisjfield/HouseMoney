@@ -8,9 +8,10 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
-import apiCall from "../../helpers/apiHelper";
+import CircularProgress from "material-ui/CircularProgress";
 import { muiTheme } from "../../main/themes";
 import math from "mathjs";
+import apiCall from "../../helpers/apiHelper";
 
 class HouseSummary extends Component {
   constructor(props) {
@@ -135,7 +136,7 @@ class HouseSummary extends Component {
           <div id="moneyHouseSummaryGrid" className="grid" />
           {this.state.gridDataReturned & this.state.userDataReturned
             ? this.createGrid()
-            : undefined}
+            : <CircularProgress />}
         </div>
       </div>
     );
