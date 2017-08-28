@@ -17,8 +17,8 @@ export function loginUser(LOGIN) {
     return request
       .then(response => dispatch(loginSuccessful(response)))
       .catch(error => {
-        console.log(error);
         dispatch(loginFailure(error));
+        throw(error);
       });
   };
 }
