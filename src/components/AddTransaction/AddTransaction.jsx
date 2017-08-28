@@ -4,11 +4,12 @@ import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import Snackbar from "material-ui/Snackbar";
 import DatePicker from "material-ui/DatePicker";
-import apiCall from "../../helpers/apiHelper";
+import CircularProgress from "material-ui/CircularProgress";
 import Checkbox from "material-ui/Checkbox";
 import update from "react-addons-update";
 import moment from "moment";
 import math from "mathjs";
+import apiCall from "../../helpers/apiHelper";
 
 class AddTransaction extends Component {
   constructor(props) {
@@ -147,7 +148,9 @@ class AddTransaction extends Component {
         <h2>Add a Transaction </h2>
         <h3> Creditor is . </h3>
         <div>
-          {this.state.userListReturned ? this.createCheckboxList() : undefined}
+          {this.state.userListReturned
+            ? this.createCheckboxList()
+            : <CircularProgress />}
         </div>
         <div>
           <TextField
