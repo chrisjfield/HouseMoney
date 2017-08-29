@@ -6,6 +6,7 @@ import Snackbar from "material-ui/Snackbar";
 import DatePicker from "material-ui/DatePicker";
 import CircularProgress from "material-ui/CircularProgress";
 import Checkbox from "material-ui/Checkbox";
+import ErrorMessage from "../ErrorMessage";
 import update from "react-addons-update";
 import moment from "moment";
 import math from "mathjs";
@@ -31,7 +32,9 @@ class AddTransaction extends Component {
       userListReturned: false,
       userList: {},
       addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" },
-      transactionAdded: false
+      transactionAdded: false,
+      transactionAdding: false,
+      error: { response: { ok: true, statusText: "" } }
     };
   }
 
@@ -66,6 +69,7 @@ class AddTransaction extends Component {
 
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
+    this.setState({ transactionAdding: true });
     const debtors = this.state.userList.filter(item => item.checked === true),
       participants = math.add(debtors.length, 1),
       value = this.state.addTransaction.GROSS,
@@ -86,10 +90,14 @@ class AddTransaction extends Component {
       .then(
         this.setState({
           transactionAdded: true,
+          transactionAdding: false,
           addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" }
         })
       )
-      .then(this.initialiseState(this.state.userList));
+      .then(this.initialiseState(this.state.userList))
+      .catch(error => {
+        this.setState({ error: error, transactionAdding: false });
+      });
   };
 
   createCheckbox = userList => {
@@ -104,6 +112,7 @@ class AddTransaction extends Component {
         }
         onCheck={this.updateCheck.bind(this, userList.EMAILADDRESS)}
         style={this.styles.checkbox}
+        disabled={this.state.transactionAdding}
       />
     );
     return checkbox;
@@ -161,6 +170,7 @@ class AddTransaction extends Component {
             required
             value={this.state.addTransaction.GROSS}
             onChange={this.handleInputChange}
+            disabled={this.state.transactionAdding}
           />
         </div>
         <div>
@@ -176,6 +186,7 @@ class AddTransaction extends Component {
             onChange={(event, dateObj) => {
               this.handleDateChange(dateObj);
             }}
+            disabled={this.state.transactionAdding}
           />
         </div>
         <div>
@@ -186,15 +197,21 @@ class AddTransaction extends Component {
             floatingLabelText="Reference"
             value={this.state.addTransaction.REFERENCE}
             onChange={this.handleInputChange}
+            disabled={this.state.transactionAdding}
           />
         </div>
-        <FlatButton type="submit" label="Add" />
+        <FlatButton
+          type="submit"
+          label="Add"
+          disabled={this.state.transactionAdding}
+        />
         <Snackbar
           open={this.state.transactionAdded}
           message="Transaction added"
           autoHideDuration={4000}
           onRequestClose={this.handleTransactionAddedClose}
         />
+        <ErrorMessage error={this.state.error} />
       </form>
     );
   }

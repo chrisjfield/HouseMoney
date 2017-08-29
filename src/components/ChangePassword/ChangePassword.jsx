@@ -42,9 +42,11 @@ class ChangePassword extends Component {
       request = apiCall("PUT", "Users/UpdateUserPassword", updatePassword);
 
     return request
-      .then(json => this.setState({ json, passwordUpdating: false, passwordUpdated: true }))
+      .then(json =>
+        this.setState({ json, passwordUpdating: false, passwordUpdated: true })
+      )
       .catch(error => {
-        this.setState({ error: error });
+        this.setState({ error: error, passwordUpdating: false });
       });
   };
 
