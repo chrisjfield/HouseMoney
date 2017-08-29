@@ -11,8 +11,8 @@ class ErrorMessage extends Component {
     };
   }
 
-  componentWillReceiveProps() {
-    this.setState({ error: this.props.error });
+  componentWillReceiveProps(nextProps) {
+    this.setState({ error: nextProps.error });
   }
 
   buildErrors = () => {
