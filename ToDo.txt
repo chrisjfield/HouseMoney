@@ -1,6 +1,5 @@
 To Do:
 check all on Add Transactions
-next page on View Transactions
 
 UI Improvements: 
 You are logged in as - use chips and avatars (same on balance)
