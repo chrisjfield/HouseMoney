@@ -9,6 +9,7 @@ import {
   TableRowColumn
 } from "material-ui/Table";
 import CircularProgress from "material-ui/CircularProgress";
+import FlatButton from "material-ui/FlatButton";
 import { muiTheme } from "../../main/themes";
 import moment from "moment";
 import apiCall from "../../helpers/apiHelper";
@@ -18,7 +19,10 @@ class ViewTransactions extends Component {
     super(props);
     this.state = {
       transactionsReturned: false,
-      transactionsData: {}
+      transactionsData: {},
+      pageNumber: 1,
+      pageSize: 10,
+      transactionCount: 0
     };
     this.styles = {
       container: {
@@ -41,17 +45,15 @@ class ViewTransactions extends Component {
   };
 
   getGridData = () => {
-    const pageNumber = 1,
-      pageSize = 10,
-      emailAddress = this.props.loggedInUser.EMAILADDRESS,
+    const emailAddress = this.props.loggedInUser.EMAILADDRESS,
       request = apiCall(
         "GET",
         "TransactionHistorySummaries/getUserTransactionHistory?emailAddress=" +
           emailAddress +
           "&pageSize=" +
-          pageSize +
+          this.state.pageSize +
           "&pageNumber=" +
-          pageNumber
+          this.state.pageNumber
       );
 
     return request.then(json =>
@@ -59,41 +61,59 @@ class ViewTransactions extends Component {
     );
   };
 
+  prevPage = () => {
+    this.setState(
+      { pageNumber: this.state.pageNumber - 1 },
+      () => this.getGridData()
+    );
+  };
+
+  nextPage = () => {
+    this.setState(
+      { pageNumber: this.state.pageNumber + 1 },
+      () => this.getGridData()
+    );
+  };
+
   createGrid = () => {
     const transactionsGrid = (
-      <Table selectable={false}>
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableRow>
-            <TableHeaderColumn
-              key={"Column_OTHERS"}
-              style={this.styles.gridHeader}
-            >
-              OWES ME
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              key={"Column_GROSS"}
-              style={this.styles.gridHeader}
-            >
-              VALUE
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              key={"Column_DATE"}
-              style={this.styles.gridHeader}
-            >
-              DATE
-            </TableHeaderColumn>
-            <TableHeaderColumn
-              key={"Column_REFERENCE"}
-              style={this.styles.gridHeader}
-            >
-              REFERENCE
-            </TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
-        <TableBody displayRowCheckbox={false}>
-          {this.createRows()}
-        </TableBody>
-      </Table>
+      <div>
+        <Table selectable={false}>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn
+                key={"Column_OTHERS"}
+                style={this.styles.gridHeader}
+              >
+                OWES ME
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                key={"Column_GROSS"}
+                style={this.styles.gridHeader}
+              >
+                VALUE
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                key={"Column_DATE"}
+                style={this.styles.gridHeader}
+              >
+                DATE
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                key={"Column_REFERENCE"}
+                style={this.styles.gridHeader}
+              >
+                REFERENCE
+              </TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
+            {this.createRows()}
+          </TableBody>
+        </Table>
+        <FlatButton key="Previous" label="Previous" onClick={this.prevPage} disabled={this.state.pageNumber <= 1} />
+        <FlatButton key="Next" label="Next" onClick={this.nextPage} disabled={this.state.transactionsData.length !== this.state.pageSize} />
+      </div>
     );
 
     return transactionsGrid;
