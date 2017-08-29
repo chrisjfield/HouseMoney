@@ -5,10 +5,7 @@ UI Improvements:
 You are logged in as - use chips and avatars (same on balance)
 
 Bugs: 
-FIX PUT and DELETE! (unexpected end of JSON?)
-sort out catch when API call fails
-add in error handling in general -- My Account (main final problem)
-initialisation of ErrorMessage (comes through blank first time hit after refresh for some reason?)
+FIX PUT and DELETE! (unexpected end of JSON?) - (My account currently erroring!)
 Progress when adding transaction - think this may be not work due to no response from API?
 
 V3
