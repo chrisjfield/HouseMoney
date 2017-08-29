@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import Snackbar from "material-ui/Snackbar";
+import ErrorMessage from "../ErrorMessage";
 import apiCall from "../../helpers/apiHelper";
 
 class ChangePassword extends Component {
@@ -16,7 +17,9 @@ class ChangePassword extends Component {
         NEWPASSWORD: "",
         NEWPASSWORDCONFIRM: ""
       },
-      passwordUpdated: false
+      passwordUpdating: false,
+      passwordUpdated: false,
+      error: { response: { ok: true, statusText: "" } }
     };
     this.styles = {
       container: {
@@ -34,10 +37,15 @@ class ChangePassword extends Component {
 
   handlePasswordChange = event => {
     event.preventDefault();
+    this.setState({ passwordUpdating: true });
     const updatePassword = this.state.passwordUpdate,
       request = apiCall("PUT", "Users/UpdateUserPassword", updatePassword);
 
-    return request.then(json => this.setState({ json, passwordUpdated: true }));
+    return request
+      .then(json => this.setState({ json, passwordUpdating: false, passwordUpdated: true }))
+      .catch(error => {
+        this.setState({ error: error });
+      });
   };
 
   handleInputChange = event => {
@@ -71,6 +79,7 @@ class ChangePassword extends Component {
             floatingLabelText="Current Password"
             required
             onChange={this.handleInputChange}
+            disabled={this.state.passwordUpdating}
           />
         </div>
         <div>
@@ -81,6 +90,7 @@ class ChangePassword extends Component {
             floatingLabelText="New Password"
             required
             onChange={this.handleInputChange}
+            disabled={this.state.passwordUpdating}
           />
         </div>
         <div>
@@ -91,15 +101,21 @@ class ChangePassword extends Component {
             floatingLabelText="Confirm Password"
             required
             onChange={this.handleInputChange}
+            disabled={this.state.passwordUpdating}
           />
         </div>
-        <FlatButton type="submit" label="Update" />
+        <FlatButton
+          type="submit"
+          label="Update"
+          disabled={this.state.passwordUpdating}
+        />
         <Snackbar
           open={this.state.passwordUpdated}
           message="Password updated"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
+        <ErrorMessage error={this.state.error} />
       </form>
     );
   }

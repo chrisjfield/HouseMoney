@@ -1,11 +1,27 @@
 import apiCall from "../../helpers/apiHelper";
-import receiveUser from "../Nav/navActions";
+import { RECEIVE_USER } from "../Nav/navActions";
+import { ADD_ERROR } from "../ErrorMessage/errorMessageActions";
+
+export const EDIT_USER_STARTED = "EDIT_USER_STARTED";
+export const EDIT_USER_COMPLETED = "EDIT_USER_COMPLETED";
+export const DELETE_USER_STARTED = "EDIT_USER_STARTED";
+export const DELETE_USER_COMPLETED = "EDIT_USER_COMPLETED";
 
 export function editUser(USER) {
   const request = apiCall("PUT", "Users/UpdateUserDetails", USER);
 
   return dispatch => {
-    return request.then(json => dispatch(receiveUser(USER, true)));
+    dispatch(editUserStarted());
+    return request
+      .then(response => {
+        dispatch(editUserSuccessful(response));
+        dispatch(editUserAttemptComplete());
+      })
+      .catch(error => {
+        dispatch(editUserFailure(error));
+        dispatch(editUserAttemptComplete());
+        throw error;
+      });
   };
 }
 
@@ -18,6 +34,78 @@ export function deleteUser(emailAddress) {
   );
 
   return dispatch => {
-    return request.then(json => dispatch(receiveUser({}, false)));
+    dispatch(deleteUserStarted());
+    return request
+      .then(response => {
+        dispatch(deleteUserSuccessful(response));
+        dispatch(deleteUserAttemptComplete());
+      })
+      .catch(error => {
+        dispatch(deleteUserFailure(error));
+        dispatch(deleteUserAttemptComplete());
+        throw error;
+      });
+  };
+}
+
+function editUserStarted() {
+  return {
+    type: EDIT_USER_STARTED
+  };
+}
+
+function editUserSuccessful(response) {
+  return {
+    type: RECEIVE_USER,
+    payload: {
+      EMAILADDRESS: response.EMAILADDRESS,
+      FIRSTNAME: response.FIRSTNAME,
+      SURNAME: response.SURNAME
+    },
+    isLoggedIn: true
+  };
+}
+
+function editUserFailure(error) {
+  return {
+    type: ADD_ERROR,
+    error: error,
+  };
+}
+
+function editUserAttemptComplete() {
+  return {
+    type: EDIT_USER_COMPLETED
+  };
+}
+
+function deleteUserStarted() {
+  return {
+    type: DELETE_USER_STARTED
+  };
+}
+
+function deleteUserSuccessful(response) {
+  return {
+    type: RECEIVE_USER,
+    payload: {
+      EMAILADDRESS: response.EMAILADDRESS,
+      FIRSTNAME: response.FIRSTNAME,
+      SURNAME: response.SURNAME
+    },
+    isLoggedIn: false
+  };
+}
+
+function deleteUserFailure(error) {
+  return {
+    type: ADD_ERROR,
+    error: error,
+  };
+}
+
+function deleteUserAttemptComplete() {
+  return {
+    type: DELETE_USER_COMPLETED
   };
 }

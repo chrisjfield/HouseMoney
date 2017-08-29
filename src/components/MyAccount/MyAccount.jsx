@@ -5,6 +5,7 @@ import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import Dialog from "material-ui/Dialog";
 import Snackbar from "material-ui/Snackbar";
+import ErrorMessage from "../ErrorMessage";
 import { editUser, deleteUser } from "./myAccountActions";
 
 class MyAccount extends Component {
@@ -17,9 +18,8 @@ class MyAccount extends Component {
         FIRSTNAME: this.props.loggedInUser.FIRSTNAME,
         SURNAME: this.props.loggedInUser.SURNAME
       },
-      userUpdated: false,
-      enableEditUser: false,
-      deleteUser: false
+      userEditing: false,
+      userDeleting: false
     };
 
     this.styles = {
@@ -34,11 +34,15 @@ class MyAccount extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ userEditing: nextProps.editing });
+  }
+
   handleEditUser = event => {
     event.preventDefault();
     const { dispatch } = this.props,
       USER = this.state.userUpdate;
-    dispatch(editUser(USER)).then(this.setState({ userUpdated: true }));
+    dispatch(editUser(USER));
   };
 
   handleDeleteUser = event => {
@@ -63,16 +67,16 @@ class MyAccount extends Component {
 
   handleEditUserClose = () => {
     this.setState({
-      userUpdated: false
+      userEditing: false
     });
   };
 
   handleDeleteUserOpen = () => {
-    this.setState({ deleteUser: true });
+    this.setState({ userDeleting: true });
   };
 
   handleDeleteUserClose = event => {
-    this.setState({ deleteUser: false });
+    this.setState({ userDeleting: false });
   };
 
   render() {
@@ -91,6 +95,7 @@ class MyAccount extends Component {
             defaultValue={this.state.userUpdate.CURRENTUSER}
             required
             onChange={this.handleInputChange}
+            disabled={this.state.userEditing || this.state.userDeleting}
           />
         </div>
         <div>
@@ -101,6 +106,7 @@ class MyAccount extends Component {
             defaultValue={this.state.userUpdate.FIRSTNAME}
             required
             onChange={this.handleInputChange}
+            disabled={this.state.userEditing || this.state.userDeleting}
           />
         </div>
         <div>
@@ -111,25 +117,28 @@ class MyAccount extends Component {
             defaultValue={this.state.userUpdate.SURNAME}
             required
             onChange={this.handleInputChange}
+            disabled={this.state.userEditing || this.state.userDeleting}
           />
         </div>
         <div>
-          <FlatButton type="submit" label="Update" />
+          <FlatButton type="submit" label="Update" disabled={this.state.userEditing || this.state.userDeleting}/>
           <FlatButton
             style={this.styles.button}
             label=" Change Password "
             secondary={true}
             onClick={() => this.props.history.push("/ChangePassword")}
+            disabled={this.state.userEditing || this.state.userDeleting}
           />
           <FlatButton
             style={this.styles.button}
             label=" Delete "
             secondary={true}
             onClick={this.handleDeleteUserOpen}
+            disabled={this.state.userEditing || this.state.userDeleting}
           />
         </div>
         <Snackbar
-          open={this.state.userUpdated}
+          open={this.state.userEditing}
           message="Details updated"
           autoHideDuration={4000}
           onRequestClose={this.handleEditUserClose}
@@ -150,11 +159,12 @@ class MyAccount extends Component {
             />
           ]}
           modal={false}
-          open={this.state.deleteUser}
+          open={this.state.userDeleting}
           onRequestClose={this.handleDeleteUserClose}
         >
           Are you sure you want to delete your account?
         </Dialog>
+        <ErrorMessage />
       </form>
     );
   }
@@ -162,7 +172,11 @@ class MyAccount extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  return { loggedInUser: store.navReducer.loggedInUser };
+  return {
+    loggedInUser: store.navReducer.loggedInUser,
+    editing: store.myAccountReducer.editing,
+    deleting: store.myAccountReducer.deleting
+  };
 };
 
 export default connect(mapStateToProps)(MyAccount);
