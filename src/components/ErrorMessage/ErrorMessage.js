@@ -24,7 +24,7 @@ class ErrorMessage extends Component {
           message={errorMessageText}
           autoHideDuration={4000}
           onRequestClose={this.handleClose}
-          bodyStyle={{ backgroundColor: muiTheme.balance.negativeColor }}
+          bodyStyle={{ backgroundColor: muiTheme.balance.negativeColor, textAlign: "center" }}
         />
       );
     return errorMessage;

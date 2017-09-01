@@ -31,10 +31,11 @@ export const muiTheme = getMuiTheme({
   toolbar: {
     color: grey900,
     backgroundColor: blue900,
-    iconColor: grey400,
+    iconColor: grey400
   },
   snackbar: {
     color: grey900,
     backgroundColor: blue900,
+    textAlign: "center"
   }
 });
