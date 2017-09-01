@@ -100,7 +100,7 @@ function deleteUserSuccessful(response) {
 function deleteUserFailure(error) {
   return {
     type: ADD_ERROR,
-    error: error,
+    errorMessageText: error.response.statusText,
   };
 }
 

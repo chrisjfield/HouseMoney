@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import CircularProgress from "material-ui/CircularProgress";
-import ErrorMessage from "../ErrorMessage";
 import { registerUser } from "./registerActions";
 
 class Register extends Component {
@@ -94,7 +93,6 @@ class Register extends Component {
             ? <CircularProgress />
             : <FlatButton type="submit" label="Sign Up" />}
         </div>
-        <ErrorMessage />
       </form>
     );
   }

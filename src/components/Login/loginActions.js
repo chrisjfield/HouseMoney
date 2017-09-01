@@ -49,7 +49,7 @@ function loginSuccessful(response) {
 function loginFailure(error) {
   return {
     type: ADD_ERROR,
-    error: error,
+    errorMessageText: error.message,
     isLoggedIn: false
   };
 }

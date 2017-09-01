@@ -2,25 +2,26 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Snackbar from "material-ui/Snackbar";
 import { muiTheme } from "../../main/themes";
+import { removeError } from "./errorMessageActions";
 
 class ErrorMessage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: { response: { ok: true, statusText: "" } }
+      errorMessageText: null
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ error: nextProps.error });
+    this.setState({ errorMessageText: nextProps.errorMessageText });
   }
 
   buildErrors = () => {
-    const error = this.state.error,
+    const errorMessageText = this.state.errorMessageText,
       errorMessage = (
         <Snackbar
-          open={!error.response.ok}
-          message={error.response.statusText}
+          open={errorMessageText !== null}
+          message={errorMessageText}
           autoHideDuration={4000}
           onRequestClose={this.handleClose}
           bodyStyle={{ backgroundColor: muiTheme.balance.negativeColor }}
@@ -30,13 +31,14 @@ class ErrorMessage extends Component {
   };
 
   handleClose = () => {
-    this.setState({ error: { response: { ok: true, statusText: "" } } });
+    this.setState({ errorMessageText: null });
+    this.props.dispatch(removeError());
   };
 
   render() {
     return (
       <div>
-        {!this.props.error.response.ok ? this.buildErrors() : undefined}
+        {this.state.errorMessageText !== null ? this.buildErrors() : undefined}
       </div>
     );
   }
@@ -44,7 +46,7 @@ class ErrorMessage extends Component {
 
 const mapStateToProps = store => {
   return {
-    error: store.errorMessageReducer.errors
+    errorMessageText: store.errorMessageReducer.errorMessageText
   };
 };
 

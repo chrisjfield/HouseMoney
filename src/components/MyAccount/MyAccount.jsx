@@ -5,7 +5,6 @@ import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import Dialog from "material-ui/Dialog";
 import Snackbar from "material-ui/Snackbar";
-import ErrorMessage from "../ErrorMessage";
 import { editUser, deleteUser } from "./myAccountActions";
 
 class MyAccount extends Component {
@@ -164,7 +163,6 @@ class MyAccount extends Component {
         >
           Are you sure you want to delete your account?
         </Dialog>
-        <ErrorMessage />
       </form>
     );
   }

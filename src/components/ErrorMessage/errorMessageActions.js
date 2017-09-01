@@ -2,16 +2,16 @@
 export const ADD_ERROR = "ADD_ERROR";
 export const REMOVE_ERROR = "REMOVE_ERROR";
 
-export function addError(error) {
+export function addError(errorMessageText) {
   return {
     type: ADD_ERROR,
-    payload: error
+    payload: errorMessageText
   };
 }
 
-export function removeError(error) {
+export function removeError() {
   return {
     type: REMOVE_ERROR,
-    payload: error
+    payload: null
   };
 }
