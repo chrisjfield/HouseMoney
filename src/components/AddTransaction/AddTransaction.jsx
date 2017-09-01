@@ -39,13 +39,9 @@ class AddTransaction extends Component {
       userList: {},
       addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" },
       transactionAdded: false,
-<<<<<<< Updated upstream
       transactionAdding: false,
-      error: { response: { ok: true, statusText: "" } }
-=======
-      allChecked: false,
-      wrongDebtors: false
->>>>>>> Stashed changes
+      error: { response: { ok: true, statusText: "" } },
+      allChecked: false
     };
   }
 
@@ -101,7 +97,6 @@ class AddTransaction extends Component {
 
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
-<<<<<<< Updated upstream
     this.setState({ transactionAdding: true });
     const debtors = this.state.userList.filter(item => item.checked === true),
       participants = math.add(debtors.length, 1),
@@ -131,36 +126,6 @@ class AddTransaction extends Component {
       .catch(error => {
         this.setState({ error: error, transactionAdding: false });
       });
-=======
-    const debtors = this.state.userList.filter(item => item.checked === true);
-    if (debtors.length === 0) {
-      this.setState({ wrongDebtors: true });
-    } else {
-      const participants = math.add(debtors.length, 1),
-        value = this.state.addTransaction.GROSS,
-        dividedGross = math.chain(value).divide(participants).round(2).done(),
-        date = moment(this.state.addTransaction.DATE).format("YYYY MM DD"),
-        payday = debtors.map(element => {
-          const transaction = {
-            DEBTOR: element.EMAILADDRESS,
-            CREDITOR: this.props.loggedInUser.EMAILADDRESS,
-            GROSS: dividedGross,
-            REFERENCE: this.state.addTransaction.REFERENCE,
-            DATE: date
-          };
-          return transaction;
-        }, this);
-
-      apiCall("POST", "Transactions/AddTransactionsBulk", payday)
-        .then(
-          this.setState({
-            transactionAdded: true,
-            addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" }
-          })
-        )
-        .then(this.initialiseState(this.state.userList));
-    }
->>>>>>> Stashed changes
   };
 
   createCheckbox = userList => {
@@ -293,16 +258,7 @@ class AddTransaction extends Component {
           autoHideDuration={4000}
           onRequestClose={this.handleTransactionAddedClose}
         />
-<<<<<<< Updated upstream
         <ErrorMessage error={this.state.error} />
-=======
-        <Snackbar
-          open={this.state.wrongDebtors}
-          message="Please add debtors"
-          autoHideDuration={4000}
-          onRequestClose={this.handleWrongDebtorsClose}
-        />
->>>>>>> Stashed changes
       </form>
     );
   }
