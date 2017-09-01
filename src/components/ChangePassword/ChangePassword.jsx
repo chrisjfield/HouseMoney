@@ -6,6 +6,7 @@ import FlatButton from "material-ui/FlatButton";
 import Snackbar from "material-ui/Snackbar";
 import ErrorMessage from "../ErrorMessage";
 import apiCall from "../../helpers/apiHelper";
+import { addError } from "../ErrorMessage/errorMessageActions";
 
 class ChangePassword extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class ChangePassword extends Component {
       )
       .catch(error => {
         this.setState({ error: error, passwordUpdating: false });
+        this.props.dispatch(addError(error.message));
       });
   };
 

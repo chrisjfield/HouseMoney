@@ -11,7 +11,6 @@ import update from "react-addons-update";
 import moment from "moment";
 import math from "mathjs";
 import apiCall from "../../helpers/apiHelper";
-import { muiTheme } from "../../main/themes";
 
 class AddTransaction extends Component {
   constructor(props) {
@@ -42,7 +41,7 @@ class AddTransaction extends Component {
       transactionAdded: false,
       transactionAdding: false,
       allChecked: false,
-      wrongDebtors: false
+      error: null
     };
   }
 
@@ -180,12 +179,6 @@ class AddTransaction extends Component {
   handleTransactionAddedClose = () => {
     this.setState({
       transactionAdded: false
-    });
-  };
-
-  handleWrongDebtorsClose = () => {
-    this.setState({
-      wrongDebtors: false
     });
   };
 
