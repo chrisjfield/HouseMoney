@@ -11,6 +11,7 @@ import update from "react-addons-update";
 import moment from "moment";
 import math from "mathjs";
 import apiCall from "../../helpers/apiHelper";
+import { muiTheme } from "../../main/themes";
 
 class AddTransaction extends Component {
   constructor(props) {
@@ -25,6 +26,12 @@ class AddTransaction extends Component {
         marginBottom: 16,
         float: "centre",
         width: "5%"
+      },
+      masterCheckbox: {
+        margin: "0 auto",
+        marginBottom: 16,
+        float: "centre",
+        width: "7%"
       }
     };
     this.currentDate = new Date();
@@ -34,7 +41,9 @@ class AddTransaction extends Component {
       addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" },
       transactionAdded: false,
       transactionAdding: false,
-      error: { response: { ok: true, statusText: "" } }
+      error: { response: { ok: true, statusText: "Please add debtors" } },
+      allChecked: false,
+      wrongDebtors: false
     };
   }
 
@@ -61,43 +70,67 @@ class AddTransaction extends Component {
   };
 
   updateCheck = key => {
-    // this works off references and the fact js refuses to deep clone
-    let checkbox = this.state.userList.find(user => user.EMAILADDRESS === key);
-    checkbox.checked = !checkbox.checked;
-    this.setState(this.state);
+    let checkbox = this.state.userList.findIndex(
+      user => user.EMAILADDRESS === key
+    );
+    let checkedUser = JSON.stringify(this.state.userList);
+    checkedUser = JSON.parse(checkedUser);
+    checkedUser[checkbox].checked = !checkedUser[checkbox].checked;
+    this.setState({ userList: checkedUser });
+  };
+
+  updateCheckAll = () => {
+    let checkedUser = JSON.stringify(this.state.userList);
+    checkedUser = JSON.parse(checkedUser);
+    checkedUser
+      .filter(
+        userListElement =>
+          userListElement.EMAILADDRESS !== this.props.loggedInUser.EMAILADDRESS
+      )
+      .forEach(function(entry) {
+        entry.checked = !this.state.allChecked;
+      }, this);
+    this.setState({
+      allChecked: !this.state.allChecked,
+      userList: checkedUser
+    });
   };
 
   handleFormSubmit = formSubmitEvent => {
     formSubmitEvent.preventDefault();
-    this.setState({ transactionAdding: true });
-    const debtors = this.state.userList.filter(item => item.checked === true),
-      participants = math.add(debtors.length, 1),
-      value = this.state.addTransaction.GROSS,
-      dividedGross = math.chain(value).divide(participants).round(2).done(),
-      date = moment(this.state.addTransaction.DATE).format("YYYY MM DD"),
-      payday = debtors.map(element => {
-        const transaction = {
-          DEBTOR: element.EMAILADDRESS,
-          CREDITOR: this.props.loggedInUser.EMAILADDRESS,
-          GROSS: dividedGross,
-          REFERENCE: this.state.addTransaction.REFERENCE,
-          DATE: date
-        };
-        return transaction;
-      }, this);
+    const debtors = this.state.userList.filter(item => item.checked === true);
+    if (debtors.length === 0) {
+      this.setState({ wrongDebtors: true });
+    } else {
+      const participants = math.add(debtors.length, 1),
+        value = this.state.addTransaction.GROSS,
+        dividedGross = math.chain(value).divide(participants).round(2).done(),
+        date = moment(this.state.addTransaction.DATE).format("YYYY MM DD"),
+        payday = debtors.map(element => {
+          const transaction = {
+            DEBTOR: element.EMAILADDRESS,
+            CREDITOR: this.props.loggedInUser.EMAILADDRESS,
+            GROSS: dividedGross,
+            REFERENCE: this.state.addTransaction.REFERENCE,
+            DATE: date
+          };
+          return transaction;
+        }, this);
 
-    apiCall("POST", "Transactions/AddTransactionsBulk", payday)
-      .then(
-        this.setState({
-          transactionAdded: true,
-          transactionAdding: false,
-          addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" }
-        })
-      )
-      .then(this.initialiseState(this.state.userList))
-      .catch(error => {
-        this.setState({ error: error, transactionAdding: false });
-      });
+      apiCall("POST", "Transactions/AddTransactionsBulk", payday)
+        .then(
+          this.setState({
+            transactionAdded: true,
+            addTransaction: {
+              GROSS: "",
+              DATE: this.currentDate,
+              REFERENCE: ""
+            },
+            allChecked: false
+          })
+        )
+        .then(this.initialiseState(this.state.userList));
+    }
   };
 
   createCheckbox = userList => {
@@ -151,16 +184,34 @@ class AddTransaction extends Component {
     });
   };
 
+  handleWrongDebtorsClose = () => {
+    this.setState({
+      wrongDebtors: false
+    });
+  };
+
   render() {
     return (
       <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
         <h2>Add a Transaction </h2>
-        <h3> Creditor is . </h3>
+        <h3>
+          {" "}Divided between {this.props.loggedInUser.FIRSTNAME}, and:{" "}
+        </h3>
+        <div>
+          <Checkbox
+            key="checkall"
+            label="Everyone"
+            checked={this.state.allChecked}
+            onCheck={this.updateCheckAll}
+            style={this.styles.masterCheckbox}
+          />
+        </div>
         <div>
           {this.state.userListReturned
             ? this.createCheckboxList()
             : <CircularProgress />}
         </div>
+
         <div>
           <TextField
             name="GROSS"
@@ -212,6 +263,13 @@ class AddTransaction extends Component {
           onRequestClose={this.handleTransactionAddedClose}
         />
         <ErrorMessage error={this.state.error} />
+        <Snackbar
+          open={this.state.wrongDebtors}
+          message="Please add debtors"
+          autoHideDuration={4000}
+          onRequestClose={this.handleWrongDebtorsClose}
+          bodyStyle={{ backgroundColor: muiTheme.balance.negativeColor }}
+        />
       </form>
     );
   }
