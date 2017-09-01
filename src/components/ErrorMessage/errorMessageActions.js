@@ -11,7 +11,6 @@ export function addError(errorMessageText) {
 
 export function removeError() {
   return {
-    type: REMOVE_ERROR,
-    payload: null
+    type: REMOVE_ERROR
   };
 }

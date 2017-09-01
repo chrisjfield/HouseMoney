@@ -72,7 +72,9 @@ class Login extends Component {
           />
         </div>
         <div>
-          {this.props.loggingIn ? <CircularProgress /> : <FlatButton type="submit" label="Login" />}
+          {this.props.loggingIn
+            ? <CircularProgress />
+            : <FlatButton type="submit" label="Login" />}
         </div>
       </form>
     );
@@ -85,7 +87,7 @@ const mapStateToProps = store => {
 
   return {
     USER,
-    loggingIn: store.loginReducer.loading,
+    loggingIn: store.loginReducer.loading
   };
 };
 

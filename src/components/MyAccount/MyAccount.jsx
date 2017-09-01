@@ -120,7 +120,11 @@ class MyAccount extends Component {
           />
         </div>
         <div>
-          <FlatButton type="submit" label="Update" disabled={this.state.userEditing || this.state.userDeleting}/>
+          <FlatButton
+            type="submit"
+            label="Update"
+            disabled={this.state.userEditing || this.state.userDeleting}
+          />
           <FlatButton
             style={this.styles.button}
             label=" Change Password "

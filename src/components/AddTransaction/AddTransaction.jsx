@@ -6,7 +6,7 @@ import Snackbar from "material-ui/Snackbar";
 import DatePicker from "material-ui/DatePicker";
 import CircularProgress from "material-ui/CircularProgress";
 import Checkbox from "material-ui/Checkbox";
-import ErrorMessage from "../ErrorMessage";
+import { addError } from "../ErrorMessage/errorMessageActions";
 import update from "react-addons-update";
 import moment from "moment";
 import math from "mathjs";
@@ -41,7 +41,6 @@ class AddTransaction extends Component {
       addTransaction: { GROSS: "", DATE: this.currentDate, REFERENCE: "" },
       transactionAdded: false,
       transactionAdding: false,
-      error: { response: { ok: true, statusText: "Please add debtors" } },
       allChecked: false,
       wrongDebtors: false
     };
@@ -100,7 +99,7 @@ class AddTransaction extends Component {
     formSubmitEvent.preventDefault();
     const debtors = this.state.userList.filter(item => item.checked === true);
     if (debtors.length === 0) {
-      this.setState({ wrongDebtors: true });
+      this.props.dispatch(addError("Please add debtors"));
     } else {
       const participants = math.add(debtors.length, 1),
         value = this.state.addTransaction.GROSS,
@@ -261,14 +260,6 @@ class AddTransaction extends Component {
           message="Transaction added"
           autoHideDuration={4000}
           onRequestClose={this.handleTransactionAddedClose}
-        />
-        <ErrorMessage error={this.state.error} />
-        <Snackbar
-          open={this.state.wrongDebtors}
-          message="Please add debtors"
-          autoHideDuration={4000}
-          onRequestClose={this.handleWrongDebtorsClose}
-          bodyStyle={{ backgroundColor: muiTheme.balance.negativeColor }}
         />
       </form>
     );

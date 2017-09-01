@@ -69,7 +69,7 @@ function editUserSuccessful(response) {
 function editUserFailure(error) {
   return {
     type: ADD_ERROR,
-    error: error,
+    error: error
   };
 }
 
@@ -100,7 +100,7 @@ function deleteUserSuccessful(response) {
 function deleteUserFailure(error) {
   return {
     type: ADD_ERROR,
-    errorMessageText: error.response.statusText,
+    errorMessageText: error.response.statusText
   };
 }
 

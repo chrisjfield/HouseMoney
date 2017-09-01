@@ -2,7 +2,7 @@ import { LOGIN_STARTED, LOGIN_COMPLETED } from "./loginActions";
 
 function loginReducer(
   state = {
-    loading: false,
+    loading: false
   },
   action
 ) {
@@ -10,13 +10,13 @@ function loginReducer(
     case LOGIN_STARTED:
       return {
         ...state,
-        loading: true,
+        loading: true
       };
     case LOGIN_COMPLETED:
-    return {
-      ...state,
-      loading: false,
-    };
+      return {
+        ...state,
+        loading: false
+      };
     default:
       return state;
   }
