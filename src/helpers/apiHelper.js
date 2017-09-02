@@ -4,6 +4,7 @@ class APIHelper {
         "Content-Type": "application/json;charset=UTF-8"
       },
       headers = new Headers(customheaders),
+      //baseURL = "http://82.25.191.210/HouseMoneyapi/api/",
       baseURL = "http://localhost:58399/api/",
       calledUrl = `${baseURL}${endpoint}`;
 
