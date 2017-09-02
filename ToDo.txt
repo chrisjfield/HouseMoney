@@ -1,7 +1,7 @@
 To Do:
+Fix add transaction user list checkbox positin on mobile
 
 UI Improvements: 
-You are logged in as - use chips and avatars (same on balance)
 bootstrap for responsive html
 
 V3

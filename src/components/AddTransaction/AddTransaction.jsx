@@ -27,7 +27,9 @@ class AddTransaction extends Component {
         listStyleType: "none"
       },
       checkbox: {
-        marginBottom: 16
+        marginBottom: 16,
+        display: "flex",
+        flexWrap: "wrap"
       },
       masterCheckbox: {
         margin: "0 auto",

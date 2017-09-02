@@ -40,7 +40,7 @@ export const muiTheme = getMuiTheme({
   },
   chip: {
     display: "inline-flex",
-    marginRight: "4px"
+    marginRight: "4px",
   },
   avatar: {
     size: "30dp"
