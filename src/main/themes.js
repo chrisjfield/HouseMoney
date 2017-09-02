@@ -38,10 +38,6 @@ export const muiTheme = getMuiTheme({
     backgroundColor: blue900,
     textAlign: "center"
   },
-  chip: {
-    display: "inline-flex",
-    marginRight: "4px",
-  },
   avatar: {
     size: "30dp"
   }

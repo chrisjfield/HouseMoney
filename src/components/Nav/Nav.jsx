@@ -26,11 +26,8 @@ class Nav extends Component {
         backgroundColor: "#004989",
         color: "#BDBDBD"
       },
-      userChip: {
-        display: "block",
-        height: "100%",
-        width: "100%",
-        margin: "0 auto"
+      userChipItem: {
+        display: "inline-flex"
       }
     };
   }
@@ -62,7 +59,7 @@ class Nav extends Component {
           <MenuItem>
             <UserChip
               user={this.props.loggedInUser}
-              styles={this.styles.userChip}
+              styles={this.styles.userChipItem}
             />
           </MenuItem>
         </Link>
