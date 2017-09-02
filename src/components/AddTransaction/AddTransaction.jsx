@@ -26,6 +26,9 @@ class AddTransaction extends Component {
       checkbox: {
         display: "inline-flex"
       },
+      checkboxIcon: {
+        paddingTop: "2px"
+      },
       checkAll: {
         display: "inline-flex",
         textAlign: "left"
@@ -152,6 +155,7 @@ class AddTransaction extends Component {
             ).checked
           }
           style={this.styles.checkbox}
+          iconStyle={this.styles.checkboxIcon}
           onCheck={this.updateCheck.bind(this, userList.EMAILADDRESS)}
           disabled={this.state.transactionAdding}
         />
