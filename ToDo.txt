@@ -1,7 +1,6 @@
 To Do:
 fix delete user
 message hides too quickly on update user!
-add 404 page
 
 UI Improvements: 
 You are logged in as - use chips and avatars (same on balance)

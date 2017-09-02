@@ -10,6 +10,7 @@ import MyAccount from "../MyAccount";
 import AddTransaction from "../AddTransaction";
 import HouseSummary from "../HouseSummary";
 import ChangePassword from "../ChangePassword";
+import NotFound404 from "../NotFound404";
 
 class Routes extends Component {
   getRoutes() {
@@ -25,7 +26,7 @@ class Routes extends Component {
           <Route path="/AddTransaction" component={AddTransaction} />
           <Route path="/HouseSummary" component={HouseSummary} />
           <Route path="/ChangePassword" component={ChangePassword} />
-          <Route exact path="*" component={Balance} />
+          <Route exact path="*" component={NotFound404} />
         </Switch>
       );
     } else {
@@ -34,7 +35,7 @@ class Routes extends Component {
           <Route exact path="/" component={Login} />
           <Route path="/Login" component={Login} />
           <Route path="/Register" component={Register} />
-          <Route exact path="*" component={Login} />
+          <Route exact path="*" component={NotFound404} />
         </Switch>
       );
     }
