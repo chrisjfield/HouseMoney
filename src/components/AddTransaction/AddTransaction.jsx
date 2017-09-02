@@ -7,6 +7,7 @@ import DatePicker from "material-ui/DatePicker";
 import CircularProgress from "material-ui/CircularProgress";
 import Checkbox from "material-ui/Checkbox";
 import Paper from "material-ui/Paper";
+import { List, ListItem } from "material-ui/List";
 import UserChip from "../UserChip";
 import { addError } from "../ErrorMessage/errorMessageActions";
 import update from "react-addons-update";
@@ -23,19 +24,14 @@ class AddTransaction extends Component {
         marginTop: "20px"
       },
       checkbox: {
-        marginBottom: 16,
-        display: "flex",
-        flexWrap: "wrap"
+        display: "inline-flex"
       },
-      masterCheckbox: {
-        margin: "0 auto",
-        marginBottom: 16,
-        width: "10%"
+      checkAll: {
+        display: "inline-flex",
+        textAlign: "left"
       },
       userChip: {
-        display: "block",
-        height: "100%",
-        margin: "0 auto"
+        display: "inline-flex"
       },
       checkBoxListSheet: {
         width: "256px",
@@ -143,18 +139,23 @@ class AddTransaction extends Component {
 
   createCheckbox = userList => {
     const checkbox = (
-      <Checkbox
-        key={"Checkbox_" + userList.EMAILADDRESS}
-        label={<UserChip user={userList} styles={this.styles.userChip} />}
-        checked={
-          this.state.userList.find(
-            thing => thing.EMAILADDRESS === userList.EMAILADDRESS
-          ).checked
-        }
-        style={this.styles.checkbox}
-        onCheck={this.updateCheck.bind(this, userList.EMAILADDRESS)}
-        disabled={this.state.transactionAdding}
-      />
+      <ListItem
+        key={"ListItem_" + userList.EMAILADDRESS}
+        onClick={this.updateCheck.bind(this, userList.EMAILADDRESS)}
+      >
+        <Checkbox
+          key={"Checkbox_" + userList.EMAILADDRESS}
+          label={<UserChip user={userList} styles={this.styles.userChip} />}
+          checked={
+            this.state.userList.find(
+              thing => thing.EMAILADDRESS === userList.EMAILADDRESS
+            ).checked
+          }
+          style={this.styles.checkbox}
+          onCheck={this.updateCheck.bind(this, userList.EMAILADDRESS)}
+          disabled={this.state.transactionAdding}
+        />
+      </ListItem>
     );
     return checkbox;
   };
@@ -200,19 +201,23 @@ class AddTransaction extends Component {
           {" "}Divided between {this.props.loggedInUser.EMAILADDRESS}, and:{" "}
         </h3>
         <div>
-          <Checkbox
-            key="checkall"
-            label="Everyone"
-            checked={this.state.allChecked}
-            onCheck={this.updateCheckAll}
-            style={this.styles.masterCheckbox}
-          />
+          <List>
+            <Paper style={this.styles.checkBoxListSheet}>
+              <ListItem key={"ListItem_checkAll"} onClick={this.updateCheckAll}>
+                <Checkbox
+                  key="checkAll"
+                  label="Everyone"
+                  checked={this.state.allChecked}
+                  onCheck={this.updateCheckAll}
+                  style={this.styles.checkAll}
+                />
+              </ListItem>
+              {this.state.userListReturned
+                ? this.createCheckboxList()
+                : <CircularProgress />}
+            </Paper>
+          </List>
         </div>
-        <Paper style={this.styles.checkBoxListSheet}>
-          {this.state.userListReturned
-            ? this.createCheckboxList()
-            : <CircularProgress />}
-        </Paper>
         <div>
           <TextField
             name="GROSS"
@@ -232,7 +237,7 @@ class AddTransaction extends Component {
             autoOk={true}
             container="inline"
             mode="landscape"
-            style={{display: 'inline-block'}}
+            style={{ display: "inline-block" }}
             defaultDate={this.currentDate}
             required
             value={this.state.addTransaction.DATE}
