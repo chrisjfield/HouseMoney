@@ -10,6 +10,7 @@ import Menu from "material-ui/svg-icons/navigation/menu";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
 import ActionHome from "material-ui/svg-icons/action/home";
+import UserChip from "../UserChip";
 import history from "../../main/history";
 
 class Nav extends Component {
@@ -24,6 +25,12 @@ class Nav extends Component {
       toolbar: {
         backgroundColor: "#004989",
         color: "#BDBDBD"
+      },
+      userChip: {
+        display: "block",
+        height: "100%",
+        width: "100%",
+        margin: "0 auto"
       }
     };
   }
@@ -53,7 +60,7 @@ class Nav extends Component {
       <div>
         <Link style={this.styles.menuItems} to="/MyAccount">
           <MenuItem>
-            Logged in as {this.props.loggedInUser.EMAILADDRESS}
+            <UserChip user={this.props.loggedInUser} styles={this.styles.userChip}/>
           </MenuItem>
         </Link>
 

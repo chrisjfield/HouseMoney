@@ -6,8 +6,7 @@ import Snackbar from "material-ui/Snackbar";
 import DatePicker from "material-ui/DatePicker";
 import CircularProgress from "material-ui/CircularProgress";
 import Checkbox from "material-ui/Checkbox";
-import Avatar from "material-ui/Avatar";
-import Chip from "material-ui/Chip";
+import UserChip from "../UserChip";
 import { addError } from "../ErrorMessage/errorMessageActions";
 import update from "react-addons-update";
 import moment from "moment";
@@ -28,12 +27,17 @@ class AddTransaction extends Component {
         listStyleType: "none"
       },
       checkbox: {
-        marginBottom: 16,
+        marginBottom: 16
       },
       masterCheckbox: {
         margin: "0 auto",
         marginBottom: 16,
-        width: "10%",
+        width: "10%"
+      },
+      userChip: {
+        display: "block",
+        height: "100%",
+        margin: "0 auto"
       }
     };
     this.currentDate = new Date();
@@ -139,14 +143,7 @@ class AddTransaction extends Component {
       <li>
         <Checkbox
           key={"Checkbox_" + userList.EMAILADDRESS}
-          label={
-            <Chip key={"Chip_" + userList.EMAILADDRESS}>
-              <Avatar key={"Avatar_" + userList.EMAILADDRESS}>
-                {userList.EMAILADDRESS.charAt(0).toUpperCase()}
-              </Avatar>
-              {userList.EMAILADDRESS}
-            </Chip>
-          }
+          label={<UserChip user={userList} styles={this.styles.userChip} />}
           checked={
             this.state.userList.find(
               thing => thing.EMAILADDRESS === userList.EMAILADDRESS
