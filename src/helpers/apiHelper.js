@@ -20,7 +20,7 @@ class APIHelper {
     })
       .then(response => APIHelper.checkStatus(response))
       .catch(error => {
-        throw(error);
+        throw error;
       });
     /* API needs to ret something useful on catch 
     - currently for posts that fail on pk just get internal server
@@ -29,7 +29,9 @@ class APIHelper {
   }
 
   static checkStatus(response) {
-    if (response.ok) {
+    if (response.ok && response.status === 204) {
+      return true;
+    } else if (response.ok) {
       return response.json();
     } else {
       const error = new Error(response.statusText);
