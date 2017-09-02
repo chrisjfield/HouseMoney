@@ -2,6 +2,8 @@ To Do:
 
 UI Improvements: 
 bootstrap for responsive html
+datepicker - inline
+center chips (and checkboxes)
 
 V3
 Progress when adding transaction - think this may be not work due to no response from API?
