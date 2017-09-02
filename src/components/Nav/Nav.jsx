@@ -10,6 +10,7 @@ import Menu from "material-ui/svg-icons/navigation/menu";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
 import ActionHome from "material-ui/svg-icons/action/home";
+import history from "../../main/history";
 
 class Nav extends Component {
   constructor(props) {
@@ -29,7 +30,8 @@ class Nav extends Component {
 
   handleLogout = () => {
     const { dispatch } = this.props;
-    dispatch(receiveUser({}, false));
+    dispatch(receiveUser({}, false))
+    history.push("/Login");
   };
 
   getLoggedOutMenuOptions() {

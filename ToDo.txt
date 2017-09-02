@@ -1,15 +1,14 @@
 To Do:
-check all on Add Transactions
+fix delete user
+message hides too quickly on update user!
+add 404 page
 
 UI Improvements: 
 You are logged in as - use chips and avatars (same on balance)
 
-Bugs: 
-FIX PUT and DELETE! (unexpected end of JSON?) - (My account currently erroring!)
-Progress when adding transaction - think this may be not work due to no response from API?
-
 V3
-API return better error messages (e.g. user already exists) - rewrite this in .net Core
+Progress when adding transaction - think this may be not work due to no response from API?
+API return better error messages (e.g. user already exists, change password) - rewrite this in .net Core
 Make userId field and keep email address separate
 Change return from transaction History (let client format data)
 move to free SQL
