@@ -1,5 +1,4 @@
 To Do:
-message hides too quickly on update user!
 
 UI Improvements: 
 You are logged in as - use chips and avatars (same on balance)
@@ -19,6 +18,7 @@ Missing Error Messages:
 sign up - EMAILADDRESS already exists
 login - Invalid user name or password
 change password - confirm doesn't match
+internal server error when deleting user with transactions? 
 
 Possible improvements:
 Offline loading with service worker

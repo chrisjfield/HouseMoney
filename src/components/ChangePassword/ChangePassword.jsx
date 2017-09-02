@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import Snackbar from "material-ui/Snackbar";
-import ErrorMessage from "../ErrorMessage";
 import apiCall from "../../helpers/apiHelper";
 import { addError } from "../ErrorMessage/errorMessageActions";
 
@@ -19,8 +18,7 @@ class ChangePassword extends Component {
         NEWPASSWORDCONFIRM: ""
       },
       passwordUpdating: false,
-      passwordUpdated: false,
-      error: { response: { ok: true, statusText: "" } }
+      passwordUpdated: false
     };
     this.styles = {
       container: {
@@ -43,18 +41,26 @@ class ChangePassword extends Component {
       request = apiCall("PUT", "Users/UpdateUserPassword", updatePassword);
 
     return request
-      .then(json =>
-        this.setState({ json, passwordUpdating: false, passwordUpdated: true })
-      )
+      .then(json => {
+        this.setState({
+          passwordUpdating: false,
+          passwordUpdated: true,
+          passwordUpdate: {
+            CURRENTPASSWORD: "",
+            NEWPASSWORD: "",
+            NEWPASSWORDCONFIRM: ""
+          }
+        });
+      })
       .catch(error => {
-        this.setState({ error: error, passwordUpdating: false });
+        this.setState({ passwordUpdating: false });
         this.props.dispatch(addError(error.message));
       });
   };
 
   handleInputChange = event => {
     const target = event.target,
-      value = target.type === "checkbox" ? target.checked : target.value,
+      value = target.value,
       name = target.name;
 
     const newState = update(this.state, {
@@ -82,6 +88,7 @@ class ChangePassword extends Component {
             hintText="************"
             floatingLabelText="Current Password"
             required
+            value={this.state.passwordUpdate.CURRENTPASSWORD}
             onChange={this.handleInputChange}
             disabled={this.state.passwordUpdating}
           />
@@ -93,6 +100,7 @@ class ChangePassword extends Component {
             hintText="************"
             floatingLabelText="New Password"
             required
+            value={this.state.passwordUpdate.NEWPASSWORD}
             onChange={this.handleInputChange}
             disabled={this.state.passwordUpdating}
           />
@@ -104,6 +112,7 @@ class ChangePassword extends Component {
             hintText="************"
             floatingLabelText="Confirm Password"
             required
+            value={this.state.passwordUpdate.NEWPASSWORDCONFIRM}
             onChange={this.handleInputChange}
             disabled={this.state.passwordUpdating}
           />
@@ -119,7 +128,6 @@ class ChangePassword extends Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
-        <ErrorMessage error={this.state.error} />
       </form>
     );
   }

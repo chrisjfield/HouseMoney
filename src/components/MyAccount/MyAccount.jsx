@@ -18,7 +18,9 @@ class MyAccount extends Component {
         SURNAME: this.props.loggedInUser.SURNAME
       },
       userEditing: false,
-      userDeleting: false
+      userEdited: false,
+      userDeleting: false,
+      error: null
     };
 
     this.styles = {
@@ -41,14 +43,16 @@ class MyAccount extends Component {
     event.preventDefault();
     const { dispatch } = this.props,
       USER = this.state.userUpdate;
-    dispatch(editUser(USER));
+    dispatch(editUser(USER)).then(() => this.setState({ userEdited: true }));
   };
 
   handleDeleteUser = event => {
     event.preventDefault();
     const { dispatch, history } = this.props,
       emailAddresss = this.state.userUpdate.EMAILADDRESS;
-    dispatch(deleteUser(emailAddresss)).then(history.push("/Login"));
+    dispatch(deleteUser(emailAddresss))
+      .then(() => history.push("/Login"))
+      .catch(error => this.setState({ error: error, userDeleting: false }));
   };
 
   handleInputChange = event => {
@@ -66,7 +70,7 @@ class MyAccount extends Component {
 
   handleEditUserClose = () => {
     this.setState({
-      userEditing: false
+      userEdited: false
     });
   };
 
@@ -94,7 +98,7 @@ class MyAccount extends Component {
             defaultValue={this.state.userUpdate.CURRENTUSER}
             required
             onChange={this.handleInputChange}
-            disabled={this.state.userEditing || this.state.userDeleting}
+            disabled={true}
           />
         </div>
         <div>
@@ -141,7 +145,7 @@ class MyAccount extends Component {
           />
         </div>
         <Snackbar
-          open={this.state.userEditing}
+          open={this.state.userEdited}
           message="Details updated"
           autoHideDuration={4000}
           onRequestClose={this.handleEditUserClose}
