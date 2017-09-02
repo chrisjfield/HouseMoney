@@ -60,7 +60,10 @@ class Nav extends Component {
       <div>
         <Link style={this.styles.menuItems} to="/MyAccount">
           <MenuItem>
-            <UserChip user={this.props.loggedInUser} styles={this.styles.userChip}/>
+            <UserChip
+              user={this.props.loggedInUser}
+              styles={this.styles.userChip}
+            />
           </MenuItem>
         </Link>
 

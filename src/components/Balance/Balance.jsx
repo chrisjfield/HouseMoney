@@ -57,7 +57,7 @@ class Balance extends Component {
     const balanceItem = (
       <div>
         <ListItem
-          key={"Debt_" + balance.OTHERS}
+          key={"Debt_" + debtor.EMAILADDRESS}
           style={{ color: colorToSet, cursor: "auto", width: "auto" }}
           leftAvatar={
             <Avatar
