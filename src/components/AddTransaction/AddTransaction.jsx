@@ -187,7 +187,7 @@ class AddTransaction extends Component {
       <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
         <h2>Add a Transaction </h2>
         <h3>
-          {" "}Divided between {this.props.loggedInUser.FIRSTNAME}, and:{" "}
+          {" "}Divided between {this.props.loggedInUser.EMAILADDRESS}, and:{" "}
         </h3>
         <div>
           <Checkbox
