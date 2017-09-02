@@ -14,7 +14,7 @@ export function editUser(USER) {
     dispatch(editUserStarted());
     return request
       .then(response => {
-        dispatch(editUserSuccessful(response));
+        dispatch(editUserSuccessful(response, USER));
         dispatch(editUserAttemptComplete());
       })
       .catch(error => {
@@ -54,13 +54,14 @@ function editUserStarted() {
   };
 }
 
-function editUserSuccessful(response) {
+function editUserSuccessful(response, USER) {
   return {
     type: RECEIVE_USER,
     payload: {
-      EMAILADDRESS: response.EMAILADDRESS,
-      FIRSTNAME: response.FIRSTNAME,
-      SURNAME: response.SURNAME
+      // This is currently a workaround - need this to be a response from the API - fix in V3!
+      EMAILADDRESS: USER.EMAILADDRESS,
+      FIRSTNAME: USER.FIRSTNAME,
+      SURNAME: USER.SURNAME
     },
     isLoggedIn: true
   };
@@ -89,9 +90,9 @@ function deleteUserSuccessful(response) {
   return {
     type: RECEIVE_USER,
     payload: {
-      EMAILADDRESS: response.EMAILADDRESS,
-      FIRSTNAME: response.FIRSTNAME,
-      SURNAME: response.SURNAME
+      EMAILADDRESS: null,
+      FIRSTNAME: null,
+      SURNAME: null
     },
     isLoggedIn: false
   };

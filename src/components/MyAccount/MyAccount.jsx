@@ -46,9 +46,9 @@ class MyAccount extends Component {
 
   handleDeleteUser = event => {
     event.preventDefault();
-    const { dispatch } = this.props,
+    const { dispatch, history } = this.props,
       emailAddresss = this.state.userUpdate.EMAILADDRESS;
-    dispatch(deleteUser(emailAddresss));
+    dispatch(deleteUser(emailAddresss)).then(history.push("/Login"));
   };
 
   handleInputChange = event => {

@@ -1,5 +1,4 @@
 To Do:
-fix delete user
 message hides too quickly on update user!
 
 UI Improvements: 
@@ -7,6 +6,7 @@ You are logged in as - use chips and avatars (same on balance)
 
 V3
 Progress when adding transaction - think this may be not work due to no response from API?
+Need response from edit user - to pickup new user details
 API return better error messages (e.g. user already exists, change password) - rewrite this in .net Core
 Make userId field and keep email address separate
 Change return from transaction History (let client format data)
