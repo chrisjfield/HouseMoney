@@ -29,9 +29,12 @@ class ChangePassword extends Component {
   }
 
   componentWillMount() {
-    this.setState({
-      passwordUpdate: { EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS }
+    const newState = update(this.state, {
+      passwordUpdate: {
+        $merge: { EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS }
+      }
     });
+    this.setState(newState);
   }
 
   handlePasswordChange = event => {
