@@ -13,12 +13,14 @@ Make userId field and keep email address separate
 Change return from transaction History (let client format data)
 move to free SQL
 .net core API
+Add dateAdded to transaction (current date) 
+Upgrade message (e.g. for Patch notes and website maintenence screen)
 
 Missing Error Messages: 
 sign up - EMAILADDRESS already exists
 login - Invalid user name or password
+change password - confirm doesn't match
 
 Possible improvements:
 Offline loading with service worker
 Server side rendering for instant load
-Add dateAdded to transaction (current date) 
