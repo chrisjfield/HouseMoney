@@ -1,5 +1,4 @@
 To Do:
-Fix add transaction user list checkbox positin on mobile
 
 UI Improvements: 
 bootstrap for responsive html
