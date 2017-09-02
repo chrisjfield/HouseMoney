@@ -1,8 +1,7 @@
 To Do:
 
 UI Improvements: 
-bootstrap for responsive html
-datepicker - inline
+bootstrap - make responsive html
 center chips (and checkboxes)
 
 V3

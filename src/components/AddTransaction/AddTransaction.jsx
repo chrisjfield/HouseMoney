@@ -232,6 +232,7 @@ class AddTransaction extends Component {
             autoOk={true}
             container="inline"
             mode="landscape"
+            style={{display: 'inline-block'}}
             defaultDate={this.currentDate}
             required
             value={this.state.addTransaction.DATE}
