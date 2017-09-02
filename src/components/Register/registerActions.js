@@ -44,7 +44,7 @@ function registerSuccessful(response) {
 function registerFailure(error) {
   return {
     type: ADD_ERROR,
-    payload: error.response.statusText,
+    payload: error.message,
     isLoggedIn: false
   };
 }
