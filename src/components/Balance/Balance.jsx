@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { List, ListItem } from "material-ui/List";
 import CircularProgress from "material-ui/CircularProgress";
+import Avatar from "material-ui/Avatar";
+import Paper from "material-ui/Paper";
 import math from "mathjs";
 import { muiTheme } from "../../main/themes";
 import apiCall from "../../helpers/apiHelper";
@@ -14,8 +16,10 @@ class Balance extends Component {
         textAlign: "center",
         marginTop: "20px"
       },
-      balance: {
-        textAlign: "left"
+      balanceSheet: {
+        width: "350px",
+        textAlign: "center",
+        display: "inline-block"
       }
     };
 
@@ -38,7 +42,8 @@ class Balance extends Component {
   };
 
   createBalance = balance => {
-    const debt = math.round(balance.TOTAL, 2);
+    const debt = math.round(balance.TOTAL, 2),
+      debtor = { EMAILADDRESS: balance.OTHERS };
     let colorToSet;
 
     if (debt < 0) {
@@ -50,11 +55,21 @@ class Balance extends Component {
     }
 
     const balanceItem = (
-      <ListItem
-        key={balance.OTHERS}
-        style={{ color: colorToSet }}
-        primaryText={balance.OTHERS + ": £" + math.abs(debt).toFixed(2)}
-      />
+      <div>
+        <ListItem
+          key={"Debt_" + balance.OTHERS}
+          style={{ color: colorToSet, cursor: "auto", width: "auto" }}
+          leftAvatar={
+            <Avatar
+              key={"Avatar_" + debtor.EMAILADDRESS}
+              style={{ backgroundColor: colorToSet }}
+            >
+              {debtor.EMAILADDRESS.charAt(0).toUpperCase()}
+            </Avatar>
+          }
+          primaryText={debtor.EMAILADDRESS + ": £" + math.abs(debt).toFixed(2)}
+        />
+      </div>
     );
     return balanceItem;
   };
@@ -74,11 +89,13 @@ class Balance extends Component {
       <form name="balanceForm" style={this.styles.container}>
         <div>
           <h2>My Balance</h2>
-          {this.state.balanceReturned
-            ? <List>
-                {this.createBalanceList()}
-              </List>
-            : <CircularProgress />}
+          <Paper style={this.styles.balanceSheet}>
+            {this.state.balanceReturned
+              ? <List>
+                  {this.createBalanceList()}
+                </List>
+              : <CircularProgress />}
+          </Paper>
         </div>
       </form>
     );

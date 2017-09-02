@@ -110,7 +110,7 @@ class Nav extends Component {
               <ActionHome />
             </IconButton>
           </Link>
-          <ToolbarTitle text="Share The Load" />
+          <ToolbarTitle text="House Money" />
         </ToolbarGroup>
         <ToolbarGroup>
           {this.props.isLoggedIn
