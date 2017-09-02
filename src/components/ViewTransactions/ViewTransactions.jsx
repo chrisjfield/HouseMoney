@@ -27,7 +27,7 @@ class ViewTransactions extends Component {
     this.styles = {
       container: {
         textAlign: "center",
-        marginTop: "50px"
+        marginTop: "20px"
       },
       gridHeader: {
         backgroundColor: muiTheme.palette.backgroundColor,

@@ -37,5 +37,12 @@ export const muiTheme = getMuiTheme({
     color: grey900,
     backgroundColor: blue900,
     textAlign: "center"
+  },
+  chip: {
+    display: "inline-flex",
+    marginRight: "4px"
+  },
+  avatar: {
+    size: "30dp"
   }
 });

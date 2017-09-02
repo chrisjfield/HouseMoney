@@ -18,7 +18,7 @@ class Login extends Component {
     this.styles = {
       container: {
         textAlign: "center",
-        marginTop: "50px"
+        marginTop: "20px"
       }
     };
   }

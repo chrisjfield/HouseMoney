@@ -2,6 +2,7 @@ To Do:
 
 UI Improvements: 
 You are logged in as - use chips and avatars (same on balance)
+bootstrap for responsive html
 
 V3
 Progress when adding transaction - think this may be not work due to no response from API?
