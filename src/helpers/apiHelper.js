@@ -15,7 +15,7 @@ class APIHelper {
     // ED! should probably make the api base url a config or something
     return fetch(calledUrl, {
       method: method,
-      mode: "CORS",
+      mode: "cors",
       headers: headers,
       body: body ? JSON.stringify(body) : undefined
     })
