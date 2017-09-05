@@ -1,6 +1,8 @@
 Bugs:
 PUT and DELETE via cors externally 
 Prevent loading persist (so cant't get permanently stuck loading)
+menu icon should close menu (clicking anywhere else also closes!) -- Mobile Only bug - maybe just wait for MUI v1?
+Toolbar responsive to max size of grids
 
 UI Improvements: 
 bootstrap - make responsive html
