@@ -27,7 +27,8 @@ class ViewTransactions extends Component {
     this.styles = {
       container: {
         textAlign: "center",
-        marginTop: "20px"
+        marginTop: "20px",
+        minWidth: "460px"
       },
       gridHeader: {
         backgroundColor: muiTheme.palette.backgroundColor,
@@ -62,16 +63,14 @@ class ViewTransactions extends Component {
   };
 
   prevPage = () => {
-    this.setState(
-      { pageNumber: this.state.pageNumber - 1 },
-      () => this.getGridData()
+    this.setState({ pageNumber: this.state.pageNumber - 1 }, () =>
+      this.getGridData()
     );
   };
 
   nextPage = () => {
-    this.setState(
-      { pageNumber: this.state.pageNumber + 1 },
-      () => this.getGridData()
+    this.setState({ pageNumber: this.state.pageNumber + 1 }, () =>
+      this.getGridData()
     );
   };
 
@@ -111,8 +110,18 @@ class ViewTransactions extends Component {
             {this.createRows()}
           </TableBody>
         </Table>
-        <FlatButton key="Previous" label="Previous" onClick={this.prevPage} disabled={this.state.pageNumber <= 1} />
-        <FlatButton key="Next" label="Next" onClick={this.nextPage} disabled={this.state.transactionsData.length !== this.state.pageSize} />
+        <FlatButton
+          key="Previous"
+          label="Previous"
+          onClick={this.prevPage}
+          disabled={this.state.pageNumber <= 1}
+        />
+        <FlatButton
+          key="Next"
+          label="Next"
+          onClick={this.nextPage}
+          disabled={this.state.transactionsData.length !== this.state.pageSize}
+        />
       </div>
     );
 
