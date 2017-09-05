@@ -27,7 +27,7 @@ class HouseSummary extends Component {
       container: {
         textAlign: "center",
         marginTop: "20px",
-        minWidth: "460px"
+        minWidth: "640px"
       },
       gridHeader: {
         backgroundColor: muiTheme.palette.backgroundColor,

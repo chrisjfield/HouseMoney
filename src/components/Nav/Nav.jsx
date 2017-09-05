@@ -16,9 +16,6 @@ import history from "../../main/history";
 class Nav extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      menuOpen: false
-    };
 
     this.styles = {
       menuItems: {
@@ -104,12 +101,6 @@ class Nav extends Component {
     return undefined;
   };
 
-  toggleMenu = () => {
-    this.setState(prevState => ({
-      menuOpen: !prevState.menuOpen
-    }));
-  };
-
   render() {
     return (
       <Toolbar style={this.styles.toolbar}>
@@ -130,16 +121,10 @@ class Nav extends Component {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             targetOrigin={{ horizontal: "right", vertical: "top" }}
             iconButtonElement={
-              <IconButton
-                tooltip="Menu"
-                onClick={() => {
-                  this.toggleMenu();
-                }}
-              >
+              <IconButton tooltip="Menu">
                 <Menu />
               </IconButton>
             }
-            open={this.state.menuOpen}
           >
             {this.props.isLoggedIn
               ? this.getLoggedInMenuOptions()
