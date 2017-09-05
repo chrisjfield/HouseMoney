@@ -16,6 +16,9 @@ import history from "../../main/history";
 class Nav extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      menuOpen: false
+    };
 
     this.styles = {
       menuItems: {
@@ -38,7 +41,7 @@ class Nav extends Component {
     history.push("/Login");
   };
 
-  getLoggedOutMenuOptions() {
+  getLoggedOutMenuOptions = () => {
     return (
       <div>
         <Link style={this.styles.menuItems} to="/Login">
@@ -50,9 +53,9 @@ class Nav extends Component {
         </Link>
       </div>
     );
-  }
+  };
 
-  getLoggedInMenuOptions() {
+  getLoggedInMenuOptions = () => {
     return (
       <div>
         <Link style={this.styles.menuItems} to="/MyAccount">
@@ -77,9 +80,9 @@ class Nav extends Component {
         </a>
       </div>
     );
-  }
+  };
 
-  getLoggedInNavItems() {
+  getLoggedInNavItems = () => {
     return (
       <ToolbarGroup>
         <Link style={this.styles.menuItems} to="/AddTransaction">
@@ -95,11 +98,17 @@ class Nav extends Component {
         </Link>
       </ToolbarGroup>
     );
-  }
+  };
 
-  getLoggedOutNavItems() {
+  getLoggedOutNavItems = () => {
     return undefined;
-  }
+  };
+
+  toggleMenu = () => {
+    this.setState(prevState => ({
+      menuOpen: !prevState.menuOpen
+    }));
+  };
 
   render() {
     return (
@@ -121,10 +130,16 @@ class Nav extends Component {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             targetOrigin={{ horizontal: "right", vertical: "top" }}
             iconButtonElement={
-              <IconButton tooltip="Menu">
+              <IconButton
+                tooltip="Menu"
+                onClick={() => {
+                  this.toggleMenu();
+                }}
+              >
                 <Menu />
               </IconButton>
             }
+            open={this.state.menuOpen}
           >
             {this.props.isLoggedIn
               ? this.getLoggedInMenuOptions()
