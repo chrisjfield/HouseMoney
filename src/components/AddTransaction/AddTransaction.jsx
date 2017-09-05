@@ -240,7 +240,6 @@ class AddTransaction extends Component {
             floatingLabelText="Date"
             autoOk={true}
             container="inline"
-            mode="landscape"
             style={{ display: "inline-block" }}
             defaultDate={this.currentDate}
             required
