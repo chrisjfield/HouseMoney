@@ -12,7 +12,8 @@ class Login extends Component {
     this.state = {
       EMAILADDRESS: "",
       PASSWORD: "",
-      error: {}
+      error: {},
+      loading: false
     };
 
     this.styles = {
@@ -26,11 +27,18 @@ class Login extends Component {
   handleLogin = event => {
     event.preventDefault();
     const { dispatch, history } = this.props,
-      LOGIN = this.state;
+      LOGIN = {
+        EMAILADDRESS: this.state.EMAILADDRESS,
+        PASSWORD: this.state.PASSWORD
+      };
+    this.setState({ loading: true });
     dispatch(loginUser(LOGIN))
-      .then(() => history.push("/Balance"))
+      .then(() => {
+        this.setState({ loading: false });
+        history.push("/Balance");
+      })
       .catch(error => {
-        this.setState({ error: error });
+        this.setState({ error: error, loading: false });
       });
   };
 
@@ -56,7 +64,7 @@ class Login extends Component {
             floatingLabelText="Email Address"
             required
             onChange={this.handleInputChange}
-            disabled={this.props.loggingIn}
+            disabled={this.state.loading}
           />
         </div>
         <div>
@@ -68,11 +76,11 @@ class Login extends Component {
             autoComplete="current-password"
             required
             onChange={this.handleInputChange}
-            disabled={this.props.loggingIn}
+            disabled={this.state.loading}
           />
         </div>
         <div>
-          {this.props.loggingIn
+          {this.state.loading
             ? <CircularProgress />
             : <FlatButton type="submit" label="Login" />}
         </div>

@@ -12,7 +12,9 @@ class Register extends Component {
       FIRSTNAME: "",
       SURNAME: "",
       EMAILADDRESS: "",
-      PASSWORD: ""
+      PASSWORD: "",
+      loading: false,
+      error: null
     };
 
     this.styles = {
@@ -26,11 +28,20 @@ class Register extends Component {
   handleAddUser = event => {
     event.preventDefault();
     const { dispatch, history } = this.props,
-      USER = this.state;
+      USER = {
+        FIRSTNAME: this.state.FIRSTNAME,
+        SURNAME: this.state.SURNAME,
+        EMAILADDRESS: this.state.EMAILADDRESS,
+        PASSWORD: this.state.PASSWORD
+      };
+    this.setState({ loading: true });
     dispatch(registerUser(USER))
-      .then(() => history.push("/AddTransaction"))
+      .then(() => {
+        this.setState({ loading: false });
+        history.push("/AddTransaction");
+      })
       .catch(error => {
-        this.setState({ error: error });
+        this.setState({ error: error, loading: false });
       });
   };
 
@@ -55,7 +66,7 @@ class Register extends Component {
             floatingLabelText="First Name"
             required
             onChange={this.handleInputChange}
-            disabled={this.props.registering}
+            disabled={this.state.loading}
           />
         </div>
         <div>
@@ -64,7 +75,7 @@ class Register extends Component {
             hintText="My surname"
             floatingLabelText="Last Name"
             onChange={this.handleInputChange}
-            disabled={this.props.registering}
+            disabled={this.state.loading}
           />
         </div>
         <div>
@@ -74,7 +85,7 @@ class Register extends Component {
             floatingLabelText="Email Address"
             required
             onChange={this.handleInputChange}
-            disabled={this.props.registering}
+            disabled={this.state.loading}
           />
         </div>
         <div>
@@ -85,11 +96,11 @@ class Register extends Component {
             floatingLabelText="Password"
             required
             onChange={this.handleInputChange}
-            disabled={this.props.registering}
+            disabled={this.state.loading}
           />
         </div>
         <div>
-          {this.props.registering
+          {this.state.loading
             ? <CircularProgress />
             : <FlatButton type="submit" label="Sign Up" />}
         </div>
@@ -104,7 +115,7 @@ const mapStateToProps = store => {
 
   return {
     USER,
-    registering: store.registerReducer.loading,
+    registering: store.registerReducer.loading
   };
 };
 
