@@ -1,8 +1,6 @@
 Bugs:
 PUT and DELETE via cors externally 
-Prevent loading persist (so cant't get permanently stuck loading)
 menu icon should close menu (clicking anywhere else also closes!) -- Mobile Only bug - maybe just wait for MUI v1?
-Toolbar responsive to max size of grids
 
 UI Improvements: 
 bootstrap - make responsive html
@@ -17,6 +15,8 @@ move to free SQL
 .net core API
 Add dateAdded to transaction (current date) 
 Upgrade message (e.g. for Patch notes and website maintenence screen)
+purge store when logout?
+Confirm password for Register!
 
 Missing Error Messages: 
 sign up - EMAILADDRESS already exists
