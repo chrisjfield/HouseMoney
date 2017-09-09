@@ -3,8 +3,7 @@ import baseURL from '../appConfig';
 class APIHelper {
   static apiCall(method, endpoint, body, urlParams) {
     let customheaders = {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE" // additional available OPTIONS, PATCH,
+        "Content-Type": "application/json;charset=UTF-8"
       },
       headers = new Headers(customheaders),
       calledUrl = `${baseURL}${endpoint}`;
