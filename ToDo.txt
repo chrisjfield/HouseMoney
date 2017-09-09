@@ -1,9 +1,11 @@
 Bugs:
-PUT and DELETE via cors externally
 menu icon should close menu (clicking anywhere else also closes!) -- Mobile Only bug - maybe just wait for MUI v1?
 
 UI Improvements: 
 bootstrap - make responsive html
+
+General Improvements:
+Build sets correct app config
 
 V3
 Progress when adding transaction - think this may be not work due to no response from API?
