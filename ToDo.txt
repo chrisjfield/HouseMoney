@@ -1,5 +1,5 @@
 Bugs:
-PUT and DELETE via cors externally 
+PUT and DELETE via cors externally - possibly fixed?
 menu icon should close menu (clicking anywhere else also closes!) -- Mobile Only bug - maybe just wait for MUI v1?
 
 UI Improvements: 
