@@ -1,14 +1,19 @@
-import * as React from "react";
+import React, { Component } from "react";
+import FlatButton from "material-ui/FlatButton";
 
-function NotFound404() {
-  return (
-    <div>
-      <br />
-      <h2 style={{ textAlign: "center" }}>
-        These are not the droids you're looking for
-      </h2>
-    </div>
-  );
+class NotFound404 extends Component {
+  render() {
+    return (
+      <div style={{ textAlign: "center" }}>
+        <br />
+        <h2>It's dangerous to go alone! Take this.</h2>
+        <FlatButton
+          label="Link"
+          onClick={() => this.props.history.push("/")}
+        />
+      </div>
+    );
+  }
 }
 
 export default NotFound404;
