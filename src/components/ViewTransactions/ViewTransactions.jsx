@@ -41,7 +41,7 @@ class ViewTransactions extends Component {
         width: "80px"
       },
       valueWidth: {
-        width: "40px"
+        width: "60px"
       },
       dateWidth: {
         width: "100px"
