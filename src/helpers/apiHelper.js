@@ -1,7 +1,8 @@
 class APIHelper {
   static apiCall(method, endpoint, body, urlParams) {
     let customheaders = {
-        "Content-Type": "application/json;charset=UTF-8"
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE" //additional available OPTIONS, PATCH,
       },
       headers = new Headers(customheaders),
       //baseURL = "http://82.25.191.210/HouseMoneyapi/api/",

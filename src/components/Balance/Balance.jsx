@@ -55,7 +55,6 @@ class Balance extends Component {
     }
 
     const balanceItem = (
-      <div>
         <ListItem
           key={"Debt_" + debtor.EMAILADDRESS}
           style={{
@@ -74,7 +73,6 @@ class Balance extends Component {
           }
           primaryText={debtor.EMAILADDRESS + ": £" + math.abs(debt).toFixed(2)}
         />
-      </div>
     );
     return balanceItem;
   };
