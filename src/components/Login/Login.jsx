@@ -65,6 +65,7 @@ class Login extends Component {
             required
             onChange={this.handleInputChange}
             disabled={this.state.loading}
+            maxLength="50"
           />
         </div>
         <div>
@@ -77,6 +78,7 @@ class Login extends Component {
             required
             onChange={this.handleInputChange}
             disabled={this.state.loading}
+            maxLength="30"
           />
         </div>
         <div>

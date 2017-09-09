@@ -67,6 +67,7 @@ class Register extends Component {
             required
             onChange={this.handleInputChange}
             disabled={this.state.loading}
+            maxLength="100"
           />
         </div>
         <div>
@@ -76,6 +77,7 @@ class Register extends Component {
             floatingLabelText="Last Name"
             onChange={this.handleInputChange}
             disabled={this.state.loading}
+            maxLength="100"
           />
         </div>
         <div>
@@ -86,6 +88,7 @@ class Register extends Component {
             required
             onChange={this.handleInputChange}
             disabled={this.state.loading}
+            maxLength="50"
           />
         </div>
         <div>
@@ -97,6 +100,7 @@ class Register extends Component {
             required
             onChange={this.handleInputChange}
             disabled={this.state.loading}
+            maxLength="30"
           />
         </div>
         <div>

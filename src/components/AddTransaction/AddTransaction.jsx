@@ -34,7 +34,9 @@ class AddTransaction extends Component {
         textAlign: "left"
       },
       userChip: {
-        display: "inline-flex"
+        display: "inline-flex",
+        width: "inherit",
+        overflow: "hidden"
       },
       checkBoxListSheet: {
         width: "256px",
@@ -259,6 +261,7 @@ class AddTransaction extends Component {
             value={this.state.addTransaction.REFERENCE}
             onChange={this.handleInputChange}
             disabled={this.state.transactionAdding}
+            maxLength="200"
           />
         </div>
         <FlatButton

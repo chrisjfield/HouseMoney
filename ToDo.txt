@@ -17,6 +17,7 @@ Add dateAdded to transaction (current date)
 Upgrade message (e.g. for Patch notes and website maintenence screen)
 purge store when logout?
 Confirm password for Register!
+set max length on fields to match API
 
 Missing Error Messages: 
 sign up - EMAILADDRESS already exists

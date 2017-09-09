@@ -27,7 +27,9 @@ class Nav extends Component {
         color: "#BDBDBD"
       },
       userChipItem: {
-        display: "inline-flex"
+        display: "inline-flex",
+        width: "120px",
+        overflow: "hidden"
       }
     };
   }

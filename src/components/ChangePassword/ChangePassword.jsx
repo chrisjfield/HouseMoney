@@ -94,6 +94,7 @@ class ChangePassword extends Component {
             value={this.state.passwordUpdate.CURRENTPASSWORD}
             onChange={this.handleInputChange}
             disabled={this.state.passwordUpdating}
+            maxLength="50"
           />
         </div>
         <div>
@@ -106,6 +107,7 @@ class ChangePassword extends Component {
             value={this.state.passwordUpdate.NEWPASSWORD}
             onChange={this.handleInputChange}
             disabled={this.state.passwordUpdating}
+            maxLength="50"
           />
         </div>
         <div>
@@ -118,6 +120,7 @@ class ChangePassword extends Component {
             value={this.state.passwordUpdate.NEWPASSWORDCONFIRM}
             onChange={this.handleInputChange}
             disabled={this.state.passwordUpdating}
+            maxLength="50"
           />
         </div>
         <FlatButton

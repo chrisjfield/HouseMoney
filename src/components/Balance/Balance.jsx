@@ -58,7 +58,12 @@ class Balance extends Component {
       <div>
         <ListItem
           key={"Debt_" + debtor.EMAILADDRESS}
-          style={{ color: colorToSet, cursor: "auto", width: "auto" }}
+          style={{
+            color: colorToSet,
+            cursor: "auto",
+            width: "auto",
+            overflow: "hidden"
+          }}
           leftAvatar={
             <Avatar
               key={"Avatar_" + debtor.EMAILADDRESS}
