@@ -28,9 +28,12 @@ class MyAccount extends Component {
         textAlign: "center",
         marginTop: "20px"
       },
+      buttonWrapper: {
+        display: "inline-flex",
+        verticalAlign: "middle"
+      },
       button: {
-        verticalAlign: "middle",
-        marginLeft: "25px"
+        verticalAlign: "middle"
       }
     };
   }
@@ -90,59 +93,70 @@ class MyAccount extends Component {
         onSubmit={this.handleEditUser}
       >
         <h2>Your Details</h2>
-        <div>
-          <TextField
-            name="EMAILADDRESS"
-            hintText="email@example.com"
-            floatingLabelText="Email Address"
-            defaultValue={this.state.userUpdate.CURRENTUSER}
-            required
-            onChange={this.handleInputChange}
-            disabled={true}
-          />
-        </div>
-        <div>
-          <TextField
-            name="FIRSTNAME"
-            hintText="My name"
-            floatingLabelText="First Name"
-            defaultValue={this.state.userUpdate.FIRSTNAME}
-            required
-            onChange={this.handleInputChange}
-            disabled={this.state.userEditing || this.state.userDeleting}
-          />
-        </div>
-        <div>
-          <TextField
-            name="SURNAME"
-            hintText="My surname"
-            floatingLabelText="Last Name"
-            defaultValue={this.state.userUpdate.SURNAME}
-            required
-            onChange={this.handleInputChange}
-            disabled={this.state.userEditing || this.state.userDeleting}
-          />
-        </div>
-        <div>
-          <FlatButton
-            type="submit"
-            label="Update"
-            disabled={this.state.userEditing || this.state.userDeleting}
-          />
-          <FlatButton
-            style={this.styles.button}
-            label=" Change Password "
-            secondary={true}
-            onClick={() => this.props.history.push("/ChangePassword")}
-            disabled={this.state.userEditing || this.state.userDeleting}
-          />
-          <FlatButton
-            style={this.styles.button}
-            label=" Delete "
-            secondary={true}
-            onClick={this.handleDeleteUserOpen}
-            disabled={this.state.userEditing || this.state.userDeleting}
-          />
+        <div className="row">
+          <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
+            <div>
+              <TextField
+                name="EMAILADDRESS"
+                hintText="email@example.com"
+                floatingLabelText="Email Address"
+                defaultValue={this.state.userUpdate.CURRENTUSER}
+                required
+                onChange={this.handleInputChange}
+                disabled={true}
+              />
+            </div>
+            <div>
+              <TextField
+                name="FIRSTNAME"
+                hintText="My name"
+                floatingLabelText="First Name"
+                defaultValue={this.state.userUpdate.FIRSTNAME}
+                required
+                onChange={this.handleInputChange}
+                disabled={this.state.userEditing || this.state.userDeleting}
+              />
+            </div>
+            <div>
+              <TextField
+                name="SURNAME"
+                hintText="My surname"
+                floatingLabelText="Last Name"
+                defaultValue={this.state.userUpdate.SURNAME}
+                required
+                onChange={this.handleInputChange}
+                disabled={this.state.userEditing || this.state.userDeleting}
+              />
+            </div>
+            <div>
+              <div style={this.styles.buttonWrapper}>
+                <FlatButton
+                  style={this.styles.button}
+                  type="submit"
+                  label="Update"
+                  disabled={this.state.userEditing || this.state.userDeleting}
+                />
+              </div>
+              <div style={this.styles.buttonWrapper}>
+                <FlatButton
+                  style={this.styles.button}
+                  label="Change Password"
+                  secondary={true}
+                  onClick={() => this.props.history.push("/ChangePassword")}
+                  disabled={this.state.userEditing || this.state.userDeleting}
+                />
+              </div>
+              <div style={this.styles.buttonWrapper}>
+                <FlatButton
+                  style={this.styles.button}
+                  label="Delete"
+                  secondary={true}
+                  onClick={this.handleDeleteUserOpen}
+                  disabled={this.state.userEditing || this.state.userDeleting}
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <Snackbar
           open={this.state.userEdited}
