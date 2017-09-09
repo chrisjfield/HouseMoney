@@ -27,8 +27,7 @@ class ViewTransactions extends Component {
     this.styles = {
       container: {
         textAlign: "center",
-        marginTop: "20px",
-        minWidth: "460px"
+        marginTop: "20px"
       },
       gridHeader: {
         backgroundColor: muiTheme.palette.backgroundColor,
@@ -37,8 +36,36 @@ class ViewTransactions extends Component {
       gridDetail: {
         backgroundColor: muiTheme.palette.backgroundColor,
         color: muiTheme.palette.textColor
+      },
+      owesMeWidth: {
+        width: "80px"
+      },
+      valueWidth: {
+        width: "40px"
+      },
+      dateWidth: {
+        width: "100px"
+      },
+      referenceWidth: {
+        width: "100px"
       }
     };
+    Object.assign(this.styles, {
+      owesMeHeader: { ...this.styles.owesMeWidth, ...this.styles.gridHeader },
+      valueHeader: { ...this.styles.valueWidth, ...this.styles.gridHeader },
+      dateHeader: { ...this.styles.dateWidth, ...this.styles.gridHeader },
+      referenceHeader: {
+        ...this.styles.referenceWidth,
+        ...this.styles.gridHeader
+      },
+      owesMeDetail: { ...this.styles.owesMeWidth, ...this.styles.gridDetail },
+      valueDetail: { ...this.styles.valueWidth, ...this.styles.gridDetail },
+      dateDetail: { ...this.styles.dateWidth, ...this.styles.gridDetail },
+      referenceDetail: {
+        ...this.styles.referenceWidth,
+        ...this.styles.gridDetail
+      }
+    });
   }
 
   componentWillMount = () => {
@@ -77,30 +104,30 @@ class ViewTransactions extends Component {
   createGrid = () => {
     const transactionsGrid = (
       <div>
-        <Table selectable={false}>
+        <Table selectable={false} bodyStyle={{ overflow: "visible" }}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn
                 key={"Column_OTHERS"}
-                style={this.styles.gridHeader}
+                style={this.styles.owesMeHeader}
               >
                 OWES ME
               </TableHeaderColumn>
               <TableHeaderColumn
                 key={"Column_GROSS"}
-                style={this.styles.gridHeader}
+                style={this.styles.valueHeader}
               >
                 VALUE
               </TableHeaderColumn>
               <TableHeaderColumn
                 key={"Column_DATE"}
-                style={this.styles.gridHeader}
+                style={this.styles.dateHeader}
               >
                 DATE
               </TableHeaderColumn>
               <TableHeaderColumn
                 key={"Column_REFERENCE"}
-                style={this.styles.gridHeader}
+                style={this.styles.referenceHeader}
               >
                 REFERENCE
               </TableHeaderColumn>
@@ -134,25 +161,25 @@ class ViewTransactions extends Component {
       <TableRow key={"Row_" + transactionData.PRIMARYKEY}>
         <TableRowColumn
           key={"Data_" + transactionData.PRIMARYKEY + "_OTHERS"}
-          style={this.styles.gridDetail}
+          style={this.styles.owesMeDetail}
         >
           {transactionData.OTHERS}
         </TableRowColumn>
         <TableRowColumn
           key={"Data_" + transactionData.PRIMARYKEY + "_AMOUNT"}
-          style={this.styles.gridDetail}
+          style={this.styles.valueDetail}
         >
           {transactionData.AMOUNT}
         </TableRowColumn>
         <TableRowColumn
           key={"Data_" + transactionData.PRIMARYKEY + "_DATE"}
-          style={this.styles.gridDetail}
+          style={this.styles.dateDetail}
         >
           {formattedDate}
         </TableRowColumn>
         <TableRowColumn
           key={"Data_" + transactionData.PRIMARYKEY + "_REFERENCE"}
-          style={this.styles.gridDetail}
+          style={this.styles.referenceDetail}
         >
           {transactionData.REFERENCE}
         </TableRowColumn>
@@ -186,12 +213,17 @@ class ViewTransactions extends Component {
 
   render() {
     return (
-      <form name="ViewTransactionsForm" style={this.styles.container}>
+      <div style={this.styles.container}>
         <h2>My Transactions</h2>
-        <div id="ViewTransactionsTable" style={this.styles.container}>
-          {this.determineRender()}
+        <div id="viewTransactionsTableContainer" style={this.styles.container}>
+          <div className="row">
+            <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
+              <div id="viewTransactionsGrid" className="grid" />
+              {this.determineRender()}
+            </div>
+          </div>
         </div>
-      </form>
+      </div>
     );
   }
 }

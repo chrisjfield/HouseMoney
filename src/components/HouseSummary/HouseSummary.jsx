@@ -27,15 +27,24 @@ class HouseSummary extends Component {
       container: {
         textAlign: "center",
         marginTop: "20px",
-        minWidth: "640px"
+        className: "containerfluid",
+      },
+      gridContainer: {
+        overflow: "auto"
+      },
+      grid: {
+        tableLayout: "fixed"
       },
       gridHeader: {
         backgroundColor: muiTheme.palette.backgroundColor,
-        color: muiTheme.palette.primary1Color
+        color: muiTheme.palette.primary1Color,
+        width: "80px"
       },
       gridDetail: {
         backgroundColor: muiTheme.palette.backgroundColor,
-        color: muiTheme.palette.textColor
+        color: muiTheme.palette.textColor,
+        width: "80px",
+        textAlign: "right"
       }
     };
   }
@@ -110,7 +119,7 @@ class HouseSummary extends Component {
 
   createGrid = () => {
     const dataGrid = (
-      <Table selectable={false}>
+      <Table selectable={false} style={this.styles.grid} bodyStyle={{overflow:'visible'}}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             {this.createColumns()}
@@ -133,11 +142,15 @@ class HouseSummary extends Component {
     return (
       <div style={this.styles.container}>
         <h2>House Money Summary</h2>
-        <div id="moneyHouseSummaryTableContainer">
-          <div id="moneyHouseSummaryGrid" className="grid" />
-          {this.state.gridDataReturned & this.state.userDataReturned
-            ? this.createGrid()
-            : <CircularProgress />}
+        <div id="houseSummaryTableContainer" style={this.styles.gridContainer}>
+          <div className="row">
+            <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
+              <div id="houseSummaryGrid" className="grid" />
+              {this.state.gridDataReturned & this.state.userDataReturned
+                ? this.createGrid()
+                : <CircularProgress />}
+            </div>
+          </div>
         </div>
       </div>
     );
