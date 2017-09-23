@@ -1,0 +1,33 @@
+Bugs:
+menu icon should close menu (clicking anywhere else also closes!) -- Mobile Only bug - maybe just wait for MUI v1?
+
+UI Improvements: 
+bootstrap - make responsive html
+
+General Improvements:
+Build sets correct app config
+
+V3
+Progress when adding transaction - think this may be not work due to no response from API?
+Need response from edit user - to pickup new user details
+API return better error messages (e.g. user already exists, change password) - rewrite this in .net Core
+Make userId field and keep email address separate
+Change return from transaction History (let client format data)
+move to free SQL
+.net core API
+Add dateAdded to transaction (current date) 
+Upgrade message (e.g. for Patch notes and website maintenence screen)
+purge store when logout?
+Confirm password for Register!
+set max length on fields to match API
+Create backup plan and use windows auth for EDLAPTOPPROD see BackupPlan.txt
+
+Missing Error Messages: 
+sign up - EMAILADDRESS already exists
+login - Invalid user name or password
+change password - confirm doesn't match
+internal server error when deleting user with transactions? 
+
+Possible improvements:
+Offline loading with service worker
+Server side rendering for instant load
