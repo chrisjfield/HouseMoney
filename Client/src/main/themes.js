@@ -5,7 +5,8 @@ import {
   grey900,
   blue900,
   green800,
-  red800
+  red800,
+  blueGrey900,
 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
@@ -39,6 +40,11 @@ export const muiTheme = getMuiTheme({
     textAlign: "center"
   },
   avatar: {
-    size: "30dp"
-  }
+    size: "30dp",
+    backgroundColor: blue900,
+    color: grey400
+  },
+  ripple: {
+    color: blueGrey900,
+  },
 });

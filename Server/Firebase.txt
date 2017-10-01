@@ -1,0 +1,14 @@
+
+<script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBAXh9z5HeVgdGULLpfwsf2HamEGAg7NIo",
+    authDomain: "housemoney-83ab9.firebaseapp.com",
+    databaseURL: "https://housemoney-83ab9.firebaseio.com",
+    projectId: "housemoney-83ab9",
+    storageBucket: "",
+    messagingSenderId: "642298131681"
+  };
+  firebase.initializeApp(config);
+</script>

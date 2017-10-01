@@ -11,7 +11,7 @@ Upgrade message (e.g. for Patch notes and website maintenence screen)
 purge store when logout?
 Confirm password for Register!
 set max length on fields to match API
-Create backup plan and use windows auth for EDLAPTOPPROD see BackupPlan.txt
+EDLAPTOPPROD Backups - make script pick up from repo - use MyHouse repo for script??
 
 Missing Error Messages: 
 sign up - EMAILADDRESS already exists
