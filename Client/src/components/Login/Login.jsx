@@ -34,7 +34,6 @@ class Login extends Component {
     this.setState({ loading: true });
     dispatch(loginUser(LOGIN))
       .then(() => {
-        this.setState({ loading: false });
         history.push("/Balance");
       })
       .catch(error => {
