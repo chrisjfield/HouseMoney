@@ -1,0 +1,11 @@
+{
+    "extends": "tslint-config-airbnb",
+    "rules": {
+      "max-line-length": [true, 140], // Because we dont work in consoles, splitting somtimes makes its harder to read the code, should be down to the dev to decide when to split over multiple lines (within reason, hence 140 limit)
+      "ter-indent": "4", // Because 2 spaces is not enough to quickly visualise nested code
+      "import-name": false, // Because we are using a module/index.js that exports module/Component pattern, this rule shouldnt apply as its looking at folder names and not file names and throwing a lint error
+      "function-name": false, // Because react components should start with a capital
+      "variable-name": false // Because react components should start with a capital
+      //"align": [true, "parameters", "statements"]
+    }
+  }

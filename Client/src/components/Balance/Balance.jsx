@@ -20,7 +20,12 @@ class Balance extends Component {
         width: "350px",
         textAlign: "center",
         display: "inline-block"
-      }
+      }, 
+      balance: {
+        positiveColor: green800,
+        negativeColor: red800,
+        neutralColor: grey400,
+      },
     };
 
     this.state = {
