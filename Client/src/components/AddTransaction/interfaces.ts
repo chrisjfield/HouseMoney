@@ -1,22 +1,30 @@
 import { Dispatch } from 'redux';
+import { UserObject } from '../../interfaces/userInterfaces';
+    
 
 export interface AddTransationProps {
     dispatch: Dispatch<{}>;
     history: any;
+    loggedInUser: UserObject;
 }
 
 export interface AddTransationState {
     userListReturned: boolean;
-    userList: object;
+    userList: AddTransactionUser[];
     addTransaction: addTransactionDetails;
     transactionAdded: boolean;
     transactionAdding: boolean;
     allChecked: boolean;
     error: string;
+    currentDate: Date;
 }
 
 export interface addTransactionDetails {
     GROSS: number|string;
     DATE: Date;
     REFERENCE: string;
+}
+
+export interface AddTransactionUser extends UserObject {
+    checked: boolean;
 }

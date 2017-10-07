@@ -15,3 +15,5 @@ convert to typescript
 
 V3 Bugs:
 Console error on logout
+
+type store

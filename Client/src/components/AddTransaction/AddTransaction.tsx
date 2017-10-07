@@ -14,8 +14,8 @@ import * as update from 'react-addons-update';
 import * as moment from 'moment';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
-import { AddTransationProps, AddTransationState } from './interfaces';
-import { userObject } from '../../interfaces/userInterfaces';
+import { AddTransationProps, AddTransationState, AddTransactionUser } from './interfaces';
+import { inputChangeEvent } from '../../interfaces/inputInterfaces';
 
 class AddTransaction extends React.Component<AddTransationProps, AddTransationState> {
     constructor(props: AddTransationProps) {
@@ -46,15 +46,15 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         //         display: 'inline-block',
         //     },
         // };
-        // this.currentDate: Date = new Date();
         this.state = {
             userListReturned: false,
-            userList: {},
+            userList: [],
             addTransaction: { GROSS: '', DATE: new Date(), REFERENCE: '' },
             transactionAdded: false,
             transactionAdding: false,
             allChecked: false,
             error: null,
+            currentDate: new Date(),
         };
     }
 
@@ -68,7 +68,7 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         return request.then(json => this.initialiseState(json));
     }
 
-    public initialiseState = (userList: userObject[]) => {
+    public initialiseState = (userList: AddTransactionUser[]) => {
         userList.map(this.addChecking);
         this.setState({
             userList,
@@ -76,96 +76,93 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         });
     }
 
-    addChecking = (userListItem: userObject) => {
+    addChecking = (userListItem: AddTransactionUser) => {
         Object.assign(userListItem, { checked: false });
     }
 
     updateCheck = (key: number) => {
-        const checkbox = this.state.userList.findIndex((user: userObject) => user.userId === key);
-        let checkedUser = JSON.stringify(this.state.userList);
-        checkedUser = JSON.parse(checkedUser);
+        const checkbox = this.state.userList.findIndex((user: AddTransactionUser) => user.userId === key.toString());
+        const checkedUser: AddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
         checkedUser[checkbox].checked = !checkedUser[checkbox].checked;
         this.setState({ userList: checkedUser });
     }
 
     updateCheckAll = () => {
-        let checkedUser = JSON.stringify(this.state.userList);
-        checkedUser = JSON.parse(checkedUser);
+        const checkedUser: AddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
         checkedUser
         .filter(
             userListElement =>
-                userListElement.userId !== this.props.loggedInUser.userId
+                userListElement.userId !== this.props.loggedInUser.userId,
         )
         .forEach(function (entry) {
             entry.checked = !this.state.allChecked;
-        },             this);
+        },       this);
         this.setState({
             allChecked: !this.state.allChecked,
-            userList: checkedUser
-    });
+            userList: checkedUser,
+        });
     }
 
     handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLInputElement>) => {
         formSubmitEvent.preventDefault();
         const debtors = this.state.userList.filter(item => item.checked === true);
         if (debtors.length === 0) {
-        this.props.dispatch(addError('Please add debtors'));
-    } else {
+            this.props.dispatch(addError('Please add debtors'));
+        } else {
             const participants = math.add(debtors.length, 1);
-            const value = this.state.addTransaction.GROSS,
+            const value = this.state.addTransaction.GROSS;
             const dividedGross = math
                 .chain(value)
                 .divide(participants)
                 .round(2)
                 .done();
             const date = moment(this.state.addTransaction.DATE).format('YYYY MM DD');
-            const payday = debtors.map(element => {
+            const payday = debtors.map((element) => {
                 const transaction = {
                     DEBTOR: element.userId,
                     CREDITOR: this.props.loggedInUser.userId,
                     GROSS: dividedGross,
                     REFERENCE: this.state.addTransaction.REFERENCE,
-                    DATE: date
+                    DATE: date,
                 };
                 return transaction;
-            }, this);
+            },                         this);
 
             APIHelper.apiCall('POST', 'Transactions/AddTransactionsBulk', payday)
-            .then(
-              this.setState({
-                      transactionAdded: true,
-                      addTransaction: {
-                      GROSS: '',
-                      DATE: this.currentDate,
-                      REFERENCE: ''
-                  },
-                      allChecked: false
-              })
-            )
-            .then(this.initialiseState(this.state.userList));
+            .then(() => {
+                this.setState({
+                    transactionAdded: true,
+                    addTransaction: {
+                        GROSS: '',
+                        DATE: this.state.currentDate,
+                        REFERENCE: '' },
+                    allChecked: false,
+                });
+            })
+            .then(() => this.initialiseState(this.state.userList));
         }
-        }
+    }
 
-    createCheckbox = userList => {
-            const checkbox = (
-        <ListItem
-            key={'ListItem_' + userList.email}
-            onClick={this.updateCheck.bind(this, userList.email)}
-        >
-            <Checkbox
-                key={'Checkbox_' + userList.email}
-                label={<UserChip user={userList} styles={this.styles.userChip} />}
-                checked={
-                    this.state.userList.find(thing => thing.email === userList.email)
-                        .checked
-                }
-                style={this.styles.checkbox}
-                iconStyle={this.styles.checkboxIcon}
-                onCheck={this.updateCheck.bind(this, userList.userId)}
-                disabled={this.state.transactionAdding}
-            />
-        </ListItem>
-    );
+    createCheckbox (userList: AddTransactionUser[]): JSX.Element {
+        const checkbox: JSX.Element = (
+            <ListItem
+                key={'ListItem_' + userList.email}
+                onClick={this.updateCheck.bind(this, userList.email)}
+            >
+                <Checkbox
+                    key={'Checkbox_' + userList.email}
+                    label={<UserChip user={userList} styles={this.styles.userChip} />}
+                    checked={
+                        this.state.userList.find(thing => thing.email === userList.email)
+                            .checked
+                    }
+                    style={this.styles.checkbox}
+                    iconStyle={this.styles.checkboxIcon}
+                    onCheck={this.updateCheck.bind(this, userList.userId)}
+                    disabled={this.state.transactionAdding}
+                />
+            </ListItem>
+        );
         return checkbox;
     }
 
@@ -173,37 +170,37 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         const checkboxList = this.state.userList
         .filter(
             userListElement =>
-                userListElement.userId !== this.props.loggedInUser.userId
+                userListElement.userId !== this.props.loggedInUser.userId,
         )
-        .map(this.createCheckbox);
-            return checkboxList;
-    };
+        .map(() => this.createCheckbox);
+        return checkboxList;
+    }
 
-    handleInputChange = event => {
-            this.updateAddTransaction(event.target.name, event.target.value);
-    };
+    handleInputChange = (event: inputChangeEvent<string | number>) => {
+        this.updateAddTransaction(event.target.name, event.target.value);
+    }
 
-    handleDateChange = date => {
-            this.updateAddTransaction('DATE', date);
-    };
+    handleDateChange = (date: string) => {
+        this.updateAddTransaction('DATE', date);
+    }
 
-    updateAddTransaction = (name, value) => {
-            const newState = update(this.state, {
-                    addTransaction: {
-            $merge: { [name]: value }
-        }
-            });
-            this.setState(newState);
-    };
+    updateAddTransaction = (name: string, value: string | number) => {
+        const newState = update(this.state, {
+            addTransaction: {
+                $merge: { [name]: value },
+            },
+        });
+        this.setState(newState);
+    }
 
     handleTransactionAddedClose = () => {
-            this.setState({
-                    transactionAdded: false
-            });
-    };
+        this.setState({
+            transactionAdded: false,
+        });
+    }
 
     render() {
-            return (
+        return (
         <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
             <h2>Add a Transaction </h2>
             <h3> Divided between {this.props.loggedInUser.displayName}, and: </h3>
@@ -212,8 +209,8 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
                     <Paper style={this.styles.checkBoxListSheet}>
                         <ListItem key={'ListItem_checkAll'} onClick={this.updateCheckAll}>
                             <Checkbox
-                                key='checkAll'
-                                label='Everyone'
+                                key="checkAll"
+                                label="Everyone"
                                 checked={this.state.allChecked}
                                 onCheck={this.updateCheckAll}
                                 style={this.styles.checkAll}
@@ -229,10 +226,10 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
             </div>
             <div>
                 <TextField
-                    name='GROSS'
-                    type='number'
-                    hintText='0.00'
-                    floatingLabelText='Value'
+                    name="GROSS"
+                    type="number"
+                    hintText="0.00"
+                    floatingLabelText="Value"
                     required
                     value={this.state.addTransaction.GROSS}
                     onChange={this.handleInputChange}
@@ -241,51 +238,51 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
             </div>
             <div>
                 <DatePicker
-                    name='DATE'
-                    floatingLabelText='Date'
+                    name="DATE"
+                    floatingLabelText="Date"
                     autoOk={true}
-                    container='inline'
+                    container="inline"
                     style={{ display: 'inline-block' }}
                     defaultDate={this.currentDate}
                     required
                     value={this.state.addTransaction.DATE}
                     onChange={(event, dateObj) => {
-                            this.handleDateChange(dateObj);
+                        this.handleDateChange(dateObj);
                     }}
                     disabled={this.state.transactionAdding}
                 />
             </div>
             <div>
                 <TextField
-                    name='REFERENCE'
-                    type='text'
-                    hintText='Weekly Shop'
-                    floatingLabelText='Reference'
+                    name="REFERENCE"
+                    type="text"
+                    hintText="Weekly Shop"
+                    floatingLabelText="Reference"
                     value={this.state.addTransaction.REFERENCE}
                     onChange={this.handleInputChange}
                     disabled={this.state.transactionAdding}
-                    maxLength='200'
+                    maxLength="200"
                 />
             </div>
             <FlatButton
-                type='submit'
-                label='Add'
+                type="submit"
+                label="Add"
                 disabled={this.state.transactionAdding}
             />
             <Snackbar
                 open={this.state.transactionAdded}
-                message='Transaction added'
+                message="Transaction added"
                 autoHideDuration={4000}
                 onRequestClose={this.handleTransactionAddedClose}
             />
-            </form>
-                );
-        }
+        </form>
+        );
+    }
 }
 
 // Retrieve data from store as props
-const mapStateToProps = store => {
-        return { loggedInUser: store.navReducer.loggedInUser };
+const mapStateToProps = (store: any) => {
+    return { loggedInUser: store.navReducer.loggedInUser };
 };
 
 export default connect(mapStateToProps)(AddTransaction);
