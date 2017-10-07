@@ -84,18 +84,20 @@ class Login extends Component {
           {this.state.loading ? (
             <CircularProgress />
           ) : (
-            <FlatButton type="submit" label="Login" />
+            <FlatButton type="submit" label="Sign In" />
           )}
         </div>
         <br />
-        <br />
-        <br />
-        <div> New to hApps?</div>
-        <FlatButton
-          secondary={true}
-          label="Sign Up"
-          onClick={() => this.props.history.push("/Register")}
-        />
+        <div>
+          <span> New to hApps? </span>{" "}
+          <span>
+            <FlatButton
+              secondary={true}
+              label="Sign Up"
+              onClick={() => this.props.history.push("/Register")}
+            />
+          </span>
+        </div>
       </form>
     );
   }

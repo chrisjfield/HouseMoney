@@ -64,7 +64,16 @@ class Register extends Component {
   render() {
     return (
       <form style={this.styles.container} onSubmit={this.handleAddUser}>
-        <h2>Register</h2>
+        <h2>Create Account</h2>
+        <div>
+          Already have an hApps account?
+          <FlatButton
+            secondary={true}
+            label="Sign In"
+            onClick={() => this.props.history.push("/Login")}
+          />
+        </div>
+
         <div>
           <TextField
             name="displayName"

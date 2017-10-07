@@ -10,3 +10,7 @@ Build sets correct app config
 Possible improvements:
 Offline loading with service worker
 Server side rendering for instant load
+
+
+V3 Bugs:
+Console error on logout

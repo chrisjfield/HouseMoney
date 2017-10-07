@@ -44,8 +44,7 @@ function loginSuccessful(response) {
 function loginFailure(error) {
   return {
     type: ADD_ERROR,
-    payload: error.message,
-    isLoggedIn: false
+    payload: error.message
   };
 }
 

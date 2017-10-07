@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import receiveUser from "./navActions";
+import { logout } from "./navActions";
 import { Toolbar, ToolbarGroup, ToolbarTitle } from "material-ui/Toolbar";
 import IconButton from "material-ui/IconButton";
 import AddButton from "material-ui/svg-icons/content/add";
@@ -34,17 +34,18 @@ class Nav extends Component {
     };
   }
 
-  handleLogout = () => {
-    const { dispatch } = this.props;
-    dispatch(receiveUser({}, false));
-    history.push("/Login");
+  handleLogOut = () => {
+    this.props
+      .dispatch(logout())
+      .then(history.push("/Login"))
+      .catch(error => {});
   };
 
   getLoggedOutMenuOptions = () => {
     return (
       <div>
         <Link style={this.styles.menuItems} to="/Login">
-          <MenuItem>Login </MenuItem>
+          <MenuItem>Sign In </MenuItem>
         </Link>
 
         <Link style={this.styles.menuItems} to="/Register">
@@ -74,7 +75,7 @@ class Nav extends Component {
           <MenuItem>My Balance</MenuItem>
         </Link>
 
-        <a style={this.styles.menuItems} onClick={this.handleLogout}>
+        <a style={this.styles.menuItems} onClick={() => this.handleLogOut()}>
           <MenuItem>Logout</MenuItem>
         </a>
       </div>

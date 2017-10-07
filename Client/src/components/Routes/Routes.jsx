@@ -43,11 +43,7 @@ class Routes extends Component {
   }
 
   render() {
-    return (
-      <Route>
-        {this.getRoutes()}
-      </Route>
-    );
+    return <Route>{this.getRoutes()}</Route>;
   }
 }
 
