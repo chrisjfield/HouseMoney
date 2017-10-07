@@ -12,6 +12,7 @@ purge store when logout?
 Confirm password for Register!
 set max length on fields to match API
 EDLAPTOPPROD Backups - make script pick up from repo - use MyHouse repo for script??
+set up static API for dev
 
 Missing Error Messages: 
 sign up - EMAILADDRESS already exists
