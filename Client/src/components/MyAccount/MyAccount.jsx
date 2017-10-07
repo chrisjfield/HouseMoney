@@ -12,10 +12,9 @@ class MyAccount extends Component {
     super(props);
     this.state = {
       userUpdate: {
-        CURRENTUSER: this.props.loggedInUser.EMAILADDRESS,
-        EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS,
-        FIRSTNAME: this.props.loggedInUser.FIRSTNAME,
-        SURNAME: this.props.loggedInUser.SURNAME
+        currentUser: this.props.loggedInUser.userId,
+        email: this.props.loggedInUser.email,
+        displayName: this.props.displayName
       },
       userEditing: false,
       userEdited: false,
@@ -52,7 +51,7 @@ class MyAccount extends Component {
   handleDeleteUser = event => {
     event.preventDefault();
     const { dispatch, history } = this.props,
-      emailAddresss = this.state.userUpdate.EMAILADDRESS;
+      emailAddresss = this.state.userUpdate.email;
     dispatch(deleteUser(emailAddresss))
       .then(() => history.push("/Login"))
       .catch(error => this.setState({ error: error, userDeleting: false }));
@@ -97,7 +96,7 @@ class MyAccount extends Component {
           <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
             <div>
               <TextField
-                name="EMAILADDRESS"
+                name="email"
                 hintText="email@example.com"
                 floatingLabelText="Email Address"
                 defaultValue={this.state.userUpdate.CURRENTUSER}

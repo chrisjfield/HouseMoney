@@ -1,7 +1,7 @@
 import { RECEIVE_USER } from "../Nav/navActions";
 
 const navReducer = (
-  state = { isLoggedIn: false, loggedInUser: { EMAILADDRESS: "" } },
+  state = { isLoggedIn: false, loggedInUser: { email: "" } },
   action
 ) => {
   switch (action.type) {

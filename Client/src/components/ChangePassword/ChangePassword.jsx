@@ -12,7 +12,7 @@ class ChangePassword extends Component {
     super(props);
     this.state = {
       passwordUpdate: {
-        EMAILADDRESS: "",
+        email: "",
         CURRENTPASSWORD: "",
         NEWPASSWORD: "",
         NEWPASSWORDCONFIRM: ""
@@ -31,7 +31,7 @@ class ChangePassword extends Component {
   componentWillMount() {
     const newState = update(this.state, {
       passwordUpdate: {
-        $merge: { EMAILADDRESS: this.props.loggedInUser.EMAILADDRESS }
+        $merge: { userId: this.props.loggedInUser.userId }
       }
     });
     this.setState(newState);

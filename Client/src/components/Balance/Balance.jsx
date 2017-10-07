@@ -43,7 +43,7 @@ class Balance extends Component {
 
   createBalance = balance => {
     const debt = math.round(balance.TOTAL, 2),
-      debtor = { EMAILADDRESS: balance.OTHERS };
+      debtor = { email: balance.OTHERS };
     let colorToSet;
 
     if (debt < 0) {
@@ -55,30 +55,30 @@ class Balance extends Component {
     }
 
     const balanceItem = (
-        <ListItem
-          key={"Debt_" + debtor.EMAILADDRESS}
-          style={{
-            color: colorToSet,
-            cursor: "auto",
-            width: "auto",
-            overflow: "hidden"
-          }}
-          leftAvatar={
-            <Avatar
-              key={"Avatar_" + debtor.EMAILADDRESS}
-              style={{ backgroundColor: colorToSet }}
-            >
-              {debtor.EMAILADDRESS.charAt(0).toUpperCase()}
-            </Avatar>
-          }
-          primaryText={debtor.EMAILADDRESS + ": £" + math.abs(debt).toFixed(2)}
-        />
+      <ListItem
+        key={"Debt_" + debtor.displayName}
+        style={{
+          color: colorToSet,
+          cursor: "auto",
+          width: "auto",
+          overflow: "hidden"
+        }}
+        leftAvatar={
+          <Avatar
+            key={"Avatar_" + debtor.displayName}
+            style={{ backgroundColor: colorToSet }}
+          >
+            {debtor.displayName.charAt(0).toUpperCase()}
+          </Avatar>
+        }
+        primaryText={debtor.displayName + ": £" + math.abs(debt).toFixed(2)}
+      />
     );
     return balanceItem;
   };
 
   createBalanceList = () => {
-    const me = this.props.loggedInUser.EMAILADDRESS,
+    const me = this.props.loggedInUser.userId,
       balanceList = this.state.balance
         .filter(
           balanceItem => balanceItem.USER === me && balanceItem.OTHERS !== me
@@ -93,11 +93,11 @@ class Balance extends Component {
         <div>
           <h2>My Balance</h2>
           <Paper style={this.styles.balanceSheet}>
-            {this.state.balanceReturned
-              ? <List>
-                  {this.createBalanceList()}
-                </List>
-              : <CircularProgress />}
+            {this.state.balanceReturned ? (
+              <List>{this.createBalanceList()}</List>
+            ) : (
+              <CircularProgress />
+            )}
           </Paper>
         </div>
       </form>

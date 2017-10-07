@@ -6,7 +6,7 @@ import {
   blue900,
   green800,
   red800,
-  blueGrey900,
+  blueGrey900
 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
@@ -45,6 +45,6 @@ export const muiTheme = getMuiTheme({
     color: grey400
   },
   ripple: {
-    color: blueGrey900,
-  },
+    color: blueGrey900
+  }
 });

@@ -57,7 +57,7 @@ class AddTransaction extends Component {
   }
 
   componentWillMount = () => {
-    this.getUserList();
+    //this.getUserList();
   };
 
   getUserList = () => {
@@ -79,9 +79,7 @@ class AddTransaction extends Component {
   };
 
   updateCheck = key => {
-    let checkbox = this.state.userList.findIndex(
-      user => user.EMAILADDRESS === key
-    );
+    let checkbox = this.state.userList.findIndex(user => user.userId === key);
     let checkedUser = JSON.stringify(this.state.userList);
     checkedUser = JSON.parse(checkedUser);
     checkedUser[checkbox].checked = !checkedUser[checkbox].checked;
@@ -94,7 +92,7 @@ class AddTransaction extends Component {
     checkedUser
       .filter(
         userListElement =>
-          userListElement.EMAILADDRESS !== this.props.loggedInUser.EMAILADDRESS
+          userListElement.userId !== this.props.loggedInUser.userId
       )
       .forEach(function(entry) {
         entry.checked = !this.state.allChecked;
@@ -113,12 +111,16 @@ class AddTransaction extends Component {
     } else {
       const participants = math.add(debtors.length, 1),
         value = this.state.addTransaction.GROSS,
-        dividedGross = math.chain(value).divide(participants).round(2).done(),
+        dividedGross = math
+          .chain(value)
+          .divide(participants)
+          .round(2)
+          .done(),
         date = moment(this.state.addTransaction.DATE).format("YYYY MM DD"),
         payday = debtors.map(element => {
           const transaction = {
-            DEBTOR: element.EMAILADDRESS,
-            CREDITOR: this.props.loggedInUser.EMAILADDRESS,
+            DEBTOR: element.userId,
+            CREDITOR: this.props.loggedInUser.userId,
             GROSS: dividedGross,
             REFERENCE: this.state.addTransaction.REFERENCE,
             DATE: date
@@ -145,20 +147,19 @@ class AddTransaction extends Component {
   createCheckbox = userList => {
     const checkbox = (
       <ListItem
-        key={"ListItem_" + userList.EMAILADDRESS}
-        onClick={this.updateCheck.bind(this, userList.EMAILADDRESS)}
+        key={"ListItem_" + userList.email}
+        onClick={this.updateCheck.bind(this, userList.email)}
       >
         <Checkbox
-          key={"Checkbox_" + userList.EMAILADDRESS}
+          key={"Checkbox_" + userList.email}
           label={<UserChip user={userList} styles={this.styles.userChip} />}
           checked={
-            this.state.userList.find(
-              thing => thing.EMAILADDRESS === userList.EMAILADDRESS
-            ).checked
+            this.state.userList.find(thing => thing.email === userList.email)
+              .checked
           }
           style={this.styles.checkbox}
           iconStyle={this.styles.checkboxIcon}
-          onCheck={this.updateCheck.bind(this, userList.EMAILADDRESS)}
+          onCheck={this.updateCheck.bind(this, userList.userId)}
           disabled={this.state.transactionAdding}
         />
       </ListItem>
@@ -170,7 +171,7 @@ class AddTransaction extends Component {
     const checkboxList = this.state.userList
       .filter(
         userListElement =>
-          userListElement.EMAILADDRESS !== this.props.loggedInUser.EMAILADDRESS
+          userListElement.userId !== this.props.loggedInUser.userId
       )
       .map(this.createCheckbox);
     return checkboxList;
@@ -203,9 +204,7 @@ class AddTransaction extends Component {
     return (
       <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
         <h2>Add a Transaction </h2>
-        <h3>
-          {" "}Divided between {this.props.loggedInUser.EMAILADDRESS}, and:{" "}
-        </h3>
+        <h3> Divided between {this.props.loggedInUser.displayName}, and: </h3>
         <div>
           <List>
             <Paper style={this.styles.checkBoxListSheet}>
@@ -218,9 +217,11 @@ class AddTransaction extends Component {
                   style={this.styles.checkAll}
                 />
               </ListItem>
-              {this.state.userListReturned
-                ? this.createCheckboxList()
-                : <CircularProgress />}
+              {this.state.userListReturned ? (
+                this.createCheckboxList()
+              ) : (
+                <CircularProgress />
+              )}
             </Paper>
           </List>
         </div>

@@ -6,11 +6,11 @@ class UserChip extends Component {
   render() {
     const user = this.props.user;
     return (
-      <Chip key={"Chip_" + user.EMAILADDRESS} style={this.props.styles}>
-        <Avatar key={"Avatar_" + user.EMAILADDRESS}>
-          {user.EMAILADDRESS.charAt(0).toUpperCase()}
+      <Chip key={"Chip_" + user.email} style={this.props.styles}>
+        <Avatar key={"Avatar_" + user.email}>
+          {user.email.charAt(0).toUpperCase()}
         </Avatar>
-        {user.EMAILADDRESS}
+        {user.email}
       </Chip>
     );
   }

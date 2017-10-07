@@ -10,8 +10,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      EMAILADDRESS: "",
-      PASSWORD: "",
+      email: "",
+      password: "",
       error: {},
       loading: false
     };
@@ -27,12 +27,12 @@ class Login extends Component {
   handleLogin = event => {
     event.preventDefault();
     const { dispatch, history } = this.props,
-      LOGIN = {
-        EMAILADDRESS: this.state.EMAILADDRESS,
-        PASSWORD: this.state.PASSWORD
+      login = {
+        email: this.state.email,
+        password: this.state.password
       };
     this.setState({ loading: true });
-    dispatch(loginUser(LOGIN))
+    dispatch(loginUser(login))
       .then(() => {
         history.push("/Balance");
       })
@@ -57,7 +57,7 @@ class Login extends Component {
         <h2>Welcome</h2>
         <div>
           <TextField
-            name="EMAILADDRESS"
+            name="email"
             type="text"
             hintText="example@email.com"
             floatingLabelText="Email Address"
@@ -69,7 +69,7 @@ class Login extends Component {
         </div>
         <div>
           <TextField
-            name="PASSWORD"
+            name="password"
             type="password"
             hintText="**********"
             floatingLabelText="Password"
@@ -81,10 +81,21 @@ class Login extends Component {
           />
         </div>
         <div>
-          {this.state.loading
-            ? <CircularProgress />
-            : <FlatButton type="submit" label="Login" />}
+          {this.state.loading ? (
+            <CircularProgress />
+          ) : (
+            <FlatButton type="submit" label="Login" />
+          )}
         </div>
+        <br />
+        <br />
+        <br />
+        <div> New to hApps?</div>
+        <FlatButton
+          secondary={true}
+          label="Sign Up"
+          onClick={() => this.props.history.push("/Register")}
+        />
       </form>
     );
   }
@@ -92,10 +103,10 @@ class Login extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  const { USER } = store;
+  const { user } = store;
 
   return {
-    USER,
+    user,
     loggingIn: store.loginReducer.loading
   };
 };

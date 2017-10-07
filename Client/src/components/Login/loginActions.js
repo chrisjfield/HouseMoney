@@ -1,17 +1,12 @@
-import apiCall from "../../helpers/apiHelper";
+import auth from "../../helpers/firebase";
 import { RECEIVE_USER } from "../Nav/navActions";
 import { ADD_ERROR } from "../ErrorMessage/errorMessageActions";
 
 export const LOGIN_STARTED = "LOGIN_STARTED";
 export const LOGIN_COMPLETED = "LOGIN_COMPLETED";
 
-export function loginUser(LOGIN) {
-  const request = apiCall(
-    "GET",
-    "Users/GetSingleUser",
-    null,
-    `emailAddress=${LOGIN.EMAILADDRESS}&password=${LOGIN.PASSWORD}`
-  );
+export function loginUser(login) {
+  const request = auth.signInWithEmailAndPassword(login.email, login.password);
 
   return dispatch => {
     dispatch(loginStarted());
@@ -38,9 +33,9 @@ function loginSuccessful(response) {
   return {
     type: RECEIVE_USER,
     payload: {
-      EMAILADDRESS: response.EMAILADDRESS,
-      FIRSTNAME: response.FIRSTNAME,
-      SURNAME: response.SURNAME
+      email: response.email,
+      displayName: response.displayName,
+      userId: response.uid
     },
     isLoggedIn: true
   };

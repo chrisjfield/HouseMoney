@@ -27,7 +27,7 @@ class HouseSummary extends Component {
       container: {
         textAlign: "center",
         marginTop: "20px",
-        className: "containerfluid",
+        className: "containerfluid"
       },
       gridContainer: {
         overflow: "auto"
@@ -73,10 +73,10 @@ class HouseSummary extends Component {
   createColumn = userData => {
     const column = (
       <TableHeaderColumn
-        key={"Column" + userData.EMAILADDRESS}
+        key={"Column" + userData.email}
         style={this.styles.gridHeader}
       >
-        {userData.EMAILADDRESS ? userData.EMAILADDRESS + " owes" : null}
+        {userData.email ? userData.email + " owes" : null}
       </TableHeaderColumn>
     );
 
@@ -97,13 +97,13 @@ class HouseSummary extends Component {
 
   createRow = userData => {
     const rowsData = this.state.gridData.filter(
-      gridElement => gridElement.USER === userData.EMAILADDRESS
+      gridElement => gridElement.USER === userData.email
     );
     const tableRowData = rowsData.map(this.createRowData);
     return (
-      <TableRow key={"Row" + userData.EMAILADDRESS}>
+      <TableRow key={"Row" + userData.email}>
         <TableRowColumn key={tableRowData.USER} style={this.styles.gridHeader}>
-          {userData.EMAILADDRESS}
+          {userData.email}
         </TableRowColumn>
         {tableRowData}
       </TableRow>
@@ -119,15 +119,15 @@ class HouseSummary extends Component {
 
   createGrid = () => {
     const dataGrid = (
-      <Table selectable={false} style={this.styles.grid} bodyStyle={{overflow:'visible'}}>
+      <Table
+        selectable={false}
+        style={this.styles.grid}
+        bodyStyle={{ overflow: "visible" }}
+      >
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableRow>
-            {this.createColumns()}
-          </TableRow>
+          <TableRow>{this.createColumns()}</TableRow>
         </TableHeader>
-        <TableBody displayRowCheckbox={false}>
-          {this.createRows()}
-        </TableBody>
+        <TableBody displayRowCheckbox={false}>{this.createRows()}</TableBody>
       </Table>
     );
 
@@ -146,9 +146,11 @@ class HouseSummary extends Component {
           <div className="row">
             <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
               <div id="houseSummaryGrid" className="grid" />
-              {this.state.gridDataReturned & this.state.userDataReturned
-                ? this.createGrid()
-                : <CircularProgress />}
+              {this.state.gridDataReturned & this.state.userDataReturned ? (
+                this.createGrid()
+              ) : (
+                <CircularProgress />
+              )}
             </div>
           </div>
         </div>

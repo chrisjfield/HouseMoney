@@ -73,11 +73,11 @@ class ViewTransactions extends Component {
   };
 
   getGridData = () => {
-    const emailAddress = this.props.loggedInUser.EMAILADDRESS,
+    const userId = this.props.loggedInUser.userId,
       request = apiCall(
         "GET",
-        "TransactionHistorySummaries/getUserTransactionHistory?emailAddress=" +
-          emailAddress +
+        "TransactionHistorySummaries/getUserTransactionHistory?userID=" +
+          userId +
           "&pageSize=" +
           this.state.pageSize +
           "&pageNumber=" +
@@ -133,9 +133,7 @@ class ViewTransactions extends Component {
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody displayRowCheckbox={false}>
-            {this.createRows()}
-          </TableBody>
+          <TableBody displayRowCheckbox={false}>{this.createRows()}</TableBody>
         </Table>
         <FlatButton
           key="Previous"
@@ -192,8 +190,9 @@ class ViewTransactions extends Component {
   noTransactionsFound = () => {
     const notFound = (
       <div>
-        {" "}No transactions found. <p /> Hint: you can click the plus button to
-        add transactions.{" "}
+        {" "}
+        No transactions found. <p /> Hint: you can click the plus button to add
+        transactions.{" "}
       </div>
     );
     return notFound;

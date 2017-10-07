@@ -1,25 +1,31 @@
-import apiCall from "../../helpers/apiHelper";
+import auth from "../../helpers/firebase";
 import { RECEIVE_USER } from "../Nav/navActions";
 import { ADD_ERROR } from "../ErrorMessage/errorMessageActions";
 
 export const REGISTER_STARTED = "REGISTER_STARTED";
 export const REGISTER_COMPLETED = "REGISTER_COMPLETED";
 
-export function registerUser(USER) {
-  const request = apiCall("POST", "Users/PostUser", USER);
+export function registerUser(user) {
+  const request = auth.createUserWithEmailAndPassword(
+    user.email,
+    user.password
+  );
 
   return dispatch => {
     dispatch(registerStarted());
-    return request
-      .then(response => {
-        dispatch(registerSuccessful(response));
-        dispatch(registerAttemptComplete());
-      })
-      .catch(error => {
-        dispatch(registerFailure(error));
-        dispatch(registerAttemptComplete());
-        throw error;
-      });
+    return request.then(response => {
+      return response
+        .updateProfile({ displayName: user.displayName })
+        .then(reponse => {
+          dispatch(registerSuccessful(response));
+          dispatch(registerAttemptComplete());
+        })
+        .catch(error => {
+          dispatch(registerFailure(error));
+          dispatch(registerAttemptComplete());
+          throw error;
+        });
+    });
   };
 }
 
@@ -33,9 +39,9 @@ function registerSuccessful(response) {
   return {
     type: RECEIVE_USER,
     payload: {
-      EMAILADDRESS: response.EMAILADDRESS,
-      FIRSTNAME: response.FIRSTNAME,
-      SURNAME: response.SURNAME
+      email: response.email,
+      displayName: response.displayName,
+      userId: response.uid
     },
     isLoggedIn: true
   };

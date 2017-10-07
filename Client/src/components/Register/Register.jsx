@@ -4,15 +4,16 @@ import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import CircularProgress from "material-ui/CircularProgress";
 import { registerUser } from "./registerActions";
+import { addError } from "../ErrorMessage/errorMessageActions";
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      FIRSTNAME: "",
-      SURNAME: "",
-      EMAILADDRESS: "",
-      PASSWORD: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      displayName: "",
       loading: false,
       error: null
     };
@@ -27,22 +28,27 @@ class Register extends Component {
 
   handleAddUser = event => {
     event.preventDefault();
-    const { dispatch, history } = this.props,
-      USER = {
-        FIRSTNAME: this.state.FIRSTNAME,
-        SURNAME: this.state.SURNAME,
-        EMAILADDRESS: this.state.EMAILADDRESS,
-        PASSWORD: this.state.PASSWORD
-      };
-    this.setState({ loading: true });
-    dispatch(registerUser(USER))
-      .then(() => {
-        this.setState({ loading: false });
-        history.push("/AddTransaction");
-      })
-      .catch(error => {
-        this.setState({ error: error, loading: false });
-      });
+    if (this.state.password === this.state.confirmPassword) {
+      const { dispatch, history } = this.props,
+        user = {
+          displayName: this.state.displayName,
+          email: this.state.email,
+          password: this.state.password
+        };
+      this.setState({ loading: true });
+      dispatch(registerUser(user))
+        .then(() => {
+          history.push("/AddTransaction");
+        })
+        .catch(error => {
+          this.setState({ error: error, loading: false });
+        });
+    } else {
+      //ED! This is lazy - make this better
+      this.props.dispatch(
+        addError("Your password does not match the confirmed password")
+      );
+    }
   };
 
   handleInputChange = event => {
@@ -61,9 +67,9 @@ class Register extends Component {
         <h2>Register</h2>
         <div>
           <TextField
-            name="FIRSTNAME"
+            name="displayName"
             hintText="My name"
-            floatingLabelText="First Name"
+            floatingLabelText="Display Name"
             required
             onChange={this.handleInputChange}
             disabled={this.state.loading}
@@ -72,17 +78,7 @@ class Register extends Component {
         </div>
         <div>
           <TextField
-            name="SURNAME"
-            hintText="My surname"
-            floatingLabelText="Last Name"
-            onChange={this.handleInputChange}
-            disabled={this.state.loading}
-            maxLength="100"
-          />
-        </div>
-        <div>
-          <TextField
-            name="EMAILADDRESS"
+            name="email"
             hintText="example@email.com"
             floatingLabelText="Email Address"
             required
@@ -93,7 +89,7 @@ class Register extends Component {
         </div>
         <div>
           <TextField
-            name="PASSWORD"
+            name="password"
             type="password"
             hintText="**********"
             floatingLabelText="Password"
@@ -104,9 +100,23 @@ class Register extends Component {
           />
         </div>
         <div>
-          {this.state.loading
-            ? <CircularProgress />
-            : <FlatButton type="submit" label="Sign Up" />}
+          <TextField
+            name="confirmPassword"
+            type="password"
+            hintText="**********"
+            floatingLabelText="Confirm Password"
+            required
+            onChange={this.handleInputChange}
+            disabled={this.state.loading}
+            maxLength="30"
+          />
+        </div>
+        <div>
+          {this.state.loading ? (
+            <CircularProgress />
+          ) : (
+            <FlatButton type="submit" label="Sign Up" />
+          )}
         </div>
       </form>
     );
@@ -115,10 +125,10 @@ class Register extends Component {
 
 // Retrieve data from store as props
 const mapStateToProps = store => {
-  const { USER } = store;
+  const { user } = store;
 
   return {
-    USER,
+    user,
     registering: store.registerReducer.loading
   };
 };

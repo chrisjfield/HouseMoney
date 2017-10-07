@@ -19,3 +19,6 @@ sign up - EMAILADDRESS already exists
 login - Invalid user name or password
 change password - confirm doesn't match
 internal server error when deleting user with transactions? 
+
+API changes for users: 
+/getUserTransactionHistory?userID=
