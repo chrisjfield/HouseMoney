@@ -1,11 +1,11 @@
 import { Dispatch } from 'redux';
     
-export interface ErrorMessageProps {
+export interface IErrorMessageProps {
     dispatch: Dispatch<{}>;
     history: any;
     errorMessageText: string;
 }
 
-export interface ErrorMessageState {
+export interface IErrorMessageState {
     errorMessageText: string;
 }

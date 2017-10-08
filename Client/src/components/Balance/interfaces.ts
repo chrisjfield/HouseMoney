@@ -1,18 +1,18 @@
 import { Dispatch } from 'redux';
 import { UserObject } from '../../interfaces/userInterfaces';
 
-export interface BalanceProps {
+export interface IBalanceProps {
     dispatch: Dispatch<{}>;
     history: any;
     loggedInUser: UserObject;
 }
 
-export interface BalanceState {
+export interface IBalanceState {
     balance: BalanceObject[];
     balanceReturned: false;
 }
 
-export interface BalanceObject {
+export interface IBalanceObject {
     USER: string;
     OTHERS: string;
     TOTAL: number;

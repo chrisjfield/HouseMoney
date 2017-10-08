@@ -1,3 +1,3 @@
-export interface CustomApiHeaders {
+export interface ICustomApiHeaders {
     'Content-Type': String;
 }

@@ -1,22 +1,15 @@
 import { Dispatch } from 'redux';
 import { UserObject } from '../../interfaces/userInterfaces';
     
-export interface LoginProps {
+export interface ILoginProps {
     dispatch: Dispatch<{}>;
     history: any;
     user: UserObject;
 }
 
-export interface LoginState {
+export interface ILoginState {
     email: string;
     password: string;
     error: Error;
     loading: boolean;
-}
-
-export interface UserResponseObject {
-    email: string;
-    password: string;
-    uid: string;
-    displayName: string;
 }

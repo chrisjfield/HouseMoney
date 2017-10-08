@@ -1,4 +1,4 @@
-export interface TransactionObject {
+export interface ITransactionObject {
     CREDITOR: string;
     DEBTOR: string;
     GROSS: number;

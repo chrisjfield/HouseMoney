@@ -2,17 +2,17 @@ import { RECEIVE_USER } from '../Nav/navActions';
 
 const navReducer = (
   state = { isLoggedIn: false, loggedInUser: { email: '' } },
-  action
+  action: any,
 ) => {
-  switch (action.type) {
+    switch (action.type) {
     case RECEIVE_USER:
-      return Object.assign({}, state, {
-        loggedInUser: action.payload,
-        isLoggedIn: action.isLoggedIn
-      });
+        return Object.assign({}, state, {
+            loggedInUser: action.payload,
+            isLoggedIn: action.isLoggedIn,
+        });
     default:
-      return state;
-  }
+        return state;
+    }
 };
 
 // Export Reducer

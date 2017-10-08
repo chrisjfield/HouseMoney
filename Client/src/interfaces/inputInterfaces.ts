@@ -1,3 +1,3 @@
-export interface InputChangeEvent<T> {
+export interface IInputChangeEvent<T> {
     target: { name: string, value: T };
 }

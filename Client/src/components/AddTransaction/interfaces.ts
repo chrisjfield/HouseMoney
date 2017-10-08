@@ -1,13 +1,13 @@
 import { Dispatch } from 'redux';
 import { UserObject } from '../../interfaces/userInterfaces';
 
-export interface AddTransationProps {
+export interface IAddTransationProps {
     dispatch: Dispatch<{}>;
     history: any;
     loggedInUser: UserObject;
 }
 
-export interface AddTransationState {
+export interface IAddTransationState {
     userListReturned: boolean;
     userList: AddTransactionUser[];
     addTransaction: AddTransactionDetails;
@@ -18,12 +18,12 @@ export interface AddTransationState {
     currentDate: Date;
 }
 
-export interface AddTransactionDetails { // ED! bring this into generic ones file
+export interface IAddTransactionDetails { // ED! bring this into generic ones file
     GROSS: number|string;
     DATE: Date;
     REFERENCE: string;
 }
 
-export interface AddTransactionUser extends UserObject {
+export interface IAddTransactionUser extends UserObject {
     checked: boolean;
 }
