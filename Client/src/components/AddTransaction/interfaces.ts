@@ -1,6 +1,5 @@
 import { Dispatch } from 'redux';
 import { UserObject } from '../../interfaces/userInterfaces';
-    
 
 export interface AddTransationProps {
     dispatch: Dispatch<{}>;
@@ -11,7 +10,7 @@ export interface AddTransationProps {
 export interface AddTransationState {
     userListReturned: boolean;
     userList: AddTransactionUser[];
-    addTransaction: addTransactionDetails;
+    addTransaction: AddTransactionDetails;
     transactionAdded: boolean;
     transactionAdding: boolean;
     allChecked: boolean;
@@ -19,7 +18,7 @@ export interface AddTransationState {
     currentDate: Date;
 }
 
-export interface addTransactionDetails {
+export interface AddTransactionDetails {
     GROSS: number|string;
     DATE: Date;
     REFERENCE: string;

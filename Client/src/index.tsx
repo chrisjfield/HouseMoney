@@ -25,12 +25,12 @@ injectTapEventPlugin();
 const domElement: HTMLElement = document.getElementById('root');
 
 ReactDOM.render((
-        <Provider store={store}>
-            <ConnectedRouter history={history}>
-                <MuiThemeProvider muiTheme={appTheme}>
-                    <App/>
-                </MuiThemeProvider>
-            </ConnectedRouter>
-        </Provider>
-),              domElement,
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <MuiThemeProvider muiTheme={appTheme}>
+                <App />
+            </MuiThemeProvider>
+        </ConnectedRouter>
+    </Provider>
+), domElement,
 );

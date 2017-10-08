@@ -1,9 +1,9 @@
-import { customApiHeaders } from '../interfaces/apiInterfaces';
+import { CustomApiHeaders } from '../interfaces/apiInterfaces';
 import baseURL from '../appConfig';
 
 class APIHelper {
     static apiCall(method: string, endpoint: string, body?: object, urlParams?: string) {
-        const customheaders: customApiHeaders = {
+        const customheaders: CustomApiHeaders = {
             'Content-Type': 'application/json;charset=UTF-8',
         };
         const headers: Headers = new Headers(customheaders);

@@ -6,11 +6,11 @@ import ErrorMessage from '../ErrorMessage';
 
 function App() {
     return (
-      <div>
-          <Nav/>
-          <Routes/>
-          <ErrorMessage/>
-      </div>
+        <div>
+            <Nav />
+            <Routes />
+            <ErrorMessage />
+        </div>
     );
 }
 

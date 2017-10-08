@@ -15,7 +15,7 @@ import * as moment from 'moment';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
 import { AddTransationProps, AddTransationState, AddTransactionUser } from './interfaces';
-import { inputChangeEvent } from '../../interfaces/inputInterfaces';
+import { InputChangeEvent } from '../../interfaces/inputInterfaces';
 
 class AddTransaction extends React.Component<AddTransationProps, AddTransationState> {
     constructor(props: AddTransationProps) {
@@ -176,7 +176,7 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         return checkboxList;
     }
 
-    handleInputChange = (event: inputChangeEvent<string | number>) => {
+    handleInputChange = (event: InputChangeEvent<string | number>) => {
         this.updateAddTransaction(event.target.name, event.target.value);
     }
 
