@@ -18,7 +18,7 @@ export interface AddTransationState {
     currentDate: Date;
 }
 
-export interface AddTransactionDetails {
+export interface AddTransactionDetails { // ED! bring this into generic ones file
     GROSS: number|string;
     DATE: Date;
     REFERENCE: string;

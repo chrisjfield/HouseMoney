@@ -1,6 +1,6 @@
 import { ADD_ERROR, REMOVE_ERROR } from './errorMessageActions';
 
-const errorMessageReducer = (state = { errorMessageText: null }, action) => {
+const errorMessageReducer = (state: any = { errorMessageText: null }, action: any) => {
     switch (action.type) {
     case ADD_ERROR:
         return Object.assign({}, state, {
