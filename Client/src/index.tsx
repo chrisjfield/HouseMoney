@@ -32,5 +32,5 @@ ReactDOM.render((
             </MuiThemeProvider>
         </ConnectedRouter>
     </Provider>
-), domElement,
+    ),          domElement,
 );

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import { RoutesProps, RoutesState } from './interfaces';
+import { IRoutesProps, IRoutesState } from './interfaces';
 
 import Login from '../Login';
 import Register from '../Register';
@@ -13,7 +13,7 @@ import HouseSummary from '../HouseSummary';
 import ChangePassword from '../ChangePassword';
 import NotFound404 from '../NotFound404';
 
-class Routes extends React.Component<RoutesProps, RoutesState> {
+class Routes extends React.Component<IRoutesProps, IRoutesState> {
     getRoutes() {
         const isLoggedIn = this.props.isLoggedIn;
         let routes;

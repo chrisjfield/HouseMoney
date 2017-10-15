@@ -3,14 +3,14 @@ export interface IUserDetailsObject {
     displayName: string;
 }
 
-export interface IUserObject extends UserDetailsObject {
+export interface IUserObject extends IUserDetailsObject {
     userId: string;
 }
 
-export interface IUserAuthenticationObject extends UserObject {
+export interface IUserAuthenticationObject extends IUserObject {
     password: string;
 }
 
-export interface IUserResponseObject extends UserDetailsObject {
+export interface IUserResponseObject extends IUserDetailsObject {
     uid: string;
 }

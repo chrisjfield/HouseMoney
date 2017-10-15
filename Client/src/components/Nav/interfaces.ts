@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux';
-import { UserObject } from '../../interfaces/userInterfaces';
+import { IUserObject } from '../../interfaces/userInterfaces';
     
 export interface INavProps {
     dispatch: Dispatch<{}>;
     history: any;
-    loggedInUser: UserObject;
+    loggedInUser: IUserObject;
     isLoggedIn: boolean;
 }
 

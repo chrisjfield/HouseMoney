@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux';
-import { UserObject } from '../../interfaces/userInterfaces';
+import { IUserObject } from '../../interfaces/userInterfaces';
     
 export interface ILoginProps {
     dispatch: Dispatch<{}>;
     history: any;
-    user: UserObject;
+    user: IUserObject;
 }
 
 export interface ILoginState {

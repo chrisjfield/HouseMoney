@@ -1,4 +1,4 @@
-import apiCall from '../../helpers/apiHelper';
+import APIHelper from '../../helpers/apiHelper';
 import { RECEIVE_USER } from '../Nav/navActions';
 import { ADD_ERROR } from '../ErrorMessage/errorMessageActions';
 
@@ -8,9 +8,9 @@ export const DELETE_USER_STARTED = 'EDIT_USER_STARTED';
 export const DELETE_USER_COMPLETED = 'EDIT_USER_COMPLETED';
 
 export function editUser(user) {
-  const request = apiCall('PUT', 'Users/UpdateUserDetails', user);
+  const request = APIHelper.apiCall('PUT', 'Users/UpdateUserDetails', user);
 
-  return dispatch => {
+  return (dispatch: Function)  => {
     dispatch(editUserStarted());
     return request
       .then(response => {
@@ -33,7 +33,7 @@ export function deleteUser(emailAddress) {
     'emailAddress=' + emailAddress
   );
 
-  return dispatch => {
+  return (dispatch: Function) => {
     dispatch(deleteUserStarted());
     return request
       .then(response => {

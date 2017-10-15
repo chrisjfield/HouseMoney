@@ -1,19 +1,19 @@
 import auth from '../../helpers/firebase';
 import { RECEIVE_USER } from '../Nav/navActions';
 import { ADD_ERROR } from '../ErrorMessage/errorMessageActions';
-import { UserAuthenticationObject } from '../../interfaces/userInterfaces';
-import { UserResponseObject } from './interfaces';
+import { IUserAuthenticationObject } from '../../interfaces/userInterfaces';
+import { IUserResponseObject } from './interfaces';
 
 export const LOGIN_STARTED = 'LOGIN_STARTED';
 export const LOGIN_COMPLETED = 'LOGIN_COMPLETED';
 
-export function loginUser(login: UserAuthenticationObject) {
+export function loginUser(login: IUserAuthenticationObject) {
     const request = auth.signInWithEmailAndPassword(login.email, login.password);
 
     return (dispatch: Function) => {
         dispatch(loginStarted());
         return request
-          .then((response: UserResponseObject) => {
+          .then((response: IUserResponseObject) => {
               dispatch(loginSuccessful(response));
               dispatch(loginAttemptComplete());
           })
@@ -31,7 +31,7 @@ function loginStarted() {
     };
 }
 
-function loginSuccessful(response: UserResponseObject) {
+function loginSuccessful(response: IUserResponseObject) {
     return {
         type: RECEIVE_USER,
         payload: {

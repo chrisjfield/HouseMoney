@@ -14,11 +14,11 @@ import * as update from 'react-addons-update';
 import * as moment from 'moment';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
-import { AddTransationProps, AddTransationState, AddTransactionUser } from './interfaces';
-import { InputChangeEvent } from '../../interfaces/inputInterfaces';
+import { IAddTransationProps, IAddTransationState, IAddTransactionUser } from './interfaces';
+import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
 
-class AddTransaction extends React.Component<AddTransationProps, AddTransationState> {
-    constructor(props: AddTransationProps) {
+class AddTransaction extends React.Component<IAddTransationProps, IAddTransationState> {
+    constructor(props: IAddTransationProps) {
         super(props);
         // this.styles = {
         //     container: {
@@ -68,7 +68,7 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         return request.then(json => this.initialiseState(json));
     }
 
-    public initialiseState = (userList: AddTransactionUser[]) => {
+    public initialiseState = (userList: IAddTransactionUser[]) => {
         userList.map(this.addChecking);
         this.setState({
             userList,
@@ -76,19 +76,19 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         });
     }
 
-    addChecking = (userListItem: AddTransactionUser) => {
+    addChecking = (userListItem: IAddTransactionUser) => {
         Object.assign(userListItem, { checked: false });
     }
 
     updateCheck = (key: number) => {
-        const checkbox = this.state.userList.findIndex((user: AddTransactionUser) => user.userId === key.toString());
-        const checkedUser: AddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
+        const checkbox = this.state.userList.findIndex((user: IAddTransactionUser) => user.userId === key.toString());
+        const checkedUser: IAddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
         checkedUser[checkbox].checked = !checkedUser[checkbox].checked;
         this.setState({ userList: checkedUser });
     }
 
     updateCheckAll = () => {
-        const checkedUser: AddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
+        const checkedUser: IAddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
         checkedUser
         .filter(
             userListElement =>
@@ -143,7 +143,7 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         }
     }
 
-    createCheckbox (userList: AddTransactionUser[]): JSX.Element {
+    createCheckbox (userList: IAddTransactionUser[]): JSX.Element {
         const checkbox: JSX.Element = (
             <ListItem
                 key={'ListItem_' + userList.email}
@@ -176,7 +176,7 @@ class AddTransaction extends React.Component<AddTransationProps, AddTransationSt
         return checkboxList;
     }
 
-    handleInputChange = (event: InputChangeEvent<string | number>) => {
+    handleInputChange = (event: IInputChangeEvent<string | number>) => {
         this.updateAddTransaction(event.target.name, event.target.value);
     }
 

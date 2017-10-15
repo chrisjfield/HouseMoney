@@ -11,11 +11,11 @@ import {
 import CircularProgress from 'material-ui/CircularProgress';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
-import { HouseSummaryProps, HouseSummaryState } from './interfaces';
-import { UserObject, TransactionSummaryObject } from '../../interfaces/userInterfaces';
+import { IHouseSummaryProps, IHouseSummaryState } from './interfaces';
+import { IUserObject, ITransactionSummaryObject } from '../../interfaces/userInterfaces';
 
-class HouseSummary extends React.Component<HouseSummaryProps, HouseSummaryState> {
-    constructor(props: HouseSummaryProps) {
+class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryState> {
+    constructor(props: IHouseSummaryProps) {
         super(props);
         this.state = {
             userDataReturned: false,
@@ -58,7 +58,7 @@ class HouseSummary extends React.Component<HouseSummaryProps, HouseSummaryState>
     getUserData = () => {
         const request = APIHelper.apiCall('GET', 'Users/GetUserInformation');
 
-        return request.then((json: UserObject[]) =>
+        return request.then((json: IUserObject[]) =>
           this.setState({ userData: json, userDataReturned: true }),
         );
     }
@@ -66,12 +66,12 @@ class HouseSummary extends React.Component<HouseSummaryProps, HouseSummaryState>
     getGridData = () => {
         const request = APIHelper.apiCall('GET', 'TransactionSummaries');
 
-        return request.then((json: TransactionSummaryObject[]) =>
+        return request.then((json: ITransactionSummaryObject[]) =>
           this.setState({ gridData: json, gridDataReturned: true }),
         );
     }
 
-    createColumn = (userData: UserObject) => {
+    createColumn = (userData: IUserObject) => {
         const column = (
             <TableHeaderColumn
               key={'Column' + userData.email}
@@ -84,7 +84,7 @@ class HouseSummary extends React.Component<HouseSummaryProps, HouseSummaryState>
         return column;
     }
 
-    createRowData = (tableRowData: TransactionSummaryObject) => {
+    createRowData = (tableRowData: ITransactionSummaryObject) => {
         const row = (
           <TableRowColumn
             key={'Data' + tableRowData.USER}
@@ -96,9 +96,9 @@ class HouseSummary extends React.Component<HouseSummaryProps, HouseSummaryState>
         return row;
     }
 
-    createRow = (userData: UserObject) => {
+    createRow = (userData: IUserObject) => {
         const rowsData = this.state.gridData.filter(
-          (gridElement: TransactionSummaryObject) => gridElement.USER === userData.email,
+          (gridElement: ITransactionSummaryObject) => gridElement.USER === userData.email,
         );
         const tableRowData = rowsData.map(this.createRowData);
         return (

@@ -1,16 +1,16 @@
 import * as React from 'react';
-import update from 'react-addons-update';
+import { update } from 'react-addons-update';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 import { editUser, deleteUser } from './myAccountActions';
-import { MyAccountProps, MyAccountState } from './interfaces';
-import { InputChangeEvent } from '../../interfaces/inputInterfaces';
+import { IMyAccountProps, IMyAccountState } from './interfaces';
+import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
 
-class MyAccount extends React.Component<MyAccountProps, MyAccountState> {
-    constructor(props: MyAccountProps) {
+class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
+    constructor(props: IMyAccountProps) {
         super(props);
         this.state = {
             userUpdate: {
@@ -39,7 +39,7 @@ class MyAccount extends React.Component<MyAccountProps, MyAccountState> {
         // };
     }
 
-    componentWillReceiveProps(nextProps: MyAccountProps) {
+    componentWillReceiveProps(nextProps: IMyAccountProps) {
         this.setState({ userEditing: nextProps.editing });
     }
 
@@ -59,7 +59,7 @@ class MyAccount extends React.Component<MyAccountProps, MyAccountState> {
           .catch((error: Error) => this.setState({ error, userDeleting: false }));
     }
 
-    handleInputChange = (event: InputChangeEvent<string>) => {
+    handleInputChange = (event: IInputChangeEvent<string>) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;

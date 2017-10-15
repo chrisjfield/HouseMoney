@@ -18,4 +18,6 @@ Console error on logout
 
 type store
 fix types on react jsx elements somehow??? 
+    -- try creating react app with -ts option! 
+    -- broke after npm install! Something in there is fucking us!
 sort out method of styling (don't just attach to the component's this)

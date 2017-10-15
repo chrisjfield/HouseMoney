@@ -4,11 +4,11 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import { loginUser } from './loginActions';
-import { LoginProps, LoginState } from './interfaces';
-import { InputChangeEvent } from '../../interfaces/inputInterfaces';
+import { ILoginProps, ILoginState } from './interfaces';
+import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
 
-class Login extends React.Component<LoginProps, LoginState> {
-    constructor(props: LoginProps) {
+class Login extends React.Component<ILoginProps, ILoginState> {
+    constructor(props: ILoginProps) {
         super(props);
         this.state = {
             email: '',
@@ -42,7 +42,7 @@ class Login extends React.Component<LoginProps, LoginState> {
           });
     }
 
-    handleInputChange = (event: InputChangeEvent<string>) => {
+    handleInputChange = (event: IInputChangeEvent<string>) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;

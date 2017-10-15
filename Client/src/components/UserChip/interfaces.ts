@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux';
-import { UserObject } from '../../interfaces/userInterfaces';
+import { IUserObject } from '../../interfaces/userInterfaces';
     
 export interface IUserChipProps {
     dispatch: Dispatch<{}>; // ED! These should be extended from another interface
     history: any;
-    user: UserObject;
+    user: IUserObject;
 }
 
 export interface IUserChipState {}

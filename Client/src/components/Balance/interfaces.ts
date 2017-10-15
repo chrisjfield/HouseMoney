@@ -1,14 +1,14 @@
 import { Dispatch } from 'redux';
-import { UserObject } from '../../interfaces/userInterfaces';
+import { IUserObject } from '../../interfaces/userInterfaces';
 
 export interface IBalanceProps {
     dispatch: Dispatch<{}>;
     history: any;
-    loggedInUser: UserObject;
+    loggedInUser: IUserObject;
 }
 
 export interface IBalanceState {
-    balance: BalanceObject[];
+    balance: IBalanceObject[];
     balanceReturned: false;
 }
 

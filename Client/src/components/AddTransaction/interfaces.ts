@@ -1,16 +1,16 @@
 import { Dispatch } from 'redux';
-import { UserObject } from '../../interfaces/userInterfaces';
+import { IUserObject } from '../../interfaces/userInterfaces';
 
 export interface IAddTransationProps {
     dispatch: Dispatch<{}>;
     history: any;
-    loggedInUser: UserObject;
+    loggedInUser: IUserObject;
 }
 
 export interface IAddTransationState {
     userListReturned: boolean;
-    userList: AddTransactionUser[];
-    addTransaction: AddTransactionDetails;
+    userList: IAddTransactionUser[];
+    addTransaction: IAddTransactionDetails;
     transactionAdded: boolean;
     transactionAdding: boolean;
     allChecked: boolean;
@@ -24,6 +24,6 @@ export interface IAddTransactionDetails { // ED! bring this into generic ones fi
     REFERENCE: string;
 }
 
-export interface IAddTransactionUser extends UserObject {
+export interface IAddTransactionUser extends IUserObject {
     checked: boolean;
 }

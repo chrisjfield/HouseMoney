@@ -6,10 +6,10 @@ import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
-import { BalanceProps, BalanceState, BalanceObject } from './interfaces';
+import { IBalanceProps, IBalanceState, IBalanceObject } from './interfaces';
 
-class Balance extends React.Component<BalanceProps, BalanceState> {
-    constructor(props: BalanceProps) {
+class Balance extends React.Component<IBalanceProps, IBalanceState> {
+    constructor(props: IBalanceProps) {
         super(props);
     // this.styles = {
     //   container: {
@@ -46,7 +46,7 @@ class Balance extends React.Component<BalanceProps, BalanceState> {
         );
     }
 
-    createBalance = (balance: BalanceObject) => {
+    createBalance = (balance: IBalanceObject) => {
         const debt = math.round(balance.TOTAL, 2);
         const debtor = { email: balance.OTHERS };
         let colorToSet;

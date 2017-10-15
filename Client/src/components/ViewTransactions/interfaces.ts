@@ -22,6 +22,6 @@ export interface IViewTransactionDetails { // ED! bring this into generic ones f
     REFERENCE: string;
 }
 
-export interface IAddTransactionUser extends IUserObject {
+export interface IIAddTransactionUser extends IUserObject {
     checked: boolean;
 }

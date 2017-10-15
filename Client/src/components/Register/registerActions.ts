@@ -1,13 +1,13 @@
 import auth from '../../helpers/firebase';
 import { RECEIVE_USER } from '../Nav/navActions';
 import { ADD_ERROR } from '../ErrorMessage/errorMessageActions';
-import { UserAuthenticationObject, UserResponseObject } from '../../interfaces/userInterfaces';
-import { UserRegistrationObject } from './interfaces';
+import { IUserAuthenticationObject, IUserResponseObject } from '../../interfaces/userInterfaces';
+import { IUserRegistrationObject } from './interfaces';
 
 export const REGISTER_STARTED = 'REGISTER_STARTED';
 export const REGISTER_COMPLETED = 'REGISTER_COMPLETED';
 
-export function registerUser(user: UserAuthenticationObject) {
+export function registerUser(user: IUserAuthenticationObject) {
     const request = auth.createUserWithEmailAndPassword(
         user.email,
         user.password,
@@ -15,10 +15,10 @@ export function registerUser(user: UserAuthenticationObject) {
 
     return (dispatch: Function) => {
         dispatch(registerStarted());
-        return request.then((response: UserRegistrationObject) => {
+        return request.then((response: IUserRegistrationObject) => {
             return response
               .updateProfile({ displayName: user.displayName })
-              .then((reponse: UserAuthenticationObject) => {
+              .then((reponse: IUserAuthenticationObject) => {
                   dispatch(registerSuccessful(response)); // ED! Look at these types more carefully
                   dispatch(registerAttemptComplete());
               })
@@ -37,7 +37,7 @@ function registerStarted() {
     };
 }
 
-function registerSuccessful(response: UserResponseObject) {
+function registerSuccessful(response: IUserResponseObject) {
     return {
         type: RECEIVE_USER,
         payload: {

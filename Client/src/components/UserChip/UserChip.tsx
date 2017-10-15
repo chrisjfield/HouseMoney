@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
-import { UserChipProps, UserChipState } from './interfaces';
+import { IUserChipProps, IUserChipState } from './interfaces';
 
-class UserChip extends React.Component<UserChipProps, UserChipState> {
+class UserChip extends React.Component<IUserChipProps, IUserChipState> {
     render() {
         const user = this.props.user;
         return (

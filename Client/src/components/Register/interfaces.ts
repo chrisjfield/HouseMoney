@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { UserAuthenticationObject } from '../../interfaces/userInterfaces';
+import { IUserAuthenticationObject } from '../../interfaces/userInterfaces';
     
 export interface IRegisterProps {
     dispatch: Dispatch<{}>;
@@ -17,6 +17,6 @@ export interface IRegisterState {
     error: Error;
 }
 
-export interface IUserRegistrationObject extends UserAuthenticationObject {
+export interface IUserRegistrationObject extends IUserAuthenticationObject {
     updateProfile: Function;
 }

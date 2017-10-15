@@ -5,11 +5,11 @@ import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import { registerUser } from './registerActions';
 import { addError } from '../ErrorMessage/errorMessageActions';
-import { RegisterProps, RegisterState } from './interfaces';
-import { InputChangeEvent } from '../../interfaces/inputInterfaces';
+import { IRegisterProps, IRegisterState } from './interfaces';
+import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
 
-class Register extends React.Component<RegisterProps, RegisterState> {
-    constructor(props: RegisterProps) {
+class Register extends React.Component<IRegisterProps, IRegisterState> {
+    constructor(props: IRegisterProps) {
         super(props);
         this.state = {
             registerUser: {
@@ -49,7 +49,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         }
     }
 
-    handleInputChange = (event: InputChangeEvent<string>) => {
+    handleInputChange = (event: IInputChangeEvent<string>) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;

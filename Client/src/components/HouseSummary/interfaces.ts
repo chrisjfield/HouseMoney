@@ -1,15 +1,15 @@
 import { Dispatch } from 'redux';
-import { UserObject } from '../../interfaces/userInterfaces';
+import { IUserObject } from '../../interfaces/userInterfaces';
     
 export interface IHouseSummaryProps {
     dispatch: Dispatch<{}>;
     history: any;
-    loggedInUser: UserObject;
+    loggedInUser: IUserObject;
 }
 
 export interface IHouseSummaryState {
     userDataReturned: boolean;
-    userData: UserObject[];
+    userData: IUserObject[];
     gridDataReturned: boolean;
     gridData: object; // ED! Need to def these objs
 }

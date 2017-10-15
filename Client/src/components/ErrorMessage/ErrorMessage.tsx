@@ -2,23 +2,23 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 import { removeError } from './errorMessageActions';
-import { ErrorMessageProps, ErrorMessageState } from './interfaces';
+import { IErrorMessageProps, IErrorMessageState } from './interfaces';
 
-class ErrorMessage extends React.Component<ErrorMessageProps, ErrorMessageState> {
-    constructor(props: ErrorMessageProps) {
+class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageState> {
+    constructor(props: IErrorMessageProps) {
         super(props);
         this.state = {
             errorMessageText: null,
         };
     }
 
-    componentWillReceiveProps(nextProps: ErrorMessageProps) {
+    componentWillReceiveProps(nextProps: IErrorMessageProps) {
         this.setState({ errorMessageText: nextProps.errorMessageText });
     }
 
     buildErrors = () => {
         const errorMessageText = this.state.errorMessageText;
-        const errorMessage = (
+        const errorMessage: JSX.Element = (
                 <Snackbar
                     open={errorMessageText !== null}
                     message={errorMessageText}
@@ -40,8 +40,8 @@ class ErrorMessage extends React.Component<ErrorMessageProps, ErrorMessageState>
             <div>
                 {this.state.errorMessageText !== null ? this.buildErrors() : <div/>}
             </div>
-            );
-        }
+        );
+    }
 }
 
 const mapStateToProps = (store: any) => {

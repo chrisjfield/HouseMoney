@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
+import { update } from 'react-addons-update';
 import APIHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
-import { ChangePasswordProps, ChangePasswordState } from './interfaces';
-import { InputChangeEvent } from '../../interfaces/inputInterfaces';
+import { IChangePasswordProps, IChangePasswordState } from './interfaces';
+import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
 
-class ChangePassword extends React.Component<ChangePasswordProps, ChangePasswordState> {
-    constructor(props: ChangePasswordProps) {
+class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswordState> {
+    constructor(props: IChangePasswordProps) {
         super(props);
         this.state = {
             passwordUpdate: {
@@ -63,7 +64,7 @@ class ChangePassword extends React.Component<ChangePasswordProps, ChangePassword
           });
     }
 
-    handleInputChange = (event: InputChangeEvent<string>) => {
+    handleInputChange = (event: IInputChangeEvent<string>) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;

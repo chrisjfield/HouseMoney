@@ -12,10 +12,10 @@ import MenuItem from 'material-ui/MenuItem';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import UserChip from '../UserChip';
 import history from '../../main/history';
-import { NavProps, NavState } from './interfaces';
+import { INavProps, INavState } from './interfaces';
 
-class Nav extends React.Component<NavProps, NavState> {
-    constructor(props: NavProps) {
+class Nav extends React.Component<INavProps, INavState> {
+    constructor(props: INavProps) {
         super(props);
 
       // this.styles = {
