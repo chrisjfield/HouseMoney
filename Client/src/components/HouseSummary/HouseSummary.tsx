@@ -12,7 +12,8 @@ import CircularProgress from 'material-ui/CircularProgress';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
 import { IHouseSummaryProps, IHouseSummaryState } from './interfaces';
-import { IUserObject, ITransactionSummaryObject } from '../../interfaces/userInterfaces';
+import { IUserObject } from '../../interfaces/userInterfaces';
+import { ITransactionSummaryObject } from '../../interfaces/transactionInterfaces';
 
 class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryState> {
     constructor(props: IHouseSummaryProps) {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
-import { update } from 'react-addons-update';
+import update from 'react-addons-update';
 import APIHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { IChangePasswordProps, IChangePasswordState } from './interfaces';

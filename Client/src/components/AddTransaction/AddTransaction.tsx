@@ -10,7 +10,7 @@ import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
 import UserChip from '../UserChip';
 import { addError } from '../ErrorMessage/errorMessageActions';
-import * as update from 'react-addons-update';
+import update from 'react-addons-update';
 import * as moment from 'moment';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';

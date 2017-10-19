@@ -5,3 +5,7 @@ export interface ITransactionObject {
     DATE: Date;
     REFERENCE: string;
 }
+
+export interface ITransactionSummaryObject {
+    USER: string;
+}

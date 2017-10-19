@@ -15,11 +15,11 @@ export function registerUser(user: IUserAuthenticationObject) {
 
     return (dispatch: Function) => {
         dispatch(registerStarted());
-        return request.then((response: IUserRegistrationObject) => {
-            return response
+        return request.then((register: IUserRegistrationObject) => {
+            return register
               .updateProfile({ displayName: user.displayName })
-              .then((reponse: IUserAuthenticationObject) => {
-                  dispatch(registerSuccessful(response)); // ED! Look at these types more carefully
+              .then((authenticated: IUserAuthenticationObject) => {
+                  dispatch(registerSuccessful(authenticated)); // ED! Look at these types more carefully
                   dispatch(registerAttemptComplete());
               })
               .catch((error: Error) => {

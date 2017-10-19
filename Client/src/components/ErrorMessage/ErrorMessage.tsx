@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 import { removeError } from './errorMessageActions';
 import { IErrorMessageProps, IErrorMessageState } from './interfaces';
+import { customTheme } from '../../themes';
 
 class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageState> {
     constructor(props: IErrorMessageProps) {
@@ -24,7 +25,7 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
                     message={errorMessageText}
                     autoHideDuration={4000}
                     onRequestClose={this.handleClose}
-                    bodyStyle={{ backgroundColor: appTheme.balance.negativeColor, textAlign: 'center' }}
+                    bodyStyle={{ backgroundColor: customTheme.negativeColor, textAlign: 'center' }}
                 />
         );
         return errorMessage;

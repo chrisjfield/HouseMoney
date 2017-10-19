@@ -10,9 +10,10 @@ import {
 } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
-import moment from 'moment';
+import * as moment from 'moment';
 import APIHelper from '../../helpers/apiHelper';
 import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionDetails } from './interfaces';
+import styles from './styles';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
@@ -24,48 +25,6 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
             pageSize: 10,
             transactionCount: 0,
         };
-      // this.styles = {
-      //   container: {
-      //     textAlign: 'center',
-      //     marginTop: '20px'
-      //   },
-      //   gridHeader: {
-      //     backgroundColor: muiTheme.palette.backgroundColor,
-      //     color: muiTheme.palette.primary1Color
-      //   },
-      //   gridDetail: {
-      //     backgroundColor: muiTheme.palette.backgroundColor,
-      //     color: muiTheme.palette.textColor
-      //   },
-      //   owesMeWidth: {
-      //     width: '80px'
-      //   },
-      //   valueWidth: {
-      //     width: '60px'
-      //   },
-      //   dateWidth: {
-      //     width: '100px'
-      //   },
-      //   referenceWidth: {
-      //     width: '100px'
-      //   }
-      // };
-      // Object.assign(this.styles, {
-      //   owesMeHeader: { ...this.styles.owesMeWidth, ...this.styles.gridHeader },
-      //   valueHeader: { ...this.styles.valueWidth, ...this.styles.gridHeader },
-      //   dateHeader: { ...this.styles.dateWidth, ...this.styles.gridHeader },
-      //   referenceHeader: {
-      //     ...this.styles.referenceWidth,
-      //     ...this.styles.gridHeader
-      //   },
-      //   owesMeDetail: { ...this.styles.owesMeWidth, ...this.styles.gridDetail },
-      //   valueDetail: { ...this.styles.valueWidth, ...this.styles.gridDetail },
-      //   dateDetail: { ...this.styles.dateWidth, ...this.styles.gridDetail },
-      //   referenceDetail: {
-      //     ...this.styles.referenceWidth,
-      //     ...this.styles.gridDetail
-      //   }
-      // });
     }
 
     componentWillMount() {
@@ -109,25 +68,25 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
                 <TableRow>
                   <TableHeaderColumn
                     key={'Column_OTHERS'}
-                    style={this.styles.owesMeHeader}
+                    style={styles.owesMeHeader}
                   >
                     OWES ME
                   </TableHeaderColumn>
                   <TableHeaderColumn
                     key={'Column_GROSS'}
-                    style={this.styles.valueHeader}
+                    style={styles.valueHeader}
                   >
                     VALUE
                   </TableHeaderColumn>
                   <TableHeaderColumn
                     key={'Column_DATE'}
-                    style={this.styles.dateHeader}
+                    style={styles.dateHeader}
                   >
                     DATE
                   </TableHeaderColumn>
                   <TableHeaderColumn
                     key={'Column_REFERENCE'}
-                    style={this.styles.referenceHeader}
+                    style={styles.referenceHeader}
                   >
                     REFERENCE
                   </TableHeaderColumn>
@@ -136,14 +95,14 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
               <TableBody displayRowCheckbox={false}>{this.createRows()}</TableBody>
             </Table>
             <FlatButton
-              key='Previous'
-              label='Previous'
+              key="Previous"
+              label="Previous"
               onClick={this.prevPage}
               disabled={this.state.pageNumber <= 1}
             />
             <FlatButton
-              key='Next'
-              label='Next'
+              key="Next"
+              label="Next"
               onClick={this.nextPage}
               disabled={this.state.transactionsData.length !== this.state.pageSize}
             />
@@ -159,25 +118,25 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
           <TableRow key={'Row_' + transactionData.PRIMARYKEY}>
             <TableRowColumn
               key={'Data_' + transactionData.PRIMARYKEY + '_OTHERS'}
-              style={this.styles.owesMeDetail}
+              style={styles.owesMeDetail}
             >
               {transactionData.OTHERS}
             </TableRowColumn>
             <TableRowColumn
               key={'Data_' + transactionData.PRIMARYKEY + '_AMOUNT'}
-              style={this.styles.valueDetail}
+              style={styles.valueDetail}
             >
               {transactionData.AMOUNT}
             </TableRowColumn>
             <TableRowColumn
               key={'Data_' + transactionData.PRIMARYKEY + '_DATE'}
-              style={this.styles.dateDetail}
+              style={styles.dateDetail}
             >
               {formattedDate}
             </TableRowColumn>
             <TableRowColumn
               key={'Data_' + transactionData.PRIMARYKEY + '_REFERENCE'}
-              style={this.styles.referenceDetail}
+              style={styles.referenceDetail}
             >
               {transactionData.REFERENCE}
             </TableRowColumn>
@@ -212,9 +171,9 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 
     render() {
         return (
-          <div style={this.styles.container}>
+          <div style={styles.container}>
             <h2>My Transactions</h2>
-            <div id="viewTransactionsTableContainer" style={this.styles.container}>
+            <div id="viewTransactionsTableContainer" style={styles.container}>
               <div className="row">
                 <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
                   <div id="viewTransactionsGrid" className="grid" />

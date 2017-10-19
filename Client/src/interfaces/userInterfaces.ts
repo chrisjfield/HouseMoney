@@ -7,7 +7,7 @@ export interface IUserObject extends IUserDetailsObject {
     userId: string;
 }
 
-export interface IUserAuthenticationObject extends IUserObject {
+export interface IUserAuthenticationObject extends IUserObject, IUserResponseObject {
     password: string;
 }
 

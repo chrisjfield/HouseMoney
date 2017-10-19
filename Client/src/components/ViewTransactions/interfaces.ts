@@ -17,9 +17,10 @@ export interface IViewTransactionsState {
 
 export interface IViewTransactionDetails { // ED! bring this into generic ones file
     OTHERS: string;
-    GROSS: number;
+    AMOUNT: number;
     DATE: Date;
     REFERENCE: string;
+    PRIMARYKEY: string;
 }
 
 export interface IIAddTransactionUser extends IUserObject {

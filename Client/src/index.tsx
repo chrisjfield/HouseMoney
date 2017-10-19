@@ -9,7 +9,7 @@ import history from './main/history';
 import appTheme from './main/themes';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import './css/index.css';
+import './styles/css/index.css';
 import { load } from 'webfontloader';
 
 load({

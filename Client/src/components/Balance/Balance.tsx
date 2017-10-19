@@ -11,22 +11,6 @@ import { IBalanceProps, IBalanceState, IBalanceObject } from './interfaces';
 class Balance extends React.Component<IBalanceProps, IBalanceState> {
     constructor(props: IBalanceProps) {
         super(props);
-    // this.styles = {
-    //   container: {
-    //     textAlign: 'center',
-    //     marginTop: '20px'
-    //   },
-    //   balanceSheet: {
-    //     width: '350px',
-    //     textAlign: 'center',
-    //     display: 'inline-block'
-    //   },
-    //   balance: {
-    //     positiveColor: green800,
-    //     negativeColor: red800,
-    //     neutralColor: grey400,
-    //   },
-    // };
 
         this.state = {
             balance: [],
