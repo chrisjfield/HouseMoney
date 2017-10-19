@@ -7,7 +7,7 @@ import * as injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './components/App';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import './styles/css/index.css';
+import './styles/css/app.css';
 import store from './main/store';
 import history from './main/history';
 import appTheme from './main/themes';
@@ -28,7 +28,7 @@ ReactDOM.render((
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <MuiThemeProvider muiTheme={appTheme}>
-                <App history={history} dispatch={store.dispatch}/>
+                <App />
             </MuiThemeProvider>
         </ConnectedRouter>
     </Provider>

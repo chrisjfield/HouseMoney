@@ -15,9 +15,8 @@ import NotFound404 from '../NotFound404';
 
 class Routes extends React.Component<IRoutesProps, IRoutesState> {
     getRoutes() {
-        const isLoggedIn = this.props.isLoggedIn;
-        let routes;
-        if (isLoggedIn) {
+        let routes: JSX.Element;
+        if (this.props.isLoggedIn) {
             routes = (
               <Switch>
                 <Route exact path="/" component={Balance} />

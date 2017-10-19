@@ -1,7 +1,8 @@
-import { IComponentProps } from '../../interfaces/componentInterfaces';
+import { Dispatch } from 'redux';
 import { IUserObject } from '../../interfaces/userInterfaces';
     
-export interface INavProps extends IComponentProps {
+export interface INavProps {
+    dispatch: Dispatch<{}>;
     loggedInUser: IUserObject;
     isLoggedIn: boolean;
 }

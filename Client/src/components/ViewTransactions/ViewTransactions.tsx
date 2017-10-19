@@ -44,7 +44,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
             );
 
         return request.then(json =>
-          this.setState({ transactionsData: json, transactionsReturned: true })
+          this.setState({ transactionsData: json, transactionsReturned: true }),
         );
     }
 

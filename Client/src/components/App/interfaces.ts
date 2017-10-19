@@ -1,5 +1,7 @@
-import { IComponentProps } from '../../interfaces/componentInterfaces';
+import { History } from 'history';
 
-export interface IAppProps extends IComponentProps {}
+export interface IAppProps {
+    history: History;
+}
 
 export interface IAppState {}

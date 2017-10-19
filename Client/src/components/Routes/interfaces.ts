@@ -1,6 +1,4 @@
-import { IComponentProps } from '../../interfaces/componentInterfaces';
-    
-export interface IRoutesProps extends IComponentProps {
+export interface IRoutesProps {
     isLoggedIn: boolean;
 }
 

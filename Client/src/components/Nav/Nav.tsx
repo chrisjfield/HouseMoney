@@ -50,7 +50,7 @@ class Nav extends React.Component<INavProps, INavState> {
                     user={this.props.loggedInUser}
                     styles={styles.userChipItem}
                     dispatch={this.props.dispatch}
-                    history={this.props.history}
+                    history={history}
                 />
               </MenuItem>
             </Link>

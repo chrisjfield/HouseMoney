@@ -9,7 +9,7 @@ class NotFound404 extends React.Component<INotFound404Props, INotFound404State> 
             <br />
             <h2>It's dangerous to go alone! Take this.</h2>
             <FlatButton
-              label='Link'
+              label="Link"
               onClick={() => this.props.history.push('/')}
             />
           </div>
