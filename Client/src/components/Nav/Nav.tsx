@@ -47,8 +47,10 @@ class Nav extends React.Component<INavProps, INavState> {
             <Link style={styles.menuItems} to="/MyAccount">
               <MenuItem>
                 <UserChip
-                  user={this.props.loggedInUser}
-                  styles={styles.userChipItem}
+                    user={this.props.loggedInUser}
+                    styles={styles.userChipItem}
+                    dispatch={this.props.dispatch}
+                    history={this.props.history}
                 />
               </MenuItem>
             </Link>

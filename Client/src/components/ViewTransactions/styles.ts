@@ -1,5 +1,5 @@
 import { theme, customTheme } from '../../themes';
-const baseStyles: any = {
+const baseStyles: React.CSSProperties = {
     container: {
         textAlign: 'center',
         marginTop: '20px',
@@ -26,7 +26,7 @@ const baseStyles: any = {
     },
 };
 
-const styles: any = Object.assign(baseStyles, {
+const styles: React.CSSProperties = Object.assign(baseStyles, {
     owesMeHeader: { ...baseStyles.owesMeWidth, ...baseStyles.gridHeader },
     valueHeader: { ...baseStyles.valueWidth, ...baseStyles.gridHeader },
     dateHeader: { ...baseStyles.dateWidth, ...baseStyles.gridHeader },

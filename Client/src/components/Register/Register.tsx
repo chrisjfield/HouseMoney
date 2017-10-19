@@ -5,7 +5,8 @@ import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import { registerUser } from './registerActions';
 import { addError } from '../ErrorMessage/errorMessageActions';
-import { IRegisterProps, IRegisterState } from './interfaces';
+import { IRegisterProps, IRegisterState, IRegisterUserObject } from './interfaces';
+import appStyles from '../../styles';
 
 class Register extends React.Component<IRegisterProps, IRegisterState> {
     constructor(props: IRegisterProps) {
@@ -20,23 +21,17 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
             loading: false,
             error: null,
         };
-
-      // this.styles = {
-      //   container: {
-      //     textAlign: 'center',
-      //     marginTop: '20px'
-      //   }
-      // };
     }
 
-    handleAddUser = (event: Event) => {
+    handleAddUser = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (this.state.registerUser.password === this.state.registerUser.confirmPassword) {
             const { dispatch, history } = this.props;
-            const user = {
+            const user: IRegisterUserObject = {
                 displayName: this.state.registerUser.displayName,
                 email: this.state.registerUser.email,
                 password: this.state.registerUser.password,
+                confirmPassword: this.state.registerUser.confirmPassword,
             };
             this.setState({ loading: true });
             dispatch(registerUser(user))
@@ -53,19 +48,19 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         const value = target.value;
         const name = target.name;
 
-        this.setState({ registerUser[name]: value }); // ED! need to get merge state types working then use here
+        this.setState(this.state.registerUser: { ...this.state.registerUser, [name]: value }); 
     }
 
     render() {
         return (
-          <form style={this.styles.container} onSubmit={this.handleAddUser}>
+          <form style={appStyles.container} onSubmit={this.handleAddUser}>
             <h2>Create Account</h2>
             <div>
               Already have an hApps account?
               <FlatButton
                 secondary={true}
                 label="Sign In"
-                onClick={() => this.props.history.push("/Login")}
+                onClick={() => this.props.history.push('/Login')}
               />
             </div>
 

@@ -8,4 +8,6 @@ export interface ITransactionObject {
 
 export interface ITransactionSummaryObject {
     USER: string;
+    OTHERS: string;
+    TOTAL: number;
 }

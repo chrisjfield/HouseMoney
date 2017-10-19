@@ -1,5 +1,4 @@
 import * as React from 'react';
-import update from 'react-addons-update';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -15,7 +14,7 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
         super(props);
         this.state = {
             userUpdate: {
-                currentUser: this.props.loggedInUser.userId,
+                userId: this.props.loggedInUser.userId,
                 email: this.props.loggedInUser.email,
                 displayName: this.props.loggedInUser.displayName,
             },
@@ -51,12 +50,9 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
         const value = target.value;
         const name = target.name;
 
-        const newState = update(this.state, {
-            userUpdate: {
-                $merge: { [name]: value },
-            },
-        });
-        this.setState(newState);
+        this.setState(prevState => ({
+            userUpdate: { ...this.state.userUpdate, [name]: value },
+        }));
     }
 
     handleEditUserClose = () => {
@@ -86,7 +82,7 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
                     name="email"
                     hintText="email@example.com"
                     floatingLabelText="Email Address"
-                    defaultValue={this.state.userUpdate.currentUser}
+                    defaultValue={this.state.userUpdate.userId}
                     required
                     onChange={this.handleInputChange}
                     disabled={true}

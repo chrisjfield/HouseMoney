@@ -1,8 +1,6 @@
-import { Dispatch } from 'redux';
+import { IComponentProps } from '../../interfaces/componentInterfaces';
     
-export interface IErrorMessageProps {
-    dispatch: Dispatch<{}>;
-    history: any;
+export interface IErrorMessageProps extends IComponentProps {
     errorMessageText: string;
 }
 

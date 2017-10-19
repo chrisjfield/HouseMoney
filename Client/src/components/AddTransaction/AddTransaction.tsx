@@ -10,7 +10,6 @@ import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
 import UserChip from '../UserChip';
 import { addError } from '../ErrorMessage/errorMessageActions';
-import update from 'react-addons-update';
 import * as moment from 'moment';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
@@ -35,7 +34,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
     }
 
     componentWillMount() {
-        // this.getUserList();
+        // this.getUserList(); ED! V3 needs to keep a list of app specific display names for this
     }
 
     public getUserList = () => {
@@ -65,21 +64,23 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
 
     updateCheckAll = () => {
         const checkedUser: IAddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
+        const allChecked = this.state.allChecked;
+
         checkedUser
         .filter(
             userListElement =>
                 userListElement.userId !== this.props.loggedInUser.userId,
         )
-        .forEach(function (entry) {
-            entry.checked = !this.state.allChecked;
+        .forEach((entry) => {
+            entry.checked = !allChecked;
         },       this);
         this.setState({
-            allChecked: !this.state.allChecked,
+            allChecked: !allChecked,
             userList: checkedUser,
         });
     }
 
-    handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLInputElement>) => {
+    handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLFormElement>) => {
         formSubmitEvent.preventDefault();
         const debtors = this.state.userList.filter(item => item.checked === true);
         if (debtors.length === 0) {
@@ -127,7 +128,13 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
             >
                 <Checkbox
                     key={'Checkbox_' + userList.userId}
-                    label={<UserChip user={userList} styles={styles.userChip} />}
+                    label={
+                    <UserChip 
+                        user={userList} 
+                        styles={styles.userChip} 
+                        dispatch={this.props.dispatch}
+                        history={this.props.history}  
+                    />}
                     checked={
                         this.state.userList.find(thing => thing.userId === userList.userId)
                             .checked
@@ -153,20 +160,17 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
     }
 
     handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.updateAddTransaction(event.target.name, event.target.value);
+        this.updateAddTransaction<string | number>(event.target.name, event.target.value);
     }
 
     handleDateChange = (date: string) => {
-        this.updateAddTransaction('DATE', date);
+        this.updateAddTransaction<string>('DATE', date);
     }
 
-    updateAddTransaction = (name: string, value: string | number) => {
-        const newState = update(this.state, {
-            addTransaction: {
-                $merge: { [name]: value },
-            },
-        });
-        this.setState(newState);
+    updateAddTransaction = <T extends {}>(name: string, value: T)  =>  {
+        this.setState(prevState => ({
+            addTransaction: { ...this.state.addTransaction, [name]: value },
+        }));
     }
 
     handleTransactionAddedClose = () => {
@@ -222,7 +226,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
                     defaultDate={this.state.currentDate}
                     value={this.state.addTransaction.DATE}
                     onChange={(event, dateObj) => {
-                        this.handleDateChange(dateObj);
+                        this.handleDateChange(dateObj.toString());
                     }}
                     disabled={this.state.transactionAdding}
                 />

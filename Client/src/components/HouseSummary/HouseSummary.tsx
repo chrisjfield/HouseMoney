@@ -14,8 +14,11 @@ import APIHelper from '../../helpers/apiHelper';
 import { IHouseSummaryProps, IHouseSummaryState } from './interfaces';
 import { IUserObject } from '../../interfaces/userInterfaces';
 import { ITransactionSummaryObject } from '../../interfaces/transactionInterfaces';
+import styles from './styles';
+import appStyles from '../../styles';
 
 class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryState> {
+    _rows: Function;
     constructor(props: IHouseSummaryProps) {
         super(props);
         this.state = {
@@ -24,31 +27,6 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
             gridDataReturned: false,
             gridData: [],
         };
-
-      // this.styles = {
-      //   container: {
-      //     textAlign: 'center',
-      //     marginTop: '20px',
-      //     className: 'containerfluid'
-      //   },
-      //   gridContainer: {
-      //     overflow: 'auto'
-      //   },
-      //   grid: {
-      //     tableLayout: 'fixed'
-      //   },
-      //   gridHeader: {
-      //     backgroundColor: muiTheme.palette.backgroundColor,
-      //     color: muiTheme.palette.primary1Color,
-      //     width: '80px'
-      //   },
-      //   gridDetail: {
-      //     backgroundColor: muiTheme.palette.backgroundColor,
-      //     color: muiTheme.palette.textColor,
-      //     width: '80px',
-      //     textAlign: 'right'
-      //   }
-      // };
     }
 
     componentWillMount() {
@@ -76,7 +54,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
         const column = (
             <TableHeaderColumn
               key={'Column' + userData.email}
-              style={this.styles.gridHeader}
+              style={styles.gridHeader}
             >
               {userData.email ? userData.email + ' owes' : null}
             </TableHeaderColumn>
@@ -89,9 +67,9 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
         const row = (
           <TableRowColumn
             key={'Data' + tableRowData.USER}
-            style={this.styles.gridDetail}
+            style={styles.gridDetail}
           >
-            {math.round(tableRowData.TOTAL, 2).toFixed(2)}
+            {Number(math.round(tableRowData.TOTAL, 2)).toFixed(2)}
           </TableRowColumn>
         );
         return row;
@@ -104,7 +82,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
         const tableRowData = rowsData.map(this.createRowData);
         return (
           <TableRow key={'Row' + userData.email}>
-            <TableRowColumn key={tableRowData.USER} style={this.styles.gridHeader}>
+            <TableRowColumn key={tableRowData.USER} style={styles.gridHeader}>
               {userData.email}
             </TableRowColumn>
             {tableRowData}
@@ -123,7 +101,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
         const dataGrid = (
           <Table
             selectable={false}
-            style={this.styles.grid}
+            style={styles.grid}
             bodyStyle={{ overflow: 'visible' }}
           >
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -136,15 +114,15 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
         return dataGrid;
     }
 
-    rowGetter = i => {
+    rowGetter = (i: number) => {
         return this._rows[i];
     }
 
     render() {
         return (
-          <div style={this.styles.container}>
+          <div style={appStyles.container}>
             <h2>House Money Summary</h2>
-            <div id="houseSummaryTableContainer" style={this.styles.gridContainer}>
+            <div id="houseSummaryTableContainer" style={styles.gridContainer}>
               <div className="row">
                 <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
                   <div id="houseSummaryGrid" className="grid" />

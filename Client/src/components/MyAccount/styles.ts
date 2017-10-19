@@ -1,4 +1,4 @@
-const styles = {
+const styles: React.CSSProperties = {
     container: {
         textAlign: 'center',
         marginTop: '20px',

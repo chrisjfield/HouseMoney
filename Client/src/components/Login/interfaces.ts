@@ -1,15 +1,12 @@
-import { Dispatch } from 'redux';
-import { IUserObject } from '../../interfaces/userInterfaces';
+import { IComponentProps } from '../../interfaces/componentInterfaces';
+import { IUserObject, IUserAuthenticationObject } from '../../interfaces/userInterfaces';
     
-export interface ILoginProps {
-    dispatch: Dispatch<{}>;
-    history: any;
+export interface ILoginProps extends IComponentProps {
     user: IUserObject;
 }
 
 export interface ILoginState {
-    email: string;
-    password: string;
+    user: IUserAuthenticationObject;
     error: Error;
     loading: boolean;
 }

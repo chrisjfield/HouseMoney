@@ -85,12 +85,16 @@ function deleteUserStarted() {
 }
 
 function deleteUserSuccessful(response: Response) {
+    const deleteUser: IUserObject = {
+        userId: null,
+        email: null,
+        displayName: null,
+    };
+
     return {
         type: RECEIVE_USER,
         payload: {
-            email: null,
-            displayName: null,
-            userId: null,
+            deleteUser,
         },
         isLoggedIn: false,
     };

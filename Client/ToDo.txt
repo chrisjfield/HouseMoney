@@ -21,3 +21,6 @@ tidy up method of styling - check styles and themes are correctly split
 replace react-addons-update - think we should use ... somehow (spread operator)
 
 removed toolbar styles={styles} - check this has behaved
+
+make user objects named, used and interfaced consistently from firebase
+make order of imports consistent

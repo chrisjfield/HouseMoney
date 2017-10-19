@@ -1,20 +1,14 @@
-import { Dispatch } from 'redux';
+import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { IUserObject } from '../../interfaces/userInterfaces';
     
-export interface IMyAccountProps {
-    dispatch: Dispatch<{}>;
-    history: any;
+export interface IMyAccountProps extends IComponentProps {
     loggedInUser: IUserObject;
     editing: boolean;
     deleting: boolean;
 }
 
 export interface IMyAccountState {
-    userUpdate: {
-        currentUser: string,
-        email: string,
-        displayName: string,
-    };
+    userUpdate: IUserObject;
     userEditing: boolean;
     userEdited: boolean;
     userDeleting: boolean;

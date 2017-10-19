@@ -1,4 +1,4 @@
-const styles = {
+const styles: React.CSSProperties = {
     checkbox: {
         display: 'inline-flex',
     },

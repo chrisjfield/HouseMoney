@@ -1,9 +1,7 @@
-import { Dispatch } from 'redux';
+import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { IUserObject } from '../../interfaces/userInterfaces';
     
-export interface IUserChipProps {
-    dispatch: Dispatch<{}>; // ED! These should be extended from another interface
-    history: any;
+export interface IUserChipProps extends IComponentProps {
     user: IUserObject;
     styles: any;
 }

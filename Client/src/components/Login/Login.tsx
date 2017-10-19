@@ -5,31 +5,31 @@ import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import { loginUser } from './loginActions';
 import { ILoginProps, ILoginState } from './interfaces';
+import appStyles from '../../styles';
 
 class Login extends React.Component<ILoginProps, ILoginState> {
     constructor(props: ILoginProps) {
         super(props);
         this.state = {
-            email: '',
-            password: '',
+            user: {
+                userId: '',
+                email: '',
+                password: '',
+                displayName: '',
+            },
             error: null,
             loading: false,
         };
-
-        // this.styles = {
-        //   container: {
-        //     textAlign: 'center',
-        //     marginTop: '20px'
-        //   }
-        // };
     }
 
-    handleLogin = (event: Event) => {
+    handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const { dispatch, history } = this.props;
         const login = {
-            email: this.state.email,
-            password: this.state.password,
+            email: this.state.user.email,
+            password: this.state.user.password,
+            userId: '', // ED! This imples this is the wrong type!
+            displayName: '', // ED! This imples this is the wrong type!
         };
         this.setState({ loading: true });
         dispatch(loginUser(login))
@@ -46,43 +46,45 @@ class Login extends React.Component<ILoginProps, ILoginState> {
         const value = target.value;
         const name = target.name;
 
-        this.setState({ [name]: value });
+        this.setState(prevState => ({
+            user: { ...this.state.user, [name]: value },
+        }));
     }
 
     render() {
         return (
-          <form style={this.styles.container} onSubmit={this.handleLogin}>
+          <form style={appStyles.container} onSubmit={this.handleLogin}>
             <h2>Welcome</h2>
             <div>
               <TextField
-                name='email'
-                type='text'
-                hintText='example@email.com'
-                floatingLabelText='Email Address'
+                name="email"
+                type="text"
+                hintText="example@email.com"
+                floatingLabelText="Email Address"
                 required
                 onChange={this.handleInputChange}
                 disabled={this.state.loading}
-                maxlength='50'
+                maxlength="50"
               />
             </div>
             <div>
               <TextField
-                name='password'
-                type='password'
-                hintText='**********'
-                floatingLabelText='Password'
-                autoComplete='current-password'
+                name="password"
+                type="password"
+                hintText="**********"
+                floatingLabelText="Password"
+                autoComplete="current-password"
                 required
                 onChange={this.handleInputChange}
                 disabled={this.state.loading}
-                maxlength='30'
+                maxlength="30"
               />
             </div>
             <div>
               {this.state.loading ? (
                 <CircularProgress />
               ) : (
-                <FlatButton type='submit' label='Sign In' />
+                <FlatButton type="submit" label="Sign In" />
               )}
             </div>
             <br />
@@ -91,7 +93,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
               <span>
                 <FlatButton
                   secondary={true}
-                  label='Sign Up'
+                  label="Sign Up"
                   onClick={() => this.props.history.push('/Register')}
                 />
               </span>

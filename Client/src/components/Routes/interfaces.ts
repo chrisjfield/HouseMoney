@@ -1,8 +1,6 @@
-import { Dispatch } from 'redux';
+import { IComponentProps } from '../../interfaces/componentInterfaces';
     
-export interface IRoutesProps {
-    dispatch: Dispatch<{}>; // ED! These should be extended from another interface
-    history: any;
+export interface IRoutesProps extends IComponentProps {
     isLoggedIn: boolean;
 }
 

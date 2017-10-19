@@ -1,7 +1,7 @@
 import auth from '../../helpers/firebase';
 import { RECEIVE_USER } from '../Nav/navActions';
 import { ADD_ERROR } from '../ErrorMessage/errorMessageActions';
-import { IUserAuthenticationObject } from '../../interfaces/userInterfaces';
+import { IUserAuthenticationObject, IUserResponseObject } from '../../interfaces/userInterfaces';
 
 export const LOGIN_STARTED = 'LOGIN_STARTED';
 export const LOGIN_COMPLETED = 'LOGIN_COMPLETED';
@@ -12,7 +12,7 @@ export function loginUser(login: IUserAuthenticationObject) {
     return (dispatch: Function) => {
         dispatch(loginStarted());
         return request
-          .then((response: Response) => {
+          .then((response: IUserResponseObject) => {
               dispatch(loginSuccessful(response));
               dispatch(loginAttemptComplete());
           })
@@ -30,7 +30,7 @@ function loginStarted() {
     };
 }
 
-function loginSuccessful(response: Response) {
+function loginSuccessful(response: IUserResponseObject) {
     return {
         type: RECEIVE_USER,
         payload: {

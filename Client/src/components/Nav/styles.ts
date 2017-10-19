@@ -1,4 +1,4 @@
-const styles = {
+const styles: React.CSSProperties = {
     menuItems: {
         textDecoration: 'none',
     },

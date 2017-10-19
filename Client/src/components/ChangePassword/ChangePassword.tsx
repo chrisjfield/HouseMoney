@@ -1,13 +1,12 @@
 import * as React from 'react';
-// import * as update from 'react-addons-update';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
-import update from 'react-addons-update';
 import APIHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { IChangePasswordProps, IChangePasswordState } from './interfaces';
+import appStyles from '../../styles';
 
 class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswordState> {
     constructor(props: IChangePasswordProps) {
@@ -22,23 +21,9 @@ class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswo
             passwordUpdating: false,
             passwordUpdated: false,
         };
-        // this.styles = {
-        //   container: {
-        //     textAlign: 'center',
-        //     marginTop: '20px'
-        //   }
     }
 
-    componentWillMount() {
-        const newState = update(this.state, {
-            passwordUpdate: {
-                $merge: { userId: this.props.loggedInUser.userId },
-            },
-        });
-        this.setState(newState);
-    }
-
-    handlePasswordChange = (event: Event) => {
+    handlePasswordChange = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         this.setState({ passwordUpdating: true });
         const updatePassword = this.state.passwordUpdate;
@@ -68,12 +53,9 @@ class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswo
         const value = target.value;
         const name = target.name;
 
-        const newState = update(this.state, {
-            passwordUpdate: {
-                $merge: { [name]: value },
-            },
-        });
-        this.setState(newState);
+        this.setState(prevState => ({ 
+            passwordUpdate: { ...this.state.passwordUpdate, [name]: value },
+        }));
     }
 
     handleRequestClose = () => {
@@ -84,7 +66,7 @@ class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswo
 
     render() {
         return (
-        <form style={this.styles.container} onSubmit={this.handlePasswordChange}>
+        <form style={appStyles.container} onSubmit={this.handlePasswordChange}>
           <h2>Change Password</h2>
           <div>
             <TextField

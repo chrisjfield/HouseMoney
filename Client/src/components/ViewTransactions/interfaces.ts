@@ -1,9 +1,7 @@
-import { Dispatch } from 'redux';
+import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { IUserObject } from '../../interfaces/userInterfaces';
 
-export interface IViewTransactionsProps {
-    dispatch: Dispatch<{}>;
-    history: any;
+export interface IViewTransactionsProps extends IComponentProps {
     loggedInUser: IUserObject;
 }
 

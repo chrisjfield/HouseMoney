@@ -7,6 +7,10 @@ import Paper from 'material-ui/Paper';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
 import { IBalanceProps, IBalanceState, IBalanceObject } from './interfaces';
+import styles from './styles';
+import { customTheme } from '../../themes';
+import appStyles from '../../styles';
+import { IUserDetailsObject } from '../../interfaces/userInterfaces';
 
 class Balance extends React.Component<IBalanceProps, IBalanceState> {
     constructor(props: IBalanceProps) {
@@ -25,22 +29,22 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
     getUserData = () => {
         const request = APIHelper.apiCall('GET', 'TransactionSummaries');
 
-        return request.then((json: JSON) =>
-          this.setState({ balance: json, balanceReturned: true })
+        return request.then((json: IBalanceObject[]) =>
+          this.setState({ balance: json, balanceReturned: true }),
         );
     }
 
     createBalance = (balance: IBalanceObject) => {
         const debt = math.round(balance.TOTAL, 2);
-        const debtor = { email: balance.OTHERS };
+        const debtor: IUserDetailsObject = { email: balance.OTHERS, displayName: '' };
         let colorToSet;
 
         if (debt < 0) {
-            colorToSet = this.styles.balance.negativeColor;
+            colorToSet = customTheme.negativeColor;
         } else if (debt > 0) {
-            colorToSet = this.styles.balance.positiveColor;
+            colorToSet = customTheme.positiveColor;
         } else {
-            colorToSet = this.styles.balance.neutralColor;
+            colorToSet = customTheme.neutralColor;
         }
 
         const balanceItem = (
@@ -60,7 +64,7 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
                       {debtor.displayName.charAt(0).toUpperCase()}
                     </Avatar>
               }
-              primaryText={debtor.displayName + ': £' + math.abs(debt).toFixed(2)}
+              primaryText={debtor.displayName + ': £' + Number(math.abs(debt)).toFixed(2)}
             />
         );
         return balanceItem;
@@ -78,10 +82,10 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
 
     render() {
         return (
-          <form name="balanceForm" style={this.styles.container}>
+          <form name="balanceForm" style={appStyles.container}>
             <div>
               <h2>My Balance</h2>
-                <Paper style={this.styles.balanceSheet}>
+                <Paper style={styles.balanceSheet}>
                   {this.state.balanceReturned ? (
                     <List>{this.createBalanceList()}</List>
                   ) : (

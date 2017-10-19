@@ -18,7 +18,7 @@ export function registerUser(user: IUserAuthenticationObject) {
         return request.then((register: IUserRegistrationObject) => {
             return register
               .updateProfile({ displayName: user.displayName })
-              .then((authenticated: IUserAuthenticationObject) => {
+              .then((authenticated: IUserResponseObject) => {
                   dispatch(registerSuccessful(authenticated)); // ED! Look at these types more carefully
                   dispatch(registerAttemptComplete());
               })
