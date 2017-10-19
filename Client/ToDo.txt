@@ -23,7 +23,4 @@ replace react-addons-update - think we should use ... somehow (spread operator)
 removed toolbar styles={styles} - check this has behaved
 
 make user objects named, used and interfaced consistently from firebase
-make order of imports consistent
-
-redux-persist
-localforage
+make app wide loading thing (steal from HouseMoney)

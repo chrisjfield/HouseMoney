@@ -3,6 +3,7 @@ import { IUserObject, IUserAuthenticationObject } from '../../interfaces/userInt
     
 export interface ILoginProps extends IComponentProps {
     user: IUserObject;
+    loggingIn: boolean;
 }
 
 export interface ILoginState {

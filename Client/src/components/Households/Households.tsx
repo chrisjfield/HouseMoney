@@ -8,7 +8,7 @@ class Households extends React.Component<any, any> {
     render() {
         return (
             <div> Households </div>
-        )
+        );
     }
 }
 

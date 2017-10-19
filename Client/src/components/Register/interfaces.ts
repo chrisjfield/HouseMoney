@@ -1,7 +1,9 @@
 import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { IUserAuthenticationObject } from '../../interfaces/userInterfaces';
     
-export interface IRegisterProps extends IComponentProps {}
+export interface IRegisterProps extends IComponentProps {
+    registering: boolean;
+}
 
 export interface IRegisterState {
     registerUser: {
