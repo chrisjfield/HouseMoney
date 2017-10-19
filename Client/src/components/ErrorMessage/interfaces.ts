@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux';
+import { Dispatch, Action } from 'redux';
     
 export interface IErrorMessageProps {
     dispatch: Dispatch<{}>;
@@ -7,4 +7,8 @@ export interface IErrorMessageProps {
 
 export interface IErrorMessageState {
     errorMessageText: string;
+}
+
+export interface IErrorMessageAction extends Action {
+    payload: IErrorMessageState;
 }

@@ -1,3 +1,4 @@
+import { Action } from 'redux';
 import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { IUserObject } from '../../interfaces/userInterfaces';
     
@@ -13,4 +14,13 @@ export interface IMyAccountState {
     userEdited: boolean;
     userDeleting: boolean;
     error: Error;
+}
+
+export interface IMyAccountAction extends Action {
+    editing: boolean;
+}
+
+export interface IMyAccountReducerState {
+    editing: boolean;
+    deleting: boolean;
 }

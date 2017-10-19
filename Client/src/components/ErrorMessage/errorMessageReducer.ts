@@ -1,6 +1,10 @@
 import { ADD_ERROR, REMOVE_ERROR } from './errorMessageActions';
+import { IErrorMessageState, IErrorMessageAction } from './interfaces';
 
-const errorMessageReducer = (state: any = { errorMessageText: null }, action: any) => {
+function errorMessageReducer(
+    state: IErrorMessageState = { errorMessageText: null },
+    action: IErrorMessageAction,
+) {
     switch (action.type) {
     case ADD_ERROR:
         return Object.assign({}, state, {
@@ -11,7 +15,7 @@ const errorMessageReducer = (state: any = { errorMessageText: null }, action: an
     default:
         return state;
     }
-};
+}
 
 // Export Reducer
 export default errorMessageReducer;

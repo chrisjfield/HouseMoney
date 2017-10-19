@@ -1,3 +1,4 @@
+import { Action } from 'redux';
 import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { IUserAuthenticationObject } from '../../interfaces/userInterfaces';
     
@@ -22,4 +23,8 @@ export interface IUserRegistrationObject extends IUserAuthenticationObject {
 
 export interface IRegisterUserObject extends IUserAuthenticationObject {
     confirmPassword: string;
+}
+
+export interface IRegisterAction extends Action {
+    loading: boolean;
 }

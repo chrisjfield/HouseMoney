@@ -1,9 +1,4 @@
-/**
- * Root Reducer
- */
-import { combineReducers } from 'redux';
-
-// Import Reducers
+import { combineReducers, Reducer } from 'redux';
 
 import navReducer from '../components/Nav/navReducer';
 import errorMessageReducer from '../components/ErrorMessage/errorMessageReducer';
@@ -11,8 +6,7 @@ import loginReducer from '../components/Login/loginReducer';
 import registerReducer from '../components/Register/registerReducer';
 import myAccountReducer from '../components/MyAccount/myAccountReducer';
 
-// Combine all reducers into one root reducer
-const rootReducer = combineReducers({
+const combinedReducers: Reducer<Function> = combineReducers({
     navReducer,
     errorMessageReducer,
     loginReducer,
@@ -20,4 +14,4 @@ const rootReducer = combineReducers({
     myAccountReducer,
 });
 
-export default rootReducer;
+export default combinedReducers;

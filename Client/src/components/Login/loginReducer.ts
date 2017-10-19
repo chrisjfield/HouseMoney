@@ -1,10 +1,13 @@
 import { LOGIN_STARTED, LOGIN_COMPLETED } from './loginActions';
+import { ILoginState, ILoginAction } from './interfaces';
 
 function loginReducer(
-  state = {
+  state: ILoginState = {
+      user: null,
+      error: null,
       loading: false,
   },
-  action: any,
+  action: ILoginAction,
 ) {
     switch (action.type) {
     case LOGIN_STARTED:
