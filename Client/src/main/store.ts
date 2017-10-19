@@ -3,11 +3,11 @@ import { persistStore, autoRehydrate, PersistorConfig } from 'redux-persist';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import * as localForage from 'localforage';
+import { routerMiddleware } from 'react-router-redux';
 
 import rootReducer from './reducers';
 import history from './history';
 
-import { routerMiddleware } from 'react-router-redux';
 
 const rmiddleware = routerMiddleware(history);
 

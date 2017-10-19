@@ -4,13 +4,13 @@ import { List, ListItem } from 'material-ui/List';
 import CircularProgress from 'material-ui/CircularProgress';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
-import * as math from 'mathjs';
-import APIHelper from '../../helpers/apiHelper';
+import { IUserDetailsObject } from '../../interfaces/userInterfaces';
 import { IBalanceProps, IBalanceState, IBalanceObject } from './interfaces';
+import appStyles from '../../styles';
 import styles from './styles';
 import { customTheme } from '../../themes';
-import appStyles from '../../styles';
-import { IUserDetailsObject } from '../../interfaces/userInterfaces';
+import * as math from 'mathjs';
+import APIHelper from '../../helpers/apiHelper';
 
 class Balance extends React.Component<IBalanceProps, IBalanceState> {
     constructor(props: IBalanceProps) {

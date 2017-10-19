@@ -2,15 +2,15 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import { load } from 'webfontloader';
+import * as injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './components/App';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import './styles/css/index.css';
 import store from './main/store';
 import history from './main/history';
 import appTheme from './main/themes';
-import * as injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import './styles/css/index.css';
-import { load } from 'webfontloader';
 
 load({
     google: {
@@ -28,7 +28,7 @@ ReactDOM.render((
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <MuiThemeProvider muiTheme={appTheme}>
-                <App />
+                <App history={history} dispatch={store.dispatch}/>
             </MuiThemeProvider>
         </ConnectedRouter>
     </Provider>

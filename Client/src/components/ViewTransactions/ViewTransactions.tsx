@@ -10,10 +10,10 @@ import {
 } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
+import styles from './styles';
+import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionDetails } from './interfaces';
 import * as moment from 'moment';
 import APIHelper from '../../helpers/apiHelper';
-import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionDetails } from './interfaces';
-import styles from './styles';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {

@@ -9,13 +9,13 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
-import * as math from 'mathjs';
-import APIHelper from '../../helpers/apiHelper';
+import styles from './styles';
+import appStyles from '../../styles';
 import { IHouseSummaryProps, IHouseSummaryState } from './interfaces';
 import { IUserObject } from '../../interfaces/userInterfaces';
 import { ITransactionSummaryObject } from '../../interfaces/transactionInterfaces';
-import styles from './styles';
-import appStyles from '../../styles';
+import * as math from 'mathjs';
+import APIHelper from '../../helpers/apiHelper';
 
 class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryState> {
     _rows: Function;
@@ -82,7 +82,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
         const tableRowData = rowsData.map(this.createRowData);
         return (
           <TableRow key={'Row' + userData.email}>
-            <TableRowColumn key={tableRowData.USER} style={styles.gridHeader}>
+            <TableRowColumn key={'RowColumn' + userData.email} style={styles.gridHeader}>
               {userData.email}
             </TableRowColumn>
             {tableRowData}

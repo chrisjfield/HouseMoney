@@ -4,10 +4,10 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
-import { editUser, deleteUser } from './myAccountActions';
-import { IMyAccountProps, IMyAccountState } from './interfaces';
 import styles from './styles';
 import appStyles from '../../styles';
+import { IMyAccountProps, IMyAccountState } from './interfaces';
+import { editUser, deleteUser } from './myAccountActions';
 
 class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
     constructor(props: IMyAccountProps) {

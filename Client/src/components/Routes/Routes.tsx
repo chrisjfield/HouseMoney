@@ -20,23 +20,23 @@ class Routes extends React.Component<IRoutesProps, IRoutesState> {
         if (isLoggedIn) {
             routes = (
               <Switch>
-                <Route exact path='/' component={Balance} />
-                <Route path='/Balance' component={Balance} />
-                <Route path='/ViewTransactions' component={ViewTransactions} />
-                <Route path='/MyAccount' component={MyAccount} />
-                <Route path='/AddTransaction' component={AddTransaction} />
-                <Route path='/HouseSummary' component={HouseSummary} />
-                <Route path='/ChangePassword' component={ChangePassword} />
-                <Route exact path='*' component={NotFound404} />
+                <Route exact path="/" component={Balance} />
+                <Route path="/Balance" component={Balance} />
+                <Route path="/ViewTransactions" component={ViewTransactions} />
+                <Route path="/MyAccount" component={MyAccount} />
+                <Route path="/AddTransaction" component={AddTransaction} />
+                <Route path="/HouseSummary" component={HouseSummary} />
+                <Route path="/ChangePassword" component={ChangePassword} />
+                <Route exact path="*" component={NotFound404} />
               </Switch>
             );
         } else {
             routes = (
               <Switch>
-                <Route exact path='/' component={Login} />
-                <Route path='/Login' component={Login} />
-                <Route path='/Register' component={Register} />
-                <Route exact path='*' component={NotFound404} />
+                <Route exact path="/" component={Login} />
+                <Route path="/Login" component={Login} />
+                <Route path="/Register" component={Register} />
+                <Route exact path="*" component={NotFound404} />
               </Switch>
             );
         }

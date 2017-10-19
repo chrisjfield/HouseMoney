@@ -4,9 +4,9 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import { registerUser } from './registerActions';
-import { addError } from '../ErrorMessage/errorMessageActions';
-import { IRegisterProps, IRegisterState, IRegisterUserObject } from './interfaces';
 import appStyles from '../../styles';
+import { IRegisterProps, IRegisterState, IRegisterUserObject } from './interfaces';
+import { addError } from '../ErrorMessage/errorMessageActions';
 
 class Register extends React.Component<IRegisterProps, IRegisterState> {
     constructor(props: IRegisterProps) {
@@ -28,6 +28,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         if (this.state.registerUser.password === this.state.registerUser.confirmPassword) {
             const { dispatch, history } = this.props;
             const user: IRegisterUserObject = {
+                userId: '', // ED! wrong typing here too - need to draw out what types we really have here!
                 displayName: this.state.registerUser.displayName,
                 email: this.state.registerUser.email,
                 password: this.state.registerUser.password,
@@ -48,7 +49,9 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         const value = target.value;
         const name = target.name;
 
-        this.setState(this.state.registerUser: { ...this.state.registerUser, [name]: value }); 
+        this.setState(prevState => ({
+            registerUser: { ...this.state.registerUser, [name]: value },
+        })); 
     }
 
     render() {
@@ -124,10 +127,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
 
 // Retrieve data from store as props
 const mapStateToProps = (store: any) => {
-    const { user } = store;
-
     return {
-        user,
         registering: store.registerReducer.loading,
     };
 };

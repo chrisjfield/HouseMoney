@@ -24,3 +24,6 @@ removed toolbar styles={styles} - check this has behaved
 
 make user objects named, used and interfaced consistently from firebase
 make order of imports consistent
+
+redux-persist
+localforage

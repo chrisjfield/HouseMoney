@@ -11,9 +11,9 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import UserChip from '../UserChip';
-import history from '../../main/history';
-import { INavProps, INavState } from './interfaces';
 import styles from './styles';
+import { INavProps, INavState } from './interfaces';
+import history from '../../main/history';
 
 class Nav extends React.Component<INavProps, INavState> {
     constructor(props: INavProps) {

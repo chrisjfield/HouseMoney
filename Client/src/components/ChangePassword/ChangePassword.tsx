@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
-import APIHelper from '../../helpers/apiHelper';
-import { addError } from '../ErrorMessage/errorMessageActions';
-import { IChangePasswordProps, IChangePasswordState } from './interfaces';
 import appStyles from '../../styles';
+import { IChangePasswordProps, IChangePasswordState } from './interfaces';
+import { addError } from '../ErrorMessage/errorMessageActions';
+import APIHelper from '../../helpers/apiHelper';
 
 class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswordState> {
     constructor(props: IChangePasswordProps) {

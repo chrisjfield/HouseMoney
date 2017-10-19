@@ -9,13 +9,13 @@ import Checkbox from 'material-ui/Checkbox';
 import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
 import UserChip from '../UserChip';
-import { addError } from '../ErrorMessage/errorMessageActions';
+import styles from './styles';
+import appStyles from '../../styles';
+import { IAddTransationProps, IAddTransationState, IAddTransactionUser } from './interfaces';
 import * as moment from 'moment';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
-import { IAddTransationProps, IAddTransationState, IAddTransactionUser } from './interfaces';
-import styles from './styles';
-import appStyles from '../../styles';
+import { addError } from '../ErrorMessage/errorMessageActions';
 
 class AddTransaction extends React.Component<IAddTransationProps, IAddTransationState> {
     constructor(props: IAddTransationProps) {

@@ -1,0 +1,15 @@
+Imports: 
+    React and Redux
+    Externals
+    Styling stuff
+    Interfaces
+    Helpers
+    Actions
+    Other Internals
+
+Components:
+    Constructor
+    React life cycle
+    functions
+    render (should point to functions)
+    Redux connect

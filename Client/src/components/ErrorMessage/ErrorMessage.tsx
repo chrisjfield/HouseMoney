@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 import { removeError } from './errorMessageActions';
-import { IErrorMessageProps, IErrorMessageState } from './interfaces';
 import { customTheme } from '../../themes';
+import { IErrorMessageProps, IErrorMessageState } from './interfaces';
 
 class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageState> {
     constructor(props: IErrorMessageProps) {

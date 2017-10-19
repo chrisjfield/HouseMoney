@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
-import { loginUser } from './loginActions';
-import { ILoginProps, ILoginState } from './interfaces';
 import appStyles from '../../styles';
+import { ILoginProps, ILoginState } from './interfaces';
+import { loginUser } from './loginActions';
 
 class Login extends React.Component<ILoginProps, ILoginState> {
     constructor(props: ILoginProps) {
@@ -105,10 +105,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
 
 // Retrieve data from store as props
 const mapStateToProps = (store: any) => {
-    const { user } = store;
-
     return {
-        user,
         loggingIn: store.loginReducer.loading,
     };
 };
