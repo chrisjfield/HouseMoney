@@ -15,37 +15,13 @@ import * as moment from 'moment';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
 import { IAddTransationProps, IAddTransationState, IAddTransactionUser } from './interfaces';
-import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
+import styles from './styles';
+import appStyles from '../../styles';
 
 class AddTransaction extends React.Component<IAddTransationProps, IAddTransationState> {
     constructor(props: IAddTransationProps) {
         super(props);
-        // this.styles = {
-        //     container: {
-        //         textAlign: 'center',
-        //         marginTop: '20px',
-        //     },
-        //     checkbox: {
-        //         display: 'inline-flex',
-        //     },
-        //     checkboxIcon: {
-        //         paddingTop: '2px',
-        //     },
-        //     checkAll: {
-        //         display: 'inline-flex',
-        //         textAlign: 'left',
-        //     },
-        //     userChip: {
-        //         display: 'inline-flex',
-        //         width: 'inherit',
-        //         overflow: 'hidden',
-        //     },
-        //     checkBoxListSheet: {
-        //         width: '256px',
-        //         textAlign: 'center',
-        //         display: 'inline-block',
-        //     },
-        // };
+
         this.state = {
             userListReturned: false,
             userList: [],
@@ -143,21 +119,21 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
         }
     }
 
-    createCheckbox (userList: IAddTransactionUser[]): JSX.Element {
+    createCheckbox (userList: IAddTransactionUser): JSX.Element {
         const checkbox: JSX.Element = (
             <ListItem
-                key={'ListItem_' + userList.email}
-                onClick={this.updateCheck.bind(this, userList.email)}
+                key={'ListItem_' + userList.userId}
+                onClick={this.updateCheck.bind(this, userList.userId)}
             >
                 <Checkbox
-                    key={'Checkbox_' + userList.email}
-                    label={<UserChip user={userList} styles={this.styles.userChip} />}
+                    key={'Checkbox_' + userList.userId}
+                    label={<UserChip user={userList} styles={styles.userChip} />}
                     checked={
-                        this.state.userList.find(thing => thing.email === userList.email)
+                        this.state.userList.find(thing => thing.userId === userList.userId)
                             .checked
                     }
-                    style={this.styles.checkbox}
-                    iconStyle={this.styles.checkboxIcon}
+                    style={styles.checkbox}
+                    iconStyle={styles.checkboxIcon}
                     onCheck={this.updateCheck.bind(this, userList.userId)}
                     disabled={this.state.transactionAdding}
                 />
@@ -176,7 +152,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
         return checkboxList;
     }
 
-    handleInputChange = (event: IInputChangeEvent<string | number>) => {
+    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.updateAddTransaction(event.target.name, event.target.value);
     }
 
@@ -201,19 +177,19 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
 
     render() {
         return (
-        <form style={this.styles.container} onSubmit={this.handleFormSubmit}>
+        <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
             <h2>Add a Transaction </h2>
             <h3> Divided between {this.props.loggedInUser.displayName}, and: </h3>
             <div>
                 <List>
-                    <Paper style={this.styles.checkBoxListSheet}>
+                    <Paper style={styles.checkBoxListSheet}>
                         <ListItem key={'ListItem_checkAll'} onClick={this.updateCheckAll}>
                             <Checkbox
                                 key="checkAll"
                                 label="Everyone"
                                 checked={this.state.allChecked}
                                 onCheck={this.updateCheckAll}
-                                style={this.styles.checkAll}
+                                style={styles.checkAll}
                             />
                         </ListItem>
                         {this.state.userListReturned ? (
@@ -243,8 +219,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
                     autoOk={true}
                     container="inline"
                     style={{ display: 'inline-block' }}
-                    defaultDate={this.currentDate}
-                    required
+                    defaultDate={this.state.currentDate}
                     value={this.state.addTransaction.DATE}
                     onChange={(event, dateObj) => {
                         this.handleDateChange(dateObj);
@@ -261,7 +236,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
                     value={this.state.addTransaction.REFERENCE}
                     onChange={this.handleInputChange}
                     disabled={this.state.transactionAdding}
-                    maxLength="200"
+                    maxlength="200"
                 />
             </div>
             <FlatButton

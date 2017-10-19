@@ -16,6 +16,8 @@ convert to typescript
 V3 Bugs:
 Console error on logout
 
-type store
+type store, actions, login and register api calls
 tidy up method of styling - check styles and themes are correctly split
 replace react-addons-update - think we should use ... somehow (spread operator)
+
+removed toolbar styles={styles} - check this has behaved

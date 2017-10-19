@@ -8,7 +8,6 @@ import update from 'react-addons-update';
 import APIHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { IChangePasswordProps, IChangePasswordState } from './interfaces';
-import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
 
 class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswordState> {
     constructor(props: IChangePasswordProps) {
@@ -64,7 +63,7 @@ class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswo
           });
     }
 
-    handleInputChange = (event: IInputChangeEvent<string>) => {
+    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -97,7 +96,7 @@ class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswo
               value={this.state.passwordUpdate.CURRENTPASSWORD}
               onChange={this.handleInputChange}
               disabled={this.state.passwordUpdating}
-              maxLength="50"
+              maxlength="50"
             />
           </div>
           <div>
@@ -110,7 +109,7 @@ class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswo
               value={this.state.passwordUpdate.NEWPASSWORD}
               onChange={this.handleInputChange}
               disabled={this.state.passwordUpdating}
-              maxLength="50"
+              maxlength="50"
             />
           </div>
           <div>
@@ -123,7 +122,7 @@ class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswo
               value={this.state.passwordUpdate.NEWPASSWORDCONFIRM}
               onChange={this.handleInputChange}
               disabled={this.state.passwordUpdating}
-              maxLength="50"
+              maxlength="50"
             />
           </div>
           <FlatButton
@@ -138,7 +137,7 @@ class ChangePassword extends React.Component<IChangePasswordProps, IChangePasswo
             onRequestClose={this.handleRequestClose}
           />
         </form>
-      );
+        );
     }
 }
 

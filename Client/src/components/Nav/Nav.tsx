@@ -13,26 +13,11 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import UserChip from '../UserChip';
 import history from '../../main/history';
 import { INavProps, INavState } from './interfaces';
+import styles from './styles';
 
 class Nav extends React.Component<INavProps, INavState> {
     constructor(props: INavProps) {
         super(props);
-
-      // this.styles = {
-      //   menuItems: {
-      //     textDecoration: 'none',
-      //     color: '#BDBDBD'
-      //   },
-      //   toolbar: {
-      //     backgroundColor: '#004989',
-      //     color: '#BDBDBD'
-      //   },
-      //   userChipItem: {
-      //     display: 'inline-flex',
-      //     width: '120px',
-      //     overflow: 'hidden'
-      //   }
-      // };
     }
 
     handleLogOut = () => {
@@ -45,11 +30,11 @@ class Nav extends React.Component<INavProps, INavState> {
     getLoggedOutMenuOptions = () => {
         return (
           <div>
-            <Link style={this.styles.menuItems} to='/Login'>
+            <Link style={styles.menuItems} to="/Login">
               <MenuItem>Sign In </MenuItem>
             </Link>
 
-            <Link style={this.styles.menuItems} to='/Register'>
+            <Link style={styles.menuItems} to="/Register">
               <MenuItem> Sign Up</MenuItem>
             </Link>
           </div>
@@ -59,24 +44,24 @@ class Nav extends React.Component<INavProps, INavState> {
     getLoggedInMenuOptions = () => {
         return (
           <div>
-            <Link style={this.styles.menuItems} to='/MyAccount'>
+            <Link style={styles.menuItems} to="/MyAccount">
               <MenuItem>
                 <UserChip
                   user={this.props.loggedInUser}
-                  styles={this.styles.userChipItem}
+                  styles={styles.userChipItem}
                 />
               </MenuItem>
             </Link>
 
-            <Link style={this.styles.menuItems} to='/HouseSummary'>
+            <Link style={styles.menuItems} to="/HouseSummary">
               <MenuItem>House Summary</MenuItem>
             </Link>
 
-            <Link style={this.styles.menuItems} to='/Balance'>
+            <Link style={styles.menuItems} to="/Balance">
               <MenuItem>My Balance</MenuItem>
             </Link>
 
-            <a style={this.styles.menuItems} onClick={() => this.handleLogOut()}>
+            <a style={styles.menuItems} onClick={() => this.handleLogOut()}>
               <MenuItem>Logout</MenuItem>
             </a>
           </div>
@@ -86,14 +71,14 @@ class Nav extends React.Component<INavProps, INavState> {
     getLoggedInNavItems = () => {
         return (
           <ToolbarGroup>
-            <Link style={this.styles.menuItems} to='/AddTransaction'>
-              <IconButton tooltip='Add Transaction'>
+            <Link style={styles.menuItems} to="/AddTransaction">
+              <IconButton tooltip="Add Transaction">
                 <AddButton />
               </IconButton>
             </Link>
 
-            <Link style={this.styles.menuItems} to='/ViewTransactions'>
-              <IconButton tooltip='View Transactions'>
+            <Link style={styles.menuItems} to="/ViewTransactions">
+              <IconButton tooltip="View Transactions">
                 <ViewButton />
               </IconButton>
             </Link>
@@ -107,14 +92,14 @@ class Nav extends React.Component<INavProps, INavState> {
 
     render() {
         return (
-          <Toolbar style={this.styles.toolbar}>
+          <Toolbar>
             <ToolbarGroup>
-              <Link to='/'>
-                <IconButton tooltip='Home'>
+              <Link to="/">
+                <IconButton tooltip="Home">
                   <ActionHome />
                 </IconButton>
               </Link>
-              <ToolbarTitle text='House Money' />
+              <ToolbarTitle text="House Money" />
             </ToolbarGroup>
             <ToolbarGroup>
               {this.props.isLoggedIn
@@ -125,7 +110,7 @@ class Nav extends React.Component<INavProps, INavState> {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                 iconButtonElement={
-                  <IconButton tooltip='Menu'>
+                  <IconButton tooltip="Menu">
                     <Menu />
                   </IconButton>
                 }

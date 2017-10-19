@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { update } from 'react-addons-update';
+import update from 'react-addons-update';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -7,7 +7,8 @@ import Dialog from 'material-ui/Dialog';
 import Snackbar from 'material-ui/Snackbar';
 import { editUser, deleteUser } from './myAccountActions';
 import { IMyAccountProps, IMyAccountState } from './interfaces';
-import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
+import styles from './styles';
+import appStyles from '../../styles';
 
 class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
     constructor(props: IMyAccountProps) {
@@ -23,34 +24,20 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
             userDeleting: false,
             error: null,
         };
-
-        // this.styles = {
-        //   container: {
-        //     textAlign: 'center',
-        //     marginTop: '20px'
-        //   },
-        //   buttonWrapper: {
-        //     display: 'inline-flex',
-        //     verticalAlign: 'middle'
-        //   },
-        //   button: {
-        //     verticalAlign: 'middle'
-        //   }
-        // };
     }
 
     componentWillReceiveProps(nextProps: IMyAccountProps) {
         this.setState({ userEditing: nextProps.editing });
     }
 
-    handleEditUser = (event: Event) => {
+    handleEditUser = (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
         const { dispatch } = this.props;
         const USER = this.state.userUpdate;
         dispatch(editUser(USER)).then(() => this.setState({ userEdited: true }));
     }
 
-    handleDeleteUser = (event: Event) => {
+    handleDeleteUser = (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         const { dispatch, history } = this.props;
         const emailAddresss = this.state.userUpdate.email;
@@ -59,7 +46,7 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
           .catch((error: Error) => this.setState({ error, userDeleting: false }));
     }
 
-    handleInputChange = (event: IInputChangeEvent<string>) => {
+    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -80,7 +67,7 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
         this.setState({ userDeleting: true });
     }
 
-    handleDeleteUserClose = (event: Event) => {
+    handleDeleteUserClose = () => {
         this.setState({ userDeleting: false });
     }
 
@@ -88,7 +75,7 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
         return (
           <form
             name="MyAccountForm"
-            style={this.styles.container}
+            style={appStyles.container}
             onSubmit={this.handleEditUser}
           >
             <h2>Your Details</h2>
@@ -99,7 +86,7 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
                     name="email"
                     hintText="email@example.com"
                     floatingLabelText="Email Address"
-                    defaultValue={this.state.userUpdate.CURRENTUSER}
+                    defaultValue={this.state.userUpdate.currentUser}
                     required
                     onChange={this.handleInputChange}
                     disabled={true}
@@ -107,47 +94,36 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
                 </div>
                 <div>
                   <TextField
-                    name="FIRSTNAME"
+                    name="DISPLAYNAME"
                     hintText="My name"
-                    floatingLabelText="First Name"
-                    defaultValue={this.state.userUpdate.FIRSTNAME}
+                    floatingLabelText="Display Name"
+                    defaultValue={this.state.userUpdate.displayName}
                     required
                     onChange={this.handleInputChange}
                     disabled={this.state.userEditing || this.state.userDeleting}
                   />
                 </div>
                 <div>
-                  <TextField
-                    name="SURNAME"
-                    hintText="My surname"
-                    floatingLabelText="Last Name"
-                    defaultValue={this.state.userUpdate.SURNAME}
-                    required
-                    onChange={this.handleInputChange}
-                    disabled={this.state.userEditing || this.state.userDeleting}
-                  />
-                </div>
-                <div>
-                  <div style={this.styles.buttonWrapper}>
+                  <div style={styles.buttonWrapper}>
                     <FlatButton
-                      style={this.styles.button}
+                      style={styles.button}
                       type="submit"
                       label="Update"
                       disabled={this.state.userEditing || this.state.userDeleting}
                     />
                   </div>
-                  <div style={this.styles.buttonWrapper}>
+                  <div style={styles.buttonWrapper}>
                     <FlatButton
-                      style={this.styles.button}
+                      style={styles.button}
                       label="Change Password"
                       secondary={true}
-                      onClick={() => this.props.history.push("/ChangePassword")}
+                      onClick={() => this.props.history.push('/ChangePassword')}
                       disabled={this.state.userEditing || this.state.userDeleting}
                     />
                   </div>
-                  <div style={this.styles.buttonWrapper}>
+                  <div style={styles.buttonWrapper}>
                     <FlatButton
-                      style={this.styles.button}
+                      style={styles.button}
                       label="Delete"
                       secondary={true}
                       onClick={this.handleDeleteUserOpen}
@@ -166,17 +142,17 @@ class MyAccount extends React.Component<IMyAccountProps, IMyAccountState> {
             <Dialog
               title="Delete User"
               actions={[
-                <FlatButton
-                  label="No"
-                  primary={true}
-                  onClick={this.handleDeleteUserClose}
-                />,
-                <FlatButton
-                  label="Yes"
-                  primary={true}
-                  keyboardFocused={true}
-                  onClick={this.handleDeleteUser}
-                />,
+                  <FlatButton
+                    label="No"
+                    primary={true}
+                    onClick={this.handleDeleteUserClose}
+                  />,
+                  <FlatButton
+                    label="Yes"
+                    primary={true}
+                    keyboardFocused={true}
+                    onClick={this.handleDeleteUser}
+                  />,
               ]}
               modal={false}
               open={this.state.userDeleting}

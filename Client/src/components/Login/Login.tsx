@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import { loginUser } from './loginActions';
 import { ILoginProps, ILoginState } from './interfaces';
-import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
 
 class Login extends React.Component<ILoginProps, ILoginState> {
     constructor(props: ILoginProps) {
@@ -42,7 +41,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
           });
     }
 
-    handleInputChange = (event: IInputChangeEvent<string>) => {
+    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -63,7 +62,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
                 required
                 onChange={this.handleInputChange}
                 disabled={this.state.loading}
-                maxLength='50'
+                maxlength='50'
               />
             </div>
             <div>
@@ -76,7 +75,7 @@ class Login extends React.Component<ILoginProps, ILoginState> {
                 required
                 onChange={this.handleInputChange}
                 disabled={this.state.loading}
-                maxLength='30'
+                maxlength='30'
               />
             </div>
             <div>

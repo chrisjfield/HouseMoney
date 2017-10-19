@@ -6,7 +6,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import { registerUser } from './registerActions';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { IRegisterProps, IRegisterState } from './interfaces';
-import { IInputChangeEvent } from '../../interfaces/inputInterfaces';
 
 class Register extends React.Component<IRegisterProps, IRegisterState> {
     constructor(props: IRegisterProps) {
@@ -49,7 +48,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         }
     }
 
-    handleInputChange = (event: IInputChangeEvent<string>) => {
+    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -78,7 +77,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                 required
                 onChange={this.handleInputChange}
                 disabled={this.state.loading}
-                maxLength="100"
+                maxlength="100"
               />
             </div>
             <div>
@@ -89,7 +88,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                 required
                 onChange={this.handleInputChange}
                 disabled={this.state.loading}
-                maxLength="50"
+                maxlength="50"
               />
             </div>
             <div>
@@ -101,7 +100,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                 required
                 onChange={this.handleInputChange}
                 disabled={this.state.loading}
-                maxLength="30"
+                maxlength="30"
               />
             </div>
             <div>
@@ -113,7 +112,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                 required
                 onChange={this.handleInputChange}
                 disabled={this.state.loading}
-                maxLength="30"
+                maxlength="30"
               />
             </div>
             <div>
