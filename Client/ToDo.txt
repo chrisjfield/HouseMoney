@@ -18,7 +18,7 @@ Console error on logout
 
 type store, actions, login and register api calls
 tidy up method of styling - check styles and themes are correctly split
-replace react-addons-update - think we should use ... somehow (spread operator)
+replace react-addons-update - think we should use ... somehow (spread operator)- think I've done this? Cant get the fucker to build though...
 
 removed toolbar styles={styles} - check this has behaved
 
