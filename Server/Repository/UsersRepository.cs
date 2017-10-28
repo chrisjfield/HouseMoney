@@ -9,7 +9,7 @@ public class UserRepository
     private string connectionString;
     public UserRepository()
     {
-        connectionString = @"Server=EDLAPTOP\EDLAPTOPSQL;Database=HouseMoney_Dev_V3;UserID=HMApp;Password=dickbutt11!";
+        connectionString = @"Server=EDLAPTOP\EDLAPTOPSQL;Database=HouseMoney_Dev_V3;User Id=HMApp;Password=dickbutt11!";
     }
 
     public IDbConnection Connection
@@ -24,7 +24,7 @@ public class UserRepository
         using (IDbConnection dbConnection = Connection)
         {
             string sQuery = "EXEC USERS_INSERT"
-                                +  "@USERID = @UserId"
+                                + "  @USERID = @UserId"
                                 + ", @DISPLAYNAME = @DisplayName"
                                 + ", @HOUSEHOLDID = @HouseHoldId";
             dbConnection.Open();
