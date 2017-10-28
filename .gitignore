@@ -21,6 +21,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.vs/*
-./*.csproj.user
-./*.sln
+*/.vs/*
+*/*.csproj.user
+*/*.sln
