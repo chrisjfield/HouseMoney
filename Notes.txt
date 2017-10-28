@@ -1,0 +1,5 @@
+Notes: 
+
+Will have to store firebase userId against the household and get creds to make saving tran with Creditor and Debtor make sense
+
+how to leave household?

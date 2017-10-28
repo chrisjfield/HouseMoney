@@ -1,1 +1,8 @@
 dotnet new webapi -n {apiName} e.g. dotnet new webapi -n housemoneyapi (moved to ./Server instead of ./HouseMoneyAPI - find and replace file name where needed)
+dotnet add {apiName}.csproj package Swashbuckle.AspNetCore
+dotnet add {apiName}.csproj package Dapper
+dotnet restore
+
+open in visual stuido 2017 (fixes not finding assemblies... why?? )
+
+dotnet run
