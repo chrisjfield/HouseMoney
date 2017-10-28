@@ -12700,11 +12700,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\WebProjects\\HouseMoneyV2\\server\\HouseMoneyAPI.csproj",
+      "projectUniqueName": "c:\\WebProjects\\HouseMoneyV2\\Server\\HouseMoneyAPI.csproj",
       "projectName": "HouseMoneyAPI",
-      "projectPath": "C:\\WebProjects\\HouseMoneyV2\\server\\HouseMoneyAPI.csproj",
+      "projectPath": "c:\\WebProjects\\HouseMoneyV2\\Server\\HouseMoneyAPI.csproj",
       "packagesPath": "C:\\Users\\Ed\\.nuget\\packages\\",
-      "outputPath": "C:\\WebProjects\\HouseMoneyV2\\server\\obj\\",
+      "outputPath": "c:\\WebProjects\\HouseMoneyV2\\Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
