@@ -1,0 +1,1 @@
+dotnet new webapi -n {apiName} e.g. dotnet new webapi -n housemoneyapi (moved to ./Server instead of ./HouseMoneyAPI - find and replace file name where needed)
