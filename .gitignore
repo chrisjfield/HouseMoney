@@ -1,33 +1,21 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# production
-/Server/bin/
-/Server/bin/Debug/
-/Server/bin/Release/
-
-# misc
-/Server/*.csproj.user
-/Server/*.user
-/Server/obj/
-obj
-bin
-
 # dependencies
-/Client/node_modules
+/node_modules
 /Clientpackage-lock.json
 
 # testing
-/Client/coverage
+/coverage
 
 # production
-/Client/build
+/build
 
 # misc
-/Client.DS_Store
-/Client.env.local
-/Client.env.development.local
-/Client.env.test.local
-/Client.env.production.local
+/DS_Store
+/env.local
+/env.development.local
+/env.test.local
+/env.production.local
 
 npm-debug.log*
 yarn-debug.log*
