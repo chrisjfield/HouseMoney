@@ -13,6 +13,15 @@ export function loginUser(login: IUserAuthenticationObject) {
         dispatch(loginStarted());
         return request
           .then((response: IUserResponseObject) => {
+              // Add this in to debug V3 api
+            //   auth.currentUser.getToken(true).then((idToken: any) => {
+            //         // Send token to your backend via HTTPS
+            //         // ...
+            //       const idTokenCheck = idToken;
+            //       console.log(idTokenCheck);
+            //   }).catch((error: Error) => {
+            //         // Handle error
+            //   });
               dispatch(loginSuccessful(response));
               dispatch(loginAttemptComplete());
           })
