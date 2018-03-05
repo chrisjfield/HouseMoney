@@ -1,10 +1,11 @@
 html {
   font-family: 'Roboto', sans-serif;
-  color: #004989;
-  background-color: #212121;
+  color: #1565C0;
+  background-color: #1b1a1a;
 }
 
 input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #212121 inset;
   -webkit-box-shadow: 0 0 0 1000px #212121 inset;
   -webkit-text-fill-color: #bdbdbd;
 }

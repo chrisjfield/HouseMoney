@@ -10,7 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './styles/css/app.css';
 import store from './main/store';
 import history from './main/history';
-import appTheme from './main/themes';
+import appTheme from './themes';
 
 load({
     google: {
@@ -32,5 +32,5 @@ ReactDOM.render((
             </MuiThemeProvider>
         </ConnectedRouter>
     </Provider>
-    ),          domElement,
+),              domElement,
 );
