@@ -4,7 +4,7 @@ import Nav from '../Nav';
 import Routes from '../Routes';
 import ErrorMessage from '../ErrorMessage';
 
-function App()  {
+const App: React.StatelessComponent<{}> = (props) =>  {
     return (
         <div>
             <Nav />
@@ -12,6 +12,6 @@ function App()  {
             <ErrorMessage />
         </div>
     );
-}
+};
 
 export default App;

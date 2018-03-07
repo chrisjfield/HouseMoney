@@ -1,8 +1,8 @@
 import * as React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import { INotFound404Props, INotFound404State } from './interfaces';
+import { INotFound404Props } from './interfaces';
 
-class NotFound404 extends React.Component<INotFound404Props, INotFound404State> {
+class NotFound404 extends React.Component<INotFound404Props> {
     render() {
         return (
           <div style={{ textAlign: 'center' }}>
