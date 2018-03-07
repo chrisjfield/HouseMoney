@@ -2,7 +2,7 @@ import { RECEIVE_USER } from '../Nav/navActions';
 import { IUserLoggedIn, IRecieveUserAction } from '../../interfaces/userInterfaces';
 
 function navReducer(
-  state: IUserLoggedIn = { 
+  state: IUserLoggedIn = { //TODO: Replace this with occupants reducer which sets logged in occupant
       isLoggedIn: false,
       loggedInUser: {
           userId: '',
