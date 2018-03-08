@@ -16,6 +16,7 @@ import * as moment from 'moment';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
+import { IStore } from '../../interfaces/storeInterface';
 
 class AddTransaction extends React.Component<IAddTransationProps, IAddTransationState> {
     constructor(props: IAddTransationProps) {
@@ -260,8 +261,8 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
 }
 
 // Retrieve data from store as props
-const mapStateToProps = (store: any) => {
-    return { loggedInOccupant: store.navReducer.loggedInOccupant };
+const mapStateToProps = (store: IStore) => {
+    return { loggedInOccupant: store.occupantsReducer.loggedInOccupant };
 };
 
 export default connect(mapStateToProps)(AddTransaction);

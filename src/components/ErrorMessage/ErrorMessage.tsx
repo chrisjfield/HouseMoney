@@ -4,6 +4,7 @@ import Snackbar from 'material-ui/Snackbar';
 import { removeError } from './errorMessageActions';
 import { customTheme } from '../../themes';
 import { IErrorMessageProps, IErrorMessageState } from './interfaces';
+import { IStore } from '../../interfaces/storeInterface';
 
 class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageState> {
     constructor(props: IErrorMessageProps) {
@@ -45,10 +46,8 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
     }
 }
 
-const mapStateToProps = (store: any) => {
-    return {
-        errorMessageText: store.errorMessageReducer.errorMessageText,
-    };
+const mapStateToProps = (store: IStore) => {
+    return { errorMessageText: store.errorMessageReducer.errorMessageText };
 };
 
 export default connect(mapStateToProps)(ErrorMessage);

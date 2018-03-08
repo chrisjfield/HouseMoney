@@ -23,8 +23,5 @@ replace react-addons-update - think we should use ... somehow (spread operator)-
 removed toolbar styles={styles} - check this has behaved
 
 make occupant objects named, used and interfaced consistently from firebase
-make app wide loading thing (steal from HouseFood
-
-ED!
- Type Store! 
+make app wide loading thing (steal from HouseFood)
 

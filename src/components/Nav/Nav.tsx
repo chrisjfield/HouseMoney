@@ -13,6 +13,7 @@ import styles from './styles';
 import { INavProps } from './interfaces';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { handleLogOut } from '../../helpers/loginHelper';
+import { IStore } from '../../interfaces/storeInterface';
 
 const LoggedOutMenuOptions: React.StatelessComponent = () => {
     return null;
@@ -93,10 +94,10 @@ const Nav: React.StatelessComponent<INavProps> = (props) => {
 };
 
 // Retrieve data from store as props
-const mapStateToProps = (store: any) => {
-    return {
-        isLoggedIn: store.navReducer.isLoggedIn,
-        loggedInOccupant: store.navReducer.loggedInOccupant,
+const mapStateToProps = (store: IStore) => {
+    return { 
+        isLoggedIn: store.occupantsReducer.isLoggedIn,
+        loggedInOccupant: store.occupantsReducer.loggedInOccupant,
     };
 };
 

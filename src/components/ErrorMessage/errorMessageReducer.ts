@@ -8,7 +8,7 @@ function errorMessageReducer(
     switch (action.type) {
     case ADD_ERROR:
         return Object.assign({}, state, {
-            errorMessageText: action.payload,
+            errorMessageText: action.errorMessageText,
         });
     case REMOVE_ERROR:
         return Object.assign({}, state, { errorMessageText: null });

@@ -1,5 +1,5 @@
 import baseURL from '../appConfig';
-// import { handleLogOut } from './loginHelper';
+import { handleLogOut } from './loginHelper';
 
 class APIHelper {
     static apiCall(method: string, endpoint: string, token: string, urlParams?: string, body?: object) {
@@ -32,9 +32,7 @@ class APIHelper {
         } else if (response.ok) {
             ret = response.json();
         } else if (response.status === 401) {
-            // handleLogOut(); 
-            // TODO: Figure out what logout should be 
-            // - just href to myHouse/Login ? Should probably clear the occupant in redux too
+            handleLogOut(); 
         } else {
             const error: Error = new Error(response.statusText);
             throw error;

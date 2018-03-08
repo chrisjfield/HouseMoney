@@ -14,6 +14,7 @@ import styles from './styles';
 import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionDetails } from './interfaces';
 import * as moment from 'moment';
 import APIHelper from '../../helpers/apiHelper';
+import { IStore } from '../../interfaces/storeInterface';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
@@ -188,8 +189,8 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 }
 
 // Retrieve data from store as props
-const mapStateToProps = (store: any) => {
-    return { loggedInOccupant: store.navReducer.loggedInOccupant };
+const mapStateToProps = (store: IStore) => {
+    return { loggedInOccupant: store.occupantsReducer.loggedInOccupant };
 };
 
 export default connect(mapStateToProps)(ViewTransactions);

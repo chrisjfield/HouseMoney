@@ -10,5 +10,5 @@ export interface IErrorMessageState {
 }
 
 export interface IErrorMessageAction extends Action {
-    payload: IErrorMessageState;
+    errorMessageText: IErrorMessageState;
 }

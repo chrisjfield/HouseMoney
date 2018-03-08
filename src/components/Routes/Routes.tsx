@@ -10,6 +10,7 @@ import HouseSummary from '../HouseSummary';
 import NotFound404 from '../NotFound404';
 import { checkAuthorization } from '../Occupants/occupantsActions';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
+import { IStore } from '../../interfaces/storeInterface';
 
 const LoggedInRoutes: React.StatelessComponent = () => {
     return (
@@ -38,10 +39,10 @@ export const Routes: React.StatelessComponent<RouteComponentProps<any> & IRoutes
     return <Route>{props.isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />}</Route>;
 };
 
-const mapStateToProps = (store: any) => {
+const mapStateToProps = (store: IStore) => {
     return {
-        isLoggedIn: store.navReducer.isLoggedIn,
-        loggedInOccupant: store.navReducer.loggedInOccupant,
+        isLoggedIn: store.occupantsReducer.isLoggedIn,
+        loggedInOccupant: store.occupantsReducer.loggedInOccupant,
     };
 };
 

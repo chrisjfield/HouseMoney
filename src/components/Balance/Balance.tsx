@@ -10,6 +10,7 @@ import styles from './styles';
 import { customTheme } from '../../themes';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
+import { IStore } from '../../interfaces/storeInterface';
 
 class Balance extends React.Component<IBalanceProps, IBalanceState> {
     constructor(props: IBalanceProps) {
@@ -99,8 +100,8 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
 }
 
 // Retrieve data from store as props
-const mapStateToProps = (store: any) => {
-    return { loggedInOccupant: store.navReducer.loggedInOccupant };
+const mapStateToProps = (store: IStore) => {
+    return { loggedInOccupant: store.occupantsReducer.loggedInOccupant };
 };
 
 export default connect(mapStateToProps)(Balance);

@@ -9,11 +9,11 @@ export interface IOccupant {
     displayName: string;
 }
 
-export interface ILoggedInOccupant {
+export interface IOccupantsProps {
     loggedInOccupant: IOccupant;
     isLoggedIn: boolean;
 }
 
-export interface IOccupantLoggedIn extends ILoggedInOccupant { }
+export interface IOccupantLoggedIn extends IOccupantsProps { }
 
-export interface IReceiveOccupantAction extends Action, ILoggedInOccupant { }
+export interface IReceiveOccupantAction extends Action, IOccupantsProps { }

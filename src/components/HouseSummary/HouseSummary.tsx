@@ -16,6 +16,7 @@ import { ITransactionSummaryObject } from '../../interfaces/transactionInterface
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
+import { IStore } from '../../interfaces/storeInterface';
 
 class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryState> {
     _rows: Function;
@@ -140,8 +141,8 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
 }
 
 // Retrieve data from store as props
-const mapStateToProps = (store: any) => {
-    return {};
+const mapStateToProps = (store: IStore) => {
+    return { loggedInOccupant: store.occupantsReducer.loggedInOccupant };
 };
 
 export default connect(mapStateToProps)(HouseSummary);
