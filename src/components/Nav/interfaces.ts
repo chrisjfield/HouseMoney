@@ -1,10 +1,8 @@
 import { Dispatch } from 'redux';
-import { IUserObject } from '../../interfaces/occupantInterfaces';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
     
 export interface INavProps {
     dispatch: Dispatch<{}>;
-    loggedInOccupant: IUserObject;
+    loggedInOccupant: IOccupant;
     isLoggedIn: boolean;
 }
-
-export interface INavState {}

@@ -1,10 +1,10 @@
 import { combineReducers, Reducer } from 'redux';
 
-import navReducer from '../components/Nav/navReducer';
 import errorMessageReducer from '../components/ErrorMessage/errorMessageReducer';
+import occupantsReducer from '../components/Occupants/occupantsReducer';
 
 const combinedReducers: Reducer<Function> = combineReducers({
-    navReducer,
+    occupantsReducer,
     errorMessageReducer,
 });
 

@@ -1,3 +1,5 @@
+import { Action } from 'redux';
+
 export interface IOccupant {
     householdId: number;
     occupantId: number;
@@ -6,3 +8,12 @@ export interface IOccupant {
     email: string;
     displayName: string;
 }
+
+export interface ILoggedInOccupant {
+    loggedInOccupant: IOccupant;
+    isLoggedIn: boolean;
+}
+
+export interface IOccupantLoggedIn extends ILoggedInOccupant { }
+
+export interface IReceiveOccupantAction extends Action, ILoggedInOccupant { }

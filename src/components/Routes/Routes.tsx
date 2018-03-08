@@ -9,16 +9,17 @@ import AddTransaction from '../AddTransaction';
 import HouseSummary from '../HouseSummary';
 import NotFound404 from '../NotFound404';
 import { checkAuthorization } from '../Occupants/occupantsActions';
+import { houseMoneyRoutes } from '../../enums/routesEnum';
 
 const LoggedInRoutes: React.StatelessComponent = () => {
     return (
         <Switch>
-            <Route exact path="/" component={Balance} />
-            <Route path="/Balance" component={Balance} />
-            <Route path="/ViewTransactions" component={ViewTransactions} />
-            <Route path="/AddTransaction" component={AddTransaction} />
-            <Route path="/HouseSummary" component={HouseSummary} />
-            <Route exact path="*" component={NotFound404} />
+            <Route exact path={houseMoneyRoutes.Base} component={Balance} />
+            <Route path={houseMoneyRoutes.Balance} component={Balance} />
+            <Route path={houseMoneyRoutes.ViewTransactions} component={ViewTransactions} />
+            <Route path={houseMoneyRoutes.AddTransaction} component={AddTransaction} />
+            <Route path={houseMoneyRoutes.HouseSummary} component={HouseSummary} />
+            <Route exact path={houseMoneyRoutes.Unknown} component={NotFound404} />
         </Switch>
     );
 };
@@ -26,7 +27,7 @@ const LoggedInRoutes: React.StatelessComponent = () => {
 const LoggedOutRoutes: React.StatelessComponent = () => {
     return (
         <Switch>
-            <Route exact path="*" component={NotFound404} />
+            <Route exact path={houseMoneyRoutes.Unknown} component={NotFound404} />
         </Switch>
     );
 };

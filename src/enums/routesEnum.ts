@@ -1,11 +1,8 @@
-export enum myHouseRoutes {
+export enum houseMoneyRoutes {
     Base = '/',
     Unknown = '*',
-    ChangePassword = '/ChangePassword',
-    Households = '/Households',
-    Login = '/Login',
-    Links = '/Links',
-    MyAccount = '/MyAccount',
-    NotFound404 = '/NotFound404',
-    Register = '/Register',
+    Balance = '/Balance',
+    ViewTransactions = '/ViewTransactions',
+    AddTransaction = '/AddTransaction',
+    HouseSummary = '/HouseSummary',
 }

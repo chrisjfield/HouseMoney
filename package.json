@@ -23,7 +23,8 @@
     "redux-promise": "^0.5.3",
     "redux-promise-middleware": "^4.4.2",
     "redux-thunk": "^2.2.0",
-    "webfontloader": "^1.6.28"
+    "webfontloader": "^1.6.28",
+    "webpack": "^3.7.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -50,7 +51,6 @@
     "@types/typescript": "^2.0.0",
     "@types/webfontloader": "^1.6.29",
     "tslint-config-airbnb": "^5.7.0",
-    "typescript": "^2.7.2",
-    "webpack": "^4.1.1"
+    "typescript": "^2.7.2"
   }
 }

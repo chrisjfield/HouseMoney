@@ -73,7 +73,8 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
         const me = this.props.loggedInOccupant.occupantId;
         const balanceList = this.state.balance
               .filter(
-              balanceItem => balanceItem.USER === me && balanceItem.OTHERS !== me,
+              balanceItem => balanceItem.USER === me.toString() && balanceItem.OTHERS !== me.toString(), 
+              // will probably get rid of to string ^ when hooking up to new api
               )
               .map(this.createBalance);
         return balanceList;

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from './navActions';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import AddButton from 'material-ui/svg-icons/content/add';
@@ -10,122 +9,88 @@ import Menu from 'material-ui/svg-icons/navigation/menu';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ActionHome from 'material-ui/svg-icons/action/home';
-import UserChip from '../UserChip';
 import styles from './styles';
-import { INavProps, INavState } from './interfaces';
-import history from '../../main/history';
+import { INavProps } from './interfaces';
+import { houseMoneyRoutes } from '../../enums/routesEnum';
+import { handleLogOut } from '../../helpers/loginHelper';
 
-class Nav extends React.Component<INavProps, INavState> {
-    constructor(props: INavProps) {
-        super(props);
-    }
+const LoggedOutMenuOptions: React.StatelessComponent = () => {
+    return null;
+};
 
-    handleLogOut = () => {
-        this.props
-          .dispatch(logout())
-          .then(() => history.push('/Login'))
-          .catch((error: Error) => {});
-    }
+const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
+    return (
+      <div>
+        <Link style={styles.menuItems} to={houseMoneyRoutes.HouseSummary}>
+          <MenuItem>House Summary</MenuItem>
+        </Link>
 
-    getLoggedOutMenuOptions = () => {
-        return (
-          <div>
-            <Link style={styles.menuItems} to="/Login">
-              <MenuItem>Sign In </MenuItem>
-            </Link>
+        <Link style={styles.menuItems} to={houseMoneyRoutes.Balance}>
+          <MenuItem>My Balance</MenuItem>
+        </Link>
 
-            <Link style={styles.menuItems} to="/Register">
-              <MenuItem> Sign Up</MenuItem>
-            </Link>
-          </div>
-        );
-    }
+        <a style={styles.menuItems} onClick={() => handleLogOut()}>
+          <MenuItem>Logout</MenuItem>
+        </a>
+      </div>
+    );
+};
 
-    getLoggedInMenuOptions = () => {
-        return (
-          <div>
-            <Link style={styles.menuItems} to="/MyAccount">
-              <MenuItem>
-                <UserChip
-                    occupant={this.props.loggedInOccupant}
-                    styles={styles.occupantChipItem}
-                    dispatch={this.props.dispatch}
-                    history={history}
-                />
-              </MenuItem>
-            </Link>
+const LoggedInNavItems: React.StatelessComponent = () => {
+    return (
+      <ToolbarGroup>
+        <Link style={styles.menuItems} to={houseMoneyRoutes.AddTransaction}>
+          <IconButton tooltip="Add Transaction">
+            <AddButton />
+          </IconButton>
+        </Link>
 
-            <Link style={styles.menuItems} to="/HouseSummary">
-              <MenuItem>House Summary</MenuItem>
-            </Link>
+        <Link style={styles.menuItems} to={houseMoneyRoutes.ViewTransactions}>
+          <IconButton tooltip="View Transactions">
+            <ViewButton />
+          </IconButton>
+        </Link>
+      </ToolbarGroup>
+    );
+};
 
-            <Link style={styles.menuItems} to="/Balance">
-              <MenuItem>My Balance</MenuItem>
-            </Link>
+const LoggedOutNavItems: React.StatelessComponent = () => {
+    return null;
+};
 
-            <a style={styles.menuItems} onClick={() => this.handleLogOut()}>
-              <MenuItem>Logout</MenuItem>
-            </a>
-          </div>
-        );
-    }
+const Nav: React.StatelessComponent<INavProps> = (props) => {
+    return (
+      <Toolbar>
+        <ToolbarGroup>
+          <Link to="/">
+            <IconButton tooltip="Home">
+              <ActionHome />
+            </IconButton>
+          </Link>
+          <ToolbarTitle text="House Money" />
+        </ToolbarGroup>
+        <ToolbarGroup>
+          {props.isLoggedIn
+            ? <LoggedInNavItems />
+            : <LoggedOutNavItems />}
 
-    getLoggedInNavItems = () => {
-        return (
-          <ToolbarGroup>
-            <Link style={styles.menuItems} to="/AddTransaction">
-              <IconButton tooltip="Add Transaction">
-                <AddButton />
+          <IconMenu
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+            iconButtonElement={
+              <IconButton tooltip="Menu">
+                <Menu />
               </IconButton>
-            </Link>
-
-            <Link style={styles.menuItems} to="/ViewTransactions">
-              <IconButton tooltip="View Transactions">
-                <ViewButton />
-              </IconButton>
-            </Link>
-          </ToolbarGroup>
-        );
-    }
-
-    getLoggedOutNavItems = (): void => {
-        return undefined;
-    }
-
-    render() {
-        return (
-          <Toolbar>
-            <ToolbarGroup>
-              <Link to="/">
-                <IconButton tooltip="Home">
-                  <ActionHome />
-                </IconButton>
-              </Link>
-              <ToolbarTitle text="House Money" />
-            </ToolbarGroup>
-            <ToolbarGroup>
-              {this.props.isLoggedIn
-                ? this.getLoggedInNavItems()
-                : this.getLoggedOutNavItems()}
-
-              <IconMenu
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                iconButtonElement={
-                  <IconButton tooltip="Menu">
-                    <Menu />
-                  </IconButton>
-                }
-              >
-                {this.props.isLoggedIn
-                  ? this.getLoggedInMenuOptions()
-                  : this.getLoggedOutMenuOptions()}
-              </IconMenu>
-            </ToolbarGroup>
-          </Toolbar>
-        );
-    }
-}
+            }
+          >
+            {props.isLoggedIn
+              ? <LoggedInMenuOptions {...props}/>
+              : <LoggedOutMenuOptions />}
+          </IconMenu>
+        </ToolbarGroup>
+      </Toolbar>
+    );
+};
 
 // Retrieve data from store as props
 const mapStateToProps = (store: any) => {
