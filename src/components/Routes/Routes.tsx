@@ -11,6 +11,7 @@ import NotFound404 from '../NotFound404';
 import { checkAuthorization } from '../Occupants/occupantsActions';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
+import Occupants from '../Occupants/Occupants';
 
 const LoggedInRoutes: React.StatelessComponent = () => {
     return (
@@ -28,6 +29,7 @@ const LoggedInRoutes: React.StatelessComponent = () => {
 const LoggedOutRoutes: React.StatelessComponent = () => {
     return (
         <Switch>
+            <Route exact path={houseMoneyRoutes.Occupants} component={Occupants} />
             <Route exact path={houseMoneyRoutes.Unknown} component={NotFound404} />
         </Switch>
     );

@@ -1,8 +1,8 @@
 import { occupantActions } from './occupantsActions';
-import { IOccupantLoggedIn, IReceiveOccupantAction } from './occupantsInterfaces';
+import { IOccupantLoggedIn, IReceiveOccupantAction, IOccupantReducer } from './occupantsInterfaces';
 
 function navReducer(
-    state: IOccupantLoggedIn = {
+    state: IOccupantReducer = {
         isLoggedIn: false,
         loggedInOccupant: {
             householdId: 0,
@@ -12,6 +12,7 @@ function navReducer(
             displayName: '',
             token: '',
         },
+        location: { search: '' },
     },
     action: IReceiveOccupantAction,
 ) {
