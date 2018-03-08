@@ -32,8 +32,6 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "tslint-config-airbnb": "^5.7.0",
-    "typescript": "^2.7.2",
     "@types/jest": "^21.1.10",
     "@types/localforage": "0.0.34",
     "@types/material-ui": "^0.18.5",
@@ -50,6 +48,9 @@
     "@types/redux-persist": "^4.3.1",
     "@types/redux-thunk": "^2.1.32",
     "@types/typescript": "^2.0.0",
-    "@types/webfontloader": "^1.6.29"
+    "@types/webfontloader": "^1.6.29",
+    "tslint-config-airbnb": "^5.7.0",
+    "typescript": "^2.7.2",
+    "webpack": "^4.1.1"
   }
 }

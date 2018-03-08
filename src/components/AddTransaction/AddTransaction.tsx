@@ -56,7 +56,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
     }
 
     updateCheck = (key: number) => {
-        const checkbox = this.state.occupantList.findIndex((occupant: IAddTransactionUser) => occupant.occupantId === key.toString());
+        const checkbox = this.state.occupantList.findIndex((occupant: IAddTransactionUser) => occupant.occupantId === key);
         const checkedUser: IAddTransactionUser[] = JSON.parse(JSON.stringify(this.state.occupantList));
         checkedUser[checkbox].checked = !checkedUser[checkbox].checked;
         this.setState({ occupantList: checkedUser });
