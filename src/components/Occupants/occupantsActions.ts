@@ -6,8 +6,8 @@ import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
 
 export async function checkAuthorization(occupant: IOccupant): Promise<boolean> {
     let isLoggedIn = false;
-    if (occupant && occupant.token && occupant.userId) {
-        await apiHelper.apiCall(HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId)
+    if (occupant && occupant.token && occupant.occupantId) {
+        await apiHelper.apiCall(HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.occupantId.toString())
             .then((authorizationResponse: AuthorizationResponse) => {
                 isLoggedIn = authorizationResponse.isAuthorized;
             });

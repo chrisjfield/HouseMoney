@@ -1,8 +1,8 @@
 import { IComponentProps } from '../../interfaces/componentInterfaces';
-import { IUserObject } from '../../interfaces/userInterfaces';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
 
 export interface IViewTransactionsProps extends IComponentProps {
-    loggedInUser: IUserObject;
+    loggedInOccupant: IOccupant;
 }
 
 export interface IViewTransactionsState {
@@ -21,6 +21,6 @@ export interface IViewTransactionDetails { // ED! bring this into generic ones f
     PRIMARYKEY: string;
 }
 
-export interface IIAddTransactionUser extends IUserObject {
+export interface IAddTransactionUser extends IOccupant {
     checked: boolean;
 }

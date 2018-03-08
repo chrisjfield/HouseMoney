@@ -4,8 +4,7 @@ import { List, ListItem } from 'material-ui/List';
 import CircularProgress from 'material-ui/CircularProgress';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
-import { IUserDetailsObject } from '../../interfaces/userInterfaces';
-import { IBalanceProps, IBalanceState, IBalanceObject } from './interfaces';
+import { IBalanceProps, IBalanceState, IBalanceObject, IBalanceOccupant } from './interfaces';
 import appStyles from '../../styles';
 import styles from './styles';
 import { customTheme } from '../../themes';
@@ -27,7 +26,7 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
     }
 
     getUserData = () => {
-        const request = APIHelper.apiCall('GET', 'TransactionSummaries');
+        const request = APIHelper.apiCall('GET', 'TransactionSummaries', this.props.loggedInOccupant.token);
 
         return request.then((json: IBalanceObject[]) =>
           this.setState({ balance: json, balanceReturned: true }),
@@ -36,7 +35,7 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
 
     createBalance = (balance: IBalanceObject) => {
         const debt = math.round(balance.TOTAL, 2);
-        const debtor: IUserDetailsObject = { email: balance.OTHERS, displayName: '' };
+        const debtor: IBalanceOccupant = { email: balance.OTHERS, displayName: '' };
         let colorToSet;
 
         if (debt < 0) {
@@ -70,8 +69,8 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
         return balanceItem;
     }
 
-    createBalanceList = () => {
-        const me = this.props.loggedInUser.userId;
+    createBalanceList = () => { // TODO: Refactor into stateless component! 
+        const me = this.props.loggedInOccupant.occupantId;
         const balanceList = this.state.balance
               .filter(
               balanceItem => balanceItem.USER === me && balanceItem.OTHERS !== me,
@@ -100,7 +99,7 @@ class Balance extends React.Component<IBalanceProps, IBalanceState> {
 
 // Retrieve data from store as props
 const mapStateToProps = (store: any) => {
-    return { loggedInUser: store.navReducer.loggedInUser };
+    return { loggedInOccupant: store.navReducer.loggedInOccupant };
 };
 
 export default connect(mapStateToProps)(Balance);

@@ -1,13 +1,13 @@
 import { IComponentProps } from '../../interfaces/componentInterfaces';
-import { IUserObject } from '../../interfaces/userInterfaces';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
 
 export interface IAddTransationProps extends IComponentProps {
-    loggedInUser: IUserObject;
+    loggedInOccupant: IOccupant;
 }
 
 export interface IAddTransationState {
-    userListReturned: boolean;
-    userList: IAddTransactionUser[];
+    occupantListReturned: boolean;
+    occupantList: IAddTransactionUser[];
     addTransaction: IAddTransactionDetails;
     transactionAdded: boolean;
     transactionAdding: boolean;
@@ -22,6 +22,6 @@ export interface IAddTransactionDetails { // ED! bring this into generic ones fi
     REFERENCE: string;
 }
 
-export interface IAddTransactionUser extends IUserObject {
+export interface IAddTransactionUser extends IOccupant {
     checked: boolean;
 }

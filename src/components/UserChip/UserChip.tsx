@@ -1,20 +1,17 @@
 import * as React from 'react';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
-import { IUserChipProps, IUserChipState } from './interfaces';
+import { IUserChipProps } from './interfaces';
 
-class UserChip extends React.Component<IUserChipProps, IUserChipState> {
-    render() {
-        const user = this.props.user;
-        return (
-          <Chip key={'Chip_' + user.userId} style={this.props.styles}>
-            <Avatar key={'Avatar_' + user.userId}>
-              {user.displayName ? user.displayName.charAt(0).toUpperCase() : ''}
-            </Avatar>
-            {user.displayName}
-          </Chip>
-        );
-    }
-}
+const UserChip: React.StatelessComponent<IUserChipProps> = (props) => {
+    return (
+      <Chip key={'Chip_' + props.occupant.occupantId} style={props.styles}>
+        <Avatar key={'Avatar_' + props.occupant.occupantId}>
+          {props.occupant.displayName ? props.occupant.displayName.charAt(0).toUpperCase() : ''}
+        </Avatar>
+        {props.occupant.displayName}
+      </Chip>
+    );
+};
 
 export default UserChip;

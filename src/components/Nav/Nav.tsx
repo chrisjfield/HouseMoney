@@ -47,8 +47,8 @@ class Nav extends React.Component<INavProps, INavState> {
             <Link style={styles.menuItems} to="/MyAccount">
               <MenuItem>
                 <UserChip
-                    user={this.props.loggedInUser}
-                    styles={styles.userChipItem}
+                    occupant={this.props.loggedInOccupant}
+                    styles={styles.occupantChipItem}
                     dispatch={this.props.dispatch}
                     history={history}
                 />
@@ -131,7 +131,7 @@ class Nav extends React.Component<INavProps, INavState> {
 const mapStateToProps = (store: any) => {
     return {
         isLoggedIn: store.navReducer.isLoggedIn,
-        loggedInUser: store.navReducer.loggedInUser,
+        loggedInOccupant: store.navReducer.loggedInOccupant,
     };
 };
 

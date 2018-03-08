@@ -1,14 +1,14 @@
 import { IComponentProps } from '../../interfaces/componentInterfaces';
-import { IUserObject } from '../../interfaces/userInterfaces';
 import { ITransactionSummaryObject } from '../../interfaces/transactionInterfaces';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
     
 export interface IHouseSummaryProps extends IComponentProps {
-    loggedInUser: IUserObject;
+    loggedInOccupant: IOccupant;
 }
 
 export interface IHouseSummaryState {
-    userDataReturned: boolean;
-    userData: IUserObject[];
+    occupantDataReturned: boolean;
+    occupantData: IOccupant[];
     gridDataReturned: boolean;
     gridData: ITransactionSummaryObject[]; // ED! Need to def these objs
 }

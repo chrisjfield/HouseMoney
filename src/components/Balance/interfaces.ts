@@ -1,9 +1,9 @@
 import { IComponentProps } from '../../interfaces/componentInterfaces';
-import { IUserObject } from '../../interfaces/userInterfaces';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
 
 export interface IBalanceProps extends IComponentProps {
     history: any;
-    loggedInUser: IUserObject;
+    loggedInOccupant: IOccupant;
 }
 
 export interface IBalanceState {
@@ -15,4 +15,9 @@ export interface IBalanceObject {
     USER: string;
     OTHERS: string;
     TOTAL: number;
+}
+
+export interface IBalanceOccupant {
+    email: string;
+    displayName: string;
 }

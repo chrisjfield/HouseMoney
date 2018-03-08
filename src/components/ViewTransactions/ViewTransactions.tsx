@@ -32,11 +32,12 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     }
 
     getGridData = () => {
-        const userId = this.props.loggedInUser.userId;
+        const occupantId = this.props.loggedInOccupant.occupantId;
         const request = APIHelper.apiCall(
               'GET',
-              'TransactionHistorySummaries/getUserTransactionHistory?userID=' +
-                userId +
+              this.props.loggedInOccupant.token,
+              'TransactionHistorySummaries/getUserTransactionHistory?occupantID=' +
+                occupantId +
                 '&pageSize=' +
                 this.state.pageSize +
                 '&pageNumber=' +
@@ -112,7 +113,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
         return transactionsGrid;
     }
 
-    createRow = (transactionData: IViewTransactionDetails) => {
+    createRow = (transactionData: IViewTransactionDetails) => { // TODO: Refactor these into stateless components
         const formattedDate = moment(transactionData.DATE).format('Do MMM YYYY');
         return (
           <TableRow key={'Row_' + transactionData.PRIMARYKEY}>
@@ -188,7 +189,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 
 // Retrieve data from store as props
 const mapStateToProps = (store: any) => {
-    return { loggedInUser: store.navReducer.loggedInUser };
+    return { loggedInOccupant: store.navReducer.loggedInOccupant };
 };
 
 export default connect(mapStateToProps)(ViewTransactions);

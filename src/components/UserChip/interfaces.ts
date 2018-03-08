@@ -1,9 +1,7 @@
 import { IComponentProps } from '../../interfaces/componentInterfaces';
-import { IUserObject } from '../../interfaces/userInterfaces';
+import { IOccupant } from '../../interfaces/occupantsInterfaces';
     
 export interface IUserChipProps extends IComponentProps {
-    user: IUserObject;
+    occupant: IOccupant;
     styles: any;
 }
-
-export interface IUserChipState {}

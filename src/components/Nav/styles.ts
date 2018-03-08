@@ -2,7 +2,7 @@ const styles: React.CSSProperties = {
     menuItems: {
         textDecoration: 'none',
     },
-    userChipItem: {
+    occupantChipItem: {
         display: 'inline-flex',
         width: '120px',
         overflow: 'hidden',

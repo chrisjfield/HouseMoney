@@ -12,18 +12,18 @@ import CircularProgress from 'material-ui/CircularProgress';
 import styles from './styles';
 import appStyles from '../../styles';
 import { IHouseSummaryProps, IHouseSummaryState } from './interfaces';
-import { IUserObject } from '../../interfaces/userInterfaces';
 import { ITransactionSummaryObject } from '../../interfaces/transactionInterfaces';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
 
 class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryState> {
     _rows: Function;
     constructor(props: IHouseSummaryProps) {
         super(props);
         this.state = {
-            userDataReturned: false,
-            userData: [],
+            occupantDataReturned: false,
+            occupantData: [],
             gridDataReturned: false,
             gridData: [],
         };
@@ -35,28 +35,28 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
     }
 
     getUserData = () => {
-        const request = APIHelper.apiCall('GET', 'Users/GetUserInformation');
+        const request = APIHelper.apiCall('GET', 'Users/GetUserInformation', this.props.loggedInOccupant.token);
 
-        return request.then((json: IUserObject[]) =>
-          this.setState({ userData: json, userDataReturned: true }),
+        return request.then((json: IOccupant[]) =>
+          this.setState({ occupantData: json, occupantDataReturned: true }),
         );
     }
 
     getGridData = () => {
-        const request = APIHelper.apiCall('GET', 'TransactionSummaries');
+        const request = APIHelper.apiCall('GET', 'TransactionSummaries', this.props.loggedInOccupant.token);
 
         return request.then((json: ITransactionSummaryObject[]) =>
           this.setState({ gridData: json, gridDataReturned: true }),
         );
     }
 
-    createColumn = (userData: IUserObject) => {
+    createColumn = (occupantData: IOccupant) => {
         const column = (
             <TableHeaderColumn
-              key={'Column' + userData.email}
+              key={'Column' + occupantData.email}
               style={styles.gridHeader}
             >
-              {userData.email ? userData.email + ' owes' : null}
+              {occupantData.email ? occupantData.email + ' owes' : null}
             </TableHeaderColumn>
         );
 
@@ -75,15 +75,15 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
         return row;
     }
 
-    createRow = (userData: IUserObject) => {
+    createRow = (occupantData: IOccupant) => {
         const rowsData = this.state.gridData.filter(
-          (gridElement: ITransactionSummaryObject) => gridElement.USER === userData.email,
+          (gridElement: ITransactionSummaryObject) => gridElement.USER === occupantData.email,
         );
         const tableRowData = rowsData.map(this.createRowData);
         return (
-          <TableRow key={'Row' + userData.email}>
-            <TableRowColumn key={'RowColumn' + userData.email} style={styles.gridHeader}>
-              {userData.email}
+          <TableRow key={'Row' + occupantData.email}>
+            <TableRowColumn key={'RowColumn' + occupantData.email} style={styles.gridHeader}>
+              {occupantData.email}
             </TableRowColumn>
             {tableRowData}
           </TableRow>
@@ -91,11 +91,11 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
     }
 
     createColumns = () => {
-        const columnData = ['', ...this.state.userData];
+        const columnData = ['', ...this.state.occupantData];
         return columnData.map(this.createColumn);
     }
 
-    createRows = () => this.state.userData.map(this.createRow);
+    createRows = () => this.state.occupantData.map(this.createRow);
 
     createGrid = () => {
         const dataGrid = (
@@ -126,7 +126,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
               <div className="row">
                 <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
                   <div id="houseSummaryGrid" className="grid" />
-                  {this.state.gridDataReturned && this.state.userDataReturned ? (
+                  {this.state.gridDataReturned && this.state.occupantDataReturned ? (
                     this.createGrid()
                   ) : (
                     <CircularProgress />

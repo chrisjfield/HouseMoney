@@ -1,11 +1,11 @@
 import { RECEIVE_USER } from '../Nav/navActions';
-import { IUserLoggedIn, IRecieveUserAction } from '../../interfaces/userInterfaces';
+import { IUserLoggedIn, IRecieveUserAction } from '../../interfaces/occupantInterfaces';
 
 function navReducer(
-  state: IUserLoggedIn = { //TODO: Replace this with occupants reducer which sets logged in occupant
+  state: IUserLoggedIn = { // TODO: Replace this with occupants reducer which sets logged in occupant
       isLoggedIn: false,
-      loggedInUser: {
-          userId: '',
+      loggedInOccupant: {
+          occupantId: '',
           email: '',
           displayName: '',
       },
@@ -15,7 +15,7 @@ function navReducer(
     switch (action.type) {
     case RECEIVE_USER:
         return {... state, 
-            loggedInUser: action.payload,
+            loggedInOccupant: action.payload,
             isLoggedIn: action.isLoggedIn,
         };
     default:

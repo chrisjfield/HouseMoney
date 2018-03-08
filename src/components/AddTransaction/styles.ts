@@ -9,7 +9,7 @@ const styles: React.CSSProperties = {
         display: 'inline-flex',
         textAlign: 'left',
     },
-    userChip: {
+    occupantChip: {
         display: 'inline-flex',
         width: 'inherit',
         overflow: 'hidden',

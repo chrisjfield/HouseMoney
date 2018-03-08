@@ -22,8 +22,8 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
         super(props);
 
         this.state = {
-            userListReturned: false,
-            userList: [],
+            occupantListReturned: false,
+            occupantList: [],
             addTransaction: { GROSS: '', DATE: new Date(), REFERENCE: '' },
             transactionAdded: false,
             transactionAdding: false,
@@ -38,51 +38,51 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
     }
 
     public getUserList = () => {
-        const request = APIHelper.apiCall('GET', 'Users/GetUserInformation');
+        const request = APIHelper.apiCall('GET', 'Users/GetUserInformation', this.props.loggedInOccupant.token);
 
         return request.then(json => this.initialiseState(json));
     }
 
-    public initialiseState = (userList: IAddTransactionUser[]) => {
-        userList.map(this.addChecking);
+    public initialiseState = (occupantList: IAddTransactionUser[]) => {
+        occupantList.map(this.addChecking);
         this.setState({
-            userList,
-            userListReturned: true,
+            occupantList,
+            occupantListReturned: true,
         });
     }
 
-    addChecking = (userListItem: IAddTransactionUser) => {
-        Object.assign(userListItem, { checked: false });
+    addChecking = (occupantListItem: IAddTransactionUser) => {
+        Object.assign(occupantListItem, { checked: false });
     }
 
     updateCheck = (key: number) => {
-        const checkbox = this.state.userList.findIndex((user: IAddTransactionUser) => user.userId === key.toString());
-        const checkedUser: IAddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
+        const checkbox = this.state.occupantList.findIndex((occupant: IAddTransactionUser) => occupant.occupantId === key.toString());
+        const checkedUser: IAddTransactionUser[] = JSON.parse(JSON.stringify(this.state.occupantList));
         checkedUser[checkbox].checked = !checkedUser[checkbox].checked;
-        this.setState({ userList: checkedUser });
+        this.setState({ occupantList: checkedUser });
     }
 
     updateCheckAll = () => {
-        const checkedUser: IAddTransactionUser[] = JSON.parse(JSON.stringify(this.state.userList));
+        const checkedUser: IAddTransactionUser[] = JSON.parse(JSON.stringify(this.state.occupantList));
         const allChecked = this.state.allChecked;
 
         checkedUser
         .filter(
-            userListElement =>
-                userListElement.userId !== this.props.loggedInUser.userId,
+            occupantListElement =>
+                occupantListElement.occupantId !== this.props.loggedInOccupant.occupantId,
         )
         .forEach((entry) => {
             entry.checked = !allChecked;
         },       this);
         this.setState({
             allChecked: !allChecked,
-            userList: checkedUser,
+            occupantList: checkedUser,
         });
     }
 
     handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLFormElement>) => {
         formSubmitEvent.preventDefault();
-        const debtors = this.state.userList.filter(item => item.checked === true);
+        const debtors = this.state.occupantList.filter(item => item.checked === true);
         if (debtors.length === 0) {
             this.props.dispatch(addError('Please add debtors'));
         } else {
@@ -96,8 +96,8 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
             const date = moment(this.state.addTransaction.DATE).format('YYYY MM DD');
             const payday = debtors.map((element) => {
                 const transaction = {
-                    DEBTOR: element.userId,
-                    CREDITOR: this.props.loggedInUser.userId,
+                    DEBTOR: element.occupantId,
+                    CREDITOR: this.props.loggedInOccupant.occupantId,
                     GROSS: dividedGross,
                     REFERENCE: this.state.addTransaction.REFERENCE,
                     DATE: date,
@@ -105,7 +105,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
                 return transaction;
             },                         this);
 
-            APIHelper.apiCall('POST', 'Transactions/AddTransactionsBulk', payday)
+            APIHelper.apiCall('POST', 'Transactions/AddTransactionsBulk', this.props.loggedInOccupant.token, null, payday)
             .then(() => {
                 this.setState({
                     transactionAdded: true,
@@ -116,32 +116,32 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
                     allChecked: false,
                 });
             })
-            .then(() => this.initialiseState(this.state.userList));
+            .then(() => this.initialiseState(this.state.occupantList));
         }
     }
 
-    createCheckbox (userList: IAddTransactionUser): JSX.Element {
+    createCheckbox (occupantList: IAddTransactionUser): JSX.Element {
         const checkbox: JSX.Element = (
             <ListItem
-                key={'ListItem_' + userList.userId}
-                onClick={this.updateCheck.bind(this, userList.userId)}
+                key={'ListItem_' + occupantList.occupantId}
+                onClick={this.updateCheck.bind(this, occupantList.occupantId)}
             >
                 <Checkbox
-                    key={'Checkbox_' + userList.userId}
+                    key={'Checkbox_' + occupantList.occupantId}
                     label={
                     <UserChip 
-                        user={userList} 
-                        styles={styles.userChip} 
+                        occupant={occupantList} 
+                        styles={styles.occupantChip} 
                         dispatch={this.props.dispatch}
                         history={this.props.history}  
                     />}
                     checked={
-                        this.state.userList.find(thing => thing.userId === userList.userId)
+                        this.state.occupantList.find(thing => thing.occupantId === occupantList.occupantId)
                             .checked
                     }
                     style={styles.checkbox}
                     iconStyle={styles.checkboxIcon}
-                    onCheck={this.updateCheck.bind(this, userList.userId)}
+                    onCheck={this.updateCheck.bind(this, occupantList.occupantId)}
                     disabled={this.state.transactionAdding}
                 />
             </ListItem>
@@ -149,11 +149,11 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
         return checkbox;
     }
 
-    createCheckboxList = () => {
-        const checkboxList = this.state.userList
+    createCheckboxList = () => { // TODO: Refactor into stateless component?
+        const checkboxList = this.state.occupantList
         .filter(
-            userListElement =>
-                userListElement.userId !== this.props.loggedInUser.userId,
+            occupantListElement =>
+                occupantListElement.occupantId !== this.props.loggedInOccupant.occupantId,
         )
         .map(() => this.createCheckbox);
         return checkboxList;
@@ -183,7 +183,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
         return (
         <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
             <h2>Add a Transaction </h2>
-            <h3> Divided between {this.props.loggedInUser.displayName}, and: </h3>
+            <h3> Divided between {this.props.loggedInOccupant.displayName}, and: </h3>
             <div>
                 <List>
                     <Paper style={styles.checkBoxListSheet}>
@@ -196,7 +196,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
                                 style={styles.checkAll}
                             />
                         </ListItem>
-                        {this.state.userListReturned ? (
+                        {this.state.occupantListReturned ? (
                             this.createCheckboxList()
                         ) : (
                             <CircularProgress />
@@ -261,7 +261,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
 
 // Retrieve data from store as props
 const mapStateToProps = (store: any) => {
-    return { loggedInUser: store.navReducer.loggedInUser };
+    return { loggedInOccupant: store.navReducer.loggedInOccupant };
 };
 
 export default connect(mapStateToProps)(AddTransaction);

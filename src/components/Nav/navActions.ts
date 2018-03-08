@@ -1,6 +1,6 @@
 import auth from '../../helpers/firebase';
 import { ADD_ERROR } from '../ErrorMessage/errorMessageActions';
-import { IUserObject } from '../../interfaces/userInterfaces';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
 
 // Export Actions
 export const RECEIVE_USER = 'RECEIVE_USER';
@@ -37,7 +37,7 @@ function logoutSuccessful(response: void) {
         payload: {
             email: '',
             displayName: '',
-            userId: '',
+            occupantId: '',
         },
         isLoggedIn: false,
     };
@@ -56,9 +56,9 @@ function logoutAttemptComplete() {
     };
 }
 
-function receiveUser(user: IUserObject, isLoggedIn: boolean) {
+function receiveUser(occupant: IOccupant, isLoggedIn: boolean) {
     return {
-        user,
+        occupant,
         isLoggedIn,
         type: RECEIVE_USER,
         receivedAt: Date.now(),
