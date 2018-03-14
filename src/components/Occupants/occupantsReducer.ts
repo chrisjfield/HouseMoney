@@ -17,7 +17,7 @@ function navReducer(
 ) {
     switch (action.type) {
     case occupantActions.RECEIVE_OCCUPANT:
-        return {
+        return { // TODO: Figure out how to type this better ED! 
             ...state,
             loggedInOccupant: action.loggedInOccupant,
             isLoggedIn: action.isLoggedIn,
