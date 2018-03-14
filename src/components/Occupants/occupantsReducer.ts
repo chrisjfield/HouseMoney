@@ -1,5 +1,5 @@
 import { occupantActions } from './occupantsActions';
-import { IOccupantLoggedIn, IReceiveOccupantAction, IOccupantReducer } from './occupantsInterfaces';
+import { IReceiveOccupantAction, IOccupantReducer } from './occupantsInterfaces';
 
 function navReducer(
     state: IOccupantReducer = {
@@ -12,19 +12,15 @@ function navReducer(
             displayName: '',
             token: '',
         },
-        location: { search: '' },
     },
     action: IReceiveOccupantAction,
 ) {
     switch (action.type) {
     case occupantActions.RECEIVE_OCCUPANT:
-        const receivedOccupant: IOccupantLoggedIn = {
-            loggedInOccupant: action.loggedInOccupant,
-            isLoggedIn: action.isLoggedIn,
-        };
         return {
             ...state,
-            receivedOccupant,
+            loggedInOccupant: action.loggedInOccupant,
+            isLoggedIn: action.isLoggedIn,
         };
     default:
         return state;
