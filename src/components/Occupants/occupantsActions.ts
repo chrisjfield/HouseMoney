@@ -15,7 +15,7 @@ export enum occupantActions {
 export async function checkAuthorization(occupant: IOccupant): Promise<boolean> {
     let isLoggedIn = false;
     if (occupant && occupant.token && occupant.occupantId) {
-        await apiHelper.apiCall(HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.occupantId.toString())
+        await apiHelper.apiCall(HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId)
             .then((authorizationResponse: AuthorizationResponse) => {
                 isLoggedIn = authorizationResponse.isAuthorized;
             });

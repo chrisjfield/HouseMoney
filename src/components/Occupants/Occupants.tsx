@@ -1,5 +1,3 @@
-// Landing page for redirects from my house 
-// - should handle setting occupant then route on to balance
 import * as React from 'react';
 import { IOccupantProps, IOccupant } from './occupantsInterfaces';
 import { receiveOccupant } from './occupantsActions';
@@ -8,45 +6,55 @@ import { IStore } from '../../interfaces/storeInterface';
 import { connect } from 'react-redux';
 import * as queryString from 'query-string';
 import { RouteComponentProps } from 'react-router';
+import { myHouseUrl } from '../../appConfig';
 
 class Occupants extends React.Component<IOccupantProps> {
-    componentWillMount() {
-        // TODO: Ed - this pile of ifs is very messy, tidy this up! 
-        if (!this.props.isLoggedIn
-            && ((this.props.loggedInOccupant && !this.props.loggedInOccupant.token) || (!this.props.loggedInOccupant))) {
+    componentWillReceiveProps(nextProps: IOccupantProps) {
+        if (checkOccupant(nextProps.loggedInOccupant, nextProps.isLoggedIn)) {
+            this.props.history.push(houseMoneyRoutes.Balance);
+        }
+    }
 
+    componentWillMount() {
+        if (checkOccupant(this.props.loggedInOccupant, this.props.isLoggedIn)) {
             if (this.props.location
                 && this.props.location.search
                 && this.props.match
                 && this.props.match.path === houseMoneyRoutes.Occupants) {
+                const occupant: IOccupant = parseOccupant(this.props.location.search);
 
-                const occupantString: IOccupant = queryString.parse(this.props.location.search);
-
-                if (occupantString.token
-                    && occupantString.userId
-                    && occupantString.email
-                    && parseInt(occupantString.householdId.toString(), 2)
-                    && parseInt(occupantString.occupantId.toString(), 2)
-                    && occupantString.displayName) {
-
-                    occupantString.householdId = parseInt(occupantString.householdId.toString(), 2);
-                    occupantString.occupantId = parseInt(occupantString.occupantId.toString(), 2);
-
-                    this.props.dispatch(receiveOccupant(occupantString, true));
+                if (checkOccupant(occupant, true)) {
+                    this.props.dispatch(receiveOccupant(occupant, true));
                 } else {
-                    this.props.history.push(houseMoneyRoutes.Unknown);
+                    this.props.history.push(myHouseUrl); 
                 }
             } else {
-                this.props.history.push(houseMoneyRoutes.Unknown);
+                this.props.history.push(myHouseUrl);
             }
         } else {
-            this.props.history.push(houseMoneyRoutes.Balance); 
+            this.props.history.push(houseMoneyRoutes.Balance);
         }
     }
 
     render(): null {
         return null;
     }
+}
+
+function checkOccupant(occupant: IOccupant, isLoggedIn: boolean) {
+    let haveLoggedInOccupant: boolean = false;
+    if (isLoggedIn && occupant && occupant.token && occupant.occupantId && occupant.displayName && occupant.email && occupant.userId) {
+        haveLoggedInOccupant = true;
+    }
+    return haveLoggedInOccupant;
+}
+
+function parseOccupant(occupantString: string) {
+    const occupant: IOccupant = queryString.parse(occupantString);
+    occupant.householdId = parseInt(occupant.householdId.toString(), 2);
+    occupant.occupantId = parseInt(occupant.occupantId.toString(), 2);
+
+    return occupant;
 }
 
 function mapStateToProps(store: IStore, ownProps: RouteComponentProps<string>) {
