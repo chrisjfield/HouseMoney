@@ -1,17 +1,19 @@
 import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
+import { Action } from 'redux';
 
 export interface IBalanceProps extends IComponentProps {
     history: any;
     loggedInOccupant: IOccupant;
+    balance: IBalance[];
+    loading: boolean;
 }
 
-export interface IBalanceState {
-    balance: IBalanceObject[];
-    balanceReturned: boolean;
+export interface IBalanceReducer {
+    balance: IBalance[];
 }
 
-export interface IBalanceObject {
+export interface IBalance { // TODO: Fix these shitty names!
     USER: string;
     OTHERS: string;
     TOTAL: number;
@@ -20,4 +22,8 @@ export interface IBalanceObject {
 export interface IBalanceOccupant {
     email: string;
     displayName: string;
+}
+
+export interface IReceiveBalanceAction extends Action {
+    balance: IBalance[];
 }

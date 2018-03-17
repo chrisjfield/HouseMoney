@@ -3,4 +3,5 @@ export enum endpoints {
     occupants = 'Occupants/',
     newsFeeds = 'NewsFeeds/',
     authorization = 'Authorization/',
+    balance = 'Balance/',
 }

@@ -1,7 +1,7 @@
 import { occupantActions } from './occupantsActions';
 import { IReceiveOccupantAction, IOccupantReducer } from './occupantsInterfaces';
 
-function navReducer(
+function occuapntsReducer(
     state: IOccupantReducer = {
         isLoggedIn: false,
         loggedInOccupant: {
@@ -28,4 +28,4 @@ function navReducer(
 }
 
 // Export Reducer
-export default navReducer;
+export default occuapntsReducer;
