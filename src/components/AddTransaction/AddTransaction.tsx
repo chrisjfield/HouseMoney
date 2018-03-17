@@ -39,7 +39,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
     }
 
     public getUserList = () => {
-        const request = APIHelper.apiCall('GET', 'Users/GetUserInformation', this.props.loggedInOccupant.token);
+        const request = APIHelper.apiCall<IAddTransactionUser[]>('GET', 'Users/GetUserInformation', this.props.loggedInOccupant.token);
 
         return request.then(json => this.initialiseState(json));
     }

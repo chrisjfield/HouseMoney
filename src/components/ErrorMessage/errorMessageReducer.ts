@@ -4,17 +4,24 @@ import { IErrorMessageState, IErrorMessageAction } from './interfaces';
 function errorMessageReducer(
     state: IErrorMessageState = { errorMessageText: null },
     action: IErrorMessageAction,
-) {
+): IErrorMessageState {
+    let nextState: IErrorMessageState;
     switch (action.type) {
     case ADD_ERROR:
-        return Object.assign({}, state, {
+        nextState = { ...state,
             errorMessageText: action.errorMessageText,
-        });
+        };
+        break;
     case REMOVE_ERROR:
-        return Object.assign({}, state, { errorMessageText: null });
+        nextState = { ...state,
+            errorMessageText: null,
+        };
+        break;
     default:
-        return state;
+        nextState = state;
+        break;
     }
+    return nextState;
 }
 
 // Export Reducer

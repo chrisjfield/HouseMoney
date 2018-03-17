@@ -6,16 +6,19 @@ function balanceReducer(
         balance: [],
     },
     action: IReceiveBalanceAction,
-) {
+): IBalanceReducer {
+    let nextState: IBalanceReducer;
     switch (action.type) {
     case balanceActions.RECEIVE_BALANCE:
-        return { // TODO: Figure out how to type this better ED! 
-            ...state,
+        nextState = { ...state,
             balance: action.balance,
         };
+        break;
     default:
-        return state;
+        nextState = state;
+        break;
     }
+    return nextState;
 }
 
 // Export Reducer

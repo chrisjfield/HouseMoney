@@ -14,17 +14,21 @@ function occuapntsReducer(
         },
     },
     action: IReceiveOccupantAction,
-) {
+): IOccupantReducer {
+    let nextState: IOccupantReducer;
     switch (action.type) {
     case occupantActions.RECEIVE_OCCUPANT:
-        return { // TODO: Figure out how to type this better ED! 
+        nextState = { 
             ...state,
             loggedInOccupant: action.loggedInOccupant,
             isLoggedIn: action.isLoggedIn,
         };
+        break;
     default:
-        return state;
+        nextState = state;
+        break;
     }
+    return nextState;
 }
 
 // Export Reducer

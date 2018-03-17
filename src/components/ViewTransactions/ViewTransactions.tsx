@@ -34,7 +34,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 
     getGridData = () => {
         const occupantId = this.props.loggedInOccupant.occupantId;
-        const request = APIHelper.apiCall(
+        const request = APIHelper.apiCall<IViewTransactionDetails[]>(
               'GET',
               this.props.loggedInOccupant.token,
               'TransactionHistorySummaries/getUserTransactionHistory?occupantID=' +

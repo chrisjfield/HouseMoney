@@ -9,6 +9,4 @@ export interface IErrorMessageState {
     errorMessageText: string;
 }
 
-export interface IErrorMessageAction extends Action {
-    errorMessageText: IErrorMessageState;
-}
+export interface IErrorMessageAction extends Action, IErrorMessageState { }

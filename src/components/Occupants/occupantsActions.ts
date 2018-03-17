@@ -15,8 +15,8 @@ export enum occupantActions {
 export async function checkAuthorization(occupant: IOccupant): Promise<boolean> {
     let isLoggedIn = false;
     if (occupant && occupant.token && occupant.occupantId) {
-        await apiHelper.apiCall(HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId)
-            .then((authorizationResponse: AuthorizationResponse) => {
+        await apiHelper.apiCall<AuthorizationResponse>(HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId)
+            .then((authorizationResponse) => {
                 isLoggedIn = authorizationResponse.isAuthorized;
             });
     }
@@ -38,21 +38,15 @@ export function logout() {
     };
 }
 
-function logoutStarted() {
-    const response: Action = {
-        type: occupantActions.LOGOUT_STARTED,
-    };
-    return response;
+function logoutStarted(): Action {
+    return { type: occupantActions.LOGOUT_STARTED };
 }
 
-function logoutAttemptComplete() {
-    const response: Action = {
-        type: occupantActions.LOGOUT_COMPLETED,
-    };
-    return response;
+function logoutAttemptComplete(): Action {
+    return { type: occupantActions.LOGOUT_COMPLETED };
 }
 
-export function receiveOccupant(occupant: IOccupant, isLoggedIn: boolean) {
+export function receiveOccupant(occupant: IOccupant, isLoggedIn: boolean): IReceiveOccupantAction {
     const response: IReceiveOccupantAction = {
         isLoggedIn,
         type: occupantActions.RECEIVE_OCCUPANT,

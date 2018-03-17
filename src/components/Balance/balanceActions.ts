@@ -10,12 +10,12 @@ export enum balanceActions {
 }
 
 export function getBalance(token: string, occupantId: number) {
-    const request = apiHelper.apiCall(HTTPMethod.GET, endpoints.balance, token, occupantId.toString());
+    const request = apiHelper.apiCall<IBalance[]>(HTTPMethod.GET, endpoints.balance, token, occupantId.toString());
     return (dispatch: Function) => {
         dispatch(loadingStarted());
         return request
-            .then(() => {
-                dispatch(receiveBalance(undefined));
+            .then((response: IBalance[]) => {
+                dispatch(receiveBalance(response));
                 dispatch(loadingComplete());
             })
             .catch((error: Error) => {
@@ -26,10 +26,9 @@ export function getBalance(token: string, occupantId: number) {
     };
 }
 
-export function receiveBalance(balance: IBalance[]) {
-    const response: IReceiveBalanceAction = {
+export function receiveBalance(balance: IBalance[]): IReceiveBalanceAction {
+    return {
         balance,
         type: balanceActions.RECEIVE_BALANCE,
     };
-    return response;
 }

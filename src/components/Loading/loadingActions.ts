@@ -5,16 +5,10 @@ export enum loadingActions {
     LOADING_COMPLETED = 'LOADING_COMPLETED',
 }
 
-export function loadingStarted() {
-    const loadingStartedAction: Action = {
-        type: loadingActions.LOADING_STARTED,
-    };
-    return loadingStartedAction;
+export function loadingStarted(): Action {
+    return { type: loadingActions.LOADING_STARTED };
 }
 
-export function loadingComplete() {
-    const loadingCompletedAction: Action = {
-        type: loadingActions.LOADING_COMPLETED,
-    };
-    return loadingCompletedAction;
+export function loadingComplete(): Action {
+    return { type: loadingActions.LOADING_COMPLETED };
 }

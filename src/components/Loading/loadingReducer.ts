@@ -7,21 +7,24 @@ function loadingReducer(
         loading: 0,
     },
     action: Action,
-) {
+): ILoadingProps {
+    let nextState: ILoadingProps;
     switch (action.type) {
     case loadingActions.LOADING_STARTED:
-        return { // TODO: Figure out how to type this better ED! 
-            ...state,
+        nextState = { ...state,
             loading: state.loading + 1,
         };
+        break;
     case loadingActions.LOADING_COMPLETED:
-        return {
-            ...state,
+        nextState = { ...state,
             loading: state.loading > 0 ? state.loading - 1 : 0,
         };
+        break;
     default:
-        return state;
+        nextState = state;
+        break;
     }
+    return nextState;
 }
 
 // Export Reducer
