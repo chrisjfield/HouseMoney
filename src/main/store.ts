@@ -20,7 +20,7 @@ const store: Store<{}> = createStore(
 );
 
 const persistConfig: PersistorConfig = {
-    blacklist: ['errorMessageReducer'],
+    blacklist: ['errorMessageReducer', 'loadingReducer'],
     storage: localForage,
 };
 
