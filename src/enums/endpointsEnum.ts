@@ -1,7 +1,5 @@
 export enum endpoints {
-    households = 'Households/',
-    occupants = 'Occupants/',
-    newsFeeds = 'NewsFeeds/',
+    newsFeeds = 'Houses/NewsFeeds/',
     authorization = 'Authorization/',
-    balance = 'Balance/',
+    balance = 'Money/Balance/',
 }
