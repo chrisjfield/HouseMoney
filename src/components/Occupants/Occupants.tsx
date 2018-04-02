@@ -10,13 +10,13 @@ import { myHouseUrl } from '../../appConfig';
 
 class Occupants extends React.Component<IOccupantProps> {
     componentWillReceiveProps(nextProps: IOccupantProps) {
-        if (alreadyLoggedIn(nextProps.loggedInOccupant, nextProps.isLoggedIn)) {
+        if (occupantIsValid(nextProps.loggedInOccupant, nextProps.isLoggedIn)) {
             this.props.history.push(houseMoneyRoutes.Balance);
         }
     }
 
     componentWillMount() {
-        if (alreadyLoggedIn(this.props.loggedInOccupant, this.props.isLoggedIn)) {
+        if (occupantIsValid(this.props.loggedInOccupant, this.props.isLoggedIn)) {
             this.props.history.push(houseMoneyRoutes.Balance);
         } else {
             if (this.props.location
@@ -25,8 +25,9 @@ class Occupants extends React.Component<IOccupantProps> {
                 && this.props.match.path === houseMoneyRoutes.Occupants) {
                 const occupant: IOccupant = parseOccupant(this.props.location.search);
 
-                if (alreadyLoggedIn(occupant, true)) {
+                if (occupantIsValid(occupant, true)) {
                     this.props.dispatch(receiveOccupant(occupant, true));
+                    this.props.history.push(houseMoneyRoutes.Balance);
                 } else {
                     this.props.history.push(myHouseUrl);
                 }
@@ -41,7 +42,7 @@ class Occupants extends React.Component<IOccupantProps> {
     }
 }
 
-function alreadyLoggedIn(occupant: IOccupant, isLoggedIn: boolean) {
+function occupantIsValid(occupant: IOccupant, isLoggedIn: boolean) {
     let loggedIn: boolean = false;
     if (isLoggedIn && occupant && occupant.token && occupant.occupantId && occupant.displayName && occupant.email && occupant.userId) {
         loggedIn = true;

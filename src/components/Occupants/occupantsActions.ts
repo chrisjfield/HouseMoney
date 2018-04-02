@@ -12,7 +12,7 @@ export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<
     let isLoggedIn = false;
     if (occupant && occupant.token && occupant.userId && occupant.occupantId) {
         await apiHelper.apiCall<AuthorizationResponse>(
-            HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId + occupant.occupantId,
+            HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId + ',' + occupant.occupantId,
         )
             .then((authorizationResponse: AuthorizationResponse) => {
                 isLoggedIn = authorizationResponse.isAuthorized;

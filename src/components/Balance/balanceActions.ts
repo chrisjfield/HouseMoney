@@ -9,8 +9,8 @@ export enum balanceActions {
     RECEIVE_BALANCE = 'RECEIVE_BALANCE',
 }
 
-export function getBalance(token: string, occupantId: number) {
-    const request = apiHelper.apiCall<IBalance[]>(HTTPMethod.GET, endpoints.balance, token, occupantId.toString());
+export function getBalance(token: string, userId: string, occupantId: number) {
+    const request = apiHelper.apiCall<IBalance[]>(HTTPMethod.GET, endpoints.balance, token, userId + ',' + occupantId.toString());
     return (dispatch: Function) => {
         dispatch(loadingStarted());
         return request

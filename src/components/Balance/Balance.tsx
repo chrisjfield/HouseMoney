@@ -11,7 +11,7 @@ import { Loading } from '../Loading';
 
 class Balance extends React.Component<IBalanceProps> {
     componentWillMount() {
-        getBalance(this.props.loggedInOccupant.token, this.props.loggedInOccupant.occupantId);
+        getBalance(this.props.loggedInOccupant.token, this.props.loggedInOccupant.userId, this.props.loggedInOccupant.occupantId);
     }
 
     render() {
