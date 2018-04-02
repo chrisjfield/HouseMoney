@@ -26,9 +26,9 @@ export function getBalance(token: string, userId: string, occupantId: number) {
     };
 }
 
-export function receiveBalance(balance: IBalance[]): IReceiveBalanceAction {
+export function receiveBalance(balanceArray: IBalance[]): IReceiveBalanceAction {
     return {
-        balance,
+        balanceArray,
         type: balanceActions.RECEIVE_BALANCE,
     };
 }

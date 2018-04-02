@@ -3,21 +3,22 @@ import { IBalanceProps, IBalance, IBalanceOccupant } from './balanceInterfaces';
 import { customTheme } from '../../themes';
 import Avatar from 'material-ui/Avatar';
 import { List, ListItem } from 'material-ui/List';
+import * as math from 'mathjs';
 
 const BalanceList: React.StatelessComponent<IBalanceProps> = (props) => {
     const me = props.loggedInOccupant.occupantId;
     const balanceList = (<List>{
-        props.balance.filter((balanceItem: IBalance) => {
-            balanceItem.USER === me.toString() && balanceItem.OTHERS !== me.toString();
-        }, // will probably get rid of to string ^ when hooking up to new api
-        ).map(BalanceItem)}
+        props.balanceArray
+            .filter((balanceItem: IBalance) =>
+                balanceItem.creditorOccupantId === me && balanceItem.debtorOccupantId !== me)
+            .map(BalanceItem)}
     </List>);
     return balanceList;
 };
 
-const BalanceItem: React.StatelessComponent<IBalance> = (balance: IBalance) => {
-    const debt = math.round(balance.TOTAL, 2);
-    const debtor: IBalanceOccupant = { email: balance.OTHERS, displayName: '' };
+const BalanceItem: React.StatelessComponent<IBalance> = (balanceItem: IBalance) => {
+    const debt = math.round(balanceItem.gross, 2);
+    const debtor: IBalanceOccupant = { displayName: balanceItem.debtorDisplayName };
     let colorToSet;
 
     if (debt < 0) {
@@ -28,7 +29,7 @@ const BalanceItem: React.StatelessComponent<IBalance> = (balance: IBalance) => {
         colorToSet = customTheme.neutralColor;
     }
 
-    const balanceItem = (
+    const balanceElement = (
         <ListItem
             key={'Debt_' + debtor.displayName}
             style={{
@@ -48,7 +49,7 @@ const BalanceItem: React.StatelessComponent<IBalance> = (balance: IBalance) => {
             primaryText={debtor.displayName + ': £' + Number(math.abs(debt)).toFixed(2)}
         />
     );
-    return balanceItem;
+    return balanceElement;
 };
 
 export default BalanceList;

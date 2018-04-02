@@ -3,7 +3,7 @@ import { balanceActions } from './balanceActions';
 
 function balanceReducer(
     state: IBalanceReducer = {
-        balance: [],
+        balanceArray: [],
     },
     action: IReceiveBalanceAction,
 ): IBalanceReducer {
@@ -11,7 +11,7 @@ function balanceReducer(
     switch (action.type) {
     case balanceActions.RECEIVE_BALANCE:
         nextState = { ...state,
-            balance: action.balance,
+            balanceArray: action.balanceArray,
         };
         break;
     default:
