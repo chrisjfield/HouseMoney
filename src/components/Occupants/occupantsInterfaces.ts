@@ -3,7 +3,6 @@ import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { RouteComponentProps } from 'react-router';
 
 export interface IOccupant {
-    householdId: number;
     occupantId: number;
     userId: string;
     token: string;

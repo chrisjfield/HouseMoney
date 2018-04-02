@@ -10,29 +10,29 @@ import { myHouseUrl } from '../../appConfig';
 
 class Occupants extends React.Component<IOccupantProps> {
     componentWillReceiveProps(nextProps: IOccupantProps) {
-        if (checkOccupant(nextProps.loggedInOccupant, nextProps.isLoggedIn)) {
+        if (alreadyLoggedIn(nextProps.loggedInOccupant, nextProps.isLoggedIn)) {
             this.props.history.push(houseMoneyRoutes.Balance);
         }
     }
 
     componentWillMount() {
-        if (checkOccupant(this.props.loggedInOccupant, this.props.isLoggedIn)) {
+        if (alreadyLoggedIn(this.props.loggedInOccupant, this.props.isLoggedIn)) {
+            this.props.history.push(houseMoneyRoutes.Balance);
+        } else {
             if (this.props.location
                 && this.props.location.search
                 && this.props.match
                 && this.props.match.path === houseMoneyRoutes.Occupants) {
                 const occupant: IOccupant = parseOccupant(this.props.location.search);
 
-                if (checkOccupant(occupant, true)) {
+                if (alreadyLoggedIn(occupant, true)) {
                     this.props.dispatch(receiveOccupant(occupant, true));
                 } else {
-                    this.props.history.push(myHouseUrl); 
+                    this.props.history.push(myHouseUrl);
                 }
             } else {
                 this.props.history.push(myHouseUrl);
             }
-        } else {
-            this.props.history.push(houseMoneyRoutes.Balance);
         }
     }
 
@@ -41,17 +41,16 @@ class Occupants extends React.Component<IOccupantProps> {
     }
 }
 
-function checkOccupant(occupant: IOccupant, isLoggedIn: boolean) {
-    let haveLoggedInOccupant: boolean = false;
+function alreadyLoggedIn(occupant: IOccupant, isLoggedIn: boolean) {
+    let loggedIn: boolean = false;
     if (isLoggedIn && occupant && occupant.token && occupant.occupantId && occupant.displayName && occupant.email && occupant.userId) {
-        haveLoggedInOccupant = true;
+        loggedIn = true;
     }
-    return haveLoggedInOccupant;
+    return loggedIn;
 }
 
 function parseOccupant(occupantString: string) {
     const occupant: IOccupant = queryString.parse(occupantString);
-    occupant.householdId = parseInt(occupant.householdId.toString(), 2);
     occupant.occupantId = parseInt(occupant.occupantId.toString(), 2);
 
     return occupant;

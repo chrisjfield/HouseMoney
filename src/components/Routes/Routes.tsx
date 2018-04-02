@@ -11,6 +11,7 @@ import NotFound404 from '../NotFound404';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import Occupants from '../Occupants/Occupants';
+import { checkHouseholdAuthorization } from '../Occupants/occupantsActions';
 
 const LoggedInRoutes: React.StatelessComponent = () => {
     return (
@@ -35,6 +36,7 @@ const LoggedOutRoutes: React.StatelessComponent = () => {
 };
 
 const Routes: React.StatelessComponent<RouteComponentProps<any> & IRoutesProps> = (props) => {
+    checkHouseholdAuthorization(props.loggedInOccupant);
     return (
         <Route>{
             props.isLoggedIn

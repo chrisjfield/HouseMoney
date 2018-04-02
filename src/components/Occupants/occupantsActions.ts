@@ -8,17 +8,17 @@ export enum occupantActions {
     RECEIVE_OCCUPANT = 'RECEIVE_OCCUPANT',
 }
 
-export function checkAuthorization(occupant: IOccupant) {
-    const request = apiHelper.apiCall<AuthorizationResponse>(HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId);
-    return (dispatch: Function) => {
-        if (occupant && occupant.token && occupant.occupantId) {
-            request.then((authorizationResponse) => {
-                receiveOccupant(occupant, authorizationResponse.isAuthorized);
+export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<boolean> {
+    let isLoggedIn = false;
+    if (occupant && occupant.token && occupant.userId && occupant.occupantId) {
+        await apiHelper.apiCall<AuthorizationResponse>(
+            HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId + occupant.occupantId,
+        )
+            .then((authorizationResponse: AuthorizationResponse) => {
+                isLoggedIn = authorizationResponse.isAuthorized;
             });
-        } else {
-            dispatch(logout());
-        }
-    };
+    }
+    return isLoggedIn;
 }
 
 export function logout() {

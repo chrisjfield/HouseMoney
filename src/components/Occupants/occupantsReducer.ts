@@ -5,7 +5,6 @@ function occuapntsReducer(
     state: IOccupantReducer = {
         isLoggedIn: false,
         loggedInOccupant: {
-            householdId: 0,
             occupantId: 0,
             userId: '',
             email: '',
