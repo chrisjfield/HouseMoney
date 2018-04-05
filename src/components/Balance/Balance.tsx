@@ -10,7 +10,7 @@ import { getBalance } from './balanceActions';
 import { Loading } from '../Loading';
 
 class Balance extends React.Component<IBalanceProps> {
-    componentWillMount() {
+    componentDidMount() {
         this.props.dispatch(
             getBalance(this.props.loggedInOccupant.token, this.props.loggedInOccupant.userId, this.props.loggedInOccupant.occupantId),
         );

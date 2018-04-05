@@ -28,7 +28,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getGridData();
     }
 

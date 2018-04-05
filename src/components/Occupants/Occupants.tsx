@@ -15,7 +15,7 @@ class Occupants extends React.Component<IOccupantProps> {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if (occupantIsValid(this.props.loggedInOccupant, this.props.isLoggedIn)) {
             this.props.history.push(houseMoneyRoutes.Balance);
         } else {

@@ -34,12 +34,13 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // this.getUserList(); ED! V3 needs to keep a list of app specific display names for this
     }
 
     public getUserList = () => {
-        const request = APIHelper.apiCall<IAddTransactionUser[]>('GET', 'Users/GetUserInformation', this.props.loggedInOccupant.token);
+        // ED! THis should be redux
+        const request = APIHelper.apiCall<IAddTransactionUser[]>('GET', 'Users/GetUserInformation', this.props.loggedInOccupant.token); 
 
         return request.then(json => this.initialiseState(json));
     }

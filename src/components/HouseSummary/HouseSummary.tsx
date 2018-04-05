@@ -30,7 +30,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getUserData();
         this.getGridData();
     }
