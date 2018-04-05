@@ -1,9 +1,7 @@
-import { IComponentProps } from '../../interfaces/componentInterfaces';
+import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 
-export interface IViewTransactionsProps extends IComponentProps {
-    loggedInOccupant: IOccupant;
-}
+export interface IViewTransactionsProps extends IConnectedComponentProps { }
 
 export interface IViewTransactionsState {
     transactionsReturned: boolean;
@@ -16,11 +14,11 @@ export interface IViewTransactionsState {
 export interface IViewTransactionDetails { // ED! bring this into generic ones file
     OTHERS: string;
     AMOUNT: number;
-    DATE: Date;
-    REFERENCE: string;
+    date: Date;
+    reference: string;
     PRIMARYKEY: string;
 }
 
-export interface IAddTransactionUser extends IOccupant {
+export interface IAddTransactionOccupant extends IOccupant {
     checked: boolean;
 }

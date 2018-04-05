@@ -1,10 +1,7 @@
-import { IComponentProps } from '../../interfaces/componentInterfaces';
-import { ITransactionSummaryObject } from '../../interfaces/transactionInterfaces';
+import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
-    
-export interface IHouseSummaryProps extends IComponentProps {
-    loggedInOccupant: IOccupant;
-}
+
+export interface IHouseSummaryProps extends IConnectedComponentProps { }
 
 export interface IHouseSummaryState {
     occupantDataReturned: boolean;
@@ -12,3 +9,5 @@ export interface IHouseSummaryState {
     gridDataReturned: boolean;
     gridData: ITransactionSummaryObject[]; // ED! Need to def these objs
 }
+
+export interface ITransactionSummaryObject {} // mocked this to pass linting for now

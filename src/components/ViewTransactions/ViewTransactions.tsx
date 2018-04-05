@@ -75,22 +75,22 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
                     OWES ME
                   </TableHeaderColumn>
                   <TableHeaderColumn
-                    key={'Column_GROSS'}
+                    key={'Column_gross'}
                     style={styles.valueHeader}
                   >
                     VALUE
                   </TableHeaderColumn>
                   <TableHeaderColumn
-                    key={'Column_DATE'}
+                    key={'Column_date'}
                     style={styles.dateHeader}
                   >
-                    DATE
+                    date
                   </TableHeaderColumn>
                   <TableHeaderColumn
-                    key={'Column_REFERENCE'}
+                    key={'Column_reference'}
                     style={styles.referenceHeader}
                   >
-                    REFERENCE
+                    reference
                   </TableHeaderColumn>
                 </TableRow>
               </TableHeader>
@@ -115,7 +115,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     }
 
     createRow = (transactionData: IViewTransactionDetails) => { // TODO: Refactor these into stateless components
-        const formattedDate = moment(transactionData.DATE).format('Do MMM YYYY');
+        const formatteddate = moment(transactionData.date).format('Do MMM YYYY');
         return (
           <TableRow key={'Row_' + transactionData.PRIMARYKEY}>
             <TableRowColumn
@@ -131,16 +131,16 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
               {transactionData.AMOUNT}
             </TableRowColumn>
             <TableRowColumn
-              key={'Data_' + transactionData.PRIMARYKEY + '_DATE'}
+              key={'Data_' + transactionData.PRIMARYKEY + '_date'}
               style={styles.dateDetail}
             >
-              {formattedDate}
+              {formatteddate}
             </TableRowColumn>
             <TableRowColumn
-              key={'Data_' + transactionData.PRIMARYKEY + '_REFERENCE'}
+              key={'Data_' + transactionData.PRIMARYKEY + '_reference'}
               style={styles.referenceDetail}
             >
-              {transactionData.REFERENCE}
+              {transactionData.reference}
             </TableRowColumn>
           </TableRow>
         );

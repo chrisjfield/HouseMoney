@@ -11,8 +11,7 @@ import {
 import CircularProgress from 'material-ui/CircularProgress';
 import styles from './styles';
 import appStyles from '../../styles';
-import { IHouseSummaryProps, IHouseSummaryState } from './interfaces';
-import { ITransactionSummaryObject } from '../../interfaces/transactionInterfaces';
+import { ITransactionSummaryObject, IHouseSummaryProps, IHouseSummaryState } from './interfaces';
 import * as math from 'mathjs';
 import APIHelper from '../../helpers/apiHelper';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
