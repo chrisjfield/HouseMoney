@@ -2,7 +2,7 @@ import apiHelper from '../../helpers/apiHelper';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { endpoints } from '../../enums/endpointsEnum';
 import { addError } from '../ErrorMessage/errorMessageActions';
-import { ITransactionResponse, IReceiveTransactionAction, ITransaction } from './transactionsInterfaces';
+import { IReceiveTransactionAction, ITransaction } from './transactionsInterfaces';
 import { loadingStarted, loadingComplete } from '../Loading/loadingActions';
 
 export enum transactionActions {
@@ -10,13 +10,13 @@ export enum transactionActions {
 }
 
 export function insertTransactions(token: string, userId: string, transactionArray: ITransaction[]) {
-    const request = apiHelper.apiCall<ITransactionResponse[]>(
-        HTTPMethod.POST, endpoints.transactions, token, userId + ',' + transactionArray[0].enteredBy.toString(),
+    const request = apiHelper.apiCall<number>(
+        HTTPMethod.POST, endpoints.transactions, token, userId, transactionArray,
     );
     return (dispatch: Function) => {
         dispatch(loadingStarted());
         return request
-            .then((response: ITransactionResponse[]) => {
+            .then((response: number) => {
                 dispatch(receiveTransaction(response));
                 dispatch(loadingComplete());
             })
@@ -28,9 +28,9 @@ export function insertTransactions(token: string, userId: string, transactionArr
     };
 }
 
-export function receiveTransaction(transactionArray: ITransactionResponse[]): IReceiveTransactionAction {
+export function receiveTransaction(rowsAffected: number): IReceiveTransactionAction {
     return {
-        transactionArray,
+        transactionsAdded: rowsAffected > 0,
         type: transactionActions.ADD_TRANSACTION,
     };
 }

@@ -11,10 +11,11 @@ import { List, ListItem } from 'material-ui/List';
 import UserChip from '../UserChip';
 import styles from './styles';
 import appStyles from '../../styles';
-import { IAddTransactionProps, 
-    IAddTransationState, 
-    IAddTransactionOccupant, 
-    IAddTransactionStore, 
+import {
+    IAddTransactionProps,
+    IAddTransationState,
+    IAddTransactionOccupant,
+    IAddTransactionStore,
     ITransaction,
 } from './transactionsInterfaces';
 import * as moment from 'moment';
@@ -47,6 +48,9 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         if (nextProps.householdOccupantsArray.length > 0) {
             this.setState({ occupantsArray: nextProps.householdOccupantsArray });
         }
+        if (nextProps.transactionsAdded) {
+            this.setState({ transactionAdded: nextProps.transactionsAdded });
+        }
     }
 
     updateCheck = (key: number) => {
@@ -60,7 +64,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         const checkedUser: IAddTransactionOccupant[] = JSON.parse(JSON.stringify(this.state.occupantsArray));
         const allChecked = this.state.allChecked;
 
-        checkedUser.map((entry) => { entry.checked = !allChecked;}, this);
+        checkedUser.map((entry) => { entry.checked = !allChecked; }, this);
         this.setState({
             allChecked: !allChecked,
             occupantsArray: checkedUser,
@@ -70,10 +74,10 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLFormElement>) => {
         formSubmitEvent.preventDefault();
         const debtors = this.state.occupantsArray.filter(item => item.checked === true);
-        if (debtors.length === 0) {
+        const participants = debtors.length;
+        if (participants === 0) {
             this.props.dispatch(addError('Please add debtors'));
         } else {
-            const participants = math.add(debtors.length, 1);
             const value = this.state.transactionDetails.gross;
             const dividedGross = math
                 .chain(value)
@@ -92,8 +96,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 };
                 return transaction;
             },                                         this);
-
-            this.props.dispatch(insertTransactions(this.props.loggedInOccupant.token, this.props.loggedInOccupant.userId, payday));
+            const occupant = this.props.loggedInOccupant;
+            this.props.dispatch(insertTransactions(occupant.token, occupant.userId, payday));
         }
     }
 
@@ -237,7 +241,7 @@ const mapStateToProps = (store: IStore) => {
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         isLoggedIn: store.occupantsReducer.isLoggedIn,
         loading: store.loadingReducer.loading,
-        transactionArray: store.transactionsReducer.transactionArray,
+        transactionsAdded: store.transactionsReducer.transactionsAdded,
     };
     return props;
 };

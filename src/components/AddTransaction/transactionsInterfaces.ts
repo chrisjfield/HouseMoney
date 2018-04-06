@@ -32,7 +32,7 @@ export interface ITransactionResponse extends ITransaction {
 }
 
 export interface ITransactionReducer {
-    transactionArray: ITransaction[];
+    transactionsAdded: boolean;
 }
 
 export interface IReceiveTransactionAction extends Action, ITransactionReducer { }
