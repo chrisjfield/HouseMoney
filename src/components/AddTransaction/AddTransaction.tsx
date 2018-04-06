@@ -74,7 +74,9 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLFormElement>) => {
         formSubmitEvent.preventDefault();
         const debtors = this.state.occupantsArray.filter(item => item.checked === true);
+        const me = this.props.loggedInOccupant;
         const participants = debtors.length;
+
         if (participants === 0) {
             this.props.dispatch(addError('Please add debtors'));
         } else {
@@ -85,19 +87,21 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 .round(2)
                 .done();
             const dateISO: Date = moment(this.state.transactionDetails.date).toDate();
-            const payday: ITransaction[] = debtors.map((element: IAddTransactionOccupant) => {
-                const transaction = {
-                    debtor: element.occupantId,
-                    creditor: this.props.loggedInOccupant.occupantId,
-                    gross: dividedGross,
-                    reference: this.state.transactionDetails.reference,
-                    date: dateISO,
-                    enteredBy: this.props.loggedInOccupant.occupantId,
-                };
-                return transaction;
-            },                                         this);
-            const occupant = this.props.loggedInOccupant;
-            this.props.dispatch(insertTransactions(occupant.token, occupant.userId, payday));
+            const payday: ITransaction[] = debtors
+                .map((element: IAddTransactionOccupant) => {
+                    const transaction = {
+                        debtor: element.occupantId,
+                        creditor: me.occupantId,
+                        gross: dividedGross,
+                        reference: this.state.transactionDetails.reference,
+                        date: dateISO,
+                        enteredBy: me.occupantId,
+                    };
+                    return transaction;
+                },   this)
+                .filter(x => x.creditor !== me.occupantId); // TODO: Can you Curry this ED!? Or something from Functional Programming
+            
+            this.props.dispatch(insertTransactions(me.token, me.userId, payday));
         }
     }
 
@@ -125,7 +129,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         return checkbox;
     }
 
-    createCheckboxList = () => { // TODO: Refactor into stateless component?
+    createCheckboxList = () => {
         const checkboxList = this.state.occupantsArray.map((occupant: IAddTransactionOccupant) => this.createCheckbox(occupant));
         return checkboxList;
     }
@@ -148,6 +152,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.setState({
             transactionAdded: false,
         });
+        // TODO: Need to dispatch action to set transaction added to false - can remove this from state then!
+        // But may be better as a state thing as its UI specific to this screen! - actually may remove from Redux! 
     }
 
     render() {
