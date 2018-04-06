@@ -1,11 +1,14 @@
 import apiHelper from '../../helpers/apiHelper';
-import { IOccupant, IReceiveOccupantAction } from './occupantsInterfaces';
+import { IOccupant, IReceiveOccupantAction, IReceiveHouseholdOccupantsAction } from './occupantsInterfaces';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { endpoints } from '../../enums/endpointsEnum';
 import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
+import { addError } from '../ErrorMessage/errorMessageActions';
+import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
 
 export enum occupantActions {
     RECEIVE_OCCUPANT = 'RECEIVE_OCCUPANT',
+    RECEIVE_OCCUPANTS_OF_HOUSEHOLD = 'RECEIVE_OCCUPANTS_OF_HOUSEHOLD',
 }
 
 export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<boolean> {
@@ -32,6 +35,33 @@ export function receiveOccupant(occupant: IOccupant, isLoggedIn: boolean): IRece
         isLoggedIn,
         type: occupantActions.RECEIVE_OCCUPANT,
         loggedInOccupant: occupant,
+    };
+    return response;
+}
+
+export function getHouseholdOccupants(token: string, userId: string, occupantId: number) {
+    const request = apiHelper.apiCall<IOccupant[]>(
+        HTTPMethod.GET, endpoints.occupants, token, userId + ',' + occupantId.toString(),
+    );
+    return (dispatch: Function) => {
+        dispatch(loadingStarted());
+        return request
+            .then((response: IOccupant[]) => {
+                dispatch(receiveHouseholdOccupants(response));
+                dispatch(loadingComplete());
+            })
+            .catch((error: Error) => {
+                dispatch(addError(error.message));
+                dispatch(loadingComplete());
+                throw error;
+            });
+    };
+}
+
+export function receiveHouseholdOccupants(householdOccupantsArray: IOccupant[]): IReceiveHouseholdOccupantsAction {
+    const response: IReceiveHouseholdOccupantsAction = {
+        householdOccupantsArray,
+        type: occupantActions.RECEIVE_OCCUPANTS_OF_HOUSEHOLD,
     };
     return response;
 }

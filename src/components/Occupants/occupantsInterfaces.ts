@@ -17,6 +17,12 @@ export interface ILoggedInOccupant {
 
 export interface IReceiveOccupantAction extends Action, ILoggedInOccupant { }
 
-export interface IOccupantProps extends IConnectedComponentProps, RouteComponentProps<string> {}
+export interface IReceiveHouseholdOccupantsAction extends Action, IHouseholdOccupants { }
 
-export interface IOccupantReducer extends ILoggedInOccupant { }
+export interface IOccupantProps extends IConnectedComponentProps, RouteComponentProps<string>, IHouseholdOccupants { }
+
+export interface IOccupantReducer extends ILoggedInOccupant, IHouseholdOccupants { }
+
+export interface IHouseholdOccupants {
+    householdOccupantsArray: IOccupant[];
+}

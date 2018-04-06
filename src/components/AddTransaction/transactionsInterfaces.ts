@@ -1,14 +1,14 @@
-import { IConnectedComponentProps, IComponentProps } from '../../interfaces/componentInterfaces';
+import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { IOccupant, ILoggedInOccupant } from '../Occupants/occupantsInterfaces';
 import { Action } from 'redux';
 import { ILoadingProps } from '../Loading/loadingInterfaces';
 
-export interface IAddTransationProps extends IConnectedComponentProps { }
-
 export interface IAddTransationState {
-    occupantArray: IAddTransactionOccupant[];
+    occupantsArray: IAddTransactionOccupant[];
     transactionDetails: ITransactionDetails;
     allChecked: boolean;
+    transactionAdding: boolean;
+    transactionAdded: boolean;
 }
 
 export interface IAddTransactionOccupant extends IOccupant {
@@ -32,11 +32,13 @@ export interface ITransactionResponse extends ITransaction {
 }
 
 export interface ITransactionReducer {
-    transaction: ITransaction[];
+    transactionArray: ITransaction[];
 }
 
 export interface IReceiveTransactionAction extends Action, ITransactionReducer { }
 
-export interface ITransactionProps extends IComponentProps, ITransactionStore { }
+export interface IAddTransactionProps extends IConnectedComponentProps, IAddTransactionStore { }
 
-export interface ITransactionStore extends ITransactionReducer, ILoggedInOccupant, ILoadingProps { }
+export interface IAddTransactionStore extends ITransactionReducer, ILoggedInOccupant, ILoadingProps {
+    householdOccupantsArray: IAddTransactionOccupant[];
+}

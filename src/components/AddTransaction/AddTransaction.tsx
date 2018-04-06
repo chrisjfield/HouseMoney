@@ -11,133 +11,109 @@ import { List, ListItem } from 'material-ui/List';
 import UserChip from '../UserChip';
 import styles from './styles';
 import appStyles from '../../styles';
-import { IAddTransationProps, IAddTransationState, IAddTransactionOccupant } from './transactionsInterfaces';
+import { IAddTransactionProps, 
+    IAddTransationState, 
+    IAddTransactionOccupant, 
+    IAddTransactionStore, 
+    ITransaction,
+} from './transactionsInterfaces';
 import * as moment from 'moment';
 import * as math from 'mathjs';
-import APIHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { IStore } from '../../interfaces/storeInterface';
+import { getHouseholdOccupants } from '../Occupants/occupantsActions';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
+import { insertTransactions } from './transactionsActions';
 
-class AddTransaction extends React.Component<IAddTransationProps, IAddTransationState> {
-    constructor(props: IAddTransationProps) {
+class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
+    constructor(props: IAddTransactionProps) {
         super(props);
 
         this.state = {
-            occupantArray: [],
+            occupantsArray: [],
             transactionDetails: { gross: null, date: new Date(), reference: null },
             allChecked: false,
+            transactionAdding: false,
+            transactionAdded: false,
         };
     }
 
     componentDidMount() {
-        // this.getUserList(); ED! V3 needs to keep a list of app specific display names for this
+        const occupant = this.props.loggedInOccupant;
+        this.props.dispatch(getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
     }
 
-    public getUserList = () => {
-        // ED! THis should be redux
-        const request = APIHelper.apiCall<IAddTransactionOccupant[]>('GET', 'Users/GetUserInformation', this.props.loggedInOccupant.token);
-
-        return request.then(json => this.initialiseState(json));
-    }
-
-    public initialiseState = (occupantArray: IAddTransactionOccupant[]) => {
-        occupantArray.map(this.addChecking);
-        this.setState({
-            occupantArray,
-        });
-    }
-
-    addChecking = (occupantArrayItem: IAddTransactionOccupant) => {
-        Object.assign(occupantArrayItem, { checked: false }); // TODO: This should spread from props into state
+    componentWillReceiveProps(nextProps: IAddTransactionProps) {
+        if (nextProps.householdOccupantsArray.length > 0) {
+            this.setState({ occupantsArray: nextProps.householdOccupantsArray });
+        }
     }
 
     updateCheck = (key: number) => {
-        const checkbox = this.state.occupantArray.findIndex((occupant: IAddTransactionOccupant) => occupant.occupantId === key);
-        const checkedUser: IAddTransactionOccupant[] = JSON.parse(JSON.stringify(this.state.occupantArray));
+        const checkbox = this.state.occupantsArray.findIndex((occupant: IAddTransactionOccupant) => occupant.occupantId === key);
+        const checkedUser: IAddTransactionOccupant[] = JSON.parse(JSON.stringify(this.state.occupantsArray));
         checkedUser[checkbox].checked = !checkedUser[checkbox].checked;
-        this.setState({ occupantArray: checkedUser });
+        this.setState({ occupantsArray: checkedUser });
     }
 
     updateCheckAll = () => {
-        const checkedUser: IAddTransactionOccupant[] = JSON.parse(JSON.stringify(this.state.occupantArray));
+        const checkedUser: IAddTransactionOccupant[] = JSON.parse(JSON.stringify(this.state.occupantsArray));
         const allChecked = this.state.allChecked;
 
-        checkedUser
-            .filter(
-                occupantArrayElement =>
-                    occupantArrayElement.occupantId !== this.props.loggedInOccupant.occupantId,
-        )
-            .forEach((entry) => {
-                entry.checked = !allChecked;
-            },       this);
+        checkedUser.map((entry) => { entry.checked = !allChecked;}, this);
         this.setState({
             allChecked: !allChecked,
-            occupantArray: checkedUser,
+            occupantsArray: checkedUser,
         });
     }
 
     handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLFormElement>) => {
         formSubmitEvent.preventDefault();
-        const debtors = this.state.occupantArray.filter(item => item.checked === true);
+        const debtors = this.state.occupantsArray.filter(item => item.checked === true);
         if (debtors.length === 0) {
             this.props.dispatch(addError('Please add debtors'));
         } else {
             const participants = math.add(debtors.length, 1);
             const value = this.state.transactionDetails.gross;
-            const dividedgross = math
+            const dividedGross = math
                 .chain(value)
                 .divide(participants)
                 .round(2)
                 .done();
-            const dateISO = moment(this.state.transactionDetails.date).format();
-            const payday = debtors.map((element: IAddTransactionOccupant) => {
+            const dateISO: Date = moment(this.state.transactionDetails.date).toDate();
+            const payday: ITransaction[] = debtors.map((element: IAddTransactionOccupant) => {
                 const transaction = {
                     debtor: element.occupantId,
-                    creditor: this.props.loggedInOccupant.occupantId, // TODO: Rework this to allow any creditor and any debtors 
-                    gross: dividedgross,
+                    creditor: this.props.loggedInOccupant.occupantId,
+                    gross: dividedGross,
                     reference: this.state.transactionDetails.reference,
                     date: dateISO,
                     enteredBy: this.props.loggedInOccupant.occupantId,
                 };
                 return transaction;
-            },                         this);
+            },                                         this);
 
-            // TODO: ED this should be redux too! 
-            APIHelper.apiCall('POST', 'Transactions/AddTransactionsBulk', this.props.loggedInOccupant.token, null, payday)
-                .then(() => {
-                    this.setState({
-                        transactionDetails: {
-                            gross: null,
-                            date: new Date(),
-                            reference: null,
-                        },
-                        allChecked: false,
-                    });
-                })
-                .then(() => this.initialiseState(this.state.occupantArray));
+            this.props.dispatch(insertTransactions(this.props.loggedInOccupant.token, this.props.loggedInOccupant.userId, payday));
         }
     }
 
-    createCheckbox(occupantArray: IAddTransactionOccupant): JSX.Element {
+    createCheckbox = (occupant: IAddTransactionOccupant): JSX.Element => {
         const checkbox: JSX.Element = (
             <ListItem
-                key={'ListItem_' + occupantArray.occupantId}
-                onClick={this.updateCheck.bind(this, occupantArray.occupantId)}
+                key={'ListItem_' + occupant.occupantId}
+                onClick={this.updateCheck.bind(this, occupant.occupantId)}
             >
                 <Checkbox
-                    key={'Checkbox_' + occupantArray.occupantId}
+                    key={'Checkbox_' + occupant.occupantId}
                     label={
                         <UserChip
-                            occupant={occupantArray}
+                            occupant={occupant}
                             styles={styles.occupantChip}
                         />}
-                    checked={
-                        this.state.occupantArray.find(occupant => occupant.occupantId === occupantArray.occupantId)
-                            .checked
-                    }
+                    checked={occupant.checked}
                     style={styles.checkbox}
                     iconStyle={styles.checkboxIcon}
-                    onCheck={this.updateCheck.bind(this, occupantArray.occupantId)}
+                    onCheck={this.updateCheck.bind(this, occupant.occupantId)}
                     disabled={this.state.transactionAdding}
                 />
             </ListItem>
@@ -146,12 +122,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
     }
 
     createCheckboxList = () => { // TODO: Refactor into stateless component?
-        const checkboxList = this.state.occupantArray
-            .filter(
-                occupantArrayElement =>
-                    occupantArrayElement.occupantId !== this.props.loggedInOccupant.occupantId,
-        )
-            .map(() => this.createCheckbox);
+        const checkboxList = this.state.occupantsArray.map((occupant: IAddTransactionOccupant) => this.createCheckbox(occupant));
         return checkboxList;
     }
 
@@ -179,7 +150,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
         return (
             <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
                 <h2>Add a Transaction </h2>
-                <h3> Divided between {this.props.loggedInOccupant.displayName}, and: </h3>
+                <h3> Divided between: </h3>
                 <div>
                     <List>
                         <Paper style={styles.checkBoxListSheet}>
@@ -192,7 +163,7 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
                                     style={styles.checkAll}
                                 />
                             </ListItem>
-                            {this.state.occupantArrayReturned ? (
+                            {this.props.loading === 0 ? (
                                 this.createCheckboxList()
                             ) : (
                                     <CircularProgress />
@@ -257,7 +228,18 @@ class AddTransaction extends React.Component<IAddTransationProps, IAddTransation
 
 // Retrieve data from store as props
 const mapStateToProps = (store: IStore) => {
-    return { loggedInOccupant: store.occupantsReducer.loggedInOccupant };
+    const householdOccupantsArray: IAddTransactionOccupant[] = store.occupantsReducer.householdOccupantsArray.map((occupant: IOccupant) => {
+        const transactionOccupant: IAddTransactionOccupant = { ...occupant, checked: false };
+        return transactionOccupant;
+    });
+    const props: IAddTransactionStore = {
+        householdOccupantsArray,
+        loggedInOccupant: store.occupantsReducer.loggedInOccupant,
+        isLoggedIn: store.occupantsReducer.isLoggedIn,
+        loading: store.loadingReducer.loading,
+        transactionArray: store.transactionsReducer.transactionArray,
+    };
+    return props;
 };
 
 export default connect(mapStateToProps)(AddTransaction);

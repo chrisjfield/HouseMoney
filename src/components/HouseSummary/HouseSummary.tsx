@@ -66,10 +66,10 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
     createRowData = (tableRowData: ITransactionSummaryObject) => {
         const row = (
           <TableRowColumn
-            key={'Data' + tableRowData.USER}
+            key={'Data' + tableRowData.creditor}
             style={styles.gridDetail}
           >
-            {Number(math.round(tableRowData.TOTAL, 2)).toFixed(2)}
+            {Number(math.round(tableRowData.gross, 2)).toFixed(2)}
           </TableRowColumn>
         );
         return row;
@@ -77,7 +77,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps, IHouseSummaryStat
 
     createRow = (occupantData: IOccupant) => {
         const rowsData = this.state.gridData.filter(
-          (gridElement: ITransactionSummaryObject) => gridElement.USER === occupantData.email,
+          (gridElement: ITransactionSummaryObject) => gridElement.creditor === occupantData.occupantId,
         );
         const tableRowData = rowsData.map(this.createRowData);
         return (

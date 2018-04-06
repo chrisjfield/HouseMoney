@@ -10,4 +10,8 @@ export interface IHouseSummaryState {
     gridData: ITransactionSummaryObject[]; // ED! Need to def these objs
 }
 
-export interface ITransactionSummaryObject {} // mocked this to pass linting for now
+export interface ITransactionSummaryObject {
+    creditor: number;
+    debtor: number;
+    gross: number;
+}

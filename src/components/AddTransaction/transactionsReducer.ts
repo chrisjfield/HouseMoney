@@ -3,7 +3,7 @@ import { transactionActions } from './transactionsActions';
 
 function transactionReducer(
     state: ITransactionReducer = {
-        transaction: {},
+        transactionArray: [],
     },
     action: IReceiveTransactionAction,
 ): ITransactionReducer {
@@ -12,7 +12,7 @@ function transactionReducer(
     case transactionActions.ADD_TRANSACTION:
         nextState = {
             ...state,
-            transaction: action.transaction,
+            transactionArray: action.transactionArray,
         };
         break;
     default:

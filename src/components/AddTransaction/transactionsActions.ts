@@ -9,7 +9,7 @@ export enum transactionActions {
     ADD_TRANSACTION = 'ADD_TRANSACTION',
 }
 
-export function insertTransaction(token: string, userId: string, transactionArray: ITransaction[]) {
+export function insertTransactions(token: string, userId: string, transactionArray: ITransaction[]) {
     const request = apiHelper.apiCall<ITransactionResponse[]>(
         HTTPMethod.POST, endpoints.transactions, token, userId + ',' + transactionArray[0].enteredBy.toString(),
     );

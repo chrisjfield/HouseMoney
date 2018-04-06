@@ -1,5 +1,6 @@
 import { occupantActions } from './occupantsActions';
-import { IReceiveOccupantAction, IOccupantReducer } from './occupantsInterfaces';
+import { IOccupantReducer } from './occupantsInterfaces';
+import { Action } from 'redux';
 
 function occuapntsReducer(
     state: IOccupantReducer = {
@@ -11,8 +12,9 @@ function occuapntsReducer(
             displayName: '',
             token: '',
         },
+        householdOccupantsArray: [],
     },
-    action: IReceiveOccupantAction,
+    action: IOccupantReducer & Action,
 ): IOccupantReducer {
     let nextState: IOccupantReducer;
     switch (action.type) {
@@ -21,6 +23,12 @@ function occuapntsReducer(
             ...state,
             loggedInOccupant: action.loggedInOccupant,
             isLoggedIn: action.isLoggedIn,
+        };
+        break;
+    case occupantActions.RECEIVE_OCCUPANTS_OF_HOUSEHOLD: 
+        nextState = {
+            ...state,
+            householdOccupantsArray: action.householdOccupantsArray,
         };
         break;
     default:
