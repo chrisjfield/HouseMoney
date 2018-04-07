@@ -25,6 +25,7 @@ import { IStore } from '../../interfaces/storeInterface';
 import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { insertTransactions } from './transactionsActions';
+import { houseMoneyRoutes } from '../../enums/routesEnum';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
     constructor(props: IAddTransactionProps) {
@@ -99,7 +100,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     };
                     return transaction;
                 },   this)
-                .filter(x => x.creditor !== me.occupantId); // TODO: Can you Curry this ED!? Or something from Functional Programming
+                .filter(x => x.debtor !== x.creditor); // TODO: Can you Curry this ED!? Or something from Functional Programming
             
             this.props.dispatch(insertTransactions(me.token, me.userId, payday));
         }
@@ -154,6 +155,10 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         });
         // TODO: Need to dispatch action to set transaction added to false - can remove this from state then!
         // But may be better as a state thing as its UI specific to this screen! - actually may remove from Redux! 
+    }
+
+    handleViewTransactionClick = () => {
+        this.props.history.push(houseMoneyRoutes.ViewTransactions);
     }
 
     render() {
@@ -230,6 +235,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     message="Transaction added"
                     autoHideDuration={4000}
                     onRequestClose={this.handleTransactionAddedClose}
+                    action="View"
+                    onActionTouchTap={this.handleViewTransactionClick}
                 />
             </form>
         );
