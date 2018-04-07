@@ -142,8 +142,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.setState({
             transactionAdded: false,
         });
-        // TODO: Need to dispatch action to set transaction added to false - can remove this from state then!
-        // But may be better as a state thing as its UI specific to this screen! - actually may remove from Redux! 
+        // TODO: better as a state thing as its UI specific to this screen! - remove from Redux! 
     }
 
     handleViewTransactionClick = () => {
