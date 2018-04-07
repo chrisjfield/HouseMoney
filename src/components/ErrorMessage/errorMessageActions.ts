@@ -4,8 +4,8 @@ export const REMOVE_ERROR = 'REMOVE_ERROR';
 
 export function addError(errorMessageText: string) {
     return {
+        errorMessageText,
         type: ADD_ERROR,
-        payload: errorMessageText,
     };
 }
 

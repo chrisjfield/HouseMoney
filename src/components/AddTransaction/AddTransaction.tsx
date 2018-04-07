@@ -19,13 +19,13 @@ import {
     ITransaction,
 } from './transactionsInterfaces';
 import * as moment from 'moment';
-import * as math from 'mathjs';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { IStore } from '../../interfaces/storeInterface';
 import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { insertTransactions } from './transactionsActions';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
+import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
     constructor(props: IAddTransactionProps) {
@@ -74,34 +74,23 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
     handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLFormElement>) => {
         formSubmitEvent.preventDefault();
-        const debtors = this.state.occupantsArray.filter(item => item.checked === true);
         const me = this.props.loggedInOccupant;
-        const participants = debtors.length;
+        const debtors = this.state.occupantsArray.filter(item => (item.checked === true));
+        const transactionDetails = this.state.transactionDetails;
 
-        if (participants === 0) {
-            this.props.dispatch(addError('Please add debtors'));
+        if (debtors.filter(item => item.occupantId !== me.occupantId).length === 0) {
+            this.props.dispatch(addError('Please add others to divide between'));
         } else {
-            const value = this.state.transactionDetails.gross;
-            const dividedGross = math
-                .chain(value)
-                .divide(participants)
-                .round(2)
-                .done();
-            const dateISO: Date = moment(this.state.transactionDetails.date).toDate();
-            const payday: ITransaction[] = debtors
-                .map((element: IAddTransactionOccupant) => {
-                    const transaction = {
-                        debtor: element.occupantId,
-                        creditor: me.occupantId,
-                        gross: dividedGross,
-                        reference: this.state.transactionDetails.reference,
-                        date: dateISO,
-                        enteredBy: me.occupantId,
-                    };
-                    return transaction;
-                },   this)
-                .filter(x => x.debtor !== x.creditor); // TODO: Can you Curry this ED!? Or something from Functional Programming
-            
+            const dividedGross = divideValueBetweenDebtors(transactionDetails.gross, debtors.length);
+            const dateISO: Date = moment(transactionDetails.date).toDate();
+            const payday: ITransaction[] = createTransactionArray(
+                debtors,
+                me.occupantId,
+                dividedGross,
+                dateISO,
+                transactionDetails.reference,
+            );
+
             this.props.dispatch(insertTransactions(me.token, me.userId, payday));
         }
     }
@@ -140,7 +129,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     handledateChange = (date: string) => {
-        this.updateAddTransaction<string>('date', date);
+        this.updateAddTransaction<string>('date', date); // TODO: Fix datepicker! this seems to be fucking up
     }
 
     updateAddTransaction = <T extends {}>(name: string, value: T) => {
@@ -201,7 +190,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 <div>
                     <DatePicker
                         name="date"
-                        floatingLabelText="date"
+                        floatingLabelText="Date"
                         autoOk={true}
                         container="inline"
                         style={{ display: 'inline-block' }}
@@ -218,7 +207,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         name="reference"
                         type="text"
                         hintText="Weekly Shop"
-                        floatingLabelText="reference"
+                        floatingLabelText="Description"
                         value={this.state.transactionDetails.reference}
                         onChange={this.handleInputChange}
                         disabled={this.state.transactionAdding}
