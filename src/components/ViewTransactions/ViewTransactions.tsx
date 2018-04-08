@@ -40,7 +40,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 
     determineRender = () => {
         let result: JSX.Element;
-        if (!this.props.loading) {
+        if (this.props.loading > 0) {
             result = <CircularProgress />;
         } else if (this.props.transactionHistoryArray.length > 0) {
             result = (

@@ -58,27 +58,27 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
 const ViewTransactionsGridRow: React.StatelessComponent<IViewTransactionGridRowProps> = (props) => {
     const formatteddate = moment(props.date).format('Do MMM YYYY');
     return (
-        <TableRow key={'Row_' + props.primaryKey}>
+        <TableRow key={'Row_' + props.transactionId}>
             <TableRowColumn
-                key={'Data_' + props.primaryKey + '_Debtor'}
+                key={'Data_' + props.transactionId + '_Debtor'}
                 style={styles.owesMeDetail}
             >
                 {props.debtorDisplayName}
             </TableRowColumn>
             <TableRowColumn
-                key={'Data_' + props.primaryKey + '_Gross'}
+                key={'Data_' + props.transactionId + '_Gross'}
                 style={styles.valueDetail}
             >
                 {props.gross}
             </TableRowColumn>
             <TableRowColumn
-                key={'Data_' + props.primaryKey + '_Date'}
+                key={'Data_' + props.transactionId + '_Date'}
                 style={styles.dateDetail}
             >
                 {formatteddate}
             </TableRowColumn>
             <TableRowColumn
-                key={'Data_' + props.primaryKey + '_Reference'}
+                key={'Data_' + props.transactionId + '_Reference'}
                 style={styles.referenceDetail}
             >
                 {props.reference}

@@ -11,7 +11,7 @@ export enum viewTransactionsActions {
 
 export function getTransactionHistory(token: string, userId: string, occupantId: number, pageSize: number, pageNumber: number) {
     const request = apiHelper.apiCall<ITransactionHistory[]>(
-        HTTPMethod.GET, endpoints.transactions, token, userId + ',' + occupantId,
+        HTTPMethod.GET, endpoints.transactions, token, userId + ',' + occupantId + ',' + pageSize + ',' + pageNumber,
     );
     return (dispatch: Function) => {
         dispatch(loadingStarted());
