@@ -11,16 +11,16 @@ export function createTransactionArray(
     const payday: ITransaction[] = debtorArray
         .map((element: IAddTransactionOccupant) => {
             const transaction = {
-                debtor: element.occupantId,
-                creditor: creditorOccupantId,
+                creditorOccupantId,
+                debtorOccupantId: element.occupantId,
                 gross: dividedGross,
                 reference: description,
                 date: isoDate,
-                enteredBy: creditorOccupantId,
+                enteredByOccupantId: creditorOccupantId,
             };
             return transaction;
         })
-        .filter(x => x.debtor !== x.creditor);
+        .filter(x => x.debtorOccupantId !== x.creditorOccupantId);
 
     // TODO: Can you bind this ED!? Or maybe what is calling these two? something from Functional Programming
     return payday;

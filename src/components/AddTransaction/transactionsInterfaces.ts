@@ -16,9 +16,9 @@ export interface IAddTransactionOccupant extends IOccupant {
 }
 
 export interface ITransaction extends ITransactionDetails {
-    creditor: number;
-    debtor: number;
-    enteredBy: number;
+    creditorOccupantId: number;
+    debtorOccupantId: number;
+    enteredByOccupantId: number;
 }
 
 export interface ITransactionDetails {
