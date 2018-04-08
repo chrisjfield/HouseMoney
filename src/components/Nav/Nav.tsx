@@ -12,46 +12,49 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import styles from './styles';
 import { INavProps } from './interfaces';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
-import { handleLogOut } from '../../helpers/loginHelper';
 import { IStore } from '../../interfaces/storeInterface';
+import { myHouseUrl } from '../../appConfig';
+import store from '../../main/store';
+import { logout } from '../Occupants/occupantsActions';
 
 const LoggedOutMenuOptions: React.StatelessComponent = () => {
     return null;
 };
 
+// TODO: Add landing page with args to allow logout on myHouse for the logout! Add to href!
 const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
     return (
-      <div>
-        <Link style={styles.menuItems} to={houseMoneyRoutes.HouseSummary}>
-          <MenuItem>House Summary</MenuItem>
-        </Link>
+        <div>
+            <Link style={styles.menuItems} to={houseMoneyRoutes.HouseSummary}>
+                <MenuItem>House Summary</MenuItem>
+            </Link>
 
-        <Link style={styles.menuItems} to={houseMoneyRoutes.Balance}>
-          <MenuItem>My Balance</MenuItem>
-        </Link>
+            <Link style={styles.menuItems} to={houseMoneyRoutes.Balance}>
+                <MenuItem>My Balance</MenuItem>
+            </Link>
 
-        <a style={styles.menuItems} onClick={() => handleLogOut()}>
-          <MenuItem>Logout</MenuItem>
-        </a>
-      </div>
+            <a style={styles.menuItems} onClick={() => store.dispatch(logout())} href={myHouseUrl}>
+                <MenuItem>Logout</MenuItem>
+            </a>
+        </div>
     );
 };
 
 const LoggedInNavItems: React.StatelessComponent = () => {
     return (
-      <ToolbarGroup>
-        <Link style={styles.menuItems} to={houseMoneyRoutes.AddTransaction}>
-          <IconButton tooltip="Add Transaction">
-            <AddButton />
-          </IconButton>
-        </Link>
+        <ToolbarGroup>
+            <Link style={styles.menuItems} to={houseMoneyRoutes.AddTransaction}>
+                <IconButton tooltip="Add Transaction">
+                    <AddButton />
+                </IconButton>
+            </Link>
 
-        <Link style={styles.menuItems} to={houseMoneyRoutes.ViewTransactions}>
-          <IconButton tooltip="View Transactions">
-            <ViewButton />
-          </IconButton>
-        </Link>
-      </ToolbarGroup>
+            <Link style={styles.menuItems} to={houseMoneyRoutes.ViewTransactions}>
+                <IconButton tooltip="View Transactions">
+                    <ViewButton />
+                </IconButton>
+            </Link>
+        </ToolbarGroup>
     );
 };
 
@@ -61,41 +64,41 @@ const LoggedOutNavItems: React.StatelessComponent = () => {
 
 const Nav: React.StatelessComponent<INavProps> = (props) => {
     return (
-      <Toolbar>
-        <ToolbarGroup>
-          <Link to="/">
-            <IconButton tooltip="Home">
-              <ActionHome />
-            </IconButton>
-          </Link>
-          <ToolbarTitle text="House Money" />
-        </ToolbarGroup>
-        <ToolbarGroup>
-          {props.isLoggedIn
-            ? <LoggedInNavItems />
-            : <LoggedOutNavItems />}
+        <Toolbar>
+            <ToolbarGroup>
+                <Link to="/">
+                    <IconButton tooltip="Home">
+                        <ActionHome />
+                    </IconButton>
+                </Link>
+                <ToolbarTitle text="House Money" />
+            </ToolbarGroup>
+            <ToolbarGroup>
+                {props.isLoggedIn
+                    ? <LoggedInNavItems />
+                    : <LoggedOutNavItems />}
 
-          <IconMenu
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-            iconButtonElement={
-              <IconButton tooltip="Menu">
-                <Menu />
-              </IconButton>
-            }
-          >
-            {props.isLoggedIn
-              ? <LoggedInMenuOptions {...props}/>
-              : <LoggedOutMenuOptions />}
-          </IconMenu>
-        </ToolbarGroup>
-      </Toolbar>
+                <IconMenu
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                    iconButtonElement={
+                        <IconButton tooltip="Menu">
+                            <Menu />
+                        </IconButton>
+                    }
+                >
+                    {props.isLoggedIn
+                        ? <LoggedInMenuOptions {...props} />
+                        : <LoggedOutMenuOptions />}
+                </IconMenu>
+            </ToolbarGroup>
+        </Toolbar>
     );
 };
 
 // Retrieve data from store as props
 const mapStateToProps = (store: IStore) => {
-    return { 
+    return {
         isLoggedIn: store.occupantsReducer.isLoggedIn,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
     };
