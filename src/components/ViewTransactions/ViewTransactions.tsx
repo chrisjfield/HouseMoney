@@ -1,196 +1,98 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
-import styles from './styles';
-import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionDetails } from './interfaces';
-import * as moment from 'moment';
-import APIHelper from '../../helpers/apiHelper';
+import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
 import { IStore } from '../../interfaces/storeInterface';
+import { getTransactionHistory } from './viewTransactionsActions';
+import styles from './viewTransactionsStyles';
+import { ViewTransactionsGrid } from './ViewTransactionsGrid';
+import { NoTransactionsFound } from './NoTransactionsFound';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
         super(props);
         this.state = {
-            transactionsReturned: false,
-            transactionsData: [],
             pageNumber: 1,
-            pageSize: 10,
-            transactionCount: 0,
         };
     }
 
-    componentDidMount() {
-        this.getGridData();
+    requestTransactionHistory() {
+        const me = this.props.loggedInOccupant;
+        this.props.dispatch(getTransactionHistory(me.token, me.userId, me.occupantId, this.state.pageNumber, this.props.pageSize));
     }
 
-    getGridData = () => {
-        const occupantId = this.props.loggedInOccupant.occupantId;
-        const request = APIHelper.apiCall<IViewTransactionDetails[]>(
-              'GET',
-              this.props.loggedInOccupant.token,
-              'TransactionHistorySummaries/getUserTransactionHistory?occupantID=' +
-                occupantId +
-                '&pageSize=' +
-                this.state.pageSize +
-                '&pageNumber=' +
-                this.state.pageNumber,
-            );
-
-        return request.then(json =>
-          this.setState({ transactionsData: json, transactionsReturned: true }),
-        );
+    componentDidMount() {
+        this.requestTransactionHistory();
     }
 
     prevPage = () => {
-        this.setState({ pageNumber: this.state.pageNumber - 1 }, () =>
-          this.getGridData(),
+        this.setState({ pageNumber: this.state.pageNumber > 1 ? this.state.pageNumber - 1 : 1 }, () =>
+            this.requestTransactionHistory(),
         );
     }
 
     nextPage = () => {
         this.setState({ pageNumber: this.state.pageNumber + 1 }, () =>
-          this.getGridData(),
+            this.requestTransactionHistory(),
         );
-    }
-
-    createGrid = () => {
-        const transactionsGrid = (
-          <div>
-            <Table selectable={false} bodyStyle={{ overflow: 'visible' }}>
-              <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                <TableRow>
-                  <TableHeaderColumn
-                    key={'Column_OTHERS'}
-                    style={styles.owesMeHeader}
-                  >
-                    OWES ME
-                  </TableHeaderColumn>
-                  <TableHeaderColumn
-                    key={'Column_gross'}
-                    style={styles.valueHeader}
-                  >
-                    VALUE
-                  </TableHeaderColumn>
-                  <TableHeaderColumn
-                    key={'Column_date'}
-                    style={styles.dateHeader}
-                  >
-                    date
-                  </TableHeaderColumn>
-                  <TableHeaderColumn
-                    key={'Column_reference'}
-                    style={styles.referenceHeader}
-                  >
-                    reference
-                  </TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false}>{this.createRows()}</TableBody>
-            </Table>
-            <FlatButton
-              key="Previous"
-              label="Previous"
-              onClick={this.prevPage}
-              disabled={this.state.pageNumber <= 1}
-            />
-            <FlatButton
-              key="Next"
-              label="Next"
-              onClick={this.nextPage}
-              disabled={this.state.transactionsData.length !== this.state.pageSize}
-            />
-          </div>
-        );
-
-        return transactionsGrid;
-    }
-
-    createRow = (transactionData: IViewTransactionDetails) => { // TODO: Refactor these into stateless components
-        const formatteddate = moment(transactionData.date).format('Do MMM YYYY');
-        return (
-          <TableRow key={'Row_' + transactionData.PRIMARYKEY}>
-            <TableRowColumn
-              key={'Data_' + transactionData.PRIMARYKEY + '_OTHERS'}
-              style={styles.owesMeDetail}
-            >
-              {transactionData.OTHERS}
-            </TableRowColumn>
-            <TableRowColumn
-              key={'Data_' + transactionData.PRIMARYKEY + '_AMOUNT'}
-              style={styles.valueDetail}
-            >
-              {transactionData.AMOUNT}
-            </TableRowColumn>
-            <TableRowColumn
-              key={'Data_' + transactionData.PRIMARYKEY + '_date'}
-              style={styles.dateDetail}
-            >
-              {formatteddate}
-            </TableRowColumn>
-            <TableRowColumn
-              key={'Data_' + transactionData.PRIMARYKEY + '_reference'}
-              style={styles.referenceDetail}
-            >
-              {transactionData.reference}
-            </TableRowColumn>
-          </TableRow>
-        );
-    }
-
-    createRows = () => this.state.transactionsData.map(this.createRow);
-
-    noTransactionsFound = () => {
-        const notFound = (
-          <div>
-            {' '}
-            No transactions found. <p /> Hint: you can click the plus button to add
-            transactions.{' '}
-          </div>
-        );
-        return notFound;
     }
 
     determineRender = () => {
-        let result;
-        if (!this.state.transactionsReturned) {
+        let result: JSX.Element;
+        if (!this.props.loading) {
             result = <CircularProgress />;
-        } else if (this.state.transactionsData.length > 0) {
-            result = this.createGrid();
+        } else if (this.props.transactionHistoryArray.length > 0) {
+            result = (
+                <div>
+                    <ViewTransactionsGrid transactionHistoryArray={this.props.transactionHistoryArray} />
+                    <FlatButton
+                        key="Previous"
+                        label="Previous"
+                        onClick={this.prevPage}
+                        disabled={this.state.pageNumber <= 1}
+                    />
+                    <FlatButton
+                        key="Next"
+                        label="Next"
+                        onClick={this.nextPage}
+                        disabled={this.props.transactionHistoryArray.length !== this.props.pageSize}
+                    />
+                </ div>
+            );
         } else {
-            result = this.noTransactionsFound();
+            result = <NoTransactionsFound />;
         }
         return result;
     }
 
     render() {
         return (
-          <div style={styles.container}>
-            <h2>My Transactions</h2>
-            <div id="viewTransactionsTableContainer" style={styles.container}>
-              <div className="row">
-                <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
-                  <div id="viewTransactionsGrid" className="grid" />
-                  {this.determineRender()}
+            <div style={styles.container}>
+                <h2>My Transactions</h2>
+                <div id="viewTransactionsTableContainer" style={styles.container}>
+                    <div className="row">
+                        <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
+                            <div id="viewTransactionsGrid" className="grid" />
+                            {this.determineRender()}
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         );
     }
 }
 
 // Retrieve data from store as props
 const mapStateToProps = (store: IStore) => {
-    return { loggedInOccupant: store.occupantsReducer.loggedInOccupant };
+    const props: IViewTransactionsStore = {
+        loggedInOccupant: store.occupantsReducer.loggedInOccupant,
+        isLoggedIn: store.occupantsReducer.isLoggedIn,
+        loading: store.loadingReducer.loading,
+        transactionHistoryArray: store.viewTransactionsReducer.transactionHistoryArray,
+        pageSize: 10,
+    };
+    return props;
 };
 
 export default connect(mapStateToProps)(ViewTransactions);

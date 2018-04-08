@@ -7,6 +7,7 @@ import { loadingStarted, loadingComplete } from '../Loading/loadingActions';
 
 export enum transactionActions {
     ADD_TRANSACTION = 'ADD_TRANSACTION',
+    GET_TRANSACTION_HISTORY = 'GET_TRANSACTION_HISTORY',
 }
 
 export function insertTransactions(token: string, userId: string, transactionArray: ITransaction[]) {

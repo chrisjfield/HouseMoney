@@ -33,7 +33,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
         this.state = {
             occupantsArray: [],
-            transactionDetails: { gross: null, date: new Date(), reference: null },
+            transactionDetails: { gross: 0.00, date: new Date(), reference: null },
             allChecked: false,
             transactionAdding: false,
             transactionAdded: false,
@@ -125,7 +125,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.updateAddTransaction<string | number>(event.target.name, event.target.value);
+        this.updateAddTransaction<string | number>(event.target.name, event.target.value); // TODO: Pull this generic function out
     }
 
     handledateChange = (date: string) => {
@@ -134,7 +134,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
     updateAddTransaction = <T extends {}>(name: string, value: T) => {
         this.setState(prevState => ({
-            transactionDetails: { ...this.state.transactionDetails, [name]: value },
+            transactionDetails: { ...this.state.transactionDetails, [name]: value }, // TODO: Pull this generic function out
         }));
     }
 

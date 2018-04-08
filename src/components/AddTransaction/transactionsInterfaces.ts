@@ -28,7 +28,7 @@ export interface ITransactionDetails {
 }
 
 export interface ITransactionResponse extends ITransaction {
-    TransactionId: number;
+    transactionId: number;
 }
 
 export interface ITransactionReducer {
