@@ -22,6 +22,7 @@ const LoggedOutMenuOptions: React.StatelessComponent = () => {
 };
 
 // TODO: Add landing page with args to allow logout on myHouse for the logout! Add to href!
+// TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse? 
 const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
     return (
         <div>
