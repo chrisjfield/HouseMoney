@@ -22,6 +22,7 @@ export interface ITransactionHistory extends ITransactionResponse {
     creditorDisplayName: string;
     debtorDisplayName: string;
     enteredByDisplayName: string;
+    enteredDate: Date;
 }
 
 export interface IAddTransactionOccupant extends IOccupant {

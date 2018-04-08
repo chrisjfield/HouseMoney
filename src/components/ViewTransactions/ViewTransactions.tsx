@@ -19,7 +19,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 
     requestTransactionHistory() {
         const me = this.props.loggedInOccupant;
-        this.props.dispatch(getTransactionHistory(me.token, me.userId, me.occupantId, this.state.pageNumber, this.props.pageSize));
+        this.props.dispatch(getTransactionHistory(me.token, me.userId, me.occupantId, this.props.pageSize, this.state.pageNumber));
     }
 
     componentDidMount() {
@@ -47,13 +47,13 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
                 <div>
                     <ViewTransactionsGrid transactionHistoryArray={this.props.transactionHistoryArray} />
                     <FlatButton
-                        key="Previous"
+                        key="Previous_Button"
                         label="Previous"
                         onClick={this.prevPage}
                         disabled={this.state.pageNumber <= 1}
                     />
                     <FlatButton
-                        key="Next"
+                        key="Next_Button"
                         label="Next"
                         onClick={this.nextPage}
                         disabled={this.props.transactionHistoryArray.length !== this.props.pageSize}

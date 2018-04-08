@@ -20,27 +20,45 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                         <TableHeaderColumn
                             key={'Column_Debtor'}
                             style={styles.owesMeHeader}
+                            tooltip={'The name of the person who owes you'}
                         >
-                            OWES ME
-                  </TableHeaderColumn>
+                            Owes Me
+                        </TableHeaderColumn>
                         <TableHeaderColumn
                             key={'Column_Gross'}
                             style={styles.valueHeader}
+                            tooltip={'The amount you are owed'}
                         >
-                            VALUE
-                  </TableHeaderColumn>
+                            Value
+                        </TableHeaderColumn>
                         <TableHeaderColumn
                             key={'Column_Date'}
                             style={styles.dateHeader}
+                            tooltip={'The date of the transaction'}
                         >
-                            date
-                  </TableHeaderColumn>
+                            Date
+                        </TableHeaderColumn>
                         <TableHeaderColumn
                             key={'Column_Reference'}
                             style={styles.referenceHeader}
+                            tooltip={'The transaction description'}
                         >
-                            reference
-                  </TableHeaderColumn>
+                            Description
+                        </TableHeaderColumn>
+                        <TableHeaderColumn
+                            key={'Column_EnteredBy'}
+                            style={styles.owesMeHeader}
+                            tooltip={'The person who added this transaction'}
+                        >
+                            Added By
+                        </TableHeaderColumn>
+                        <TableHeaderColumn
+                            key={'Column_EnteredDate'}
+                            style={styles.dateHeader}
+                            tooltip={'The date when this transaction was added'}
+                        >
+                            Date Added
+                        </TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
@@ -56,7 +74,8 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
 };
 
 const ViewTransactionsGridRow: React.StatelessComponent<IViewTransactionGridRowProps> = (props) => {
-    const formatteddate = moment(props.date).format('Do MMM YYYY');
+    const formattedDate = moment(props.date).format('Do MMM YYYY');
+    const formattedEnteredDate = moment(props.enteredDate).format('hh:mm:ss Do MMM YYYY');
     return (
         <TableRow key={'Row_' + props.transactionId}>
             <TableRowColumn
@@ -75,13 +94,25 @@ const ViewTransactionsGridRow: React.StatelessComponent<IViewTransactionGridRowP
                 key={'Data_' + props.transactionId + '_Date'}
                 style={styles.dateDetail}
             >
-                {formatteddate}
+                {formattedDate}
             </TableRowColumn>
             <TableRowColumn
                 key={'Data_' + props.transactionId + '_Reference'}
                 style={styles.referenceDetail}
             >
                 {props.reference}
+            </TableRowColumn>
+            <TableRowColumn
+                key={'Data_' + props.transactionId + '_EnteredBy'}
+                style={styles.owesMeDetail}
+            >
+                {props.enteredByDisplayName}
+            </TableRowColumn>
+            <TableRowColumn
+                key={'Data_' + props.transactionId + '_EnteredDate'}
+                style={styles.dateDetail}
+            >
+                {formattedEnteredDate}
             </TableRowColumn>
         </TableRow>
     );
