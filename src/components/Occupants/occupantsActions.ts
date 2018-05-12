@@ -18,7 +18,7 @@ export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<
             HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId + ',' + occupant.occupantId,
         )
             .then((authorizationResponse: AuthorizationResponse) => {
-                isLoggedIn = authorizationResponse.isAuthorized;
+                isLoggedIn = authorizationResponse ? authorizationResponse.isAuthorized : false;
             });
     }
     return isLoggedIn;

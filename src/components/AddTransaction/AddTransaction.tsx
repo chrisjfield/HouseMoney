@@ -87,7 +87,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 debtors,
                 me.occupantId,
                 dividedGross,
-                dateISO,
+                dateISO, // TODO: Check dates saving down! Think the timezones are still mesing up!
                 transactionDetails.reference,
             );
 
@@ -125,16 +125,16 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.updateAddTransaction<string | number>(event.target.name, event.target.value); // TODO: Pull this generic function out
+        this.updateAddTransaction<string | number>(event.target.name, event.target.value);
     }
 
-    handledateChange = (date: string) => {
-        this.updateAddTransaction<string>('date', date); // TODO: Fix datepicker! this seems to be fucking up
+    handleDateChange = (date: Date) => {
+        this.updateAddTransaction<Date>('date', date);
     }
 
     updateAddTransaction = <T extends {}>(name: string, value: T) => {
         this.setState(prevState => ({
-            transactionDetails: { ...this.state.transactionDetails, [name]: value }, // TODO: Pull this generic function out
+            transactionDetails: { ...this.state.transactionDetails, [name]: value },
         }));
     }
 
@@ -195,8 +195,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         style={{ display: 'inline-block' }}
                         defaultDate={new Date()}
                         value={this.state.transactionDetails.date}
-                        onChange={(event, dateObj) => {
-                            this.handledateChange(dateObj.toString());
+                        onChange={(event, date) => {
+                            this.handleDateChange(date);
                         }}
                         disabled={this.state.transactionAdding}
                     />

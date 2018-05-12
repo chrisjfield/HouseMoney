@@ -1,6 +1,7 @@
 import * as React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { INotFound404Props } from './interfaces';
+import { myHouseUrl } from '../../appConfig';
 
 const NotFound404: React.StatelessComponent<INotFound404Props> = (props) => {
     return (
@@ -9,7 +10,7 @@ const NotFound404: React.StatelessComponent<INotFound404Props> = (props) => {
         <h2>It's dangerous to go alone! Take this.</h2>
         <FlatButton
           label="Link"
-          onClick={() => props.history.push('/')}
+          href={myHouseUrl}
         />
       </div>
     );

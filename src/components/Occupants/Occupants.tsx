@@ -29,7 +29,7 @@ class Occupants extends React.Component<IOccupantProps> {
                     this.props.dispatch(receiveOccupant(occupant, true));
                     this.props.history.push(houseMoneyRoutes.Balance);
                 } else {
-                    this.props.history.push(myHouseUrl);
+                    this.props.history.push(myHouseUrl); // TODO: Make these hrefs! With args to logout landing page
                 }
             } else {
                 this.props.history.push(myHouseUrl);

@@ -10,7 +10,11 @@ const baseURL: string = 'http://localhost:5000/api/';
 // Dev Staging Setting
 // const baseURL: string = 'http://82.25.191.210/MyHouseDevAPI/api/';
 
-const myHouseUrl: string = 'http://myhouse.surge.sh/';
+// Live My House Setting
+// const myHouseUrl: string = 'http://myhouse.surge.sh/';
+
+// Local My House setting
+const myHouseUrl = 'http://localhost:3000/';
 
 export default baseURL;
 export { myHouseUrl };
