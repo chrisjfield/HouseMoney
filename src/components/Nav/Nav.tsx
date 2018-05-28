@@ -13,15 +13,14 @@ import styles from './styles';
 import { INavProps } from './interfaces';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { myHouseUrl } from '../../appConfig';
 import store from '../../main/store';
-import { logout } from '../Occupants/occupantsActions';
+import { logout, getLogoutUrlWithDetails } from '../Occupants/occupantsActions';
+import { LogoutReason } from '../Occupants/occupantsInterfaces';
 
 const LoggedOutMenuOptions: React.StatelessComponent = () => {
     return null;
 };
 
-// TODO: Add landing page with args to allow logout on myHouse for the logout! Add to href!
 // TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse? 
 const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
     return (
@@ -34,7 +33,7 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
                 <MenuItem>My Balance</MenuItem>
             </Link>
 
-            <a style={styles.menuItems} onClick={() => store.dispatch(logout())} href={myHouseUrl}>
+            <a style={styles.menuItems} onClick={() => store.dispatch(logout())} href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}>
                 <MenuItem>Logout</MenuItem>
             </a>
         </div>

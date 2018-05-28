@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { IOccupantProps, IOccupant } from './occupantsInterfaces';
-import { receiveOccupant } from './occupantsActions';
+import { IOccupantProps, IOccupant, LogoutReason } from './occupantsInterfaces';
+import { receiveOccupant, getLogoutUrlWithDetails } from './occupantsActions';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import { connect } from 'react-redux';
 import * as queryString from 'query-string';
 import { RouteComponentProps } from 'react-router';
-import { myHouseUrl } from '../../appConfig';
 
 class Occupants extends React.Component<IOccupantProps> {
     componentWillReceiveProps(nextProps: IOccupantProps) {
@@ -29,12 +28,16 @@ class Occupants extends React.Component<IOccupantProps> {
                     this.props.dispatch(receiveOccupant(occupant, true));
                     this.props.history.push(houseMoneyRoutes.Balance);
                 } else {
-                    this.props.history.push(myHouseUrl); // TODO: Make these hrefs! With args to logout landing page - helper method! 
+                    this.redirectToMyHouse(); 
                 }
             } else {
-                this.props.history.push(myHouseUrl);
+                this.redirectToMyHouse();
             }
         }
+    }
+
+    redirectToMyHouse() {
+        window.location.replace(getLogoutUrlWithDetails(LogoutReason.InvalidPassthrough));
     }
 
     render(): null {

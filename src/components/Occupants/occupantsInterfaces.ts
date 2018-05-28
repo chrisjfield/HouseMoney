@@ -26,3 +26,13 @@ export interface IOccupantReducer extends ILoggedInOccupant, IHouseholdOccupants
 export interface IHouseholdOccupants {
     householdOccupantsArray: IOccupant[];
 }
+
+export interface ILogoutDetails {
+    logoutReason: LogoutReason;
+}
+
+export enum LogoutReason {
+    UserTriggered = 'UserTriggered',
+    Timeout = 'Timeout',
+    InvalidPassthrough = 'InvalidPassthrough',
+}

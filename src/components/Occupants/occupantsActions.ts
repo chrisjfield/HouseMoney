@@ -1,10 +1,12 @@
 import apiHelper from '../../helpers/apiHelper';
-import { IOccupant, IReceiveOccupantAction, IReceiveHouseholdOccupantsAction } from './occupantsInterfaces';
+import { IOccupant, IReceiveOccupantAction, IReceiveHouseholdOccupantsAction, ILogoutDetails, LogoutReason } from './occupantsInterfaces';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { endpoints } from '../../enums/endpointsEnum';
 import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
+import * as queryString from 'query-string';
+import { myHouseUrl } from '../../appConfig';
 
 export enum occupantActions {
     RECEIVE_OCCUPANT = 'RECEIVE_OCCUPANT',
@@ -64,4 +66,12 @@ export function receiveHouseholdOccupants(householdOccupantsArray: IOccupant[]):
         type: occupantActions.RECEIVE_OCCUPANTS_OF_HOUSEHOLD,
     };
     return response;
+}
+
+
+export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {
+    const logoutDetails : ILogoutDetails = {
+        logoutReason,
+    }; 
+    return myHouseUrl + 'Logout?' + queryString.stringify(logoutDetails);
 }
