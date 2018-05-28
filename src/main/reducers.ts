@@ -7,6 +7,7 @@ import loadingReducer from '../components/Loading/loadingReducer';
 import balanceReducer from '../components/Balance/balanceReducer';
 import transactionsReducer from '../components/AddTransaction/transactionsReducer';
 import viewTransactionsReducer from '../components/ViewTransactions/viewTransactionsReducer';
+import houseSummaryReducer from '../components/HouseSummary/houseSummaryReducer';
 
 const combinedReducers: Reducer<IStore> = combineReducers({
     occupantsReducer,
@@ -15,6 +16,7 @@ const combinedReducers: Reducer<IStore> = combineReducers({
     balanceReducer,
     transactionsReducer,
     viewTransactionsReducer,
+    houseSummaryReducer,
 });
 
 export default combinedReducers;

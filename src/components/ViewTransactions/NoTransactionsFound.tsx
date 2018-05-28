@@ -5,7 +5,7 @@ export const NoTransactionsFound: React.StatelessComponent = () => {
         <div>
             {' '}
             No transactions found. <p /> 
-            Hint: you can click the plus button to add transactions.
+            Hint: you can click the plus button at the top right of the screen to add transactions.
             {' '}
         </div>
     );
