@@ -1,31 +1,25 @@
+import Checkbox from 'material-ui/Checkbox';
+import CircularProgress from 'material-ui/CircularProgress';
+import DatePicker from 'material-ui/DatePicker';
+import FlatButton from 'material-ui/FlatButton';
+import { List, ListItem } from 'material-ui/List';
+import Paper from 'material-ui/Paper';
+import Snackbar from 'material-ui/Snackbar';
+import TextField from 'material-ui/TextField';
+import * as moment from 'moment';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import Snackbar from 'material-ui/Snackbar';
-import CircularProgress from 'material-ui/CircularProgress';
-import Checkbox from 'material-ui/Checkbox';
-import DatePicker from 'material-ui/DatePicker';
-import Paper from 'material-ui/Paper';
-import { List, ListItem } from 'material-ui/List';
-import UserChip from '../UserChip';
-import styles from './styles';
-import appStyles from '../../styles';
-import {
-    IAddTransactionProps,
-    IAddTransationState,
-    IAddTransactionOccupant,
-    IAddTransactionStore,
-    ITransaction,
-} from './transactionsInterfaces';
-import * as moment from 'moment';
-import { addError } from '../ErrorMessage/errorMessageActions';
+import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
+import appStyles from '../../styles';
+import { addError } from '../ErrorMessage/errorMessageActions';
 import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
-import { insertTransactions } from './transactionsActions';
-import { houseMoneyRoutes } from '../../enums/routesEnum';
+import UserChip from '../UserChip';
+import styles from './styles';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
+import { insertTransactions } from './transactionsActions';
+import { IAddTransactionOccupant, IAddTransactionProps, IAddTransactionStore, IAddTransationState, ITransaction } from './transactionsInterfaces';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
     constructor(props: IAddTransactionProps) {
@@ -149,6 +143,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.props.history.push(houseMoneyRoutes.ViewTransactions);
     }
 
+    // TODO: Change the number field to work! Maybe update MUI? 
     render() {
         return (
             <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
