@@ -34,14 +34,14 @@ function createRows(props: IHouseSummaryProps): JSX.Element[] {
         transactionSummaryArray: props.transactionSummaryArray,
         householdOccupant: null,
     };
-    const rowArray: JSX.Element[] = props.householdOccupantsArray.map((householdOccupant: IOccupant) => {
+    const rowArray: JSX.Element[] = props.householdOccupantsArray.map((householdOccupant) => {
         houseSummaryProps.householdOccupant = householdOccupant;
         return <HouseSummaryRow {...houseSummaryProps}/>;
     }); 
     return rowArray;
 }
 
-const HouseSummaryColumn: React.StatelessComponent<IOccupant> = (householdOccupant: IOccupant) => {
+const HouseSummaryColumn: React.StatelessComponent<IOccupant> = (householdOccupant) => {
     const column = (
         <TableHeaderColumn
           key={'Column' + householdOccupant.displayName}
@@ -54,7 +54,7 @@ const HouseSummaryColumn: React.StatelessComponent<IOccupant> = (householdOccupa
     return column;
 };
 
-const HouseSummaryRow: React.StatelessComponent<IHouseSummaryRow> = (props: IHouseSummaryRow) => {
+const HouseSummaryRow: React.StatelessComponent<IHouseSummaryRow> = (props) => {
     const transactionSummaryArrayData = props.transactionSummaryArray.filter(
       (gridElement: ITransactionSummary) => gridElement.creditorOccupantId === props.householdOccupant.occupantId,
     );
@@ -72,7 +72,7 @@ const HouseSummaryRow: React.StatelessComponent<IHouseSummaryRow> = (props: IHou
     return row;
 };
 
-const HouseSummaryRowData: React.StatelessComponent<ITransactionSummary> = (transactionSummary: ITransactionSummary) => {
+const HouseSummaryRowData: React.StatelessComponent<ITransactionSummary> = (transactionSummary) => {
     const rowData = (
       <TableRowColumn
         key={'Data' + transactionSummary.creditorOccupantId}
