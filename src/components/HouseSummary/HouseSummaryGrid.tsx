@@ -46,6 +46,7 @@ const HouseSummaryColumn: React.StatelessComponent<IOccupant> = (householdOccupa
         <TableHeaderColumn
           key={'Column' + householdOccupant.displayName}
           style={houseSummaryStyles.gridHeader}
+          tooltip={'The name of the person who owes the amount shown in this column'}
         >
           {householdOccupant.displayName ? householdOccupant.displayName + ' owes' : null}
         </TableHeaderColumn>
