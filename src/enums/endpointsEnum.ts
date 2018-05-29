@@ -4,6 +4,6 @@ export enum endpoints {
     authorization = 'Authorization/',
     balance = 'Money/Balance/',
     transactions = 'Money/Transactions/',
-    transactionHistory = 'Money/Transactions/History',
-    transactionSummary = 'Money/Transactions/Summary',
+    transactionHistory = 'Money/Transactions/History/',
+    transactionSummary = 'Money/Transactions/Summary/',
 }

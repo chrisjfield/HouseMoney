@@ -1,4 +1,4 @@
-import { theme, customTheme } from '../../themes';
+import { customTheme, theme } from '../../themes';
 
 const styles: React.CSSProperties = {
     container: {
@@ -16,6 +16,7 @@ const styles: React.CSSProperties = {
         backgroundColor: customTheme.backgroundColor,
         color: theme.palette.primary1Color,
         width: '80px',
+        textAlign: 'right',
     },
     gridDetail: {
         backgroundColor: customTheme.backgroundColor,

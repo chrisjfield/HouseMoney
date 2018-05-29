@@ -1,20 +1,23 @@
+import CircularProgress from 'material-ui/CircularProgress';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import CircularProgress from 'material-ui/CircularProgress';
-import appStyles from '../../styles';
 import { IStore } from '../../interfaces/storeInterface';
-import houseSummaryStyles from './houseSummaryStyles';
+import appStyles from '../../styles';
+import { getHouseholdOccupants } from '../Occupants/occupantsActions';
+import { NoTransactionsFound } from '../ViewTransactions/NoTransactionsFound';
 import { HouseSummaryGrid } from './HouseSummaryGrid';
-import { IHouseSummaryProps, IHouseSummaryStore } from './houseSummaryInterfaces';
 import { getTransactionSummary } from './houseSummaryActions';
+import { IHouseSummaryProps, IHouseSummaryStore } from './houseSummaryInterfaces';
+import houseSummaryStyles from './houseSummaryStyles';
 
 class HouseSummary extends React.Component<IHouseSummaryProps> {
     componentDidMount() {
-        this.requestTransactionSummary();
+        this.requestTransactionSummaryData();
     }
 
-    requestTransactionSummary() {
+    requestTransactionSummaryData() {
         const me = this.props.loggedInOccupant;
+        this.props.dispatch(getHouseholdOccupants(me.token, me.userId, me.occupantId));
         this.props.dispatch(getTransactionSummary(me.token, me.userId, me.occupantId));
     }
 
@@ -26,9 +29,10 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
               <div className="row">
                 <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
                   <div id="houseSummaryGrid" className="grid" />
-                  {this.props.loading <= 0 ? (
+                  {this.props.loading <= 0 ? 
+                      this.props.transactionSummaryArray.length > 0 && this.props.householdOccupantsArray.length > 0 ? (
                     <HouseSummaryGrid {...this.props}/>
-                  ) : (
+                  ) : <div> <NoTransactionsFound /> </div> : (
                     <CircularProgress />
                   )}
                 </div>
