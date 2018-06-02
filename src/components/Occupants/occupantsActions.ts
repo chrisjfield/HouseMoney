@@ -1,12 +1,14 @@
-import apiHelper from '../../helpers/apiHelper';
-import { IOccupant, IReceiveOccupantAction, IReceiveHouseholdOccupantsAction, ILogoutDetails, LogoutReason } from './occupantsInterfaces';
-import { HTTPMethod } from '../../enums/httpEnum';
+import * as queryString from 'query-string';
+import { persistStore } from 'redux-persist';
+import { myHouseUrl } from '../../appConfig';
 import { endpoints } from '../../enums/endpointsEnum';
+import { HTTPMethod } from '../../enums/httpEnum';
+import apiHelper from '../../helpers/apiHelper';
 import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
+import store from '../../main/store';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
-import * as queryString from 'query-string';
-import { myHouseUrl } from '../../appConfig';
+import { ILogoutDetails, IOccupant, IReceiveHouseholdOccupantsAction, IReceiveOccupantAction, LogoutReason } from './occupantsInterfaces';
 
 export enum occupantActions {
     RECEIVE_OCCUPANT = 'RECEIVE_OCCUPANT',
@@ -28,6 +30,7 @@ export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<
 
 export function logout() {
     return (dispatch: Function) => {
+        persistStore(store).purge();
         return dispatch(receiveOccupant(undefined, false));
     };
 }

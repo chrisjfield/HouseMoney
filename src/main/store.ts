@@ -13,6 +13,9 @@ const storeReconciler: StateReconciler<IStore, IStore, IStore> = (previouisState
     const reducerInitalState: IStore = { ...reducedState };
     const newStore = {
         ...inboundState,
+        occupantsReducer: inboundState.occupantsReducer.isLoggedIn ? 
+            inboundState.occupantsReducer : previouisState.occupantsReducer.isLoggedIn ?
+                previouisState.occupantsReducer : reducedState.occupantsReducer,
         errorMessageReducer: reducerInitalState.errorMessageReducer,
         loadingReducer: reducerInitalState.loadingReducer,
     };
