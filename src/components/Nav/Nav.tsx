@@ -7,13 +7,13 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
-import ViewIcon from '@material-ui/icons/PageView';
+import ViewIcon from '@material-ui/icons/pageview';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import store from '../../main/store';
+import { store } from '../../main/configureStore';
 import { getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
 import { LogoutReason } from '../Occupants/occupantsInterfaces';
 import { INavProps } from './interfaces';
@@ -79,10 +79,10 @@ const Nav: React.StatelessComponent<INavProps> = (props) => {
                 <Typography variant="title" color="inherit">
                     House Money
                 </Typography>
-                {props.isLoggedIn ? 
+                {props.isLoggedIn ?
                     <span>
                         <LoggedInNavItems />
-                        <LoggedInMenuOptions {...props} /> 
+                        <LoggedInMenuOptions {...props} />
                     </span> :
                     <span />
                 }

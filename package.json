@@ -9,7 +9,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "1.1.0",
-    "@material-ui/icons": "1.1.0",
+    "@material-ui/icons": "^1.1.0",
     "history": "4.7.2",
     "localforage": "1.6.0",
     "mathjs": "3.20.2",

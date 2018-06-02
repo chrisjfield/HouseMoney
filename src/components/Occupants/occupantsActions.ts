@@ -5,7 +5,7 @@ import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import apiHelper from '../../helpers/apiHelper';
 import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
-import store from '../../main/store';
+import { store } from '../../main/configureStore';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
 import { ILogoutDetails, IOccupant, IReceiveHouseholdOccupantsAction, IReceiveOccupantAction, LogoutReason } from './occupantsInterfaces';
