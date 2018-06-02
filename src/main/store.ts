@@ -20,7 +20,7 @@ const persistConfig: PersistorConfig = {
     storage: localForage,
 };
 
-// For Dev persistStore(store).purge();
+persistStore(store).purge();
 persistStore(store, persistConfig);
 
 export default store;
