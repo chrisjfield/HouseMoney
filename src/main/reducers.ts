@@ -1,4 +1,4 @@
-import { combineReducers, Reducer } from 'redux';
+import { combineReducers, Reducer, AnyAction } from 'redux';
 import errorMessageReducer from '../components/ErrorMessage/errorMessageReducer';
 import occupantsReducer from '../components/Occupants/occupantsReducer';
 import { IStore } from '../interfaces/storeInterface';
@@ -8,7 +8,7 @@ import transactionsReducer from '../components/AddTransaction/transactionsReduce
 import viewTransactionsReducer from '../components/ViewTransactions/viewTransactionsReducer';
 import houseSummaryReducer from '../components/HouseSummary/houseSummaryReducer';
 
-const combinedReducers: Reducer<IStore> = combineReducers({
+const combinedReducers: Reducer<IStore, AnyAction> = combineReducers({
     occupantsReducer,
     errorMessageReducer,
     loadingReducer,

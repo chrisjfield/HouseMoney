@@ -52,5 +52,5 @@ const mapStateToProps = (store: IStore) => {
     };
 };
 
-const ConnectedRoutes = withRouter(connect(mapStateToProps, {})(Routes));
+const ConnectedRoutes = withRouter(connect(mapStateToProps)(Routes));
 export default ConnectedRoutes;

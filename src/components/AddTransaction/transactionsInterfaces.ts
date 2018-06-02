@@ -38,6 +38,7 @@ export interface ITransactionReducer {
 export interface IReceiveTransactionAction extends Action, ITransactionReducer { }
 
 export interface IAddTransactionProps extends IConnectedComponentProps, IAddTransactionStore { }
+// TODO: Think props and store can be the same thing! - refactor to this Ed!
 
 export interface IAddTransactionStore extends ITransactionReducer, ILoggedInOccupant, ILoadingProps {
     householdOccupantsArray: IAddTransactionOccupant[];

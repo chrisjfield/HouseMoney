@@ -17,7 +17,7 @@ const App: React.StatelessComponent = () => {
                 <ConnectedRouter history={history}>
                     <CssBaseline >
                         <div id="component-container">
-                            <Nav />
+                            <Nav dispatch={store.dispatch} />
                             <Routes />
                             <ErrorMessage dispatch={store.dispatch} />
                         </div>

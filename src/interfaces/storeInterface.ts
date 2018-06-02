@@ -1,17 +1,17 @@
-import { IAddTransactionStore } from '../components/AddTransaction/transactionsInterfaces';
-import { IBalanceStore } from '../components/Balance/balanceInterfaces';
+import { ITransactionReducer } from '../components/AddTransaction/transactionsInterfaces';
+import { IBalanceReducer } from '../components/Balance/balanceInterfaces';
 import { IErrorMessageStore } from '../components/ErrorMessage/errorMessageInterfaces';
-import { IHouseSummaryStore } from '../components/HouseSummary/houseSummaryInterfaces';
+import { IHouseSummaryReducer } from '../components/HouseSummary/houseSummaryInterfaces';
 import { ILoadingStore } from '../components/Loading/loadingInterfaces';
 import { IOccupantStore } from '../components/Occupants/occupantsInterfaces';
-import { IViewTransactionsStore } from '../components/ViewTransactions/viewTransactionsInterfaces';
+import { IViewTransactionReducer } from '../components/ViewTransactions/viewTransactionsInterfaces';
 
 export interface IStore {
     occupantsReducer: IOccupantStore;
     errorMessageReducer: IErrorMessageStore;
     loadingReducer: ILoadingStore;
-    balanceReducer: IBalanceStore;
-    transactionsReducer: IAddTransactionStore;
-    viewTransactionsReducer: IViewTransactionsStore;
-    houseSummaryReducer: IHouseSummaryStore;
+    balanceReducer: IBalanceReducer;
+    transactionsReducer: ITransactionReducer;
+    viewTransactionsReducer: IViewTransactionReducer;
+    houseSummaryReducer: IHouseSummaryReducer;
 }
