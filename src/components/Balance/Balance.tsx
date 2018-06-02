@@ -1,18 +1,20 @@
 import Paper from '@material-ui/core/Paper';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import * as redux from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { Loading } from '../Loading';
 import BalanceList from './BalanceList';
-import { getBalance } from './balanceActions';
+import { BalanceActions } from './balanceActions';
 import { IBalanceProps, IBalanceStore } from './balanceInterfaces';
 import styles from './balanceStyles';
 
 class Balance extends React.Component<IBalanceProps> {
     componentDidMount() {
+        const me = this.props.loggedInOccupant;
         this.props.dispatch(
-            getBalance(this.props.loggedInOccupant.token, this.props.loggedInOccupant.userId, this.props.loggedInOccupant.occupantId),
+            BalanceActions.getBalance(me.token, me.userId, me.occupantId),
         );
     }
 
@@ -42,4 +44,7 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-export default connect(mapStateToProps)(Balance);
+const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>): BalanceActions =>
+  redux.bindActionCreators(BalanceActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Balance);

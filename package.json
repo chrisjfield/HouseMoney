@@ -53,9 +53,11 @@
     "@types/redux": "3.6.31",
     "@types/redux-logger": "3.0.6",
     "@types/redux-persist": "4.3.1",
+    "@types/redux-promise": "^0.5.28",
     "@types/redux-thunk": "2.1.32",
     "@types/typescript": "2.0.0",
     "@types/webfontloader": "1.6.29",
-    "tslint-config-airbnb": "5.9.2"
+    "tslint-config-airbnb": "5.9.2",
+    "typescript": "^2.9.1"
   }
 }

@@ -1,15 +1,16 @@
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
+import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
-import { IBalance, IReceiveBalanceAction } from './balanceInterfaces';
+import { IBalance } from './balanceInterfaces';
 
-export enum balanceActions {
+export enum balanceActionTypes {
     RECEIVE_BALANCE = 'RECEIVE_BALANCE',
 }
 
-export function getBalance(token: string, userId: string, occupantId: number) {
+function getBalance(token: string, userId: string, occupantId: number) {
     const request = apiHelper.apiCall<IBalance[]>(HTTPMethod.GET, endpoints.balance, token, userId + ',' + occupantId.toString());
     return (dispatch: Function) => {
         dispatch(loadingStarted());
@@ -26,9 +27,11 @@ export function getBalance(token: string, userId: string, occupantId: number) {
     };
 }
 
-export function receiveBalance(balanceArray: IBalance[]): IReceiveBalanceAction {
-    return {
-        balanceArray,
-        type: balanceActions.RECEIVE_BALANCE,
-    };
-}
+const receiveBalance = (balanceArray: IBalance[]) => createAction(balanceActionTypes.RECEIVE_BALANCE, balanceArray);
+
+export const BalanceActions = {
+    // getBalance,
+    receiveBalance,
+};
+
+export type BalanceActions = ActionsUnion<typeof BalanceActions>;

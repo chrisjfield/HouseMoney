@@ -1,4 +1,4 @@
-import { balanceActions } from './balanceActions';
+import { balanceActionTypes } from './balanceActions';
 import { IBalanceReducer, IReceiveBalanceAction } from './balanceInterfaces';
 
 function balanceReducer(
@@ -9,7 +9,7 @@ function balanceReducer(
 ): IBalanceReducer {
     let nextState: IBalanceReducer;
     switch (action.type) {
-    case balanceActions.RECEIVE_BALANCE:
+    case balanceActionTypes.RECEIVE_BALANCE:
         nextState = { ...state,
             balanceArray: action.balanceArray,
         };

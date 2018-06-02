@@ -1,9 +1,9 @@
-import { Dispatch } from 'redux';
 import { History } from 'history';
+import { Action, Dispatch } from 'redux';
 import { ILoggedInOccupant } from '../components/Occupants/occupantsInterfaces';
 
 export interface IComponentProps {
-    dispatch: Dispatch<Function>;
+    dispatch: Dispatch<Action>;
     history: History;
 }
 
