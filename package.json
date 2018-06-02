@@ -9,12 +9,11 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "1.1.0",
-    "@material-ui/icons": "^1.1.0",
+    "@material-ui/icons": "1.1.0",
     "history": "4.7.2",
     "localforage": "1.6.0",
     "mathjs": "3.20.2",
     "moment": "2.21.0",
-    "npm-update-all": "^1.0.1",
     "query-string": "5.1.0",
     "react": "16.4.0",
     "react-dom": "16.4.0",
