@@ -1,8 +1,8 @@
-import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
-import { IOccupant, ILoggedInOccupant } from '../Occupants/occupantsInterfaces';
-import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
 import { Action } from 'redux';
+import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
+import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
 import { ILoadingProps } from '../Loading/loadingInterfaces';
+import { ILoggedInOccupant, IOccupant } from '../Occupants/occupantsInterfaces';
 
 export interface IViewTransactionsProps extends IConnectedComponentProps, IViewTransactionsStore { }
 

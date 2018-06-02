@@ -1,11 +1,12 @@
-import Checkbox from 'material-ui/Checkbox';
-import CircularProgress from 'material-ui/CircularProgress';
-import DatePicker from 'material-ui/DatePicker';
-import FlatButton from 'material-ui/FlatButton';
-import { List, ListItem } from 'material-ui/List';
-import Paper from 'material-ui/Paper';
-import Snackbar from 'material-ui/Snackbar';
-import TextField from 'material-ui/TextField';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Paper from '@material-ui/core/Paper';
+import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
 import * as moment from 'moment';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -95,18 +96,20 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 key={'ListItem_' + occupant.occupantId}
                 onClick={this.updateCheck.bind(this, occupant.occupantId)}
             >
-                <Checkbox
-                    key={'Checkbox_' + occupant.occupantId}
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            key={'Checkbox_' + occupant.occupantId}
+                            checked={occupant.checked}
+                            style={styles.checkbox}
+                            onChange={this.updateCheck.bind(this, occupant.occupantId)}
+                            disabled={this.state.transactionAdding}
+                        />}
                     label={
                         <UserChip
                             occupant={occupant}
                             styles={styles.occupantChip}
                         />}
-                    checked={occupant.checked}
-                    style={styles.checkbox}
-                    iconStyle={styles.checkboxIcon}
-                    onCheck={this.updateCheck.bind(this, occupant.occupantId)}
-                    disabled={this.state.transactionAdding}
                 />
             </ListItem>
         );
@@ -118,17 +121,9 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         return checkboxList;
     }
 
-    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.updateAddTransaction<string | number>(event.target.name, event.target.value);
-    }
-
-    handleDateChange = (date: Date) => {
-        this.updateAddTransaction<Date>('date', date);
-    }
-
-    updateAddTransaction = <T extends {}>(name: string, value: T) => {
+    handleInputChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState(prevState => ({
-            transactionDetails: { ...this.state.transactionDetails, [name]: value },
+            transactionDetails: { ...this.state.transactionDetails, [name]: event.target.value },
         }));
     }
 
@@ -153,13 +148,15 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     <List>
                         <Paper style={styles.checkBoxListSheet}>
                             <ListItem key={'ListItem_checkAll'} onClick={this.updateCheckAll}>
-                                <Checkbox
+                            <FormControlLabel
+                                control={<Checkbox
                                     key="checkAll"
-                                    label="Everyone"
                                     checked={this.state.allChecked}
-                                    onCheck={this.updateCheckAll}
+                                    onChange={this.updateCheckAll}
                                     style={styles.checkAll}
-                                />
+                                />}
+                                label={'Everyone'}
+                            />
                             </ListItem>
                             {this.props.loading === 0 ? (
                                 this.createCheckboxList()
@@ -173,53 +170,44 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     <TextField
                         name="gross"
                         type="number"
-                        hintText="0.00"
-                        floatingLabelText="Value"
+                        label="Value"
+                        placeholder="0.00"
                         required
                         value={this.state.transactionDetails.gross}
-                        onChange={this.handleInputChange}
+                        onChange={this.handleInputChange(name)}
                         disabled={this.state.transactionAdding}
                     />
                 </div>
                 <div>
-                    <DatePicker
-                        name="date"
-                        floatingLabelText="Date"
-                        autoOk={true}
-                        container="inline"
-                        style={{ display: 'inline-block' }}
-                        defaultDate={new Date()}
-                        value={this.state.transactionDetails.date}
-                        onChange={(event, date) => {
-                            this.handleDateChange(date);
-                        }}
-                        disabled={this.state.transactionAdding}
-                    />
+                    // TODO: REPLACE DATE FIELD HERE ED! 
                 </div>
                 <div>
                     <TextField
                         name="reference"
                         type="text"
-                        hintText="Weekly Shop"
-                        floatingLabelText="Description"
+                        label="Description"
+                        placeholder="Weekly Shop"
                         value={this.state.transactionDetails.reference}
-                        onChange={this.handleInputChange}
+                        onChange={this.handleInputChange(name)}
                         disabled={this.state.transactionAdding}
-                        maxlength="200"
                     />
                 </div>
-                <FlatButton
+                <Button
                     type="submit"
-                    label="Add"
-                    disabled={this.state.transactionAdding}
-                />
+                    variant="outlined"
+                    disabled={this.state.transactionAdding}>
+                 Add 
+                </Button>
                 <Snackbar
                     open={this.state.transactionAdded}
-                    message="Transaction added"
+                    message={<span id="positive-message-id">Transaction added</span>}
                     autoHideDuration={4000}
-                    onRequestClose={this.handleTransactionAddedClose}
-                    action="View"
-                    onActionTouchTap={this.handleViewTransactionClick}
+                    onClose={this.handleTransactionAddedClose}
+                    action={
+                        <Button key="view" color="secondary" size="small" onClick={this.handleViewTransactionClick}>
+                         View 
+                        </Button>
+                    }
                 />
             </form>
         );

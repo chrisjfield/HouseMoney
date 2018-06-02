@@ -1,4 +1,4 @@
-import { theme, customTheme } from '../../themes';
+import { customTheme, theme } from '../../themes';
 const baseStyles: React.CSSProperties = {
     container: {
         textAlign: 'center',
@@ -6,11 +6,11 @@ const baseStyles: React.CSSProperties = {
     },
     gridHeader: {
         backgroundColor: customTheme.backgroundColor,
-        color: theme.palette.primary1Color,
+        color: theme.palette.primary,
     },
     gridDetail: {
         backgroundColor: customTheme.backgroundColor,
-        color: theme.palette.textColor,
+        color: theme.palette.text,
     },
     owesMeWidth: {
         width: '80px',

@@ -1,39 +1,38 @@
-import {
-  grey400,
-  grey600,
-  grey700,
-  grey900,
-  blue900,
-  blueGrey900,
-} from 'material-ui/styles/colors';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import blue from '@material-ui/core/colors/blue';
+import grey from '@material-ui/core/colors/grey';
+import red from '@material-ui/core/colors/red';
+import { Theme, createMuiTheme } from '@material-ui/core/styles';
 
-const appTheme: __MaterialUI.Styles.MuiTheme = getMuiTheme({
+const appTheme: Theme = createMuiTheme({
     palette: {
-        primary1Color: blue900,
-        primary2Color: blue900,
-        textColor: grey400,
-        borderColor: grey700,
-        disabledColor: grey700,
-        pickerHeaderColor: blue900,
-        canvasColor: grey900,
-        alternateTextColor: grey400,
-        accent1Color: grey600,
-    },
-    toolbar: {
-        color: grey900,
-        backgroundColor: blue900,
-        iconColor: grey400,
-    },
-    snackbar: {
-        backgroundColor: blue900,
-    },
-    avatar: {
-        backgroundColor: blue900,
-        color: grey400,
-    },
-    ripple: {
-        color: blueGrey900,
+        primary: {
+            light: blue[700],
+            main: blue[800],
+            dark: blue[900],
+            contrastText: grey[400],
+        },
+        secondary: {
+            light: grey[600],
+            main: grey[700],
+            dark: grey[800],
+            contrastText: grey[400],
+        },
+        error: {
+            light: red[700],
+            main: red[800],
+            dark: red[900],
+            contrastText: red[400],
+        },
+        text: {
+            primary: blue[800],
+            secondary: grey[400],
+            disabled: grey[400],
+            hint: grey[400],
+        },
+        background: {
+            default: grey[900],
+            paper: grey[800],
+        },
     },
 });
 

@@ -1,8 +1,8 @@
-import CircularProgress from 'material-ui/CircularProgress';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
+import { Loading } from '../Loading';
 import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { NoTransactionsFound } from '../ViewTransactions/NoTransactionsFound';
 import { HouseSummaryGrid } from './HouseSummaryGrid';
@@ -33,7 +33,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
                       this.props.transactionSummaryArray.length > 0 && this.props.householdOccupantsArray.length > 0 ? (
                     <HouseSummaryGrid {...this.props}/>
                   ) : <div> <NoTransactionsFound /> </div> : (
-                    <CircularProgress />
+                    <Loading />
                   )}
                 </div>
               </div>

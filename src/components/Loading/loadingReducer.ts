@@ -1,6 +1,6 @@
+import { Action } from 'redux';
 import { loadingActions } from './loadingActions';
 import { ILoadingProps } from './loadingInterfaces';
-import { Action } from 'redux';
 
 function loadingReducer(
     state: ILoadingProps = {

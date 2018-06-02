@@ -1,5 +1,5 @@
-import { IViewTransactionReducer, IReceiveTransactionHistoryAction } from './viewTransactionsInterfaces';
 import { viewTransactionsActions } from './viewTransactionsActions';
+import { IReceiveTransactionHistoryAction, IViewTransactionReducer } from './viewTransactionsInterfaces';
 
 function viewTransactionsReducer(
     state: IViewTransactionReducer = {

@@ -1,15 +1,11 @@
-import {
-    grey900,
-    green800,
-    red800,
-    grey400,
-  } from 'material-ui/styles/colors';
+import green from '@material-ui/core/colors/green';
+import appTheme from './themes';
 
 const customTheme: any = {
-    backgroundColor: grey900,
-    positiveColor: green800,
-    negativeColor: red800,
-    neutralColor: grey400,
+    backgroundColor: appTheme.palette.background.default,
+    positiveColor: green[800],
+    negativeColor: appTheme.palette.error.main,
+    neutralColor: appTheme.palette.grey[400],
 };
 
 export default customTheme;

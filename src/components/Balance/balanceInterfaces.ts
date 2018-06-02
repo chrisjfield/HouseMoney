@@ -1,7 +1,7 @@
-import { IComponentProps } from '../../interfaces/componentInterfaces';
-import { ILoggedInOccupant } from '../Occupants/occupantsInterfaces';
 import { Action } from 'redux';
+import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { ILoadingProps } from '../Loading/loadingInterfaces';
+import { ILoggedInOccupant } from '../Occupants/occupantsInterfaces';
 
 export interface IBalanceProps extends IComponentProps, IBalanceStore { }
 

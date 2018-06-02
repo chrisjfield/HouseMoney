@@ -1,6 +1,6 @@
+import { RouteComponentProps } from 'react-router';
 import { Action } from 'redux';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
-import { RouteComponentProps } from 'react-router';
 
 export interface IOccupant {
     occupantId: number;

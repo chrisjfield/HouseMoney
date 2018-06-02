@@ -1,5 +1,5 @@
-import { ITransaction, IAddTransactionOccupant } from './transactionsInterfaces';
 import * as math from 'mathjs';
+import { IAddTransactionOccupant, ITransaction } from './transactionsInterfaces';
 
 export function createTransactionArray(
     debtorArray: IAddTransactionOccupant[],

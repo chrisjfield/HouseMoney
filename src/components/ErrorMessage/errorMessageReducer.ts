@@ -1,5 +1,5 @@
 import { ADD_ERROR, REMOVE_ERROR } from './errorMessageActions';
-import { IErrorMessageState, IErrorMessageAction } from './interfaces';
+import { IErrorMessageAction, IErrorMessageState } from './interfaces';
 
 function errorMessageReducer(
     state: IErrorMessageState = { errorMessageText: null },

@@ -1,25 +1,23 @@
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
+import ViewIcon from '@material-ui/icons/PageView';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import AddButton from 'material-ui/svg-icons/content/add';
-import ViewButton from 'material-ui/svg-icons/action/pageview';
-import Menu from 'material-ui/svg-icons/navigation/menu';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import styles from './styles';
-import { INavProps } from './interfaces';
+import { Link } from 'react-router-dom';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import store from '../../main/store';
-import { logout, getLogoutUrlWithDetails } from '../Occupants/occupantsActions';
+import { getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
 import { LogoutReason } from '../Occupants/occupantsInterfaces';
-
-const LoggedOutMenuOptions: React.StatelessComponent = () => {
-    return null;
-};
+import { INavProps } from './interfaces';
+import styles from './styles';
 
 // TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse? 
 const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
@@ -42,57 +40,54 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
 
 const LoggedInNavItems: React.StatelessComponent = () => {
     return (
-        <ToolbarGroup>
+        <Menu
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            open={true} // TODO: Add stateful handler here
+        >
             <Link style={styles.menuItems} to={houseMoneyRoutes.AddTransaction}>
-                <IconButton tooltip="Add Transaction">
-                    <AddButton />
-                </IconButton>
+                <Tooltip id="tooltip-icon" title="Add Transaction">
+                    <IconButton>
+                        <AddIcon />
+                    </IconButton>
+                </Tooltip>
             </Link>
+
 
             <Link style={styles.menuItems} to={houseMoneyRoutes.ViewTransactions}>
-                <IconButton tooltip="View Transactions">
-                    <ViewButton />
-                </IconButton>
+                <Tooltip id="tooltip-icon" title="View Transactions">
+                    <IconButton >
+                        <ViewIcon />
+                    </IconButton>
+                </Tooltip>
             </Link>
-        </ToolbarGroup>
+        </Menu >
     );
-};
-
-const LoggedOutNavItems: React.StatelessComponent = () => {
-    return null;
 };
 
 const Nav: React.StatelessComponent<INavProps> = (props) => {
     return (
-        <Toolbar>
-            <ToolbarGroup>
+        <AppBar position="static">
+            <Toolbar>
                 <Link to="/">
-                    <IconButton tooltip="Home">
-                        <ActionHome />
-                    </IconButton>
-                </Link>
-                <ToolbarTitle text="House Money" />
-            </ToolbarGroup>
-            <ToolbarGroup>
-                {props.isLoggedIn
-                    ? <LoggedInNavItems />
-                    : <LoggedOutNavItems />}
-
-                <IconMenu
-                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-                    iconButtonElement={
-                        <IconButton tooltip="Menu">
-                            <Menu />
+                    <Tooltip id="tooltip-icon" title="Home">
+                        <IconButton>
+                            <HomeIcon />
                         </IconButton>
-                    }
-                >
-                    {props.isLoggedIn
-                        ? <LoggedInMenuOptions {...props} />
-                        : <LoggedOutMenuOptions />}
-                </IconMenu>
-            </ToolbarGroup>
-        </Toolbar>
+                    </Tooltip>
+                </Link>
+                <Typography variant="title" color="inherit">
+                    House Money
+                </Typography>
+                {props.isLoggedIn ? 
+                    <span>
+                        <LoggedInNavItems />
+                        <LoggedInMenuOptions {...props} /> 
+                    </span> :
+                    <span />
+                }
+            </Toolbar>
+        </AppBar>
     );
 };
 

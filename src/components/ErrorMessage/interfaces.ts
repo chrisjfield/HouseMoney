@@ -1,4 +1,4 @@
-import { Dispatch, Action } from 'redux';
+import { Action, Dispatch } from 'redux';
     
 export interface IErrorMessageProps {
     dispatch: Dispatch<{}>;

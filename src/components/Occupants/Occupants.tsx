@@ -1,11 +1,11 @@
+import * as queryString from 'query-string';
 import * as React from 'react';
-import { IOccupantProps, IOccupant, LogoutReason } from './occupantsInterfaces';
-import { receiveOccupant, getLogoutUrlWithDetails } from './occupantsActions';
+import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { connect } from 'react-redux';
-import * as queryString from 'query-string';
-import { RouteComponentProps } from 'react-router';
+import { getLogoutUrlWithDetails, receiveOccupant } from './occupantsActions';
+import { IOccupant, IOccupantProps, LogoutReason } from './occupantsInterfaces';
 
 class Occupants extends React.Component<IOccupantProps> {
     componentWillReceiveProps(nextProps: IOccupantProps) {

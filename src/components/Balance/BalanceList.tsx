@@ -1,9 +1,12 @@
-import * as React from 'react';
-import { IBalanceProps, IBalance, IBalanceOccupant } from './balanceInterfaces';
-import { customTheme } from '../../themes';
-import Avatar from 'material-ui/Avatar';
-import { List, ListItem } from 'material-ui/List';
+import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 import * as math from 'mathjs';
+import * as React from 'react';
+import { customTheme } from '../../themes';
+import { IBalance, IBalanceOccupant, IBalanceProps } from './balanceInterfaces';
 
 const BalanceList: React.StatelessComponent<IBalanceProps> = (props) => {
     const me = props.loggedInOccupant.occupantId;
@@ -37,17 +40,16 @@ const BalanceItem: React.StatelessComponent<IBalance> = (balanceItem: IBalance) 
                 cursor: 'auto',
                 width: 'auto',
                 overflow: 'hidden',
-            }}
-            leftAvatar={
+            }}>
+            <ListItemText primary={debtor.displayName + ': £' + Number(math.abs(debt)).toFixed(2)} />
+            <ListItemIcon>
                 <Avatar
                     key={'Avatar_' + debtor.displayName}
-                    style={{ backgroundColor: colorToSet }}
-                >
+                    style={{ backgroundColor: colorToSet }}>
                     {debtor.displayName.charAt(0).toUpperCase()}
                 </Avatar>
-            }
-            primaryText={debtor.displayName + ': £' + Number(math.abs(debt)).toFixed(2)}
-        />
+            </ListItemIcon>
+        </ListItem>
     );
     return balanceElement;
 };

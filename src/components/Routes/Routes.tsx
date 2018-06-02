@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom';
-import { IRoutesProps } from './interfaces';
-
-import Balance from '../Balance';
-import ViewTransactions from '../ViewTransactions';
-import AddTransaction from '../AddTransaction';
-import HouseSummary from '../HouseSummary';
-import NotFound404 from '../NotFound404';
+import { Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
+import AddTransaction from '../AddTransaction';
+import Balance from '../Balance';
+import HouseSummary from '../HouseSummary';
+import NotFound404 from '../NotFound404';
 import Occupants from '../Occupants/Occupants';
 import { checkHouseholdAuthorization } from '../Occupants/occupantsActions';
+import ViewTransactions from '../ViewTransactions';
+import { IRoutesProps } from './interfaces';
+
 
 const LoggedInRoutes: React.StatelessComponent = () => {
     return (

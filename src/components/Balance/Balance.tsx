@@ -1,13 +1,13 @@
+import Paper from '@material-ui/core/Paper';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Paper from 'material-ui/Paper';
-import { IBalanceProps, IBalanceStore } from './balanceInterfaces';
-import appStyles from '../../styles';
-import styles from './balanceStyles';
 import { IStore } from '../../interfaces/storeInterface';
+import appStyles from '../../styles';
+import { Loading } from '../Loading';
 import BalanceList from './BalanceList';
 import { getBalance } from './balanceActions';
-import { Loading } from '../Loading';
+import { IBalanceProps, IBalanceStore } from './balanceInterfaces';
+import styles from './balanceStyles';
 
 class Balance extends React.Component<IBalanceProps> {
     componentDidMount() {

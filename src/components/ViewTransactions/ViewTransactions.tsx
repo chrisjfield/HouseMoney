@@ -1,13 +1,13 @@
+import Button from '@material-ui/core/Button';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import CircularProgress from 'material-ui/CircularProgress';
-import FlatButton from 'material-ui/FlatButton';
-import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
 import { IStore } from '../../interfaces/storeInterface';
-import { getTransactionHistory } from './viewTransactionsActions';
-import styles from './viewTransactionsStyles';
-import { ViewTransactionsGrid } from './ViewTransactionsGrid';
+import { Loading } from '../Loading';
 import { NoTransactionsFound } from './NoTransactionsFound';
+import { ViewTransactionsGrid } from './ViewTransactionsGrid';
+import { getTransactionHistory } from './viewTransactionsActions';
+import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
+import styles from './viewTransactionsStyles';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
@@ -41,23 +41,25 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     determineRender = () => {
         let result: JSX.Element;
         if (this.props.loading > 0) {
-            result = <CircularProgress />;
+            result = <Loading />;
         } else if (this.props.transactionHistoryArray.length > 0) {
             result = (
                 <div>
                     <ViewTransactionsGrid transactionHistoryArray={this.props.transactionHistoryArray} />
-                    <FlatButton
+                    <Button
                         key="Previous_Button"
-                        label="Previous"
                         onClick={this.prevPage}
                         disabled={this.state.pageNumber <= 1}
-                    />
-                    <FlatButton
+                    >
+                     Previous 
+                    </Button>
+                    <Button
                         key="Next_Button"
-                        label="Next"
                         onClick={this.nextPage}
                         disabled={this.props.transactionHistoryArray.length !== this.props.pageSize}
-                    />
+                    >
+                     Next 
+                    </Button>
                 </ div>
             );
         } else {

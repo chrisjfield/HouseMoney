@@ -1,6 +1,6 @@
+import { Action } from 'redux';
 import { occupantActions } from './occupantsActions';
 import { IOccupantReducer } from './occupantsInterfaces';
-import { Action } from 'redux';
 
 function occuapntsReducer(
     state: IOccupantReducer = {

@@ -1,5 +1,5 @@
-import { IHouseSummaryReducer, IReceiveTransactionHistoryAction } from './houseSummaryInterfaces';
 import { houseSummaryActions } from './houseSummaryActions';
+import { IHouseSummaryReducer, IReceiveTransactionHistoryAction } from './houseSummaryInterfaces';
 
 function houseSummaryReducer(
     state: IHouseSummaryReducer = {

@@ -1,5 +1,5 @@
-import { IReceiveBalanceAction, IBalanceReducer } from './balanceInterfaces';
 import { balanceActions } from './balanceActions';
+import { IBalanceReducer, IReceiveBalanceAction } from './balanceInterfaces';
 
 function balanceReducer(
     state: IBalanceReducer = {

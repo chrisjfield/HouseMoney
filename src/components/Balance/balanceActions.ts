@@ -1,9 +1,9 @@
-import apiHelper from '../../helpers/apiHelper';
-import { HTTPMethod } from '../../enums/httpEnum';
 import { endpoints } from '../../enums/endpointsEnum';
+import { HTTPMethod } from '../../enums/httpEnum';
+import apiHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
+import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
 import { IBalance, IReceiveBalanceAction } from './balanceInterfaces';
-import { loadingStarted, loadingComplete } from '../Loading/loadingActions';
 
 export enum balanceActions {
     RECEIVE_BALANCE = 'RECEIVE_BALANCE',
