@@ -1,11 +1,12 @@
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
+import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
-import { IReceiveTransactionAction, ITransaction } from './transactionsInterfaces';
+import { ITransaction } from './transactionsInterfaces';
 
-export enum transactionActions {
+export enum transactionActionTypes {
     ADD_TRANSACTION = 'ADD_TRANSACTION',
     GET_TRANSACTION_HISTORY = 'GET_TRANSACTION_HISTORY',
 }
@@ -29,9 +30,11 @@ export function insertTransactions(token: string, userId: string, transactionArr
     };
 }
 
-export function receiveTransaction(rowsAffected: number): IReceiveTransactionAction {
-    return {
-        transactionsAdded: rowsAffected > 0,
-        type: transactionActions.ADD_TRANSACTION,
-    };
-}
+const receiveTransaction = (rowsAffected: number) => createAction(transactionActionTypes.ADD_TRANSACTION, rowsAffected > 0);
+
+export const TransactionActions = {
+    insertTransactions,
+    receiveTransaction,
+};
+
+export type TransactionActions = ActionsUnion<typeof TransactionActions>;

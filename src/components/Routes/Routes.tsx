@@ -12,7 +12,6 @@ import { checkHouseholdAuthorization } from '../Occupants/occupantsActions';
 import ViewTransactions from '../ViewTransactions';
 import { IRoutesProps } from './interfaces';
 
-
 const LoggedInRoutes: React.StatelessComponent = () => {
     return (
         <Switch>
@@ -35,7 +34,7 @@ const LoggedOutRoutes: React.StatelessComponent = () => {
     );
 };
 
-const Routes: React.StatelessComponent<RouteComponentProps<any> & IRoutesProps> = (props) => {
+const Routes: React.StatelessComponent<RouteComponentProps<{}> & IRoutesProps> = (props) => {
     checkHouseholdAuthorization(props.loggedInOccupant);
     return (
         <Route>{
@@ -53,5 +52,5 @@ const mapStateToProps = (store: IStore) => {
     };
 };
 
-const ConnectedRoutes = withRouter(connect(mapStateToProps)(Routes));
+const ConnectedRoutes = withRouter(connect(mapStateToProps, {})(Routes));
 export default ConnectedRoutes;

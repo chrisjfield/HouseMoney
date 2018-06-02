@@ -44,7 +44,7 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>): BalanceActions =>
+const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
   redux.bindActionCreators(BalanceActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Balance);

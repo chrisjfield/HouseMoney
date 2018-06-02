@@ -3,7 +3,7 @@ import { Action, Dispatch } from 'redux';
 import { ILoggedInOccupant } from '../components/Occupants/occupantsInterfaces';
 
 export interface IComponentProps {
-    dispatch: Dispatch<Action>;
+    dispatch: Dispatch<Action> | any; // TODO: ED! Figure out how to remove this any
     history: History;
 }
 

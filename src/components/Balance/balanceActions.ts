@@ -30,7 +30,7 @@ function getBalance(token: string, userId: string, occupantId: number) {
 const receiveBalance = (balanceArray: IBalance[]) => createAction(balanceActionTypes.RECEIVE_BALANCE, balanceArray);
 
 export const BalanceActions = {
-    // getBalance,
+    getBalance,
     receiveBalance,
 };
 

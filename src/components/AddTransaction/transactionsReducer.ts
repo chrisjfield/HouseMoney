@@ -1,4 +1,4 @@
-import { transactionActions } from './transactionsActions';
+import { transactionActionTypes } from './transactionsActions';
 import { IReceiveTransactionAction, ITransactionReducer } from './transactionsInterfaces';
 
 function transactionReducer(
@@ -9,10 +9,10 @@ function transactionReducer(
 ): ITransactionReducer {
     let nextState: ITransactionReducer;
     switch (action.type) {
-    case transactionActions.ADD_TRANSACTION:
+    case transactionActionTypes.ADD_TRANSACTION:
         nextState = {
             ...state,
-            transactionsAdded: action.transactionsAdded,
+            transactionsAdded: action.transactionsAdded, // TODO: ED! Fix disconnect here! need to re read articles
         };
         break;
     default:

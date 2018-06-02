@@ -51,14 +51,14 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
                         onClick={this.prevPage}
                         disabled={this.state.pageNumber <= 1}
                     >
-                     Previous 
+                    Previous
                     </Button>
                     <Button
                         key="Next_Button"
                         onClick={this.nextPage}
                         disabled={this.props.transactionHistoryArray.length !== this.props.pageSize}
                     >
-                     Next 
+                    Next
                     </Button>
                 </ div>
             );

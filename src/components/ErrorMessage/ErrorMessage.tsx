@@ -1,9 +1,10 @@
 import Snackbar from '@material-ui/core/Snackbar';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import * as redux from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
-import { removeError } from './errorMessageActions';
-import { IErrorMessageProps, IErrorMessageState } from './interfaces';
+import { ErrorMessageActions } from './errorMessageActions';
+import { IErrorMessageProps, IErrorMessageState } from './errorMessageInterfaces';
 
 class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageState> {
     constructor(props: IErrorMessageProps) {
@@ -25,14 +26,14 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
                     autoHideDuration={4000}
                     onClose={this.handleClose}
                 />
-                // TODO: Replace styling on this! 
+                // TODO: Replace styling on this!
         );
         return errorMessage;
     }
 
     handleClose = () => {
         this.setState({ errorMessageText: null });
-        this.props.dispatch(removeError());
+        this.props.dispatch(ErrorMessageActions.removeError());
     }
 
     render() {
@@ -44,8 +45,11 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
     }
 }
 
-const mapStateToProps = (store: IStore) => {
+const mapStateToProps = (store: IStore) : IErrorMessageState => {
     return { errorMessageText: store.errorMessageReducer.errorMessageText };
 };
 
-export default connect(mapStateToProps)(ErrorMessage);
+const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
+  redux.bindActionCreators(ErrorMessageActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ErrorMessage);

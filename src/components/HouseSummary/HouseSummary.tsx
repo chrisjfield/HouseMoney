@@ -29,7 +29,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
               <div className="row">
                 <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
                   <div id="houseSummaryGrid" className="grid" />
-                  {this.props.loading <= 0 ? 
+                  {this.props.loading <= 0 ?
                       this.props.transactionSummaryArray.length > 0 && this.props.householdOccupantsArray.length > 0 ? (
                     <HouseSummaryGrid {...this.props}/>
                   ) : <div> <NoTransactionsFound /> </div> : (

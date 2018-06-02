@@ -40,13 +40,13 @@ function createRows(props: IHouseSummaryProps): JSX.Element[] {
     const rowArray: JSX.Element[] = props.householdOccupantsArray.map((householdOccupant) => {
         houseSummaryProps.householdOccupant = householdOccupant;
         return <HouseSummaryRow {...houseSummaryProps}/>;
-    }); 
+    });
     return rowArray;
 }
 
 const HouseSummaryColumn: React.StatelessComponent<IOccupant> = (householdOccupant) => {
     const column = (
-        <TableCell 
+        <TableCell
           key={'Column' + householdOccupant.displayName}
           style={houseSummaryStyles.gridHeader}
           // TODO: How to tooltip={'The name of the person who owes the amount shown in this column'}

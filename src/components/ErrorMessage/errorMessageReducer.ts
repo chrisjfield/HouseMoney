@@ -1,4 +1,4 @@
-import { ADD_ERROR, REMOVE_ERROR } from './errorMessageActions';
+import { errorMessageActionTypes } from './errorMessageActions';
 import { IErrorMessageAction, IErrorMessageState } from './interfaces';
 
 function errorMessageReducer(
@@ -7,12 +7,12 @@ function errorMessageReducer(
 ): IErrorMessageState {
     let nextState: IErrorMessageState;
     switch (action.type) {
-    case ADD_ERROR:
+    case errorMessageActionTypes.ADD_ERROR:
         nextState = { ...state,
             errorMessageText: action.errorMessageText,
         };
         break;
-    case REMOVE_ERROR:
+    case errorMessageActionTypes.REMOVE_ERROR:
         nextState = { ...state,
             errorMessageText: null,
         };

@@ -1,15 +1,16 @@
-export const ADD_ERROR = 'ADD_ERROR';
-export const REMOVE_ERROR = 'REMOVE_ERROR';
+import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 
-export function addError(errorMessageText: string) {
-    return {
-        errorMessageText,
-        type: ADD_ERROR,
-    };
+const addError = (errorMessageText: string) => createAction(errorMessageActionTypes.ADD_ERROR, errorMessageText);
+const removeError = () => createAction(errorMessageActionTypes.REMOVE_ERROR);
+
+export const ErrorMessageActions = {
+    addError,
+    removeError,
+};
+
+export enum errorMessageActionTypes {
+    ADD_ERROR = 'ADD_ERROR',
+    REMOVE_ERROR = 'REMOVE_ERROR',
 }
 
-export function removeError() {
-    return {
-        type: REMOVE_ERROR,
-    };
-}
+export type ErrorMessageActions = ActionsUnion<typeof ErrorMessageActions>;

@@ -10,16 +10,18 @@ import TextField from '@material-ui/core/TextField';
 import * as moment from 'moment';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import * as redux from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
-import { addError } from '../ErrorMessage/errorMessageActions';
+import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import UserChip from '../UserChip';
 import styles from './styles';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
-import { insertTransactions, receiveTransaction } from './transactionsActions';
+import { TransactionActions } from './transactionsActions';
+// tslint:disable-next-line:max-line-length
 import { IAddTransactionOccupant, IAddTransactionProps, IAddTransactionStore, IAddTransationState, ITransaction } from './transactionsInterfaces';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
@@ -74,7 +76,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         const transactionDetails = this.state.transactionDetails;
 
         if (debtors.filter(item => item.occupantId !== me.occupantId).length === 0) {
-            this.props.dispatch(addError('Please add others to divide between'));
+            this.props.dispatch(ErrorMessageActions.addError('Please add others to divide between'));
         } else {
             const dividedGross = divideValueBetweenDebtors(transactionDetails.gross, debtors.length);
             const dateISO: Date = moment(transactionDetails.date).toDate();
@@ -86,7 +88,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 transactionDetails.reference,
             );
 
-            this.props.dispatch(insertTransactions(me.token, me.userId, payday));
+            this.props.dispatch(TransactionActions.insertTransactions(me.token, me.userId, payday));
         }
     }
 
@@ -131,14 +133,14 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.setState({
             transactionAdded: false,
         });
-        this.props.dispatch(receiveTransaction(0));
+        this.props.dispatch(TransactionActions.receiveTransaction(0));
     }
 
     handleViewTransactionClick = () => {
         this.props.history.push(houseMoneyRoutes.ViewTransactions);
     }
 
-    // TODO: Change the number field to work! Maybe update MUI? 
+    // TODO: Change the number field to work! Maybe update MUI?
     render() {
         return (
             <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
@@ -179,7 +181,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     />
                 </div>
                 <div>
-                    // TODO: REPLACE DATE FIELD HERE ED! 
+                    // TODO: REPLACE DATE FIELD HERE ED!
                 </div>
                 <div>
                     <TextField
@@ -196,7 +198,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     type="submit"
                     variant="outlined"
                     disabled={this.state.transactionAdding}>
-                 Add 
+                Add
                 </Button>
                 <Snackbar
                     open={this.state.transactionAdded}
@@ -205,7 +207,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     onClose={this.handleTransactionAddedClose}
                     action={
                         <Button key="view" color="secondary" size="small" onClick={this.handleViewTransactionClick}>
-                         View 
+                        View
                         </Button>
                     }
                 />
@@ -230,4 +232,7 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-export default connect(mapStateToProps)(AddTransaction);
+const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
+  redux.bindActionCreators(TransactionActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTransaction);

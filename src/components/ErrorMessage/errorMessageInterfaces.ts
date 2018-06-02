@@ -1,7 +1,7 @@
 import { Action, Dispatch } from 'redux';
-    
+
 export interface IErrorMessageProps {
-    dispatch: Dispatch<{}>;
+    dispatch: Dispatch<Action>;
     errorMessageText: string;
 }
 
