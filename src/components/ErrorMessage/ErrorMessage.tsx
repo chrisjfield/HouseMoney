@@ -1,10 +1,10 @@
+import Snackbar from 'material-ui/Snackbar';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Snackbar from 'material-ui/Snackbar';
-import { removeError } from './errorMessageActions';
-import { customTheme } from '../../themes';
-import { IErrorMessageProps, IErrorMessageState } from './interfaces';
 import { IStore } from '../../interfaces/storeInterface';
+import { customTheme } from '../../themes';
+import { removeError } from './errorMessageActions';
+import { IErrorMessageProps, IErrorMessageState } from './interfaces';
 
 class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageState> {
     constructor(props: IErrorMessageProps) {
@@ -40,7 +40,7 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
     render() {
         return (
             <div>
-                {this.state.errorMessageText !== null ? this.buildErrors() : <div/>}
+                {this.state.errorMessageText ? this.buildErrors() : <div/>}
             </div>
         );
     }

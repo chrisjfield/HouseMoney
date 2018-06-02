@@ -2,18 +2,32 @@ import * as localForage from 'localforage';
 import { routerMiddleware } from 'react-router-redux';
 import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux';
 import logger from 'redux-logger';
-import { PersistorConfig, persistStore } from 'redux-persist';
+import { AutoRehydrateConfig, PersistorConfig, StateReconciler, autoRehydrate, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
+import { IStore } from '../interfaces/storeInterface';
 import history from './history';
 import combinedReducers from './reducers';
 
 const rmiddleware: Middleware = routerMiddleware(history);
+const storeReconciler: StateReconciler<IStore, IStore, IStore> = (previouisState, inboundState, reducedState, log) => {
+    const reducerInitalState: IStore = { ...reducedState };
+    const newStore = {
+        ...inboundState,
+        errorMessageReducer: reducerInitalState.errorMessageReducer,
+        loadingReducer: reducerInitalState.loadingReducer,
+    };
+
+    return newStore;
+};
+const rehydrateConfig: AutoRehydrateConfig = {
+    log: true,
+    stateReconciler: storeReconciler,
+};
 
 const store: Store<{}> = createStore(
-  combinedReducers,
-  undefined,
-  compose(applyMiddleware(thunk, logger, rmiddleware)),
-  // autoRehydrate()), Currently this screws the pass through auth 
+    combinedReducers,
+    undefined,
+    compose(applyMiddleware(thunk, logger, rmiddleware), autoRehydrate(rehydrateConfig)),
 );
 
 const persistConfig: PersistorConfig = {
