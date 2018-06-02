@@ -18,6 +18,7 @@ const storeReconciler: StateReconciler<IStore, IStore, IStore> = (previouisState
                 previouisState.occupantsReducer : reducedState.occupantsReducer,
         errorMessageReducer: reducerInitalState.errorMessageReducer,
         loadingReducer: reducerInitalState.loadingReducer,
+        transactionsReducer: reducerInitalState.transactionsReducer,
     };
 
     return newStore;

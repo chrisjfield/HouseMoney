@@ -1,9 +1,9 @@
-import apiHelper from '../../helpers/apiHelper';
-import { HTTPMethod } from '../../enums/httpEnum';
 import { endpoints } from '../../enums/endpointsEnum';
+import { HTTPMethod } from '../../enums/httpEnum';
+import apiHelper from '../../helpers/apiHelper';
 import { addError } from '../ErrorMessage/errorMessageActions';
+import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
 import { IReceiveTransactionAction, ITransaction } from './transactionsInterfaces';
-import { loadingStarted, loadingComplete } from '../Loading/loadingActions';
 
 export enum transactionActions {
     ADD_TRANSACTION = 'ADD_TRANSACTION',

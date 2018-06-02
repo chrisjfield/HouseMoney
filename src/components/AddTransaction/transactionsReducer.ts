@@ -1,5 +1,5 @@
-import { IReceiveTransactionAction, ITransactionReducer } from './transactionsInterfaces';
 import { transactionActions } from './transactionsActions';
+import { IReceiveTransactionAction, ITransactionReducer } from './transactionsInterfaces';
 
 function transactionReducer(
     state: ITransactionReducer = {

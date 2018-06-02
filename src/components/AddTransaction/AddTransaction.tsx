@@ -18,7 +18,7 @@ import { IOccupant } from '../Occupants/occupantsInterfaces';
 import UserChip from '../UserChip';
 import styles from './styles';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
-import { insertTransactions } from './transactionsActions';
+import { insertTransactions, receiveTransaction } from './transactionsActions';
 import { IAddTransactionOccupant, IAddTransactionProps, IAddTransactionStore, IAddTransationState, ITransaction } from './transactionsInterfaces';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
@@ -136,7 +136,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.setState({
             transactionAdded: false,
         });
-        // TODO: better as a state thing as its UI specific to this screen! - remove from Redux! 
+        this.props.dispatch(receiveTransaction(0));
     }
 
     handleViewTransactionClick = () => {
