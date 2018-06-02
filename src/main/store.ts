@@ -1,22 +1,18 @@
-import { createStore, applyMiddleware, compose, Middleware, Store } from 'redux';
-import { persistStore, PersistorConfig } from 'redux-persist';
-import logger from 'redux-logger';
-import thunk from 'redux-thunk';
 import * as localForage from 'localforage';
 import { routerMiddleware } from 'react-router-redux';
-
-import combinedReducers from './reducers';
+import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux';
+import logger from 'redux-logger';
+import { PersistorConfig, autoRehydrate, persistStore } from 'redux-persist';
+import thunk from 'redux-thunk';
 import history from './history';
-
+import combinedReducers from './reducers';
 
 const rmiddleware: Middleware = routerMiddleware(history);
 
 const store: Store<{}> = createStore(
   combinedReducers,
   undefined,
-  compose(applyMiddleware(thunk, logger, rmiddleware), 
-          // autoRehydrate(),
-  ),
+  compose(applyMiddleware(thunk, logger, rmiddleware), autoRehydrate()),
 );
 
 const persistConfig: PersistorConfig = {
