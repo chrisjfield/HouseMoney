@@ -2,7 +2,7 @@ import * as localForage from 'localforage';
 import { routerMiddleware } from 'react-router-redux';
 import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux';
 import logger from 'redux-logger';
-import { PersistorConfig, autoRehydrate, persistStore } from 'redux-persist';
+import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 // import { IStore } from '../interfaces/storeInterface';
@@ -25,19 +25,23 @@ const rmiddleware: Middleware = routerMiddleware(history);
 //     return newStore;
 // };
 
-const store: Store<{}> = createStore(
-    combinedReducers,
-    undefined,
-    compose(applyMiddleware(thunk, logger, rmiddleware), autoRehydrate(rehydrateConfig)),
-);
-
-const persistConfig: PersistorConfig = {
-    blacklist: ['errorMessageReducer', 'loadingReducer'],
+const persistConfig: PersistConfig = {
+    key: 'root',
     storage: localForage,
     stateReconciler: autoMergeLevel2,
+    blacklist: ['errorMessageReducer', 'loadingReducer', 'transactionsReducer'],
 };
 
-// For Dev persistStore(store).purge();
-persistStore(store, persistConfig);
+const persistedReducer = persistReducer(persistConfig, combinedReducers);
 
-export default store;
+export const store: Store<{}> = createStore(
+    persistedReducer,
+    undefined,
+    compose(applyMiddleware(thunk, logger, rmiddleware)),
+);
+
+export default () => {
+    store;
+    const persistor = persistStore(store);
+    return { store, persistor };
+};
