@@ -1,7 +1,7 @@
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import * as React from 'react';
-import { IUserChipProps } from './interfaces';
+import { IUserChipProps } from './userChipInterfaces';
 
 const UserChip: React.StatelessComponent<IUserChipProps> = (props) => {
     return (

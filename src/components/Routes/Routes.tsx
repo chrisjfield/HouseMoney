@@ -10,7 +10,7 @@ import NotFound404 from '../NotFound404';
 import Occupants from '../Occupants/Occupants';
 import { checkHouseholdAuthorization } from '../Occupants/occupantsActions';
 import ViewTransactions from '../ViewTransactions';
-import { IRoutesProps } from './interfaces';
+import { IRoutesProps } from './routesInterfaces';
 
 const LoggedInRoutes: React.StatelessComponent = () => {
     return (

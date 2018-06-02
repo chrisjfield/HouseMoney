@@ -11,15 +11,16 @@ import ViewIcon from '@material-ui/icons/pageview';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as redux from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import { store } from '../../main/configureStore';
-import { getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
+import { OccupantsActions, getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
 import { LogoutReason } from '../Occupants/occupantsInterfaces';
-import { INavProps } from './interfaces';
+import { INavProps } from './navInterfaces';
 import styles from './styles';
 
-// TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse? 
+// TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse?
 const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
     return (
         <div>
@@ -52,8 +53,6 @@ const LoggedInNavItems: React.StatelessComponent = () => {
                     </IconButton>
                 </Tooltip>
             </Link>
-
-
             <Link style={styles.menuItems} to={houseMoneyRoutes.ViewTransactions}>
                 <Tooltip id="tooltip-icon" title="View Transactions">
                     <IconButton >
@@ -99,4 +98,7 @@ const mapStateToProps = (store: IStore) => {
     };
 };
 
-export default connect(mapStateToProps)(Nav);
+const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
+    redux.bindActionCreators(OccupantsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

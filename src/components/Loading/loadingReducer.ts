@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { loadingActions } from './loadingActions';
+import { loadingActionTypes } from './loadingActions';
 import { ILoadingProps } from './loadingInterfaces';
 
 function loadingReducer(
@@ -10,12 +10,12 @@ function loadingReducer(
 ): ILoadingProps {
     let nextState: ILoadingProps;
     switch (action.type) {
-    case loadingActions.LOADING_STARTED:
+    case loadingActionTypes.LOADING_STARTED:
         nextState = { ...state,
             loading: state.loading + 1,
         };
         break;
-    case loadingActions.LOADING_COMPLETED:
+    case loadingActionTypes.LOADING_COMPLETED:
         nextState = { ...state,
             loading: state.loading > 0 ? state.loading - 1 : 0,
         };

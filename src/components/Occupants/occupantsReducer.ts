@@ -1,9 +1,9 @@
 import { Action } from 'redux';
 import { occupantActions } from './occupantsActions';
-import { IOccupantReducer } from './occupantsInterfaces';
+import { IOccupantStore } from './occupantsInterfaces';
 
 function occuapntsReducer(
-    state: IOccupantReducer = {
+    state: IOccupantStore = {
         isLoggedIn: false,
         loggedInOccupant: {
             occupantId: 0,
@@ -14,18 +14,18 @@ function occuapntsReducer(
         },
         householdOccupantsArray: [],
     },
-    action: IOccupantReducer & Action,
-): IOccupantReducer {
-    let nextState: IOccupantReducer;
+    action: IOccupantStore & Action,
+): IOccupantStore {
+    let nextState: IOccupantStore;
     switch (action.type) {
     case occupantActions.RECEIVE_OCCUPANT:
-        nextState = { 
+        nextState = {
             ...state,
             loggedInOccupant: action.loggedInOccupant,
             isLoggedIn: action.isLoggedIn,
         };
         break;
-    case occupantActions.RECEIVE_OCCUPANTS_OF_HOUSEHOLD: 
+    case occupantActions.RECEIVE_OCCUPANTS_OF_HOUSEHOLD:
         nextState = {
             ...state,
             householdOccupantsArray: action.householdOccupantsArray,
@@ -38,5 +38,5 @@ function occuapntsReducer(
     return nextState;
 }
 
-// Export Reducer
+// Export Store
 export default occuapntsReducer;

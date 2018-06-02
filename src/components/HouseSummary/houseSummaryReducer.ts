@@ -1,4 +1,4 @@
-import { houseSummaryActions } from './houseSummaryActions';
+import { houseSummaryActionTypes } from './houseSummaryActions';
 import { IHouseSummaryReducer, IReceiveTransactionHistoryAction } from './houseSummaryInterfaces';
 
 function houseSummaryReducer(
@@ -9,7 +9,7 @@ function houseSummaryReducer(
 ): IHouseSummaryReducer {
     let nextState: IHouseSummaryReducer;
     switch (action.type) {
-    case houseSummaryActions.GET_TRANSACTION_SUMMARY:
+    case houseSummaryActionTypes.GET_TRANSACTION_SUMMARY:
         nextState = {
             ...state,
             transactionSummaryArray: action.transactionSummaryArray,

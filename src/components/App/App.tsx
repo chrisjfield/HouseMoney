@@ -19,7 +19,7 @@ const App: React.StatelessComponent = () => {
                         <div id="component-container">
                             <Nav />
                             <Routes />
-                            <ErrorMessage />
+                            <ErrorMessage dispatch={store.dispatch} />
                         </div>
                     </CssBaseline >
                 </ConnectedRouter>

@@ -19,7 +19,9 @@ export interface IReceiveOccupantAction extends Action, ILoggedInOccupant { }
 
 export interface IReceiveHouseholdOccupantsAction extends Action, IHouseholdOccupants { }
 
-export interface IOccupantProps extends IConnectedComponentProps, RouteComponentProps<string>, IHouseholdOccupants { }
+export interface IOccupantProps extends IOccupantStore, IConnectedComponentProps, RouteComponentProps<string> { }
+
+export interface IOccupantStore extends IHouseholdOccupants, ILoggedInOccupant { }
 
 export interface IOccupantReducer extends ILoggedInOccupant, IHouseholdOccupants { }
 

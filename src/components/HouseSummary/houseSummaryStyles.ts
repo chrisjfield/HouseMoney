@@ -14,13 +14,13 @@ const styles: React.CSSProperties = {
     },
     gridHeader: {
         backgroundColor: customTheme.backgroundColor,
-        color: theme.palette.primary1Color,
+        color: theme.palette.primary.main,
         width: '80px',
         textAlign: 'right',
     },
     gridDetail: {
         backgroundColor: customTheme.backgroundColor,
-        color: theme.palette.textColor,
+        color: theme.palette.text.primary,
         width: '80px',
         textAlign: 'right',
     },

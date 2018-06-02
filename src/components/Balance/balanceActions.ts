@@ -2,8 +2,8 @@ import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
-import { addError } from '../ErrorMessage/errorMessageActions';
-import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
+import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { LoadingActions } from '../Loading/loadingActions';
 import { IBalance } from './balanceInterfaces';
 
 export enum balanceActionTypes {
@@ -13,15 +13,15 @@ export enum balanceActionTypes {
 function getBalance(token: string, userId: string, occupantId: number) {
     const request = apiHelper.apiCall<IBalance[]>(HTTPMethod.GET, endpoints.balance, token, userId + ',' + occupantId.toString());
     return (dispatch: Function) => {
-        dispatch(loadingStarted());
+        dispatch(LoadingActions.loadingStarted());
         return request
             .then((response: IBalance[]) => {
                 dispatch(receiveBalance(response));
-                dispatch(loadingComplete());
+                dispatch(LoadingActions.loadingComplete());
             })
             .catch((error: Error) => {
-                dispatch(addError(error.message));
-                dispatch(loadingComplete());
+                dispatch(ErrorMessageActions.addError(error.message));
+                dispatch(LoadingActions.loadingComplete());
                 throw error;
             });
     };

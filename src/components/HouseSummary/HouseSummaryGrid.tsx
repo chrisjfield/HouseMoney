@@ -27,7 +27,7 @@ export const HouseSummaryGrid: React.StatelessComponent<IHouseSummaryProps> = (p
 
 function createColumns(householdOccupantsArray: IOccupant[]): JSX.Element[] {
     const columnData = ['', ...householdOccupantsArray];
-    const columnArray: JSX.Element[] = columnData.map((householdOccupant: IOccupant) => 
+    const columnArray: JSX.Element[] = columnData.map((householdOccupant: IOccupant) =>
       <HouseSummaryColumn {...householdOccupant} />);
     return columnArray;
 }

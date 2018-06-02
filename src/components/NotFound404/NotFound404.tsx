@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import * as React from 'react';
 import { myHouseUrl } from '../../appConfig';
-import { INotFound404Props } from './interfaces';
+import { INotFound404Props } from './notFound404Interfaces';
 
 const NotFound404: React.StatelessComponent<INotFound404Props> = (props) => {
     return (

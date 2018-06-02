@@ -2,8 +2,8 @@ import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
-import { addError } from '../ErrorMessage/errorMessageActions';
-import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
+import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { LoadingActions } from '../Loading/loadingActions';
 import { ITransaction } from './transactionsInterfaces';
 
 export enum transactionActionTypes {
@@ -16,15 +16,15 @@ export function insertTransactions(token: string, userId: string, transactionArr
         HTTPMethod.POST, endpoints.transactions, token, userId, transactionArray,
     );
     return (dispatch: Function) => {
-        dispatch(loadingStarted());
+        dispatch(LoadingActions.loadingStarted());
         return request
             .then((response: number) => {
                 dispatch(receiveTransaction(response));
-                dispatch(loadingComplete());
+                dispatch(LoadingActions.loadingComplete());
             })
             .catch((error: Error) => {
-                dispatch(addError(error.message));
-                dispatch(loadingComplete());
+                dispatch(ErrorMessageActions.addError(error.message));
+                dispatch(LoadingActions.loadingComplete());
                 throw error;
             });
     };

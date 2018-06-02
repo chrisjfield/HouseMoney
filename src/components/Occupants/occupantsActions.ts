@@ -3,12 +3,13 @@ import { persistStore } from 'redux-persist';
 import { myHouseUrl } from '../../appConfig';
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
+import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
 import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
 import { store } from '../../main/configureStore';
-import { addError } from '../ErrorMessage/errorMessageActions';
-import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
-import { ILogoutDetails, IOccupant, IReceiveHouseholdOccupantsAction, IReceiveOccupantAction, LogoutReason } from './occupantsInterfaces';
+import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { LoadingActions } from '../Loading/loadingActions';
+import { ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
 
 export enum occupantActions {
     RECEIVE_OCCUPANT = 'RECEIVE_OCCUPANT',
@@ -35,46 +36,41 @@ export function logout() {
     };
 }
 
-export function receiveOccupant(occupant: IOccupant, isLoggedIn: boolean): IReceiveOccupantAction {
-    const response: IReceiveOccupantAction = {
-        isLoggedIn,
-        type: occupantActions.RECEIVE_OCCUPANT,
-        loggedInOccupant: occupant,
-    };
-    return response;
-}
-
 export function getHouseholdOccupants(token: string, userId: string, occupantId: number) {
     const request = apiHelper.apiCall<IOccupant[]>(
         HTTPMethod.GET, endpoints.occupants, token, userId + ',' + occupantId.toString(),
     );
     return (dispatch: Function) => {
-        dispatch(loadingStarted());
+        dispatch(LoadingActions.loadingStarted());
         return request
             .then((response: IOccupant[]) => {
                 dispatch(receiveHouseholdOccupants(response));
-                dispatch(loadingComplete());
+                dispatch(LoadingActions.loadingComplete());
             })
             .catch((error: Error) => {
-                dispatch(addError(error.message));
-                dispatch(loadingComplete());
+                dispatch(ErrorMessageActions.addError(error.message));
+                dispatch(LoadingActions.loadingComplete());
                 throw error;
             });
     };
 }
 
-export function receiveHouseholdOccupants(householdOccupantsArray: IOccupant[]): IReceiveHouseholdOccupantsAction {
-    const response: IReceiveHouseholdOccupantsAction = {
-        householdOccupantsArray,
-        type: occupantActions.RECEIVE_OCCUPANTS_OF_HOUSEHOLD,
-    };
-    return response;
-}
-
-
 export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {
     const logoutDetails : ILogoutDetails = {
         logoutReason,
-    }; 
+    };
     return myHouseUrl + 'Logout?' + queryString.stringify(logoutDetails);
 }
+
+const receiveOccupant = (occupant: IOccupant, isLoggedIn: boolean) =>
+    createAction(occupantActions.RECEIVE_OCCUPANT, { occupant, isLoggedIn });
+
+const receiveHouseholdOccupants = (householdOccupantsArray: IOccupant[]) =>
+    createAction(occupantActions.RECEIVE_OCCUPANTS_OF_HOUSEHOLD, householdOccupantsArray);
+
+export const OccupantsActions = {
+    receiveOccupant,
+    receiveHouseholdOccupants,
+};
+
+export type OccupantsActions = ActionsUnion<typeof OccupantsActions>;

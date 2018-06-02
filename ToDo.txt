@@ -10,23 +10,14 @@ Build sets correct app config
 Possible improvements:
 Offline loading with service worker
 Server side rendering for instant load
-convert to typescript
-
+Hot Module Replacement and webpack 4.0
 
 V3 Bugs:
 Console error on logout
 
-type store, actions, login and register api calls
-tidy up method of styling - check styles and themes are correctly split
-replace react-addons-update - think we should use ... somehow (spread operator)- think I've done this? Cant get the fucker to build though...
-
-removed toolbar styles={styles} - check this has behaved
-
 make occupant objects named, used and interfaced consistently from firebase
 make app wide loading thing (steal from HouseFood)
 
-Fix passthrough auth with persist not behaving!
-
-Fix timeout handling! - set low for testing - firebase option?
-
 remove unneccessary isLoggedIn s from props that are mapped to (IReducers inheritance wrong here!)
+
+Find more  elegant api call method , redux-observable? 

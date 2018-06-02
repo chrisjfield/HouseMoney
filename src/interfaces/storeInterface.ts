@@ -1,17 +1,17 @@
-import { IOccupantProps } from '../components/Occupants/occupantsInterfaces';
-import { IErrorMessageProps } from '../components/ErrorMessage/interfaces';
-import { ILoadingProps } from '../components/Loading/loadingInterfaces';
-import { IBalanceProps } from '../components/Balance/balanceInterfaces';
-import { IAddTransactionProps } from '../components/AddTransaction/transactionsInterfaces';
-import { IViewTransactionsProps } from '../components/ViewTransactions/viewTransactionsInterfaces';
-import { IHouseSummaryProps } from '../components/HouseSummary/houseSummaryInterfaces';
+import { IAddTransactionStore } from '../components/AddTransaction/transactionsInterfaces';
+import { IBalanceStore } from '../components/Balance/balanceInterfaces';
+import { IErrorMessageStore } from '../components/ErrorMessage/errorMessageInterfaces';
+import { IHouseSummaryStore } from '../components/HouseSummary/houseSummaryInterfaces';
+import { ILoadingStore } from '../components/Loading/loadingInterfaces';
+import { IOccupantStore } from '../components/Occupants/occupantsInterfaces';
+import { IViewTransactionsStore } from '../components/ViewTransactions/viewTransactionsInterfaces';
 
 export interface IStore {
-    occupantsReducer: IOccupantProps;
-    errorMessageReducer: IErrorMessageProps;
-    loadingReducer: ILoadingProps;
-    balanceReducer: IBalanceProps;
-    transactionsReducer: IAddTransactionProps;
-    viewTransactionsReducer: IViewTransactionsProps;
-    houseSummaryReducer: IHouseSummaryProps;
+    occupantsReducer: IOccupantStore;
+    errorMessageReducer: IErrorMessageStore;
+    loadingReducer: ILoadingStore;
+    balanceReducer: IBalanceStore;
+    transactionsReducer: IAddTransactionStore;
+    viewTransactionsReducer: IViewTransactionsStore;
+    houseSummaryReducer: IHouseSummaryStore;
 }

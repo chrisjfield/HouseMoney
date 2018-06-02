@@ -1,14 +1,16 @@
-import { Action } from 'redux';
+import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 
-export enum loadingActions {
+const loadingStarted = () => createAction(loadingActionTypes.LOADING_STARTED);
+const loadingComplete = () => createAction(loadingActionTypes.LOADING_COMPLETED);
+
+export const LoadingActions = {
+    loadingStarted,
+    loadingComplete,
+};
+
+export enum loadingActionTypes {
     LOADING_STARTED = 'LOADING_STARTED',
     LOADING_COMPLETED = 'LOADING_COMPLETED',
 }
 
-export function loadingStarted(): Action {
-    return { type: loadingActions.LOADING_STARTED };
-}
-
-export function loadingComplete(): Action {
-    return { type: loadingActions.LOADING_COMPLETED };
-}
+export type LoadingActions = ActionsUnion<typeof LoadingActions>;
