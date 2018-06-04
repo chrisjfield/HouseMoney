@@ -72,7 +72,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     handleFormSubmit = (formSubmitEvent: React.FormEvent<HTMLFormElement>) => {
         formSubmitEvent.preventDefault();
         const me = this.props.loggedInOccupant;
-        const debtors = this.state.occupantsArray.filter(item => (item.checked === true));
+        const debtors = this.state.occupantsArray.filter(item => (item.checked));
         const transactionDetails = this.state.transactionDetails;
 
         if (debtors.filter(item => item.occupantId !== me.occupantId).length === 0) {
