@@ -5,4 +5,5 @@ export interface INavProps {
     dispatch: Dispatch<Action>;
     loggedInOccupant: IOccupant;
     isLoggedIn: boolean;
+    logout: Function;
 }

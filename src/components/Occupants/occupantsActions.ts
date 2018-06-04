@@ -12,6 +12,7 @@ import { LoadingActions } from '../Loading/loadingActions';
 import { ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
 
 export enum occupantActions {
+    LOGGED_OUT = 'LOGGED_OUT',
     RECEIVE_OCCUPANT = 'RECEIVE_OCCUPANT',
     RECEIVE_OCCUPANTS_OF_HOUSEHOLD = 'RECEIVE_OCCUPANTS_OF_HOUSEHOLD',
 }

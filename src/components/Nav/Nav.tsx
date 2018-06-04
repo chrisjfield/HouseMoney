@@ -7,14 +7,13 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
-import ViewIcon from '@material-ui/icons/pageview';
+import PageView from '@material-ui/icons/pageview';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as redux from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { store } from '../../main/configureStore';
 import { OccupantsActions, getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
 import { LogoutReason } from '../Occupants/occupantsInterfaces';
 import { INavProps } from './navInterfaces';
@@ -32,7 +31,8 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
                 <MenuItem>My Balance</MenuItem>
             </Link>
 
-            <a style={styles.menuItems} onClick={() => store.dispatch(logout())} href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}>
+            <a style={styles.menuItems} onClick={() => logout()}
+                href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}>
                 <MenuItem>Logout</MenuItem>
             </a>
         </div>
@@ -56,7 +56,7 @@ const LoggedInNavItems: React.StatelessComponent = () => {
             <Link style={styles.menuItems} to={houseMoneyRoutes.ViewTransactions}>
                 <Tooltip id="tooltip-icon" title="View Transactions">
                     <IconButton >
-                        <ViewIcon />
+                        <PageView />
                     </IconButton>
                 </Tooltip>
             </Link>

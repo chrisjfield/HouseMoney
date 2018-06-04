@@ -1,6 +1,5 @@
 import baseURL from '../appConfig';
 import { logout } from '../components/Occupants/occupantsActions';
-import { store } from '../main/configureStore';
 
 class APIHelper {
     static apiCall<T>(method: string, endpoint: string, token: string, urlParams?: string, body?: object): Promise<T> {
@@ -33,7 +32,7 @@ class APIHelper {
         } else if (response.ok) {
             ret = response.json();
         } else if (response.status === 401) {
-            store.dispatch(logout());
+            logout();
         } else {
             const error: Error = new Error(response.statusText);
             throw error;
