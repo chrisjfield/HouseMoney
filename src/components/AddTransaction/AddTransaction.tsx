@@ -10,12 +10,10 @@ import TextField from '@material-ui/core/TextField';
 import * as moment from 'moment';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as redux from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
-import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import UserChip from '../UserChip';
 import styles from './styles';
@@ -39,7 +37,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
     componentDidMount() {
         const occupant = this.props.loggedInOccupant;
-        this.props.dispatch(getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
+        this.props.dispatch(this.props.getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
     }
 
     componentWillReceiveProps(nextProps: IAddTransactionProps) {
@@ -88,7 +86,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 transactionDetails.reference,
             );
 
-            this.props.dispatch(TransactionActions.insertTransactions(me.token, me.userId, payday));
+            this.props.dispatch(this.props.insertTransactions(me.token, me.userId, payday));
         }
     }
 
@@ -232,7 +230,7 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-  redux.bindActionCreators(TransactionActions, dispatch);
+// const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
+//   redux.bindActionCreators(TransactionActions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddTransaction);
+export default connect(mapStateToProps)(AddTransaction);

@@ -2,9 +2,10 @@ import * as localForage from 'localforage';
 import { routerMiddleware } from 'react-router-redux';
 import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux';
 import logger from 'redux-logger';
+import { createEpicMiddleware } from 'redux-observable';
 import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
-import thunk from 'redux-thunk';
+import epics from './epics';
 import history from './history';
 import combinedReducers from './reducers';
 
@@ -18,11 +19,12 @@ const persistConfig: PersistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
+const epicMiddleware = createEpicMiddleware(epics);
 
 export const store: Store<{}> = createStore(
     persistedReducer,
     undefined,
-    compose(applyMiddleware(thunk, logger, rmiddleware)),
+    compose(applyMiddleware(epicMiddleware, logger, rmiddleware)),
 );
 
 export const persistor = persistStore(store);

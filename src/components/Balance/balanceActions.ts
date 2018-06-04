@@ -1,37 +1,28 @@
+import actionCreatorFactory from 'typescript-fsa';
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
-import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
-import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
-import { LoadingActions } from '../Loading/loadingActions';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { IBalance } from './balanceInterfaces';
 
+const actionCreator = actionCreatorFactory();
+
 export enum balanceActionTypes {
+    GET_BALANCE = 'GET_BALANCE',
     RECEIVE_BALANCE = 'RECEIVE_BALANCE',
 }
 
-function getBalance(token: string, userId: string, occupantId: number) {
+export function getBalanceRequest(token: string, userId: string, occupantId: number) {
     const request = apiHelper.apiCall<IBalance[]>(HTTPMethod.GET, endpoints.balance, token, userId + ',' + occupantId.toString());
-    return (dispatch: Function) => {
-        dispatch(LoadingActions.loadingStarted());
-        return request
-            .then((response: IBalance[]) => {
-                dispatch(receiveBalance(response));
-                dispatch(LoadingActions.loadingComplete());
-            })
-            .catch((error: Error) => {
-                dispatch(ErrorMessageActions.addError(error.message));
-                dispatch(LoadingActions.loadingComplete());
-                throw error;
-            });
-    };
+    return request;
 }
 
-const receiveBalance = (balanceArray: IBalance[]) => createAction(balanceActionTypes.RECEIVE_BALANCE, balanceArray);
+export const getBalance = actionCreator<{ occupant: IOccupant }>(balanceActionTypes.GET_BALANCE);
+export const receiveBalance = actionCreator<{ balanceArray: IBalance[] }>(balanceActionTypes.RECEIVE_BALANCE);
 
-export const BalanceActions = {
-    getBalance,
-    receiveBalance,
-};
+// export const BalanceActions = {
+//     getBalance,
+//     receiveBalance,
+// };
 
-export type BalanceActions = ActionsUnion<typeof BalanceActions>;
+// export type BalanceActions = ActionsUnion<typeof BalanceActions>;
