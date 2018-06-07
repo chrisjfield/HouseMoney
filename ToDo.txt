@@ -25,3 +25,5 @@ remove unneccessary isLoggedIn s from props that are mapped to (IReducers inheri
         ComponentReducer (want to infer type from actions!)
 
 Find more elegant api call method , redux-observable? 
+
+Finish https://webpack.js.org/guides/development/ and implement Hot Module Replacement and Tree Shaking! 
