@@ -12,6 +12,7 @@ import Routes from '../Routes';
 
 const App: React.StatelessComponent = () => {
     return (
+        <div> ED TESTING WEBPACK ?
         <Provider store={store}>
             <PersistGate loading={<Loading />} persistor={persistor}>
                 <ConnectedRouter history={history}>
@@ -25,6 +26,7 @@ const App: React.StatelessComponent = () => {
                 </ConnectedRouter>
             </PersistGate>
         </Provider>
+        </div>
     );
 };
 

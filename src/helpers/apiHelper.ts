@@ -1,8 +1,8 @@
 import baseURL from '../appConfig';
 import { logout } from '../components/Occupants/occupantsActions';
 
-class APIHelper {
-    static apiCall<T>(method: string, endpoint: string, token: string, urlParams?: string, body?: object): Promise<T> {
+abstract class APIHelper {
+    public static apiCall<T>(method: string, endpoint: string, token: string, urlParams?: string, body?: object): Promise<T> {
         const headers: Headers = new Headers();
         headers.append('Authorization', 'Bearer ' + token);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
@@ -25,7 +25,7 @@ class APIHelper {
         });
     }
 
-    static checkStatus(response: Response) {
+    private static checkStatus(response: Response) {
         let ret;
         if (response.ok && response.status === 204) {
             ret = response.ok;

@@ -4,10 +4,10 @@ import * as redux from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { Loading } from '../Loading';
-import { getHouseholdOccupants } from '../Occupants/occupantsActions';
+// import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { NoTransactionsFound } from '../ViewTransactions/NoTransactionsFound';
 import { HouseSummaryGrid } from './HouseSummaryGrid';
-import { HouseSummaryActions, getTransactionSummary } from './houseSummaryActions';
+import { HouseSummaryActions } from './houseSummaryActions'; // getTransactionSummary
 import { IHouseSummaryProps, IHouseSummaryStore } from './houseSummaryInterfaces';
 import houseSummaryStyles from './houseSummaryStyles';
 
@@ -17,9 +17,9 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
     }
 
     requestTransactionSummaryData() {
-        const me = this.props.loggedInOccupant;
-        this.props.dispatch(getHouseholdOccupants(me.token, me.userId, me.occupantId));
-        this.props.dispatch(getTransactionSummary(me.token, me.userId, me.occupantId));
+        // const me = this.props.loggedInOccupant;
+        // this.props.dispatch(getHouseholdOccupants(me.token, me.userId, me.occupantId));
+        // this.props.dispatch(getTransactionSummary(me.token, me.userId, me.occupantId));
     }
 
     render() {

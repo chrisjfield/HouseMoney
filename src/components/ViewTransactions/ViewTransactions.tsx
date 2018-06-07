@@ -5,7 +5,7 @@ import { IStore } from '../../interfaces/storeInterface';
 import { Loading } from '../Loading';
 import { NoTransactionsFound } from './NoTransactionsFound';
 import { ViewTransactionsGrid } from './ViewTransactionsGrid';
-import { getTransactionHistory } from './viewTransactionsActions';
+// import { getTransactionHistory } from './viewTransactionsActions';
 import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
 import styles from './viewTransactionsStyles';
 
@@ -18,8 +18,8 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     }
 
     requestTransactionHistory() {
-        const me = this.props.loggedInOccupant;
-        this.props.dispatch(getTransactionHistory(me.token, me.userId, me.occupantId, this.props.pageSize, this.state.pageNumber));
+        // const me = this.props.loggedInOccupant;
+        // this.props.dispatch(getTransactionHistory(me.token, me.userId, me.occupantId, this.props.pageSize, this.state.pageNumber));
     }
 
     componentDidMount() {

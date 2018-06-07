@@ -1,8 +1,8 @@
 import { combineEpics } from 'redux-observable';
-import { balanceEpic } from '../components/Balance/balanceEipc';
+// import { balanceEpic } from '../components/Balance/balanceEipc';
 
 const epics = combineEpics(
-    balanceEpic,
+   // balanceEpic,
 );
 
 export default epics;

@@ -3,7 +3,9 @@ import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { ILoadingProps } from '../Loading/loadingInterfaces';
 import { ILoggedInOccupant } from '../Occupants/occupantsInterfaces';
 
-export interface IBalanceProps extends IComponentProps, IBalanceStore { }
+export interface IBalanceProps extends IComponentProps, IBalanceStore {
+    getBalance: any;
+}
 
 export interface IBalanceStore extends IBalanceReducer, ILoggedInOccupant, ILoadingProps { }
 

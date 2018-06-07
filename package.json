@@ -32,17 +32,18 @@
     "redux-thunk": "2.3.0",
     "rxjs": "6.2.0",
     "typescript-fsa": "3.0.0-beta-2",
-    "webfontloader": "1.6.28",
-    "webpack": "^3.7.1"
+    "webfontloader": "1.6.28"
   },
   "scripts": {
-    "start": "set PORT=3001 && react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --open --port 3001",
+    "build": "webpack",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "deploy": "npm run build && cd ./build && rename index.html 200.html && surge -p ./ -d housemoney.surge.sh"
+    "deploy": "npm run build-prod && cd ./dist && rename index.html 200.html && surge -p ./ -d housemoney.surge.sh"
   },
   "devDependencies": {
+    "@types/extract-text-webpack-plugin": "^3.0.3",
+    "@types/html-webpack-plugin": "^2.30.3",
     "@types/jest": "21.1.10",
     "@types/localforage": "0.0.34",
     "@types/mathjs": "0.0.35",
@@ -60,7 +61,18 @@
     "@types/redux-thunk": "2.1.32",
     "@types/typescript": "2.0.0",
     "@types/webfontloader": "1.6.29",
+    "@types/webpack": "^4.4.0",
+    "awesome-typescript-loader": "^5.0.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.21.0",
     "tslint-config-airbnb": "5.9.2",
-    "typescript": "^2.9.1"
+    "typescript": "^2.9.1",
+    "webpack": "^4.11.1",
+    "webpack-cli": "^3.0.3",
+    "webpack-dev-server": "^3.1.4"
   }
 }
