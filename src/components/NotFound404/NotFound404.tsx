@@ -12,7 +12,6 @@ const NotFound404: React.StatelessComponent<INotFound404Props> = (props) => {
         <Button variant="outlined" href={myHouseUrl}>
           Link
         </Button>
-        <div> Testing HMR </div>
       </div>
     );
 };

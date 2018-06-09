@@ -57,10 +57,10 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            title: 'House Money',
+            template: path.resolve(path.join(__dirname, 'public/index.html')),
         }),
         new webpack.NamedModulesPlugin(),
-        // new webpack.HotModuleReplacementPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
     ],
     output: {
         filename: '[name].bundle.js',
