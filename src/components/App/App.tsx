@@ -1,7 +1,8 @@
 import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
+import { ConnectedRouter } from 'connected-react-router';
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from '../../main/configureStore';
 import history from '../../main/history';
@@ -28,4 +29,4 @@ const App: React.StatelessComponent = () => {
     );
 };
 
-export default App;
+export default hot(module)(App);
