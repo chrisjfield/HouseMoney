@@ -1,5 +1,5 @@
-import Button from '@material-ui/core/Button';
-import * as React from 'react';
+import Button from '@material-ui/core/Button/Button';
+import React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
 import { Loading } from '../Loading';
@@ -7,7 +7,6 @@ import { NoTransactionsFound } from './NoTransactionsFound';
 import { ViewTransactionsGrid } from './ViewTransactionsGrid';
 // import { getTransactionHistory } from './viewTransactionsActions';
 import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
-import styles from './viewTransactionsStyles';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
@@ -68,11 +67,12 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
         return result;
     }
 
+    // TODO: replace style={styles.container} on divs
     render() {
         return (
-            <div style={styles.container}>
+            <div >
                 <h2>My Transactions</h2>
-                <div id="viewTransactionsTableContainer" style={styles.container}>
+                <div id="viewTransactionsTableContainer" >
                     <div className="row">
                         <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
                             <div id="viewTransactionsGrid" className="grid" />

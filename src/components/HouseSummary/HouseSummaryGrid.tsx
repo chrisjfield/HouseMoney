@@ -1,18 +1,18 @@
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import Table from '@material-ui/core/Table/Table';
+import TableBody from '@material-ui/core/TableBody/TableBody';
+import TableCell from '@material-ui/core/TableCell/TableCell';
+import TableHead from '@material-ui/core/TableHead/TableHead';
+import TableRow from '@material-ui/core/TableRow/TableRow';
 import * as mathJs from 'mathjs';
-import * as React from 'react';
+import React from 'react';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { IHouseSummaryProps, IHouseSummaryRow, ITransactionSummary } from './houseSummaryInterfaces';
-import houseSummaryStyles from './houseSummaryStyles';
+// import houseSummaryStyles from './houseSummaryStyles';
 
 export const HouseSummaryGrid: React.StatelessComponent<IHouseSummaryProps> = (props: IHouseSummaryProps) => {
     const dataGrid = (
     <Table
-      style={houseSummaryStyles.grid}
+      // style={houseSummaryStyles.grid}
       // TODO: figure out if this is important! bodyStyle={{ overflow: 'visible' }}
     >
       <TableHead>
@@ -48,7 +48,7 @@ const HouseSummaryColumn: React.StatelessComponent<IOccupant> = (householdOccupa
     const column = (
         <TableCell
           key={'Column' + householdOccupant.displayName}
-          style={houseSummaryStyles.gridHeader}
+          // style={houseSummaryStyles.gridHeader}
           // TODO: How to tooltip={'The name of the person who owes the amount shown in this column'}
         >
           {householdOccupant.displayName ? householdOccupant.displayName + ' owes' : null}
@@ -66,7 +66,9 @@ const HouseSummaryRow: React.StatelessComponent<IHouseSummaryRow> = (props) => {
         <HouseSummaryRowData {...transactionSummary} />);
     const row = (
       <TableRow key={'Row' + props.householdOccupant.occupantId}>
-        <TableCell key={'RowColumn' + props.householdOccupant.occupantId} style={houseSummaryStyles.gridHeader}>
+        <TableCell key={'RowColumn' + props.householdOccupant.occupantId}
+        // style={houseSummaryStyles.gridHeader}
+        >
           {props.householdOccupant.displayName}
         </TableCell>
         {houseSummaryRowData}
@@ -80,7 +82,7 @@ const HouseSummaryRowData: React.StatelessComponent<ITransactionSummary> = (tran
     const rowData = (
       <TableCell
         key={'Data' + transactionSummary.creditorOccupantId}
-        style={houseSummaryStyles.gridDetail}
+        // style={houseSummaryStyles.gridDetail}
       >
         {Number(mathJs.round(transactionSummary.gross, 2)).toFixed(2)}
       </TableCell>

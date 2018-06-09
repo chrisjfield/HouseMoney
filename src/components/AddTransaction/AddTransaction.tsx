@@ -1,22 +1,20 @@
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Paper from '@material-ui/core/Paper';
-import Snackbar from '@material-ui/core/Snackbar';
-import TextField from '@material-ui/core/TextField';
-import * as moment from 'moment';
-import * as React from 'react';
+import Button from '@material-ui/core/Button/Button';
+import Checkbox from '@material-ui/core/Checkbox/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
+import List from '@material-ui/core/List/List';
+import ListItem from '@material-ui/core/ListItem/ListItem';
+import Paper from '@material-ui/core/Paper/Paper';
+import Snackbar from '@material-ui/core/Snackbar/Snackbar';
+import TextField from '@material-ui/core/TextField/TextField';
+import moment from 'moment';
+import React from 'react';
 import { connect } from 'react-redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { Loading } from '../Loading';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
-import UserChip from '../UserChip';
-import styles from './styles';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
 import { TransactionActions } from './transactionsActions';
 // tslint:disable-next-line:max-line-length
@@ -101,15 +99,16 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         <Checkbox
                             key={'Checkbox_' + occupant.occupantId}
                             checked={occupant.checked}
-                            style={styles.checkbox}
+                            // style={styles.checkbox}
                             onChange={this.updateCheck.bind(this, occupant.occupantId)}
                             disabled={this.state.transactionAdding}
                         />}
-                    label={
-                        <UserChip
-                            occupant={occupant}
-                            styles={styles.occupantChip}
-                        />}
+                        label={'yo'}
+                    // label={ TODO: this right
+                    //     <UserChip
+                    //         props={{occupant}}
+                    //         // styles={styles.occupantChip}
+                    //     />}
                 />
             </ListItem>
         );
@@ -146,14 +145,16 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 <h3> Divided between: </h3>
                 <div>
                     <List>
-                        <Paper style={styles.checkBoxListSheet}>
+                        <Paper
+                        // style={styles.checkBoxListSheet}
+                        >
                             <ListItem key={'ListItem_checkAll'} onClick={this.updateCheckAll}>
                             <FormControlLabel
                                 control={<Checkbox
                                     key="checkAll"
                                     checked={this.state.allChecked}
                                     onChange={this.updateCheckAll}
-                                    style={styles.checkAll}
+                                    // style={styles.checkAll}
                                 />}
                                 label={'Everyone'}
                             />
@@ -161,7 +162,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                             {this.props.loading === 0 ? (
                                 this.createCheckboxList()
                             ) : (
-                                    <CircularProgress />
+                                    <Loading />
                                 )}
                         </Paper>
                     </List>

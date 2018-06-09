@@ -1,4 +1,4 @@
-const styles: React.CSSProperties = {
+const styles: any = { // TODO: type
     balanceSheet: {
         width: '350px',
         textAlign: 'center',

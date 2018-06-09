@@ -1,5 +1,5 @@
-import Button from '@material-ui/core/Button';
-import * as React from 'react';
+import Button from '@material-ui/core/Button/Button';
+import React from 'react';
 import { myHouseUrl } from '../../appConfig';
 import { INotFound404Props } from './notFound404Interfaces';
 
@@ -12,6 +12,7 @@ const NotFound404: React.StatelessComponent<INotFound404Props> = (props) => {
         <Button variant="outlined" href={myHouseUrl}>
           Link
         </Button>
+        <div> Testing HMR </div>
       </div>
     );
 };

@@ -1,5 +1,5 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
-import * as React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -12,7 +12,6 @@ import Routes from '../Routes';
 
 const App: React.StatelessComponent = () => {
     return (
-        <div> ED TESTING WEBPACK ?
         <Provider store={store}>
             <PersistGate loading={<Loading />} persistor={persistor}>
                 <ConnectedRouter history={history}>
@@ -26,7 +25,6 @@ const App: React.StatelessComponent = () => {
                 </ConnectedRouter>
             </PersistGate>
         </Provider>
-        </div>
     );
 };
 

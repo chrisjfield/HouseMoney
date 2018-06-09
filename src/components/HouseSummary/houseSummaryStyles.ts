@@ -1,6 +1,6 @@
 import { customTheme, theme } from '../../themes';
 
-const styles: React.CSSProperties = {
+const styles: any = { // TODO: Type this
     container: {
         textAlign: 'center',
         marginTop: '20px',

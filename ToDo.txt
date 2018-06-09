@@ -26,4 +26,7 @@ remove unneccessary isLoggedIn s from props that are mapped to (IReducers inheri
 
 Find more elegant api call method , redux-observable? 
 
-Finish https://webpack.js.org/guides/development/ and implement Hot Module Replacement and Tree Shaking! 
+Finish https://webpack.js.org/guides/development/ and implement Hot Module Replacement 
+see https://github.com/gaearon/react-hot-loader/blob/master/examples/typescript 
+
+further optimise bundle size 

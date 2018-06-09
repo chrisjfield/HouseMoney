@@ -1,5 +1,5 @@
-import Snackbar from '@material-ui/core/Snackbar';
-import * as React from 'react';
+import Snackbar from '@material-ui/core/Snackbar/Snackbar';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as redux from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
@@ -19,16 +19,15 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
     }
 
     buildErrors = () => {
-        const errorMessage: JSX.Element = (
-                <Snackbar
-                    open={this.state.errorMessageText ? true : false}
-                    message={<span id="negative-message-id">{this.state.errorMessageText}</span>}
-                    autoHideDuration={4000}
-                    onClose={this.handleClose}
-                />
-                // TODO: Replace styling on this!
+        return (
+            <Snackbar
+                open={this.state.errorMessageText ? true : false}
+                message={<span id="negative-message-id">{this.state.errorMessageText}</span>}
+                autoHideDuration={4000}
+                onClose={this.handleClose}
+            />
+            // TODO: Replace styling on this!
         );
-        return errorMessage;
     }
 
     handleClose = () => {
@@ -39,17 +38,17 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
     render() {
         return (
             <div>
-                {this.state.errorMessageText ? this.buildErrors() : <div/>}
+                {this.state.errorMessageText ? this.buildErrors() : <div />}
             </div>
         );
     }
 }
 
-const mapStateToProps = (store: IStore) : IErrorMessageState => {
+const mapStateToProps = (store: IStore): IErrorMessageState => {
     return { errorMessageText: store.errorMessageReducer.errorMessageText };
 };
 
 const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-  redux.bindActionCreators(ErrorMessageActions, dispatch);
+    redux.bindActionCreators(ErrorMessageActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorMessage);

@@ -1,5 +1,5 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
-import * as React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
+import React from 'react';
 import styles from '../../styles';
 
 const Loading: React.StatelessComponent = () => {
