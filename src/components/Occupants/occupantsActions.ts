@@ -10,8 +10,9 @@ import { store } from '../../main/configureStore';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../Loading/loadingActions';
 import { ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
+import actionCreatorFactory from 'typescript-fsa';
 
-export enum occupantActions {
+export enum occupantActionsTypes {
     LOGGED_OUT = 'LOGGED_OUT',
     RECEIVE_OCCUPANT = 'RECEIVE_OCCUPANT',
     RECEIVE_OCCUPANTS_OF_HOUSEHOLD = 'RECEIVE_OCCUPANTS_OF_HOUSEHOLD',
@@ -57,21 +58,16 @@ export function getHouseholdOccupants(token: string, userId: string, occupantId:
 }
 
 export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {
-    const logoutDetails : ILogoutDetails = {
+    const logoutDetails: ILogoutDetails = {
         logoutReason,
     };
     return myHouseUrl + 'Logout?' + queryString.stringify(logoutDetails);
 }
 
-const receiveOccupant = (occupant: IOccupant, isLoggedIn: boolean) =>
-    createAction(occupantActions.RECEIVE_OCCUPANT, { occupant, isLoggedIn });
+const occupantsActionsCreator = actionCreatorFactory();
 
-const receiveHouseholdOccupants = (householdOccupantsArray: IOccupant[]) =>
-    createAction(occupantActions.RECEIVE_OCCUPANTS_OF_HOUSEHOLD, householdOccupantsArray);
+export const receiveOccupant =
+    occupantsActionsCreator<{occupant: IOccupant, isLoggedIn: boolean}>(occupantActionsTypes.RECEIVE_OCCUPANT);
 
-export const OccupantsActions = {
-    receiveOccupant,
-    receiveHouseholdOccupants,
-};
-
-export type OccupantsActions = ActionsUnion<typeof OccupantsActions>;
+export const receiveHouseholdOccupants =
+    occupantsActionsCreator<{householdOccupantsArray: IOccupant[]}>(occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD);

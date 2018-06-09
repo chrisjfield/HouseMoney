@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import * as redux from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { OccupantsActions, getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
+import { receiveOccupant, getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
 import { LogoutReason } from '../Occupants/occupantsInterfaces';
 import { INavProps } from './navInterfaces';
 
@@ -102,6 +102,6 @@ const mapStateToProps = (store: IStore) => {
 };
 
 const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-    redux.bindActionCreators(OccupantsActions, dispatch);
+    redux.bindActionCreators(receiveOccupant, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);

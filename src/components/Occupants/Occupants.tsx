@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router';
 import * as redux from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { OccupantsActions, getLogoutUrlWithDetails } from './occupantsActions';
+import { receiveOccupant, getLogoutUrlWithDetails } from './occupantsActions';
 import { IOccupant, IOccupantProps, LogoutReason } from './occupantsInterfaces';
 
 class Occupants extends React.Component<IOccupantProps> {
@@ -69,6 +69,6 @@ function mapStateToProps(store: IStore, ownProps: RouteComponentProps<string>) {
 }
 
 const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-    redux.bindActionCreators(OccupantsActions, dispatch);
+    redux.bindActionCreators(receiveOccupant, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Occupants);
