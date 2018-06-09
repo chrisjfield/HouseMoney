@@ -26,7 +26,7 @@ class Occupants extends React.Component<IOccupantProps> {
                 const occupant: IOccupant = parseOccupant(this.props.location.search);
 
                 if (occupantIsValid(occupant, true)) {
-                    // this.props.dispatch(this.props.receiveOccupant(occupant, true));
+                    this.props.dispatch(this.props.receiveOccupant(occupant, true));
                     this.props.history.push(houseMoneyRoutes.Balance);
                 } else {
                     this.redirectToMyHouse();

@@ -1,6 +1,7 @@
 import { RouteComponentProps } from 'react-router';
 import { Action } from 'redux';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
+import { OccupantsActions } from './occupantsActions';
 
 export interface IOccupant {
     occupantId: number;
@@ -19,7 +20,9 @@ export interface IReceiveOccupantAction extends Action, ILoggedInOccupant { }
 
 export interface IReceiveHouseholdOccupantsAction extends Action, IHouseholdOccupants { }
 
-export interface IOccupantProps extends IOccupantStore, IConnectedComponentProps, RouteComponentProps<string> { }
+export interface IOccupantProps extends IOccupantStore, IConnectedComponentProps, RouteComponentProps<string>, IOccupantActions { }
+
+interface IOccupantActions extends OccupantsActions { }
 
 export interface IOccupantStore extends IHouseholdOccupants, ILoggedInOccupant { }
 

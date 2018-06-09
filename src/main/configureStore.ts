@@ -6,6 +6,7 @@ import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import history from './history';
 import combinedReducers from './reducers';
+import thunk from 'redux-thunk';
 
 const rmiddleware: Middleware = routerMiddleware(history);
 
@@ -17,12 +18,11 @@ const persistConfig: PersistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
-// const epicMiddleware = createEpicMiddleware(epics);
 
 export const store: Store<{}> = createStore(
     persistedReducer,
     undefined,
-    compose(applyMiddleware(logger, rmiddleware)),
+    compose(applyMiddleware(thunk, logger, rmiddleware)),
 );
 
 export const persistor = persistStore(store);
