@@ -1,5 +1,5 @@
 import Button from '@material-ui/core/Button/Button';
-import React from 'react';
+import * as React from 'react';
 import { myHouseUrl } from '../../appConfig';
 import { INotFound404Props } from './notFound404Interfaces';
 

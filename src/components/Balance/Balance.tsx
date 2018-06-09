@@ -1,5 +1,5 @@
 import Paper from '@material-ui/core/Paper/Paper';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';

@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell/TableCell';
 import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
 import * as mathJs from 'mathjs';
-import React from 'react';
+import * as React from 'react';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { IHouseSummaryProps, IHouseSummaryRow, ITransactionSummary } from './houseSummaryInterfaces';
 // import houseSummaryStyles from './houseSummaryStyles';

@@ -19,7 +19,6 @@
     "query-string": "5.1.0",
     "react": "^16.4.0",
     "react-dom": "16.4.0",
-    "react-hot-loader": "^4.3.0",
     "react-redux": "5.0.7",
     "react-router": "^4.2.0",
     "react-router-dom": "4.2.2",
@@ -36,7 +35,7 @@
   },
   "scripts": {
     "eject": "react-scripts-ts eject",
-    "start": "react-scripts-ts start",
+    "start": "set PORT=3001 && react-scripts-ts start ",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "watch": "react-scripts-ts watch",

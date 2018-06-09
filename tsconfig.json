@@ -1,16 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist",
+    "outDir": "build/dist",
     "module": "esnext",
-    "target": "es6",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "target": "es5",
+    "lib": ["es6", "dom"],
     "sourceMap": true,
     "allowJs": false,
-    "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src",
@@ -20,10 +16,7 @@
     "noImplicitAny": true,
     "strictNullChecks": false,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "noUnusedLocals": true
   },
   "exclude": [
     "node_modules",

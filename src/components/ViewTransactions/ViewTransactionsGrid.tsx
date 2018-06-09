@@ -4,8 +4,8 @@ import TableCell from '@material-ui/core/TableCell/TableCell';
 import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableRow from '@material-ui/core/TableRow/TableRow';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
-import moment from 'moment';
-import React from 'react';
+import * as moment from 'moment';
+import * as React from 'react';
 import { ITransactionHistory, IViewTransactionGridProps, IViewTransactionGridRowProps } from './viewTransactionsInterfaces';
 
 export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGridProps> = (props) => {

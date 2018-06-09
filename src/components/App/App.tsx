@@ -1,7 +1,6 @@
 import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
 import { ConnectedRouter } from 'connected-react-router';
-import React from 'react';
-import { hot } from 'react-hot-loader';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from '../../main/configureStore';
@@ -18,7 +17,7 @@ const App: React.StatelessComponent = () => {
                 <ConnectedRouter history={history}>
                     <CssBaseline >
                         <div id="component-container">
-                            <Nav dispatch={store.dispatch} />
+                            <Nav dispatch={store.dispatch}/>
                             <Routes />
                             <ErrorMessage dispatch={store.dispatch} />
                         </div>
@@ -29,4 +28,4 @@ const App: React.StatelessComponent = () => {
     );
 };
 
-export default hot(module)(App);
+export default App;

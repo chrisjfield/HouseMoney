@@ -3,7 +3,7 @@ import { IReceiveTransactionAction, ITransactionReducer } from './transactionsIn
 
 function transactionReducer(
     state: ITransactionReducer = {
-        transactionsAdded: null,
+        transactionsAdded: false,
     },
     action: IReceiveTransactionAction,
 ): ITransactionReducer {

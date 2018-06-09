@@ -1,5 +1,5 @@
+import { routerMiddleware } from 'connected-react-router';
 import * as localForage from 'localforage';
-import { routerMiddleware } from 'react-router-redux';
 import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux';
 import logger from 'redux-logger';
 import { PersistConfig, persistReducer, persistStore } from 'redux-persist';

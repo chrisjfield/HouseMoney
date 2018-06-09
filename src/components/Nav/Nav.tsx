@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import Typography from '@material-ui/core/Typography/Typography';
 import { Add, Home, Pageview } from '@material-ui/icons';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as redux from 'redux';
