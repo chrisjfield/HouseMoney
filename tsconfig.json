@@ -33,6 +33,5 @@
     "webpack",
     "jest",
     "src/setupTests.ts",
-    "webpack.config.ts",
   ]
 }
