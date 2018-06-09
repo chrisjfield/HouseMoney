@@ -1,4 +1,5 @@
 import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { ConnectedRouter } from 'connected-react-router';
 import * as React from 'react';
 import { Provider } from 'react-redux';
@@ -9,6 +10,7 @@ import ErrorMessage from '../ErrorMessage';
 import { Loading } from '../Loading';
 import Nav from '../Nav';
 import Routes from '../Routes';
+import appTheme from '../../themes';
 
 const App: React.StatelessComponent = () => {
     return (
@@ -16,11 +18,11 @@ const App: React.StatelessComponent = () => {
             <PersistGate loading={<Loading />} persistor={persistor}>
                 <ConnectedRouter history={history}>
                     <CssBaseline >
-                        <div id="component-container">
-                            <Nav dispatch={store.dispatch}/>
+                        <MuiThemeProvider theme={appTheme}>
+                            <Nav dispatch={store.dispatch} />
                             <Routes />
                             <ErrorMessage dispatch={store.dispatch} />
-                        </div>
+                        </MuiThemeProvider>
                     </CssBaseline >
                 </ConnectedRouter>
             </PersistGate>

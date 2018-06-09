@@ -5,6 +5,7 @@ import { Theme, createMuiTheme } from '@material-ui/core/styles';
 
 const appTheme: Theme = createMuiTheme({
     palette: {
+        type: 'dark',
         primary: {
             light: blue[700],
             main: blue[800],
@@ -30,9 +31,19 @@ const appTheme: Theme = createMuiTheme({
             hint: grey[400],
         },
         background: {
-            default: grey[900],
-            paper: grey[800],
+            default: '#1b1a1a',
+            paper: grey[900],
         },
+    },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+        ].join(','),
     },
 });
 

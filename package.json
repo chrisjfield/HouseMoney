@@ -31,8 +31,7 @@
     "redux-promise-middleware": "5.1.1",
     "redux-thunk": "2.3.0",
     "rxjs": "6.2.0",
-    "typescript-fsa": "3.0.0-beta-2",
-    "webfontloader": "^1.6.28"
+    "typescript-fsa": "3.0.0-beta-2"
   },
   "scripts": {
     "eject": "react-scripts-ts eject",
@@ -63,6 +62,6 @@
     "@types/webfontloader": "1.6.29",
     "@types/webpack": "^4.4.0",
     "tslint-config-airbnb": "5.9.2",
-    "typescript": "^3.0.0-dev.20180608"
+    "typescript": "^2.9.1"
   }
 }
