@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "build/dist",
+    "outDir": "dist",
     "module": "esnext",
     "target": "es6",
     "lib": [
@@ -32,6 +32,6 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts",
+    "src/setupTests.ts"
   ]
 }
