@@ -2,7 +2,7 @@ import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
-import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { addError } from '../ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../Loading/loadingActions';
 import { ITransaction } from './transactionsInterfaces';
 
@@ -23,7 +23,7 @@ export function insertTransactions(token: string, userId: string, transactionArr
                 dispatch(LoadingActions.loadingComplete());
             })
             .catch((error: Error) => {
-                dispatch(ErrorMessageActions.addError(error.message));
+                dispatch(addError(error.message));
                 dispatch(LoadingActions.loadingComplete());
                 throw error;
             });

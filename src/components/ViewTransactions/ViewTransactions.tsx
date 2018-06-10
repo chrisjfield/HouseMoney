@@ -85,11 +85,9 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     }
 }
 
-// Retrieve data from store as props
 const mapStateToProps = (store: IStore) => {
     const props: IViewTransactionsStore = {
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
-        isLoggedIn: store.occupantsReducer.isLoggedIn,
         loading: store.loadingReducer.loading,
         transactionHistoryArray: store.viewTransactionsReducer.transactionHistoryArray,
         pageSize: 10,

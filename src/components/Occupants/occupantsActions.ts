@@ -6,7 +6,7 @@ import { HTTPMethod } from '../../enums/httpEnum';
 import apiHelper from '../../helpers/apiHelper';
 import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
 import { store } from '../../main/configureStore';
-import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { addError } from '../ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../Loading/loadingActions';
 import { ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
 import { createAction } from '../../helpers/actionCreator';
@@ -49,7 +49,7 @@ export function getHouseholdOccupants(token: string, userId: string, occupantId:
                 dispatch(LoadingActions.loadingComplete());
             })
             .catch((error: Error) => {
-                dispatch(ErrorMessageActions.addError(error.message));
+                dispatch(addError(error.message));
                 dispatch(LoadingActions.loadingComplete());
                 throw error;
             });

@@ -1,8 +1,8 @@
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
-import { ActionsUnion, createAction } from '../../helpers/actionCreator';
+import { createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
-import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { addError } from '../ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../Loading/loadingActions';
 import { ITransactionSummary } from './houseSummaryInterfaces';
 
@@ -18,7 +18,7 @@ export function getTransactionSummary(token: string, userId: string, occupantId:
                 dispatch(LoadingActions.loadingComplete());
             })
             .catch((error: Error) => {
-                dispatch(ErrorMessageActions.addError(error.message));
+                dispatch(addError(error.message));
                 dispatch(LoadingActions.loadingComplete());
                 throw error;
             });
@@ -28,10 +28,6 @@ export function getTransactionSummary(token: string, userId: string, occupantId:
 const receiveTransactionSummary = (transactionSummaryArray: ITransactionSummary[]) =>
     createAction(houseSummaryActionTypes.GET_TRANSACTION_SUMMARY, transactionSummaryArray);
 
-export const HouseSummaryActions = { receiveTransactionSummary };
-
 export enum houseSummaryActionTypes {
     GET_TRANSACTION_SUMMARY = 'GET_TRANSACTION_SUMMARY',
 }
-
-export type HouseSummaryActions = ActionsUnion<typeof HouseSummaryActions>;

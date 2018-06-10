@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
-import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { addError } from '../ErrorMessage/errorMessageActions';
 import { Loading } from '../Loading';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
@@ -37,7 +37,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     componentDidMount() {
         const occupant = this.props.loggedInOccupant;
         this.props.dispatch(getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
-        // TODO: Think about this typerrr
+        // TODO: Think about this typerrr - maybe should split concepts of API calls and actions?
+        // OR maybe should send an action with a payload that sets the api call params?
     }
 
     componentWillReceiveProps(nextProps: IAddTransactionProps) {
@@ -74,7 +75,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         const transactionDetails = this.state.transactionDetails;
 
         if (debtors.filter(item => item.occupantId !== me.occupantId).length === 0) {
-            this.props.dispatch(ErrorMessageActions.addError('Please add others to divide between'));
+            this.props.dispatch(addError('Please add others to divide between'));
         } else {
             const dividedGross = divideValueBetweenDebtors(transactionDetails.gross, debtors.length);
             const dateISO: Date = moment(transactionDetails.date).toDate();

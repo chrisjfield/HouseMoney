@@ -1,9 +1,10 @@
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import apiHelper from '../../helpers/apiHelper';
-import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
+import { addError } from '../ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../Loading/loadingActions';
-import { IReceiveTransactionHistoryAction, ITransactionHistory } from './viewTransactionsInterfaces';
+import { ITransactionHistory } from './viewTransactionsInterfaces';
+import { createAction } from '../../helpers/actionCreator';
 
 export enum viewTransactionsActions {
     GET_TRANSACTION_HISTORY = 'GET_TRANSACTION_HISTORY',
@@ -21,16 +22,12 @@ export function getTransactionHistory(token: string, userId: string, occupantId:
                 dispatch(LoadingActions.loadingComplete());
             })
             .catch((error: Error) => {
-                dispatch(ErrorMessageActions.addError(error.message));
+                dispatch(addError(error.message));
                 dispatch(LoadingActions.loadingComplete());
                 throw error;
             });
     };
 }
 
-export function receiveTransactionHistory(transactionHistoryArray: ITransactionHistory[]): IReceiveTransactionHistoryAction {
-    return {
-        transactionHistoryArray,
-        type: viewTransactionsActions.GET_TRANSACTION_HISTORY,
-    };
-}
+const receiveTransactionHistory = (transactionHistoryArray: ITransactionHistory[]) =>
+    createAction(viewTransactionsActions.GET_TRANSACTION_HISTORY, transactionHistoryArray);

@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as redux from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { Loading } from '../Loading';
 // import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { NoTransactionsFound } from '../ViewTransactions/NoTransactionsFound';
 import { HouseSummaryGrid } from './HouseSummaryGrid';
-import { HouseSummaryActions } from './houseSummaryActions'; // getTransactionSummary
 import { IHouseSummaryProps, IHouseSummaryStore } from './houseSummaryInterfaces';
 
 class HouseSummary extends React.Component<IHouseSummaryProps> {
@@ -48,14 +46,10 @@ const mapStateToProps = (store: IStore) => {
     const props: IHouseSummaryStore = {
         loading: store.loadingReducer.loading,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
-        isLoggedIn: store.occupantsReducer.isLoggedIn, // TODO: Remove isLoggedIn from components that don't need it!
         transactionSummaryArray: store.houseSummaryReducer.transactionSummaryArray,
         householdOccupantsArray: store.occupantsReducer.householdOccupantsArray,
     };
     return props;
 };
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-  redux.bindActionCreators(HouseSummaryActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(HouseSummary);
+export default connect(mapStateToProps)(HouseSummary);

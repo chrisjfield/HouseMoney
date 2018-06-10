@@ -37,7 +37,6 @@ const mapStateToProps = (store: IStore) => {
     const props: IBalanceStore =
         {
             loggedInOccupant: store.occupantsReducer.loggedInOccupant,
-            isLoggedIn: store.occupantsReducer.isLoggedIn,
             loading: store.loadingReducer.loading,
             balanceArray: store.balanceReducer.balanceArray,
         };
