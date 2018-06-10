@@ -9,7 +9,7 @@ import { store } from '../../main/configureStore';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../Loading/loadingActions';
 import { ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
-import { action } from 'typesafe-actions';
+import { createAction } from '../../helpers/actionCreator';
 
 export enum occupantActionsTypes {
     LOGGED_OUT = 'LOGGED_OUT',
@@ -64,7 +64,7 @@ export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {
 }
 
 export const receiveOccupant = (occupant: IOccupant, isLoggedIn: boolean) =>
-    action(occupantActionsTypes.RECEIVE_OCCUPANT, { occupant, isLoggedIn });
+    createAction(occupantActionsTypes.RECEIVE_OCCUPANT, { occupant, isLoggedIn });
 
 export const receiveHouseholdOccupants = (householdOccupantsArray: IOccupant[]) =>
-    action(occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD, householdOccupantsArray);
+    createAction(occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD, householdOccupantsArray);

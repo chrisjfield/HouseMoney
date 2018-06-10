@@ -1,6 +1,6 @@
-import { IOccupantStore, OccupantsActions } from './occupantsInterfaces';
-import { getType } from 'typesafe-actions';
-import * as occupantsActions from './occupantsActions';
+import { IOccupantStore } from './occupantsInterfaces';
+import { ActionWithPayload } from '../../helpers/actionCreator';
+import { occupantActionsTypes } from './occupantsActions';
 
 function occuapntsReducer(
     state: IOccupantStore = {
@@ -14,11 +14,11 @@ function occuapntsReducer(
         },
         householdOccupantsArray: [],
     },
-    action: OccupantsActions,
+    action: ActionWithPayload<string, IOccupantStore>,
 ) {
-    let nextState;
+    let nextState: IOccupantStore;
     switch (action.type) {
-    case getType(occupantsActions.receiveOccupant):
+    case occupantActionsTypes.RECEIVE_OCCUPANT:
         nextState = {
             ...state,
             isLoggedIn: action.payload.isLoggedIn,
@@ -28,7 +28,7 @@ function occuapntsReducer(
     case occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD:
         nextState = {
             ...state,
-            householdOccupantsArray: action.householdOccupantsArray,
+            householdOccupantsArray: action.payload.householdOccupantsArray,
         };
         break;
     default:

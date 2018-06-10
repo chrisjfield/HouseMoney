@@ -1,8 +1,6 @@
 import { RouteComponentProps } from 'react-router';
 import { Action } from 'redux';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
-import { ActionType } from 'typesafe-actions';
-import * as occupantsActions from './occupantsActions';
 
 export interface IOccupant {
     occupantId: number;
@@ -16,8 +14,6 @@ export interface ILoggedInOccupant {
     loggedInOccupant: IOccupant;
     isLoggedIn: boolean;
 }
-
-export type OccupantsActions = ActionType<typeof occupantsActions>;
 
 export interface IReceiveOccupantAction extends Action, ILoggedInOccupant { }
 
