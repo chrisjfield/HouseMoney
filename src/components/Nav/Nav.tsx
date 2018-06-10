@@ -9,10 +9,9 @@ import { Add, Home, Pageview } from '@material-ui/icons';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as redux from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { receiveOccupant, getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
+import { getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
 import { LogoutReason } from '../Occupants/occupantsInterfaces';
 import { INavProps } from './navInterfaces';
 
@@ -21,18 +20,18 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
     return (
         <div>
             <Link // style={styles.menuItems}
-             to={houseMoneyRoutes.HouseSummary}>
+                to={houseMoneyRoutes.HouseSummary}>
                 <MenuItem>House Summary</MenuItem>
             </Link>
 
             <Link // style={styles.menuItems}
-             to={houseMoneyRoutes.Balance}>
+                to={houseMoneyRoutes.Balance}>
                 <MenuItem>My Balance</MenuItem>
             </Link>
 
             <a
-            // style={styles.menuItems}
-            onClick={() => logout()}
+                // style={styles.menuItems}
+                onClick={() => logout()}
                 href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}>
                 <MenuItem>Logout</MenuItem>
             </a>
@@ -48,7 +47,7 @@ const LoggedInNavItems: React.StatelessComponent = () => {
             open={true} // TODO: Add stateful handler here
         >
             <Link // style={styles.menuItems}
-             to={houseMoneyRoutes.AddTransaction}>
+                to={houseMoneyRoutes.AddTransaction}>
                 <Tooltip id="tooltip-icon" title="Add Transaction">
                     <IconButton>
                         <Add />
@@ -56,7 +55,7 @@ const LoggedInNavItems: React.StatelessComponent = () => {
                 </Tooltip>
             </Link>
             <Link // style={styles.menuItems}
-            to={houseMoneyRoutes.ViewTransactions}>
+                to={houseMoneyRoutes.ViewTransactions}>
                 <Tooltip id="tooltip-icon" title="View Transactions">
                     <IconButton >
                         <Pageview />
@@ -101,7 +100,4 @@ const mapStateToProps = (store: IStore) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-    redux.bindActionCreators(receiveOccupant, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(mapStateToProps)(Nav);

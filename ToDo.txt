@@ -31,4 +31,4 @@ see https://github.com/gaearon/react-hot-loader/blob/master/examples/typescript
 
 further optimise bundle size 
 
-switch from typescript-fsa to typesafe-actions lib! 
+switch from typescript-fsa to typesafe-actions lib!  => Look at reducer types!! 

@@ -1,6 +1,6 @@
-import { Action } from 'redux';
-import { occupantActionsTypes } from './occupantsActions';
-import { IOccupantStore } from './occupantsInterfaces';
+import { IOccupantStore, OccupantsActions } from './occupantsInterfaces';
+import { getType } from 'typesafe-actions';
+import * as occupantsActions from './occupantsActions';
 
 function occuapntsReducer(
     state: IOccupantStore = {
@@ -14,15 +14,15 @@ function occuapntsReducer(
         },
         householdOccupantsArray: [],
     },
-    action: IOccupantStore & Action,
-): IOccupantStore {
-    let nextState: IOccupantStore;
+    action: OccupantsActions,
+) {
+    let nextState;
     switch (action.type) {
-    case occupantActionsTypes.RECEIVE_OCCUPANT:
+    case getType(occupantsActions.receiveOccupant):
         nextState = {
             ...state,
-            loggedInOccupant: action.loggedInOccupant,
-            isLoggedIn: action.isLoggedIn,
+            isLoggedIn: action.payload.isLoggedIn,
+            loggedInOccupant: action.payload.loggedInOccupant,
         };
         break;
     case occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD:

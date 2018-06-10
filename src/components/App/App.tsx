@@ -19,7 +19,7 @@ const App: React.StatelessComponent = () => {
                 <ConnectedRouter history={history}>
                     <CssBaseline >
                         <MuiThemeProvider theme={appTheme}>
-                            <Nav dispatch={store.dispatch} />
+                            <Nav />
                             <Routes />
                             <ErrorMessage dispatch={store.dispatch} />
                         </MuiThemeProvider>

@@ -2,7 +2,6 @@ import * as queryString from 'query-string';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import * as redux from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import { receiveOccupant, getLogoutUrlWithDetails } from './occupantsActions';
@@ -26,24 +25,24 @@ class Occupants extends React.Component<IOccupantProps> {
                 const occupant: IOccupant = parseOccupant(this.props.location.search);
 
                 if (occupantIsValid(occupant, true)) {
-                    this.props.dispatch(this.props.receiveOccupant(occupant, true));
+                    this.props.dispatch(receiveOccupant(occupant, true));
                     this.props.history.push(houseMoneyRoutes.Balance);
                 } else {
-                    this.redirectToMyHouse();
+                    redirectToMyHouse();
                 }
             } else {
-                this.redirectToMyHouse();
+                redirectToMyHouse();
             }
         }
-    }
-
-    redirectToMyHouse() {
-        window.location.replace(getLogoutUrlWithDetails(LogoutReason.InvalidPassthrough));
     }
 
     render(): null {
         return null;
     }
+}
+
+function redirectToMyHouse() {
+    window.location.replace(getLogoutUrlWithDetails(LogoutReason.InvalidPassthrough));
 }
 
 function occupantIsValid(occupant: IOccupant, isLoggedIn: boolean) {
@@ -68,7 +67,4 @@ function mapStateToProps(store: IStore, ownProps: RouteComponentProps<string>) {
     };
 }
 
-const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-    redux.bindActionCreators(receiveOccupant, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Occupants);
+export default connect(mapStateToProps)(Occupants);
