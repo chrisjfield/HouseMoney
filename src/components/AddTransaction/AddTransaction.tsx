@@ -16,9 +16,10 @@ import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { Loading } from '../Loading';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
-import { TransactionActions } from './transactionsActions';
+import { TransactionActions, insertTransactions } from './transactionsActions';
 // tslint:disable-next-line:max-line-length
 import { IAddTransactionOccupant, IAddTransactionProps, IAddTransactionStore, IAddTransationState, ITransaction } from './transactionsInterfaces';
+import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
     constructor(props: IAddTransactionProps) {
@@ -35,7 +36,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
     componentDidMount() {
         const occupant = this.props.loggedInOccupant;
-        this.props.dispatch(this.props.getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
+        this.props.dispatch(getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
+        // TODO: Think about this typerrr
     }
 
     componentWillReceiveProps(nextProps: IAddTransactionProps) {
@@ -84,7 +86,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 transactionDetails.reference,
             );
 
-            this.props.dispatch(this.props.insertTransactions(me.token, me.userId, payday));
+            this.props.dispatch(insertTransactions(me.token, me.userId, payday)); // TODO: Think about this one too!
         }
     }
 
@@ -224,7 +226,6 @@ const mapStateToProps = (store: IStore) => {
     const props: IAddTransactionStore = {
         householdOccupantsArray,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
-        isLoggedIn: store.occupantsReducer.isLoggedIn,
         loading: store.loadingReducer.loading,
         transactionsAdded: store.transactionsReducer.transactionsAdded,
     };

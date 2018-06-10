@@ -1,9 +1,6 @@
-import { Action, Dispatch, AnyAction } from 'redux';
-import { IOccupant } from '../Occupants/occupantsInterfaces';
+import { Action, Dispatch } from 'redux';
+import { ILoggedInOccupant } from '../Occupants/occupantsInterfaces';
 
-export interface INavProps {
+export interface INavProps extends ILoggedInOccupant {
     dispatch: Dispatch<Action>;
-    receiveOccupant: AnyAction;
-    loggedInOccupant: IOccupant;
-    isLoggedIn: boolean;
 }
