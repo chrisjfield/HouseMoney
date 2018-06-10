@@ -27,5 +27,4 @@ function loadingReducer(
     return nextState;
 }
 
-// Export Reducer
 export default loadingReducer;

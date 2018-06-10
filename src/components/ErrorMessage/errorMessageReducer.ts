@@ -24,5 +24,4 @@ function errorMessageReducer(
     return nextState;
 }
 
-// Export Reducer
 export default errorMessageReducer;

@@ -23,5 +23,4 @@ function houseSummaryReducer(
     return nextState;
 }
 
-// Export Reducer
 export default houseSummaryReducer;

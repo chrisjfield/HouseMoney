@@ -87,7 +87,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 
 const mapStateToProps = (store: IStore) => {
     const props: IViewTransactionsProps = {
-        dispatch: store.dispatch,
+        dispatch: store.dispatch, // TODO: Does this make sense?? Should I be doing this? Think about it!
         history: store.history,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         loading: store.loadingReducer.loading,
