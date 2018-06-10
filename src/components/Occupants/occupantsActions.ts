@@ -3,14 +3,13 @@ import { persistStore } from 'redux-persist';
 import { myHouseUrl } from '../../appConfig';
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
-import { ActionsUnion, createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
 import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
 import { store } from '../../main/configureStore';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../Loading/loadingActions';
 import { ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
-import actionCreatorFactory from 'typescript-fsa';
+import { action } from 'typesafe-actions';
 
 export enum occupantActionsTypes {
     LOGGED_OUT = 'LOGGED_OUT',
@@ -64,10 +63,8 @@ export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {
     return myHouseUrl + 'Logout?' + queryString.stringify(logoutDetails);
 }
 
-const occupantsActionsCreator = actionCreatorFactory();
+export const receiveOccupant = (occupant: IOccupant, isLoggedIn: boolean) =>
+    action(occupantActionsTypes.RECEIVE_OCCUPANT, { occupant, isLoggedIn });
 
-export const receiveOccupant =
-    occupantsActionsCreator<{occupant: IOccupant, isLoggedIn: boolean}>(occupantActionsTypes.RECEIVE_OCCUPANT);
-
-export const receiveHouseholdOccupants =
-    occupantsActionsCreator<{householdOccupantsArray: IOccupant[]}>(occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD);
+export const receiveHouseholdOccupants = (householdOccupantsArray: IOccupant[]) =>
+    action(occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD, householdOccupantsArray);

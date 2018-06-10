@@ -30,3 +30,5 @@ Finish https://webpack.js.org/guides/development/ and implement Hot Module Repla
 see https://github.com/gaearon/react-hot-loader/blob/master/examples/typescript 
 
 further optimise bundle size 
+
+switch from typescript-fsa to typesafe-actions lib! 
