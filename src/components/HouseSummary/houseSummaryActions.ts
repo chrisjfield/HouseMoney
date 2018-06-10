@@ -6,6 +6,10 @@ import { addError } from '../ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../Loading/loadingActions';
 import { ITransactionSummary } from './houseSummaryInterfaces';
 
+export enum houseSummaryActionTypes {
+    GET_TRANSACTION_SUMMARY = 'GET_TRANSACTION_SUMMARY',
+}
+
 export function getTransactionSummary(token: string, userId: string, occupantId: number) {
     const request = apiHelper.apiCall<ITransactionSummary[]>(
         HTTPMethod.GET, endpoints.transactionSummary, token, userId + ',' + occupantId,
@@ -27,7 +31,3 @@ export function getTransactionSummary(token: string, userId: string, occupantId:
 
 const receiveTransactionSummary = (transactionSummaryArray: ITransactionSummary[]) =>
     createAction(houseSummaryActionTypes.GET_TRANSACTION_SUMMARY, transactionSummaryArray);
-
-export enum houseSummaryActionTypes {
-    GET_TRANSACTION_SUMMARY = 'GET_TRANSACTION_SUMMARY',
-}

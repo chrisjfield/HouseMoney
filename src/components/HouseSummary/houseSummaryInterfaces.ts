@@ -9,8 +9,8 @@ export interface IHouseSummaryRow {
     householdOccupant: IOccupant;
 }
 
-export interface IHouseSummaryProps extends IHouseSummaryStore { }
+export interface IHouseSummaryProps extends IHouseSummaryStore, IHouseholdOccupants, ILoadingProps, ILoggedInOccupantDetails { }
 
-export interface IHouseSummaryStore extends IHouseholdOccupants, ILoadingProps, ILoggedInOccupantDetails {
+export interface IHouseSummaryStore {
     transactionSummaryArray: ITransactionSummary[];
 }
