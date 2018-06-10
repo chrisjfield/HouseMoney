@@ -1,5 +1,4 @@
 import { RouteComponentProps } from 'react-router';
-import { Action } from 'redux';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 
 export interface IOccupant {
@@ -10,24 +9,23 @@ export interface IOccupant {
     displayName: string;
 }
 
-export interface ILoggedInOccupant {
+export interface ILoggedInOccupantDetails {
     loggedInOccupant: IOccupant;
-    isLoggedIn: boolean;
 }
 
-export interface IReceiveOccupantAction extends Action, ILoggedInOccupant { }
-
-export interface IReceiveHouseholdOccupantsAction extends Action, IHouseholdOccupants { }
-
-export interface IOccupantProps extends IOccupantStore, IConnectedComponentProps, RouteComponentProps<string> { }
-
-export interface IOccupantStore extends IHouseholdOccupants, ILoggedInOccupant { }
-
-export interface IOccupantReducer extends ILoggedInOccupant, IHouseholdOccupants { }
+export interface ILoggedInOccupantFlag {
+    isLoggedIn: boolean;
+}
 
 export interface IHouseholdOccupants {
     householdOccupantsArray: IOccupant[];
 }
+
+export interface ILoggedInOccupant extends ILoggedInOccupantDetails, ILoggedInOccupantFlag { }
+
+export interface IOccupantProps extends IOccupantStore, IConnectedComponentProps, RouteComponentProps<string> { }
+
+export interface IOccupantStore extends IHouseholdOccupants, ILoggedInOccupant { }
 
 export interface ILogoutDetails {
     logoutReason: LogoutReason;

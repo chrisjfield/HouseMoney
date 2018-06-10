@@ -2,7 +2,7 @@ import { Action } from 'redux';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
 import { ILoadingProps } from '../Loading/loadingInterfaces';
-import { IHouseholdOccupants, ILoggedInOccupant, IOccupant } from '../Occupants/occupantsInterfaces';
+import { IHouseholdOccupants, ILoggedInOccupantDetails, IOccupant } from '../Occupants/occupantsInterfaces';
 
 export interface IHouseSummaryProps extends IConnectedComponentProps, IHouseSummaryStore { }
 
@@ -10,7 +10,7 @@ export interface IHouseSummaryReducer {
     transactionSummaryArray: ITransactionSummary[];
 }
 
-export interface IHouseSummaryStore extends IHouseSummaryReducer, ILoggedInOccupant, ILoadingProps, IHouseholdOccupants { }
+export interface IHouseSummaryStore extends IHouseSummaryReducer, ILoggedInOccupantDetails, ILoadingProps, IHouseholdOccupants { }
 
 export interface ITransactionSummary extends ITransactionResponse { }
 

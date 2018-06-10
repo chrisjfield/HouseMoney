@@ -28,9 +28,7 @@
     "redux-logger": "3.0.6",
     "redux-persist": "5.9.1",
     "redux-promise-middleware": "5.1.1",
-    "redux-thunk": "2.3.0",
-    "typesafe-actions": "^2.0.4",
-    "typescript-fsa": "3.0.0-beta-2"
+    "redux-thunk": "2.3.0"
   },
   "scripts": {
     "eject": "react-scripts-ts eject",

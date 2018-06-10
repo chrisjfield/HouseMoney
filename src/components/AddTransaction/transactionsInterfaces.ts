@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { ILoadingProps } from '../Loading/loadingInterfaces';
-import { ILoggedInOccupant, IOccupant } from '../Occupants/occupantsInterfaces';
+import { IOccupant, ILoggedInOccupantDetails } from '../Occupants/occupantsInterfaces';
 
 export interface IAddTransationState {
     occupantsArray: IAddTransactionOccupant[];
@@ -43,6 +43,6 @@ export interface IAddTransactionProps extends IConnectedComponentProps, IAddTran
 }
 // TODO: Think props and store can be the same thing! - refactor to this Ed!
 
-export interface IAddTransactionStore extends ITransactionReducer, ILoggedInOccupant, ILoadingProps {
+export interface IAddTransactionStore extends ITransactionReducer, ILoggedInOccupantDetails, ILoadingProps {
     householdOccupantsArray: IAddTransactionOccupant[];
 }

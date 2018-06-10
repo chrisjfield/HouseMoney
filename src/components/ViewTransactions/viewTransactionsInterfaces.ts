@@ -2,7 +2,7 @@ import { Action } from 'redux';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
 import { ILoadingProps } from '../Loading/loadingInterfaces';
-import { ILoggedInOccupant, IOccupant } from '../Occupants/occupantsInterfaces';
+import { ILoggedInOccupantDetails, IOccupant } from '../Occupants/occupantsInterfaces';
 
 export interface IViewTransactionsProps extends IConnectedComponentProps, IViewTransactionsStore { }
 
@@ -10,12 +10,9 @@ export interface IViewTransactionsState {
     pageNumber: number;
 }
 
-export interface IViewTransactionReducer {
-    transactionHistoryArray: ITransactionHistory[];
-}
-
-export interface IViewTransactionsStore extends IViewTransactionReducer, ILoggedInOccupant, ILoadingProps {
+export interface IViewTransactionsStore extends ILoggedInOccupantDetails, ILoadingProps {
     pageSize: number;
+    transactionHistoryArray: ITransactionHistory[];
 }
 
 export interface ITransactionHistory extends ITransactionResponse {

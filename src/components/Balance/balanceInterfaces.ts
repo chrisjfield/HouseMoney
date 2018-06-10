@@ -1,19 +1,8 @@
-import { Action } from 'redux';
 import { IComponentProps } from '../../interfaces/componentInterfaces';
 import { ILoadingProps } from '../Loading/loadingInterfaces';
-import { ILoggedInOccupant } from '../Occupants/occupantsInterfaces';
+import { ILoggedInOccupantDetails } from '../Occupants/occupantsInterfaces';
 
-export interface IBalanceProps extends IComponentProps, IBalanceStore {
-    getBalance: any;
-}
-
-export interface IBalanceStore extends IBalanceReducer, ILoggedInOccupant, ILoadingProps { }
-
-export interface IBalanceReducer {
-    balanceArray: IBalance[];
-}
-
-export interface IBalance { // TODO: Fix these shitty names!
+export interface IBalance {
     creditorOccupantId: number;
     debtorOccupantId: number;
     creditorDisplayName: string;
@@ -21,8 +10,12 @@ export interface IBalance { // TODO: Fix these shitty names!
     gross: number;
 }
 
-export interface IBalanceOccupant {
+export interface IBalanceOccupant { // TODO: Remove
     displayName: string;
 }
 
-export interface IReceiveBalanceAction extends Action, IBalanceReducer { }
+export interface IBalanceProps extends IComponentProps, IBalanceStore { }
+
+export interface IBalanceStore extends ILoggedInOccupantDetails, ILoadingProps {
+    balanceArray: IBalance[];
+}

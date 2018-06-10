@@ -16,7 +16,6 @@ V3 Bugs:
 Console error on logout
 
 make occupant objects named, used and interfaced consistently from firebase
-make app wide loading thing (steal from HouseFood)
 
 remove unneccessary isLoggedIn s from props that are mapped to (IReducers inheritance wrong here!)
     => Move to component interface structure (get rid of Store types, don't need, use & instead!)
@@ -24,11 +23,5 @@ remove unneccessary isLoggedIn s from props that are mapped to (IReducers inheri
         ComponentProps
         ComponentReducer (want to infer type from actions!)
 
-Find more elegant api call method , redux-observable? 
 
-Finish https://webpack.js.org/guides/development/ and implement Hot Module Replacement 
-see https://github.com/gaearon/react-hot-loader/blob/master/examples/typescript 
-
-further optimise bundle size 
-
-switch from typescript-fsa to typesafe-actions lib!  => Look at reducer types!! 
+rwmove typescript-fsa to typesafe-actions lib!  => Look at reducer types!! 

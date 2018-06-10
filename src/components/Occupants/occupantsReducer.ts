@@ -14,7 +14,7 @@ function occuapntsReducer(
         },
         householdOccupantsArray: [],
     },
-    action: ActionWithPayload<string, IOccupantStore>,
+    action: ActionWithPayload<occupantActionsTypes, IOccupantStore>,
 ) {
     let nextState: IOccupantStore;
     switch (action.type) {
@@ -38,5 +38,4 @@ function occuapntsReducer(
     return nextState;
 }
 
-// Export Store
 export default occuapntsReducer;
