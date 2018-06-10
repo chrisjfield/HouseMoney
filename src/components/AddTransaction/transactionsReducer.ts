@@ -1,18 +1,19 @@
 import { transactionActionTypes } from './transactionsActions';
-import { IReceiveTransactionAction, ITransactionReducer } from './transactionsInterfaces';
+import { IAddTransactionStore } from './transactionsInterfaces';
+import { ActionWithPayload } from '../../helpers/actionCreator';
 
 function transactionReducer(
-    state: ITransactionReducer = {
+    state: IAddTransactionStore = {
         transactionsAdded: false,
     },
-    action: IReceiveTransactionAction,
-): ITransactionReducer {
-    let nextState: ITransactionReducer;
+    action: ActionWithPayload<transactionActionTypes, IAddTransactionStore>,
+): IAddTransactionStore {
+    let nextState: IAddTransactionStore;
     switch (action.type) {
     case transactionActionTypes.ADD_TRANSACTION:
         nextState = {
             ...state,
-            transactionsAdded: action.transactionsAdded, // TODO: ED! Fix disconnect here! need to re read articles
+            transactionsAdded: action.payload.transactionsAdded,
         };
         break;
     default:
@@ -22,5 +23,4 @@ function transactionReducer(
     return nextState;
 }
 
-// Export Reducer
 export default transactionReducer;

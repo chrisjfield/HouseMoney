@@ -1,6 +1,4 @@
-import { IComponentProps } from '../../interfaces/componentInterfaces';
-import { ILoadingProps } from '../Loading/loadingInterfaces';
-import { ILoggedInOccupantDetails } from '../Occupants/occupantsInterfaces';
+import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 
 export interface IBalance {
     creditorOccupantId: number;
@@ -14,8 +12,8 @@ export interface IBalanceOccupant { // TODO: Remove
     displayName: string;
 }
 
-export interface IBalanceProps extends IComponentProps, IBalanceStore { }
+export interface IBalanceProps extends IConnectedComponentProps, IBalanceStore { }
 
-export interface IBalanceStore extends ILoggedInOccupantDetails, ILoadingProps {
+export interface IBalanceStore {
     balanceArray: IBalance[];
 }

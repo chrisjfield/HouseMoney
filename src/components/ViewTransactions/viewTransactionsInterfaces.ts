@@ -18,10 +18,11 @@ export interface IViewTransactionsState {
     pageNumber: number;
 }
 
-export interface IViewTransactionsProps extends IConnectedComponentProps, IViewTransactionsStore { }
-
-export interface IViewTransactionsStore extends ILoggedInOccupantDetails, ILoadingProps {
+export interface IViewTransactionsProps extends IConnectedComponentProps, IViewTransactionsStore {
     pageSize: number;
+}
+
+export interface IViewTransactionsStore {
     transactionHistoryArray: ITransactionHistory[];
 }
 

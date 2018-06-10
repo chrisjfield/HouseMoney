@@ -6,7 +6,7 @@ import { Loading } from '../Loading';
 import { NoTransactionsFound } from './NoTransactionsFound';
 import { ViewTransactionsGrid } from './ViewTransactionsGrid';
 // import { getTransactionHistory } from './viewTransactionsActions';
-import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
+import { IViewTransactionsProps, IViewTransactionsState } from './viewTransactionsInterfaces';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
@@ -86,7 +86,9 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 }
 
 const mapStateToProps = (store: IStore) => {
-    const props: IViewTransactionsStore = {
+    const props: IViewTransactionsProps = {
+        dispatch: store.dispatch,
+        history: store.history,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         loading: store.loadingReducer.loading,
         transactionHistoryArray: store.viewTransactionsReducer.transactionHistoryArray,

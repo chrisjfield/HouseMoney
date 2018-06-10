@@ -44,6 +44,8 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
 
 const mapStateToProps = (store: IStore) => {
     const props: IHouseSummaryProps = {
+        dispatch: store.dispatch,
+        history: store.history,
         loading: store.loadingReducer.loading,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         transactionSummaryArray: store.houseSummaryReducer.transactionSummaryArray,

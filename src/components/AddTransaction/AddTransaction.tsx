@@ -18,7 +18,7 @@ import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
 import { TransactionActions, insertTransactions } from './transactionsActions';
 // tslint:disable-next-line:max-line-length
-import { IAddTransactionOccupant, IAddTransactionProps, IAddTransactionStore, IAddTransationState, ITransaction } from './transactionsInterfaces';
+import { IAddTransactionOccupant, IAddTransactionProps, IAddTransationState, ITransaction } from './transactionsInterfaces';
 import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
@@ -224,8 +224,10 @@ const mapStateToProps = (store: IStore) => {
         const transactionOccupant: IAddTransactionOccupant = { ...occupant, checked: false };
         return transactionOccupant;
     });
-    const props: IAddTransactionStore = {
+    const props: IAddTransactionProps = {
         householdOccupantsArray,
+        dispatch: store.dispatch,
+        history: store.history,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         loading: store.loadingReducer.loading,
         transactionsAdded: store.transactionsReducer.transactionsAdded,

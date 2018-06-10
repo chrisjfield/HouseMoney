@@ -5,14 +5,14 @@ import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { Loading } from '../Loading';
 import BalanceList from './BalanceList';
-import { BalanceActions } from './balanceActions';
-import { IBalanceProps, IBalanceStore } from './balanceInterfaces';
+import { getBalance } from './balanceActions';
+import { IBalanceProps } from './balanceInterfaces';
 // import styles from './balanceStyles';
 
 class Balance extends React.Component<IBalanceProps> {
     componentDidMount() {
         this.props.dispatch(
-            BalanceActions.getBalance(this.props.loggedInOccupant),
+            getBalance(this.props.loggedInOccupant), // TODO: How should this actually make the API Call tho?
         );
     }
 
@@ -34,16 +34,15 @@ class Balance extends React.Component<IBalanceProps> {
 
 // Retrieve data from store as props
 const mapStateToProps = (store: IStore) => {
-    const props: IBalanceStore =
+    const props: IBalanceProps =
         {
+            dispatch: store.dispatch,
+            history: store.history,
             loggedInOccupant: store.occupantsReducer.loggedInOccupant,
             loading: store.loadingReducer.loading,
             balanceArray: store.balanceReducer.balanceArray,
         };
     return props;
 };
-
-// const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-//   redux.bindActionCreators(getBalance, dispatch);
 
 export default connect(mapStateToProps)(Balance);
