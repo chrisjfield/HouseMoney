@@ -2,11 +2,14 @@ import { RouteComponentProps } from 'react-router';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 
 export interface IOccupant {
+    email: string;
+    displayName: string;
+}
+
+export interface IOccupantDetails {
     occupantId: number;
     userId: string;
     token: string;
-    email: string;
-    displayName: string;
 }
 
 export interface ILoggedInOccupantDetails {
