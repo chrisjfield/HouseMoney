@@ -10,16 +10,6 @@ import { IOccupantDetails } from '../Occupants/occupantsInterfaces';
 import { balanceActionTypes, receiveBalance } from './balanceActions';
 import { IBalance } from './balanceInterfaces';
 
-// const balanceEpic = (occupantDetails: IOccupantDetails) => {
-//     const balanceAjaxParams: ajaxCallParams = {
-//         token: occupantDetails.token,
-//         method: HTTPMethod.GET,
-//         endpoint: endpoints.balance,
-//         urlParams: occupantDetails.userId + ',' + occupantDetails.occupantId.toString(),
-//     };
-//     return ajaxCall<IBalance[]>(balanceAjaxParams);
-// };
-
 const balanceRequestEpic = (action$: Observable<ActionWithPayload<balanceActionTypes.GET_BALANCE_REQUEST, IOccupantDetails>>) => {
     return action$.pipe(
         ofType(balanceActionTypes.GET_BALANCE_REQUEST),
@@ -32,7 +22,7 @@ const balanceRequestEpic = (action$: Observable<ActionWithPayload<balanceActionT
             };
             return ajaxCall<IBalance[]>(balanceAjaxParams).pipe(
                 map(response => of(
-                    receiveBalance(response as IBalance[]),
+                    receiveBalance(response),
                 )),
             );
         },
