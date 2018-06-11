@@ -1,3 +1,4 @@
+import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -10,10 +11,10 @@ import { IOccupantDetails } from '../Occupants/occupantsInterfaces';
 import { balanceActionTypes, receiveBalance } from './balanceActions';
 import { IBalance } from './balanceInterfaces';
 
-const balanceRequestEpic = (action$: Observable<ActionWithPayload<balanceActionTypes.GET_BALANCE_REQUEST, IOccupantDetails>>) => {
+const balanceRequestEpic = (action$: Observable<Action>) => {
     return action$.pipe(
         ofType(balanceActionTypes.GET_BALANCE_REQUEST),
-        mergeMap((params) => {
+        mergeMap((params: ActionWithPayload<balanceActionTypes.GET_BALANCE_REQUEST, IOccupantDetails>) => {
             const balanceAjaxParams: ajaxCallParams = {
                 token: params.payload.token,
                 method: HTTPMethod.GET,
