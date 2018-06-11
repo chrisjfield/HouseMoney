@@ -6,11 +6,11 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from '../../main/configureStore';
 import history from '../../main/history';
+import appTheme from '../../themes';
 import ErrorMessage from '../ErrorMessage';
 import { Loading } from '../Loading';
 import Nav from '../Nav';
 import Routes from '../Routes';
-import appTheme from '../../themes';
 
 const App: React.StatelessComponent = () => {
     return (
@@ -21,7 +21,7 @@ const App: React.StatelessComponent = () => {
                         <MuiThemeProvider theme={appTheme}>
                             <Nav />
                             <Routes />
-                            <ErrorMessage dispatch={store.dispatch} />
+                            <ErrorMessage />
                         </MuiThemeProvider>
                     </CssBaseline >
                 </ConnectedRouter>

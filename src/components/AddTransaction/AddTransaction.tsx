@@ -16,10 +16,9 @@ import { addError } from '../ErrorMessage/errorMessageActions';
 import { Loading } from '../Loading';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
-import { TransactionActions, insertTransactions } from './transactionsActions';
+import { TransactionActions } from './transactionsActions';
 // tslint:disable-next-line:max-line-length
 import { IAddTransactionOccupant, IAddTransactionProps, IAddTransationState, ITransaction } from './transactionsInterfaces';
-import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
     constructor(props: IAddTransactionProps) {
@@ -35,8 +34,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     componentDidMount() {
-        const occupant = this.props.loggedInOccupant;
-        this.props.dispatch(getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
+        // const occupant = this.props.loggedInOccupant;
+        // this.props.dispatch(getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
         // TODO: Think about this typerrr - maybe should split concepts of API calls and actions?
         // OR maybe should send an action with a payload that sets the api call params?
     }
@@ -87,7 +86,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 transactionDetails.reference,
             );
 
-            this.props.dispatch(insertTransactions(me.token, me.userId, payday)); // TODO: Think about this one too!
+            this.props.dispatch(TransactionActions.addTransaction(me.token, me.userId, payday)); // TODO: Think about this one too!
         }
     }
 

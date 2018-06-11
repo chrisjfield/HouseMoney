@@ -12,16 +12,17 @@ import { ITransaction } from './transactionsInterfaces';
 
 const addTransactionRequestEpic = (action$: Observable<Action>) => {
     return action$.pipe(
-        ofType(transactionActionTypes.ADD_TRANSACTION),
-        mergeMap((params: ActionWithPayload<transactionActionTypes.ADD_TRANSACTION,
+        ofType(transactionActionTypes.ADD_TRANSACTION_REQUEST),
+        mergeMap((params: ActionWithPayload<transactionActionTypes.ADD_TRANSACTION_REQUEST,
                 { token: string, userId: string, transactionArray: ITransaction[] }>) => {
-            const balanceAjaxParams: ajaxCallParams = {
+            const addTransactionAjaxParams: ajaxCallParams = {
                 token: params.payload.token,
-                method: HTTPMethod.GET,
-                endpoint: endpoints.balance,
+                method: HTTPMethod.POST,
+                endpoint: endpoints.transactions,
                 urlParams: params.payload.userId,
+                body: params.payload.transactionArray,
             };
-            return ajaxCall<number>(balanceAjaxParams).pipe(
+            return ajaxCall<number>(addTransactionAjaxParams).pipe(
                 map(response => of(
                     TransactionActions.receiveTransaction(response),
                 )),

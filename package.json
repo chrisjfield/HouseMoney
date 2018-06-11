@@ -37,7 +37,6 @@
     "start": "set PORT=3001 && react-scripts-ts start ",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "watch": "react-scripts-ts watch",
     "deploy": "npm run build && cd ./dist && rename index.html 200.html && surge -p ./ -d housemoney.surge.sh"
   },
   "devDependencies": {

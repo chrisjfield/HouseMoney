@@ -1,6 +1,6 @@
+import { ActionWithPayload } from '../../helpers/actionCreator';
 import { transactionActionTypes } from './transactionsActions';
 import { IAddTransactionStore } from './transactionsInterfaces';
-import { ActionWithPayload } from '../../helpers/actionCreator';
 
 function transactionReducer(
     state: IAddTransactionStore = {
@@ -10,7 +10,7 @@ function transactionReducer(
 ): IAddTransactionStore {
     let nextState: IAddTransactionStore;
     switch (action.type) {
-    case transactionActionTypes.ADD_TRANSACTION:
+    case transactionActionTypes.ADD_TRANSACTION_RESPONSE:
         nextState = {
             ...state,
             transactionsAdded: action.payload.transactionsAdded,

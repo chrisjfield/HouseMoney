@@ -1,7 +1,7 @@
 import { RouteComponentProps } from 'react-router';
 import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 
-export interface IOccupant {
+export interface IOccupant extends IOccupantDetails {
     email: string;
     displayName: string;
 }
