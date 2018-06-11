@@ -1,6 +1,7 @@
 import { combineEpics } from 'redux-observable';
-import balanceEpic from '../components/Balance/balanceEpic';
+import addTransactionRequestEpic from '../components/AddTransaction/addTransactionEpic';
+import balanceRequestEpic from '../components/Balance/balanceEpic';
 
-const combinedEpics = combineEpics(balanceEpic);
+const combinedEpics = combineEpics(balanceRequestEpic, addTransactionRequestEpic);
 
 export default combinedEpics;
