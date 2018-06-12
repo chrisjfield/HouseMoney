@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { StaticContext } from 'react-router';
 import { Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
@@ -45,12 +46,13 @@ const Routes: React.StatelessComponent<RouteComponentProps<{}> & IRoutesProps> =
     );
 };
 
-const mapStateToProps = (store: IStore) => {
+const mapStateToProps = (store: IStore, ownProps: RouteComponentProps<{}, StaticContext>) => {
     return {
+        loading: store.loadingReducer.loading,
         isLoggedIn: store.occupantsReducer.isLoggedIn,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
     };
 };
 
-const ConnectedRoutes = withRouter(connect(mapStateToProps)(Routes) as any); // TODO: Get rid of any!
+const ConnectedRoutes = withRouter(connect(mapStateToProps)(Routes));
 export default ConnectedRoutes;

@@ -42,8 +42,6 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
 const LoggedInNavItems: React.StatelessComponent = () => {
     return (
         <Menu
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             open={true} // TODO: Add stateful handler here
         >
             <Link // style={styles.menuItems}

@@ -1,4 +1,4 @@
-import { routerMiddleware } from 'connected-react-router';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import * as localForage from 'localforage';
 import { Middleware, Store, applyMiddleware, compose, createStore } from 'redux';
 import logger from 'redux-logger';
@@ -21,9 +21,10 @@ const persistConfig: PersistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
+const connectedRouter = connectRouter(history)(persistedReducer);
 
 export const store: Store<{}> = createStore(
-    persistedReducer,
+    connectedRouter,
     undefined,
     compose(applyMiddleware(thunk, logger, rmiddleware, epicMiddleware)),
 );

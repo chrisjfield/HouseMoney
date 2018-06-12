@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs';
 import { AjaxRequest, AjaxResponse, ajax } from 'rxjs/ajax';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import baseURL from '../appConfig';
+import { addError } from '../components/ErrorMessage/errorMessageActions';
 import { logout } from '../components/Occupants/occupantsActions';
 import { ajaxCallParams } from '../interfaces/apiInterfaces';
 
@@ -30,6 +31,9 @@ function ajaxCall<R>(ajaxCallParams: ajaxCallParams): Observable<R> {
 
     return ajax(ajaxRequest).pipe(
         map((ajaxResponse: AjaxResponse) => {
+            catchError((error: Error, errorObservable) => errorObservable.pipe(
+                map((error: Error) => addError(error.message)),
+            )),
             checkStatus(ajaxResponse);
             return ajaxResponse.response.body as R;
         }),
