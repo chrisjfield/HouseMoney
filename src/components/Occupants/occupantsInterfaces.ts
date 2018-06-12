@@ -1,5 +1,5 @@
 import { RouteComponentProps } from 'react-router';
-import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
+import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 
 export interface IOccupant extends IOccupantDetails {
     email: string;
@@ -26,9 +26,11 @@ export interface IHouseholdOccupants {
 
 export interface ILoggedInOccupant extends ILoggedInOccupantDetails, ILoggedInOccupantFlag { }
 
-export interface IOccupantProps extends IOccupantStore, IConnectedComponentProps, RouteComponentProps<string> { }
+export interface IOccupantProps extends IOccupantStore, IComponentProps, RouteComponentProps<string> { }
 
-export interface IOccupantStore extends IHouseholdOccupants, ILoggedInOccupant { }
+export interface IOccupantStore extends IOccupantReducer, IConnectedComponentProps { }
+
+export interface IOccupantReducer extends IHouseholdOccupants, ILoggedInOccupant { }
 
 export interface ILogoutDetails {
     logoutReason: LogoutReason;

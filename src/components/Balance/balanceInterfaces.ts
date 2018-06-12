@@ -1,4 +1,4 @@
-import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
+import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 
 export interface IBalance {
     creditorOccupantId: number;
@@ -8,12 +8,16 @@ export interface IBalance {
     gross: number;
 }
 
-export interface IBalanceOccupant { // TODO: Remove
+export interface IBalanceOccupant {
     displayName: string;
 }
 
-export interface IBalanceProps extends IConnectedComponentProps, IBalanceStore { }
+export interface IBalanceProps extends IComponentProps, IBalanceStore { }
 
-export interface IBalanceStore {
+export interface IBalanceStore extends IConnectedComponentProps {
+    balanceArray: IBalance[];
+}
+
+export interface IBalanceReducer {
     balanceArray: IBalance[];
 }

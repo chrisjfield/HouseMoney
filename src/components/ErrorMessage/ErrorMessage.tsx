@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
 import { removeError } from './errorMessageActions';
-import { IErrorMessageProps, IErrorMessageState } from './errorMessageInterfaces';
+import { IErrorMessageProps, IErrorMessageState, IErrorMessageStore } from './errorMessageInterfaces';
 
 class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageState> {
     constructor(props: IErrorMessageProps) {
@@ -43,7 +43,7 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
     }
 }
 
-const mapStateToProps = (store: IStore): IErrorMessageState => {
+const mapStateToProps = (store: IStore): IErrorMessageStore => {
     return { errorMessageText: store.errorMessageReducer.errorMessageText };
 };
 

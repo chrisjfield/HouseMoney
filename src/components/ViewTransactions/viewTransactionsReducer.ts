@@ -1,14 +1,14 @@
-import { viewTransactionsActions } from './viewTransactionsActions';
-import { IViewTransactionsStore } from './viewTransactionsInterfaces';
 import { ActionWithPayload } from '../../helpers/actionCreator';
+import { viewTransactionsActions } from './viewTransactionsActions';
+import { IViewTransactionsReducer } from './viewTransactionsInterfaces';
 
 function viewTransactionsReducer(
-    state: IViewTransactionsStore = {
+    state: IViewTransactionsReducer = {
         transactionHistoryArray: [],
     },
-    action: ActionWithPayload<viewTransactionsActions, IViewTransactionsStore>,
-): IViewTransactionsStore {
-    let nextState: IViewTransactionsStore;
+    action: ActionWithPayload<viewTransactionsActions, IViewTransactionsReducer>,
+): IViewTransactionsReducer {
+    let nextState: IViewTransactionsReducer;
     switch (action.type) {
     case viewTransactionsActions.GET_TRANSACTION_HISTORY:
         nextState = {

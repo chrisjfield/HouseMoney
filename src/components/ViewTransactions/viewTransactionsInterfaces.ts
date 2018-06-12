@@ -1,7 +1,6 @@
-import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
+import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
-import { ILoadingProps } from '../Loading/loadingInterfaces';
-import { ILoggedInOccupantDetails, IOccupant } from '../Occupants/occupantsInterfaces';
+import { IOccupant } from '../Occupants/occupantsInterfaces';
 
 export interface ITransactionHistory extends ITransactionResponse {
     creditorDisplayName: string;
@@ -18,14 +17,16 @@ export interface IViewTransactionsState {
     pageNumber: number;
 }
 
-export interface IViewTransactionsProps extends IConnectedComponentProps, IViewTransactionsStore {
+export interface IViewTransactionGridProps extends IViewTransactionsReducer { }
+
+export interface IViewTransactionGridRowProps extends ITransactionHistory { }
+
+export interface IViewTransactionsProps extends IViewTransactionsStore, IComponentProps { }
+
+export interface IViewTransactionsStore extends IViewTransactionsReducer, IConnectedComponentProps {
     pageSize: number;
 }
 
-export interface IViewTransactionsStore {
+export interface IViewTransactionsReducer {
     transactionHistoryArray: ITransactionHistory[];
 }
-
-export interface IViewTransactionGridProps extends IViewTransactionsProps { }
-
-export interface IViewTransactionGridRowProps extends ITransactionHistory { }

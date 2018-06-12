@@ -6,7 +6,7 @@ import { Loading } from '../Loading';
 import { NoTransactionsFound } from './NoTransactionsFound';
 import { ViewTransactionsGrid } from './ViewTransactionsGrid';
 // import { getTransactionHistory } from './viewTransactionsActions';
-import { IViewTransactionsProps, IViewTransactionsState } from './viewTransactionsInterfaces';
+import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
@@ -86,9 +86,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
 }
 
 const mapStateToProps = (store: IStore) => {
-    const props: IViewTransactionsProps = {
-        dispatch: store.dispatch, // TODO: Does this make sense?? Should I be doing this? Think about it!
-        history: store.history,
+    const props: IViewTransactionsStore = {
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         loading: store.loadingReducer.loading,
         transactionHistoryArray: store.viewTransactionsReducer.transactionHistoryArray,

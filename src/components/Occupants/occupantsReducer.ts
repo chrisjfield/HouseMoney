@@ -1,9 +1,9 @@
-import { IOccupantStore } from './occupantsInterfaces';
 import { ActionWithPayload } from '../../helpers/actionCreator';
 import { occupantActionsTypes } from './occupantsActions';
+import { IOccupantReducer } from './occupantsInterfaces';
 
 function occuapntsReducer(
-    state: IOccupantStore = {
+    state: IOccupantReducer = {
         isLoggedIn: false,
         loggedInOccupant: {
             occupantId: 0,
@@ -14,9 +14,9 @@ function occuapntsReducer(
         },
         householdOccupantsArray: [],
     },
-    action: ActionWithPayload<occupantActionsTypes, IOccupantStore>,
+    action: ActionWithPayload<occupantActionsTypes, IOccupantReducer>,
 ) {
-    let nextState: IOccupantStore;
+    let nextState: IOccupantReducer;
     switch (action.type) {
     case occupantActionsTypes.RECEIVE_OCCUPANT:
         nextState = {

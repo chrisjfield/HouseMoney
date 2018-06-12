@@ -1,14 +1,14 @@
-import { houseSummaryActionTypes } from './houseSummaryActions';
-import { IHouseSummaryStore } from './houseSummaryInterfaces';
 import { ActionWithPayload } from '../../helpers/actionCreator';
+import { houseSummaryActionTypes } from './houseSummaryActions';
+import { IHouseSummaryReducer } from './houseSummaryInterfaces';
 
 function houseSummaryReducer(
-    state: IHouseSummaryStore = {
+    state: IHouseSummaryReducer = {
         transactionSummaryArray: [],
     },
-    action: ActionWithPayload<houseSummaryActionTypes, IHouseSummaryStore>,
-): IHouseSummaryStore {
-    let nextState: IHouseSummaryStore;
+    action: ActionWithPayload<houseSummaryActionTypes, IHouseSummaryReducer>,
+): IHouseSummaryReducer {
+    let nextState: IHouseSummaryReducer;
     switch (action.type) {
     case houseSummaryActionTypes.GET_TRANSACTION_SUMMARY:
         nextState = {

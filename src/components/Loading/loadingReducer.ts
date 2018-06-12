@@ -1,14 +1,14 @@
 import { Action } from 'redux';
 import { loadingActionTypes } from './loadingActions';
-import { ILoadingProps } from './loadingInterfaces';
+import { ILoadingReducer } from './loadingInterfaces';
 
 function loadingReducer(
-    state: ILoadingProps = {
+    state: ILoadingReducer = {
         loading: 0,
     },
     action: Action,
-): ILoadingProps {
-    let nextState: ILoadingProps;
+): ILoadingReducer {
+    let nextState: ILoadingReducer;
     switch (action.type) {
     case loadingActionTypes.LOADING_STARTED:
         nextState = { ...state,

@@ -1,21 +1,17 @@
-import { IAddTransactionStore } from '../components/AddTransaction/transactionsInterfaces';
-import { IBalanceStore } from '../components/Balance/balanceInterfaces';
-import { IErrorMessageStore } from '../components/ErrorMessage/errorMessageInterfaces';
-import { IHouseSummaryStore } from '../components/HouseSummary/houseSummaryInterfaces';
-import { ILoadingStore } from '../components/Loading/loadingInterfaces';
-import { IOccupantStore } from '../components/Occupants/occupantsInterfaces';
-import { IViewTransactionsStore } from '../components/ViewTransactions/viewTransactionsInterfaces';
-import { AnyAction, Dispatch } from 'redux';
-import { History } from 'history';
+import { IAddTransactionReducer } from '../components/AddTransaction/transactionsInterfaces';
+import { IBalanceReducer } from '../components/Balance/balanceInterfaces';
+import { IErrorMessageReducer } from '../components/ErrorMessage/errorMessageInterfaces';
+import { IHouseSummaryReducer } from '../components/HouseSummary/houseSummaryInterfaces';
+import { ILoadingReducer } from '../components/Loading/loadingInterfaces';
+import { IOccupantReducer } from '../components/Occupants/occupantsInterfaces';
+import { IViewTransactionsReducer } from '../components/ViewTransactions/viewTransactionsInterfaces';
 
 export interface IStore {
-    history: History;
-    dispatch: Dispatch<AnyAction>;
-    occupantsReducer: IOccupantStore;
-    errorMessageReducer: IErrorMessageStore;
-    loadingReducer: ILoadingStore;
-    balanceReducer: IBalanceStore;
-    transactionsReducer: IAddTransactionStore;
-    viewTransactionsReducer: IViewTransactionsStore;
-    houseSummaryReducer: IHouseSummaryStore;
+    occupantsReducer: IOccupantReducer;
+    errorMessageReducer: IErrorMessageReducer;
+    loadingReducer: ILoadingReducer;
+    balanceReducer: IBalanceReducer;
+    transactionsReducer: IAddTransactionReducer;
+    viewTransactionsReducer: IViewTransactionsReducer;
+    houseSummaryReducer: IHouseSummaryReducer;
 }

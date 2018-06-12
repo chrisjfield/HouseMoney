@@ -1,6 +1,6 @@
+import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
 import { IHouseholdOccupants, IOccupant } from '../Occupants/occupantsInterfaces';
-import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 
 export interface ITransactionSummary extends ITransactionResponse { }
 
@@ -9,8 +9,10 @@ export interface IHouseSummaryRow {
     householdOccupant: IOccupant;
 }
 
-export interface IHouseSummaryProps extends IHouseSummaryStore, IHouseholdOccupants, IConnectedComponentProps { }
+export interface IHouseSummaryProps extends IHouseSummaryStore, IComponentProps { }
 
-export interface IHouseSummaryStore {
+export interface IHouseSummaryStore extends IHouseSummaryReducer, IHouseholdOccupants, IConnectedComponentProps { }
+
+export interface IHouseSummaryReducer {
     transactionSummaryArray: ITransactionSummary[];
 }

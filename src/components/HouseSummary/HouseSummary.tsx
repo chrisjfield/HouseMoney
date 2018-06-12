@@ -6,7 +6,7 @@ import { Loading } from '../Loading';
 // import { getHouseholdOccupants } from '../Occupants/occupantsActions';
 import { NoTransactionsFound } from '../ViewTransactions/NoTransactionsFound';
 import { HouseSummaryGrid } from './HouseSummaryGrid';
-import { IHouseSummaryProps } from './houseSummaryInterfaces';
+import { IHouseSummaryProps, IHouseSummaryStore } from './houseSummaryInterfaces';
 
 class HouseSummary extends React.Component<IHouseSummaryProps> {
     componentDidMount() {
@@ -43,9 +43,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
 }
 
 const mapStateToProps = (store: IStore) => {
-    const props: IHouseSummaryProps = {
-        dispatch: store.dispatch,
-        history: store.history,
+    const props: IHouseSummaryStore = {
         loading: store.loadingReducer.loading,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         transactionSummaryArray: store.houseSummaryReducer.transactionSummaryArray,

@@ -6,8 +6,8 @@ export interface IErrorMessageProps extends IErrorMessageStore {
 
 export interface IErrorMessageState extends IErrorMessageStore { }
 
-export interface IErrorMessageStore {
+export interface IErrorMessageStore extends IErrorMessageReducer { }
+
+export interface IErrorMessageReducer {
     errorMessageText: string;
 }
-
-export interface IErrorMessageAction extends Action, IErrorMessageState { } // TODO: Remove these and use the auto action types! (somehow?)

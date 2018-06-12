@@ -3,13 +3,13 @@ import { persistStore } from 'redux-persist';
 import { myHouseUrl } from '../../appConfig';
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
+import { createAction } from '../../helpers/actionCreator';
 import apiHelper from '../../helpers/apiHelper';
 import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
 import { store } from '../../main/configureStore';
 import { addError } from '../ErrorMessage/errorMessageActions';
-import { LoadingActions } from '../Loading/loadingActions';
+import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
 import { ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
-import { createAction } from '../../helpers/actionCreator';
 
 export enum occupantActionsTypes {
     LOGGED_OUT = 'LOGGED_OUT',
@@ -17,6 +17,7 @@ export enum occupantActionsTypes {
     RECEIVE_OCCUPANTS_OF_HOUSEHOLD = 'RECEIVE_OCCUPANTS_OF_HOUSEHOLD',
 }
 
+// ED! Think we should probably leave this as a promise - as actually really do want to await this - means refactor helpers!
 export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<boolean> {
     let isLoggedIn = false;
     if (occupant && occupant.token && occupant.userId && occupant.occupantId) {
@@ -32,25 +33,26 @@ export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<
 
 export function logout() {
     return (dispatch: Function) => {
-        persistStore(store).purge();
+        persistStore(store).purge(); // TODO: think: Do we really want to purge on logout? Maybe?
         return dispatch(receiveOccupant(undefined, false));
     };
 }
 
+// TODO: Make observable
 export function getHouseholdOccupants(token: string, userId: string, occupantId: number) {
     const request = apiHelper.apiCall<IOccupant[]>(
         HTTPMethod.GET, endpoints.occupants, token, userId + ',' + occupantId.toString(),
     );
     return (dispatch: Function) => {
-        dispatch(LoadingActions.loadingStarted());
+        dispatch(loadingStarted());
         return request
             .then((response: IOccupant[]) => {
                 dispatch(receiveHouseholdOccupants(response));
-                dispatch(LoadingActions.loadingComplete());
+                dispatch(loadingComplete());
             })
             .catch((error: Error) => {
                 dispatch(addError(error.message));
-                dispatch(LoadingActions.loadingComplete());
+                dispatch(loadingComplete());
                 throw error;
             });
     };

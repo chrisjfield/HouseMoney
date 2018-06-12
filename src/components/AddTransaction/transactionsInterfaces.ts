@@ -1,5 +1,5 @@
+import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { IOccupant } from '../Occupants/occupantsInterfaces';
-import { IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 
 export interface IAddTransationState {
     occupantsArray: IAddTransactionOccupant[];
@@ -29,10 +29,12 @@ export interface ITransactionResponse extends ITransaction {
     transactionId: number;
 }
 
-export interface IAddTransactionProps extends IConnectedComponentProps, IAddTransactionStore {
+export interface IAddTransactionProps extends IAddTransactionStore, IComponentProps { }
+
+export interface IAddTransactionStore extends IAddTransactionReducer, IConnectedComponentProps {
     householdOccupantsArray: IAddTransactionOccupant[];
 }
 
-export interface IAddTransactionStore {
+export interface IAddTransactionReducer {
     transactionsAdded: boolean;
 }

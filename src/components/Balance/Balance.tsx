@@ -6,7 +6,7 @@ import appStyles from '../../styles';
 import { Loading } from '../Loading';
 import BalanceList from './BalanceList';
 import { getBalance } from './balanceActions';
-import { IBalanceProps } from './balanceInterfaces';
+import { IBalanceProps, IBalanceStore } from './balanceInterfaces';
 // import styles from './balanceStyles';
 
 class Balance extends React.Component<IBalanceProps> {
@@ -32,12 +32,9 @@ class Balance extends React.Component<IBalanceProps> {
     }
 }
 
-// Retrieve data from store as props
 const mapStateToProps = (store: IStore) => {
-    const props: IBalanceProps =
+    const props: IBalanceStore =
         {
-            dispatch: store.dispatch,
-            history: store.history,
             loggedInOccupant: store.occupantsReducer.loggedInOccupant,
             loading: store.loadingReducer.loading,
             balanceArray: store.balanceReducer.balanceArray,

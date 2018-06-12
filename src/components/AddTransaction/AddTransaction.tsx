@@ -18,7 +18,7 @@ import { IOccupant } from '../Occupants/occupantsInterfaces';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
 import { TransactionActions } from './transactionsActions';
 // tslint:disable-next-line:max-line-length
-import { IAddTransactionOccupant, IAddTransactionProps, IAddTransationState, ITransaction } from './transactionsInterfaces';
+import { IAddTransactionOccupant, IAddTransactionProps, IAddTransactionStore, IAddTransationState, ITransaction } from './transactionsInterfaces';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
     constructor(props: IAddTransactionProps) {
@@ -217,24 +217,18 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 }
 
-// Retrieve data from store as props
 const mapStateToProps = (store: IStore) => {
     const householdOccupantsArray: IAddTransactionOccupant[] = store.occupantsReducer.householdOccupantsArray.map((occupant: IOccupant) => {
         const transactionOccupant: IAddTransactionOccupant = { ...occupant, checked: false };
         return transactionOccupant;
     });
-    const props: IAddTransactionProps = {
+    const props: IAddTransactionStore = {
         householdOccupantsArray,
-        dispatch: store.dispatch,
-        history: store.history,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         loading: store.loadingReducer.loading,
         transactionsAdded: store.transactionsReducer.transactionsAdded,
     };
     return props;
 };
-
-// const mapDispatchToProps = (dispatch: redux.Dispatch<redux.Action>) =>
-//   redux.bindActionCreators(TransactionActions, dispatch);
 
 export default connect(mapStateToProps)(AddTransaction);
