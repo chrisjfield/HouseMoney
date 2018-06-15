@@ -26,7 +26,31 @@ import { INavProps, INavState } from './navInterfaces';
 // TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse?
 const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
     return (
-        <List >
+        <List>
+            <Tooltip id="tooltip-icon" title="Add a transaction" placement="top">
+                <Link to={houseMoneyRoutes.AddTransaction}
+                    style={{ textDecoration: 'none' }}
+                >
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Add />
+                        </ListItemIcon>
+                        <ListItemText primary="Add" />
+                    </ListItem>
+                </Link>
+            </Tooltip>
+            <Tooltip id="tooltip-icon" title="View previous transactions" placement="top">
+                <Link to={houseMoneyRoutes.ViewTransactions}
+                    style={{ textDecoration: 'none' }}
+                >
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Pageview />
+                        </ListItemIcon>
+                        <ListItemText primary="View" />
+                    </ListItem>
+                </Link>
+            </Tooltip>
             <Tooltip id="tooltip-icon" title="Your balance, also the home page" placement="top">
                 <Link to={houseMoneyRoutes.Balance}
                     style={{ textDecoration: 'none' }}
@@ -35,10 +59,11 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
                         <ListItemIcon>
                             <AccountBalance />
                         </ListItemIcon>
-                        <ListItemText primary="My Balance" />
+                        <ListItemText primary="Balance" />
                     </ListItem>
                 </Link>
             </Tooltip>
+            <Divider />
             <Tooltip id="tooltip-icon" title="An overview of all debts in the household" placement="top">
                 <Link to={houseMoneyRoutes.HouseSummary}
                     style={{ textDecoration: 'none' }}
@@ -47,14 +72,16 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
                         <ListItemIcon>
                             <AccountBalance />
                         </ListItemIcon>
-                        <ListItemText primary="House Summary" />
+                        <ListItemText primary="Summary" />
                     </ListItem>
                 </Link>
             </Tooltip>
             <Divider />
             <Tooltip id="tooltip-icon" title="See you again soon" placement="top">
                 <ListItem button href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}
-                    onClick={() => logout()}>
+                    onClick={() => logout()}
+                    style={{ textDecoration: 'none' }}
+                >
                     <ListItemIcon>
                         <ExitToApp />
                     </ListItemIcon>
@@ -129,6 +156,7 @@ class Nav extends React.Component<INavProps, INavState> {
                         <IconButton
                             style={{
                                 display: 'inline-flex',
+                                marginLeft: '24px',
                             }}
                             aria-label="Menu"
                             onClick={this.toggleDrawer}>
