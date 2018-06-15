@@ -30,7 +30,8 @@
     "redux-persist": "5.9.1",
     "redux-promise-middleware": "5.1.1",
     "redux-thunk": "2.3.0",
-    "rxjs": "^6.2.0"
+    "rxjs": "^6.2.0",
+    "typeface-roboto": "0.0.54"
   },
   "scripts": {
     "eject": "react-scripts-ts eject",

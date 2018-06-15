@@ -1,7 +1,7 @@
 import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
 import red from '@material-ui/core/colors/red';
-import { Theme, createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, Theme } from '@material-ui/core/styles';
 
 const appTheme: Theme = createMuiTheme({
     palette: {
@@ -13,10 +13,10 @@ const appTheme: Theme = createMuiTheme({
             contrastText: grey[400],
         },
         secondary: {
-            light: grey[600],
-            main: grey[700],
-            dark: grey[800],
-            contrastText: grey[400],
+            light: grey[200],
+            main: grey[300],
+            dark: grey[700],
+            contrastText: grey[600],
         },
         error: {
             light: red[700],

@@ -35,7 +35,7 @@ const LoggedInMenuOptions: React.StatelessComponent = () => {
                 >
                     <ListItem button>
                         <ListItemIcon>
-                            <Add />
+                            <Add color="secondary" />
                         </ListItemIcon>
                         <ListItemText primary="Add" />
                     </ListItem>
@@ -47,7 +47,7 @@ const LoggedInMenuOptions: React.StatelessComponent = () => {
                 >
                     <ListItem button>
                         <ListItemIcon>
-                            <Pageview />
+                            <Pageview color="secondary" />
                         </ListItemIcon>
                         <ListItemText primary="View" />
                     </ListItem>
@@ -59,7 +59,7 @@ const LoggedInMenuOptions: React.StatelessComponent = () => {
                 >
                     <ListItem button>
                         <ListItemIcon>
-                            <AccountBox />
+                            <AccountBox color="secondary" />
                         </ListItemIcon>
                         <ListItemText primary="Balance" />
                     </ListItem>
@@ -71,8 +71,8 @@ const LoggedInMenuOptions: React.StatelessComponent = () => {
                     style={{ textDecoration: 'none' }}
                 >
                     <ListItem button>
-                        <ListItemIcon>
-                            <AccountBalance />
+                        <ListItemIcon >
+                            <AccountBalance color="secondary" />
                         </ListItemIcon>
                         <ListItemText primary="Summary" />
                     </ListItem>
@@ -86,7 +86,7 @@ const LoggedInMenuOptions: React.StatelessComponent = () => {
                     style={{ textDecoration: 'none' }}
                 >
                     <ListItemIcon>
-                        <ExitToApp />
+                        <ExitToApp color="secondary" />
                     </ListItemIcon>
                     <ListItemText primary="Logout" />
                 </ListItem>
@@ -100,15 +100,15 @@ const LoggedInNavItems: React.StatelessComponent = () => {
         <div style={{ marginLeft: 'auto', marginRight: '0' }}>
             <Tooltip id="tooltip-icon" title="Add Transaction">
                 <Link to={houseMoneyRoutes.AddTransaction}>
-                    <IconButton>
-                        <Add />
+                    <IconButton color="secondary">
+                        <Add color="secondary" />
                     </IconButton>
                 </Link>
             </Tooltip>
             <Tooltip id="tooltip-icon" title="View Transactions">
                 <Link to={houseMoneyRoutes.ViewTransactions}>
-                    <IconButton>
-                        <Pageview />
+                    <IconButton color="secondary">
+                        <Pageview color="secondary" />
                     </IconButton>
                 </Link>
             </Tooltip>
@@ -134,11 +134,11 @@ class Nav extends React.Component<INavProps, INavState> {
             <div>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer}>
-                            <MenuIcon />
+                        <IconButton color="secondary" aria-label="Menu" onClick={this.toggleDrawer}>
+                            <MenuIcon color="secondary" />
                         </IconButton>
                         <Link to="/" style={{ textDecoration: 'none' }}>
-                            <Typography variant="title" color="textSecondary">
+                            <Typography variant="title" color="secondary">
                                 House Money
                             </Typography>
                         </Link>
@@ -157,6 +157,7 @@ class Nav extends React.Component<INavProps, INavState> {
                         alignItems: 'center',
                     }}>
                         <IconButton
+                            color="secondary"
                             style={{
                                 display: 'inline-flex',
                                 marginLeft: '24px',
