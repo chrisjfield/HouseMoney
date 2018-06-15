@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { Loading } from '../Loading';
-import { getBalance } from './balanceActions';
+import { BalanceActions } from './balanceActions';
 import { IBalanceProps, IBalanceStore } from './balanceInterfaces';
 import BalanceList from './BalanceList';
 // import styles from './balanceStyles';
@@ -13,7 +13,7 @@ import BalanceList from './BalanceList';
 class Balance extends React.Component<IBalanceProps> {
     componentDidMount() {
         this.props.dispatch(
-            getBalance(this.props.loggedInOccupant), // TODO: How should this actually make the API Call tho?
+            BalanceActions.getBalance(this.props.loggedInOccupant), // TODO: How should this actually make the API Call tho?
         );
     }
 

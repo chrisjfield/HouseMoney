@@ -4,18 +4,26 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { receiveOccupant, getLogoutUrlWithDetails } from './occupantsActions';
-import { IOccupant, IOccupantProps, LogoutReason } from './occupantsInterfaces';
+import { getLogoutUrlWithDetails, receiveOccupant } from './occupantsActions';
+import { ILoggedInOccupant, IOccupant, IOccupantProps, LogoutReason } from './occupantsInterfaces';
 
 class Occupants extends React.Component<IOccupantProps> {
     componentWillReceiveProps(nextProps: IOccupantProps) {
-        if (occupantIsValid(nextProps.loggedInOccupant, nextProps.isLoggedIn)) {
+        const occpantToLogin: ILoggedInOccupant = {
+            loggedInOccupant: nextProps.loggedInOccupant,
+            isLoggedIn: nextProps.isLoggedIn,
+        };
+        if (occupantIsValid(occpantToLogin)) {
             this.props.history.push(houseMoneyRoutes.Balance);
         }
     }
 
     componentDidMount() {
-        if (occupantIsValid(this.props.loggedInOccupant, this.props.isLoggedIn)) {
+        const occpantToLogin: ILoggedInOccupant = {
+            loggedInOccupant: this.props.loggedInOccupant,
+            isLoggedIn: this.props.isLoggedIn,
+        };
+        if (occupantIsValid(occpantToLogin)) {
             this.props.history.push(houseMoneyRoutes.Balance);
         } else {
             if (this.props.location
@@ -23,9 +31,12 @@ class Occupants extends React.Component<IOccupantProps> {
                 && this.props.match
                 && this.props.match.path === houseMoneyRoutes.Occupants) {
                 const occupant: IOccupant = parseOccupant(this.props.location.search);
-
-                if (occupantIsValid(occupant, true)) {
-                    this.props.dispatch(receiveOccupant(occupant, true));
+                const parsedOccpantToLogin: ILoggedInOccupant = {
+                    loggedInOccupant: occupant,
+                    isLoggedIn: true,
+                };
+                if (occupantIsValid(parsedOccpantToLogin)) {
+                    this.props.dispatch(receiveOccupant(parsedOccpantToLogin));
                     this.props.history.push(houseMoneyRoutes.Balance);
                 } else {
                     redirectToMyHouse();
@@ -45,9 +56,15 @@ function redirectToMyHouse() {
     window.location.replace(getLogoutUrlWithDetails(LogoutReason.InvalidPassthrough));
 }
 
-function occupantIsValid(occupant: IOccupant, isLoggedIn: boolean) {
+function occupantIsValid(occupantToLogin: ILoggedInOccupant) {
     let loggedIn: boolean = false;
-    if (isLoggedIn && occupant && occupant.token && occupant.occupantId && occupant.displayName && occupant.email && occupant.userId) {
+    if (occupantToLogin
+        && occupantToLogin.isLoggedIn
+        && occupantToLogin.loggedInOccupant.token
+        && occupantToLogin.loggedInOccupant.occupantId
+        && occupantToLogin.loggedInOccupant.displayName
+        && occupantToLogin.loggedInOccupant.email
+        && occupantToLogin.loggedInOccupant.userId) {
         loggedIn = true;
     }
     return loggedIn;

@@ -1,18 +1,17 @@
-import { ActionWithPayload } from '../../helpers/actionCreator';
-import { balanceActionTypes } from './balanceActions';
+import { BalanceActions, balanceActionTypes } from './balanceActions';
 import { IBalanceReducer } from './balanceInterfaces';
 
 function balanceReducer(
     state: IBalanceReducer = {
         balanceArray: [],
     },
-    action: ActionWithPayload<balanceActionTypes, IBalanceReducer>,
+    action: BalanceActions,
 ): IBalanceReducer {
     let nextState: IBalanceReducer;
     switch (action.type) {
     case balanceActionTypes.GET_BALANCE_RESPONSE:
         nextState = { ...state,
-            balanceArray: action.payload.balanceArray,
+            balanceArray: action.payload,
         };
         break;
     default:

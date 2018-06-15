@@ -7,10 +7,12 @@ import { logout } from '../components/Occupants/occupantsActions';
 import { AjaxCallParams } from '../interfaces/apiInterfaces';
 import { store } from '../main/configureStore';
 
+// TODO: Refactor these two if keeping both! Need to decide!
 export default function ajaxObservable<R>(ajaxCallParams: AjaxCallParams): Observable<R> {
-    const headers: Headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + ajaxCallParams.token);
-    headers.append('Content-Type', 'application/json;charset=UTF-8');
+    const headers = {
+        Authorization: 'Bearer ' + ajaxCallParams.token,
+        'Content-Type': 'application/json;charset=UTF-8',
+    };
 
     let calledUrl: string = baseURL + ajaxCallParams.endpoint;
 
@@ -36,7 +38,7 @@ export default function ajaxObservable<R>(ajaxCallParams: AjaxCallParams): Obser
                 map((error: Error) => addError(error.message)),
             )),
                 checkStatus(ajaxResponse.status);
-            return ajaxResponse.response.body as R;
+            return ajaxResponse.response as R;
         }),
     );
 }
@@ -59,15 +61,17 @@ export function ajaxPromise<T>(ajaxCallParams: AjaxCallParams): Promise<T> {
         body: ajaxCallParams.body ? JSON.stringify(ajaxCallParams.body) : undefined,
     }).then((response: Response) => {
         checkStatus(response.status);
-        return response.json().then(
+        const returnedPromise = response.ok ? response.json().then(
             (response: T) => response,
-        );
+        ) : null;
+        return returnedPromise;
     }).catch((error: Error) => {
         store.dispatch(addError(error.message));
         throw error;
     });
 }
 
+// TODO: Fix unauthorised erroring!
 export function checkStatus(ajaxResponseStatusCode: number) {
     if (ajaxResponseStatusCode === 401) {
         logout();

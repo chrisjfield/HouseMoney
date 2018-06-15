@@ -9,7 +9,7 @@ import { AjaxCallParams, AuthorizationResponse } from '../../interfaces/apiInter
 import { store } from '../../main/configureStore';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
-import { ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
+import { ILoggedInOccupant, ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
 
 export enum occupantActionsTypes {
     LOGGED_OUT = 'LOGGED_OUT',
@@ -38,7 +38,11 @@ export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<
 export function logout() {
     return (dispatch: Function) => {
         persistStore(store).purge(); // TODO: think: Do we really want to purge on logout? Maybe?
-        return dispatch(receiveOccupant(undefined, false));
+        const removedOccupant: ILoggedInOccupant = {
+            isLoggedIn: false,
+            loggedInOccupant: undefined,
+        };
+        return dispatch(receiveOccupant(removedOccupant));
     };
 }
 
@@ -73,8 +77,8 @@ export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {
     return myHouseUrl + 'Logout?' + queryString.stringify(logoutDetails);
 }
 
-export const receiveOccupant = (occupant: IOccupant, isLoggedIn: boolean) =>
-    createAction(occupantActionsTypes.RECEIVE_OCCUPANT, { occupant, isLoggedIn });
+export const receiveOccupant = (loggedInOccupant: ILoggedInOccupant) =>
+    createAction(occupantActionsTypes.RECEIVE_OCCUPANT, loggedInOccupant);
 
 export const receiveHouseholdOccupants = (householdOccupantsArray: IOccupant[]) =>
     createAction(occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD, householdOccupantsArray);
