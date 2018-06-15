@@ -24,13 +24,14 @@ import { getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
 import { LogoutReason } from '../Occupants/occupantsInterfaces';
 import { INavProps, INavState } from './navInterfaces';
 
+// TODO: Refactor and move these two SFCs out into own files
 // TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse?
-const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
+const LoggedInMenuOptions: React.StatelessComponent = () => {
     return (
         <List>
             <Tooltip id="tooltip-icon" title="Add a transaction" placement="top">
                 <Link to={houseMoneyRoutes.AddTransaction}
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: 'none', paddingLeft: '24px' }}
                 >
                     <ListItem button>
                         <ListItemIcon>
