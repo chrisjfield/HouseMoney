@@ -5,7 +5,7 @@ export interface AuthorizationResponse {
     isAuthorized: boolean;
 }
 
-export interface ajaxCallParams {
+export interface AjaxCallParams {
     endpoint: endpoints;
     method: HTTPMethod;
     token: string;

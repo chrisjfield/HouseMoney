@@ -1,7 +1,8 @@
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { createAction } from '../../helpers/actionCreator';
-import apiHelper from '../../helpers/apiHelper';
+import { ajaxPromise } from '../../helpers/ajaxHelper';
+import { AjaxCallParams } from '../../interfaces/apiInterfaces';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
 import { ITransactionSummary } from './houseSummaryInterfaces';
@@ -10,11 +11,14 @@ export enum houseSummaryActionTypes {
     GET_TRANSACTION_SUMMARY = 'GET_TRANSACTION_SUMMARY',
 }
 
-// TODO: Rewrite into observable
 export function getTransactionSummary(token: string, userId: string, occupantId: number) {
-    const request = apiHelper.apiCall<ITransactionSummary[]>(
-        HTTPMethod.GET, endpoints.transactionSummary, token, userId + ',' + occupantId,
-    );
+    const ajaxCallParams: AjaxCallParams = {
+        token,
+        endpoint: endpoints.transactionSummary,
+        method: HTTPMethod.GET,
+        urlParams: userId + ',' + occupantId,
+    };
+    const request = ajaxPromise<ITransactionSummary[]>(ajaxCallParams);
     return (dispatch: Function) => {
         dispatch(loadingStarted());
         return request

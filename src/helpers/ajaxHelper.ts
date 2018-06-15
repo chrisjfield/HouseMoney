@@ -1,12 +1,13 @@
 import { Observable } from 'rxjs';
-import { AjaxRequest, AjaxResponse, ajax } from 'rxjs/ajax';
+import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { catchError, map } from 'rxjs/operators';
 import baseURL from '../appConfig';
 import { addError } from '../components/ErrorMessage/errorMessageActions';
 import { logout } from '../components/Occupants/occupantsActions';
-import { ajaxCallParams } from '../interfaces/apiInterfaces';
+import { AjaxCallParams } from '../interfaces/apiInterfaces';
+import { store } from '../main/configureStore';
 
-function ajaxCall<R>(ajaxCallParams: ajaxCallParams): Observable<R> {
+export default function ajaxObservable<R>(ajaxCallParams: AjaxCallParams): Observable<R> {
     const headers: Headers = new Headers();
     headers.append('Authorization', 'Bearer ' + ajaxCallParams.token);
     headers.append('Content-Type', 'application/json;charset=UTF-8');
@@ -34,16 +35,41 @@ function ajaxCall<R>(ajaxCallParams: ajaxCallParams): Observable<R> {
             catchError((error: Error, errorObservable) => errorObservable.pipe(
                 map((error: Error) => addError(error.message)),
             )),
-            checkStatus(ajaxResponse);
+                checkStatus(ajaxResponse.status);
             return ajaxResponse.response.body as R;
         }),
     );
 }
 
-function checkStatus(ajaxResponse: AjaxResponse) {
-    if (ajaxResponse.status === 401) {
+export function ajaxPromise<T>(ajaxCallParams: AjaxCallParams): Promise<T> {
+    const headers: Headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + ajaxCallParams.token);
+    headers.append('Content-Type', 'application/json;charset=UTF-8');
+
+    let calledUrl: string = baseURL + ajaxCallParams.endpoint;
+
+    if (ajaxCallParams.urlParams) {
+        calledUrl = calledUrl + ajaxCallParams.urlParams;
+    }
+
+    return fetch(calledUrl, {
+        headers,
+        method: ajaxCallParams.method,
+        mode: 'cors',
+        body: ajaxCallParams.body ? JSON.stringify(ajaxCallParams.body) : undefined,
+    }).then((response: Response) => {
+        checkStatus(response.status);
+        return response.json().then(
+            (response: T) => response,
+        );
+    }).catch((error: Error) => {
+        store.dispatch(addError(error.message));
+        throw error;
+    });
+}
+
+export function checkStatus(ajaxResponseStatusCode: number) {
+    if (ajaxResponseStatusCode === 401) {
         logout();
     }
 }
-
-export default ajaxCall;

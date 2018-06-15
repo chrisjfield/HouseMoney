@@ -4,8 +4,8 @@ import { myHouseUrl } from '../../appConfig';
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { createAction } from '../../helpers/actionCreator';
-import apiHelper from '../../helpers/apiHelper';
-import { AuthorizationResponse } from '../../interfaces/apiInterfaces';
+import { ajaxPromise } from '../../helpers/ajaxHelper';
+import { AjaxCallParams, AuthorizationResponse } from '../../interfaces/apiInterfaces';
 import { store } from '../../main/configureStore';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
@@ -20,10 +20,14 @@ export enum occupantActionsTypes {
 // ED! Think we should probably leave this as a promise - as actually really do want to await this - means refactor helpers!
 export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<boolean> {
     let isLoggedIn = false;
+    const ajaxCallParams: AjaxCallParams = {
+        token: occupant.token,
+        endpoint: endpoints.authorization,
+        method: HTTPMethod.GET,
+        urlParams: occupant.userId + ',' + occupant.occupantId.toString(),
+    };
     if (occupant && occupant.token && occupant.userId && occupant.occupantId) {
-        await apiHelper.apiCall<AuthorizationResponse>(
-            HTTPMethod.GET, endpoints.authorization, occupant.token, occupant.userId + ',' + occupant.occupantId,
-        )
+        await ajaxPromise<AuthorizationResponse>(ajaxCallParams)
             .then((authorizationResponse: AuthorizationResponse) => {
                 isLoggedIn = authorizationResponse ? authorizationResponse.isAuthorized : false;
             });
@@ -40,9 +44,13 @@ export function logout() {
 
 // TODO: Make observable
 export function getHouseholdOccupants(token: string, userId: string, occupantId: number) {
-    const request = apiHelper.apiCall<IOccupant[]>(
-        HTTPMethod.GET, endpoints.occupants, token, userId + ',' + occupantId.toString(),
-    );
+    const ajaxCallParams: AjaxCallParams = {
+        token,
+        endpoint: endpoints.occupants,
+        method: HTTPMethod.GET,
+        urlParams: userId + ',' + occupantId.toString(),
+    };
+    const request = ajaxPromise<IOccupant[]>(ajaxCallParams);
     return (dispatch: Function) => {
         dispatch(loadingStarted());
         return request
