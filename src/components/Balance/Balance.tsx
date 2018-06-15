@@ -1,12 +1,13 @@
+import { Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper/Paper';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { Loading } from '../Loading';
-import BalanceList from './BalanceList';
 import { getBalance } from './balanceActions';
 import { IBalanceProps, IBalanceStore } from './balanceInterfaces';
+import BalanceList from './BalanceList';
 // import styles from './balanceStyles';
 
 class Balance extends React.Component<IBalanceProps> {
@@ -19,14 +20,12 @@ class Balance extends React.Component<IBalanceProps> {
     render() {
         return (
             <form name="balanceForm" style={appStyles.container}>
-                <div>
-                    <h2>My Balance</h2>
-                    <Paper
-                    // style={styles.balanceSheet}
-                    >
-                        {this.props.loading === 0 ? <BalanceList {...this.props} /> : <Loading />}
-                    </Paper>
-                </div>
+                <Typography variant="headline">My Balance</Typography>
+                <Paper
+                // style={styles.balanceSheet}
+                >
+                    {this.props.loading === 0 ? <BalanceList {...this.props} /> : <Loading />}
+                </Paper>
             </form>
         );
     }

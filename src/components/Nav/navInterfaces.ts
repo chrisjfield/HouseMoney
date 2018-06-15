@@ -4,3 +4,7 @@ import { ILoggedInOccupant } from '../Occupants/occupantsInterfaces';
 export interface INavProps extends ILoggedInOccupant {
     dispatch: Dispatch<Action>;
 }
+
+export interface INavState {
+    openSidebar: boolean;
+}
