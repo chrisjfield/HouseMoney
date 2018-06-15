@@ -20,17 +20,18 @@ import { INavProps, INavState } from './navInterfaces';
 const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
     return (
         <div className="sidebar">
-            <HomeButton />
-            <Link // style={styles.menuItems}
-                to={houseMoneyRoutes.HouseSummary}>
+            <Link to={houseMoneyRoutes.HouseSummary}
+                style={{ textDecoration: 'none' }}
+            >
                 <MenuItem>House Summary</MenuItem>
             </Link>
-            <Link // style={styles.menuItems}
-                to={houseMoneyRoutes.Balance}>
+            <Link to={houseMoneyRoutes.Balance}
+                style={{ textDecoration: 'none' }}
+            >
                 <MenuItem>My Balance</MenuItem>
             </Link>
             <a
-                // style={styles.menuItems}
+                style={{ textDecoration: 'none' }}
                 onClick={() => logout()}
                 href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}>
                 <MenuItem>Logout</MenuItem>
@@ -42,16 +43,14 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
 const LoggedInNavItems: React.StatelessComponent = () => {
     return (
         <div style={{ marginLeft: 'auto', marginRight: '0' }}>
-            <Link
-                to={houseMoneyRoutes.AddTransaction}>
+            <Link to={houseMoneyRoutes.AddTransaction}>
                 <Tooltip id="tooltip-icon" title="Add Transaction">
                     <IconButton>
                         <Add />
                     </IconButton>
                 </Tooltip>
             </Link>
-            <Link
-                to={houseMoneyRoutes.ViewTransactions}>
+            <Link to={houseMoneyRoutes.ViewTransactions}>
                 <Tooltip id="tooltip-icon" title="View Transactions">
                     <IconButton>
                         <Pageview />
@@ -59,16 +58,6 @@ const LoggedInNavItems: React.StatelessComponent = () => {
                 </Tooltip>
             </Link>
         </div>
-    );
-};
-
-const HomeButton: React.StatelessComponent = () => {
-    return (
-        <Link to="/">
-            <Typography variant="title" color="inherit">
-                House Money
-            </Typography>
-        </Link>
     );
 };
 
@@ -93,17 +82,46 @@ class Nav extends React.Component<INavProps, INavState> {
                         <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer}>
                             <MenuIcon />
                         </IconButton>
-                        <HomeButton />
+                        <Link to="/" style={{ textDecoration: 'none' }}>
+                            <Typography variant="title" color="inherit">
+                                House Money
+                            </Typography>
+                        </Link>
                         {this.props.isLoggedIn ? <LoggedInNavItems /> : <div />}
                     </Toolbar>
                 </AppBar>
-                <SwipeableDrawer
+                {this.props.isLoggedIn ? <SwipeableDrawer
                     open={this.state.openSidebar}
                     onClose={this.toggleDrawer}
                     onOpen={this.toggleDrawer}
-                    >
-                    {this.props.isLoggedIn && this.state.openSidebar ? <LoggedInMenuOptions {...this.props} /> : <div />}
-                </ SwipeableDrawer>
+                >
+                    <div style={{
+                        minHeight: '64px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                        <IconButton
+                            style={{
+                                display: 'inline-flex',
+                                marginLeft: '24px',
+                            }}
+                            aria-label="Menu"
+                            onClick={this.toggleDrawer}>
+                            <MenuIcon />
+                        </IconButton>
+                        <Link to="/" style={{
+                            display: 'inline-flex',
+                            paddingRight: '24px',
+                            textDecoration: 'none',
+                        }}>
+                            <Typography variant="title">
+                                House Money
+                            </Typography>
+                        </Link>
+                    </div>
+                    <LoggedInMenuOptions {...this.props} />
+                </ SwipeableDrawer> : <div />}
             </ div>
         );
     }
