@@ -31,7 +31,7 @@ const LoggedInMenuOptions: React.StatelessComponent = () => {
         <List>
             <Tooltip id="tooltip-icon" title="Add a transaction" placement="top">
                 <Link to={houseMoneyRoutes.AddTransaction}
-                    style={{ textDecoration: 'none', paddingLeft: '24px' }}
+                    style={{ textDecoration: 'none' }}
                 >
                     <ListItem button>
                         <ListItemIcon>
