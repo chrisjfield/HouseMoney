@@ -10,6 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import Typography from '@material-ui/core/Typography/Typography';
 import AccountBalance from '@material-ui/icons/AccountBalance';
+import AccountBox from '@material-ui/icons/AccountBox';
 import Add from '@material-ui/icons/Add';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -57,7 +58,7 @@ const LoggedInMenuOptions: React.StatelessComponent<INavProps> = (props) => {
                 >
                     <ListItem button>
                         <ListItemIcon>
-                            <AccountBalance />
+                            <AccountBox />
                         </ListItemIcon>
                         <ListItemText primary="Balance" />
                     </ListItem>
