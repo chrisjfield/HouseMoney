@@ -12,9 +12,7 @@ import BalanceList from './BalanceList';
 
 class Balance extends React.Component<IBalanceProps> {
     componentDidMount() {
-        this.props.dispatch(
-            BalanceActions.getBalance(this.props.loggedInOccupant), // TODO: How should this actually make the API Call tho?
-        );
+        this.props.dispatch(BalanceActions.getBalance(this.props.loggedInOccupant));
     }
 
     render() {

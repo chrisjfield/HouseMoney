@@ -1,7 +1,7 @@
 const styles: { [name: string]: React.CSSProperties } = {
     container: {
         textAlign: 'center',
-        marginTop: '20px',
+        paddingTop: '20px',
     },
     snackbarBody: {
         textAlign: 'center',

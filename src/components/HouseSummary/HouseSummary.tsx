@@ -22,7 +22,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
     // TODO: replace style={houseSummaryStyles.gridContainer}
     render() {
         return (
-          <div style={appStyles.container}>
+          <form name="houseSummaryForm" style={appStyles.container}>
             <h2>House Money Summary</h2>
             <div id="houseSummaryTableContainer" >
               <div className="row">
@@ -37,7 +37,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         );
     }
 }

@@ -2,6 +2,7 @@ import Button from '@material-ui/core/Button/Button';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
+import appStyles from '../../styles';
 import { Loading } from '../Loading';
 import { NoTransactionsFound } from './NoTransactionsFound';
 import { ViewTransactionsGrid } from './ViewTransactionsGrid';
@@ -70,7 +71,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     // TODO: replace style={styles.container} on divs
     render() {
         return (
-            <div >
+            <form name="viewTransactionsForm" style={appStyles.container}>
                 <h2>My Transactions</h2>
                 <div id="viewTransactionsTableContainer" >
                     <div className="row">
@@ -80,7 +81,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         );
     }
 }
