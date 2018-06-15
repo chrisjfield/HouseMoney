@@ -8,7 +8,6 @@ import { Loading } from '../Loading';
 import { BalanceActions } from './balanceActions';
 import { IBalanceProps, IBalanceStore } from './balanceInterfaces';
 import BalanceList from './BalanceList';
-// import styles from './balanceStyles';
 
 class Balance extends React.Component<IBalanceProps> {
     componentDidMount() {
@@ -19,9 +18,7 @@ class Balance extends React.Component<IBalanceProps> {
         return (
             <form name="balanceForm" style={appStyles.container}>
                 <Typography variant="headline">My Balance</Typography>
-                <Paper
-                // style={styles.balanceSheet}
-                >
+                <Paper>
                     {this.props.loading === 0 ? <BalanceList {...this.props} /> : <Loading />}
                 </Paper>
             </form>
@@ -30,12 +27,11 @@ class Balance extends React.Component<IBalanceProps> {
 }
 
 const mapStateToProps = (store: IStore) => {
-    const props: IBalanceStore =
-        {
-            loggedInOccupant: store.occupantsReducer.loggedInOccupant,
-            loading: store.loadingReducer.loading,
-            balanceArray: store.balanceReducer.balanceArray,
-        };
+    const props: IBalanceStore = {
+        loggedInOccupant: store.occupantsReducer.loggedInOccupant,
+        loading: store.loadingReducer.loading,
+        balanceArray: store.balanceReducer.balanceArray,
+    };
     return props;
 };
 
