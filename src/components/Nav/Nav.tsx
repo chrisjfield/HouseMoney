@@ -80,7 +80,8 @@ const LoggedInMenuOptions: React.StatelessComponent = () => {
             </Tooltip>
             <Divider />
             <Tooltip id="tooltip-icon" title="See you again soon" placement="top">
-                <ListItem button href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}
+                <ListItem button
+                    href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}
                     onClick={() => logout()}
                     style={{ textDecoration: 'none' }}
                 >
@@ -137,7 +138,7 @@ class Nav extends React.Component<INavProps, INavState> {
                             <MenuIcon />
                         </IconButton>
                         <Link to="/" style={{ textDecoration: 'none' }}>
-                            <Typography variant="title" color="inherit">
+                            <Typography variant="title" color="textSecondary">
                                 House Money
                             </Typography>
                         </Link>
@@ -182,7 +183,6 @@ class Nav extends React.Component<INavProps, INavState> {
     }
 }
 
-// Retrieve data from store as props
 const mapStateToProps = (store: IStore) => {
     return {
         isLoggedIn: store.occupantsReducer.isLoggedIn,

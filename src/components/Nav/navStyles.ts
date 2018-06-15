@@ -1,4 +1,5 @@
-const styles: any = { // TODO: type
+
+const styles: { [name: string]: React.CSSProperties } = {
     occupantChipItem: {
         display: 'inline-flex',
         width: '120px',
