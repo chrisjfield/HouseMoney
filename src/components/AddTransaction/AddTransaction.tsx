@@ -150,11 +150,11 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.props.history.push(houseMoneyRoutes.ViewTransactions);
     }
 
-    // TODO: Change the number field to work! Maybe update MUI?
+    // TODO: Improve reference field - don't like vertical arrows!
     render() {
         return (
             <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
-                <h2>Add a Transaction </h2>
+                <h2> Add Transaction </h2>
                 <h3> Divided between: </h3>
                 <div>
                     <List>
