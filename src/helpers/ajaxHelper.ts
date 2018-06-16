@@ -4,7 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import baseURL from '../appConfig';
 import { ErrorMessageActions } from '../components/ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../components/Loading/loadingActions';
-import { logout } from '../components/Occupants/occupantsHelper';
+import { logout } from '../components/Occupants/occupantsCommon';
 import { AjaxCallParams } from '../interfaces/apiInterfaces';
 import { store } from '../main/configureStore';
 

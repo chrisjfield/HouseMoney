@@ -9,7 +9,7 @@ import Balance from '../Balance';
 import HouseSummary from '../HouseSummary';
 import NotFound404 from '../NotFound404';
 import Occupants from '../Occupants/Occupants';
-import { checkHouseholdAuthorization } from '../Occupants/occupantsHelper';
+import { checkHouseholdAuthorization } from '../Occupants/occupantsCommon';
 import ViewTransactions from '../ViewTransactions';
 import { IRoutesProps } from './routesInterfaces';
 

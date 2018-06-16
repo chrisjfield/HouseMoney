@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import { OccupantsActions } from './occupantsActions';
-import { occupantIsValid, parseOccupant, redirectToMyHouse } from './occupantsHelper';
+import { occupantIsValid, parseOccupant, redirectToMyHouse } from './occupantsCommon';
 import { ILoggedInOccupant, IOccupant, IOccupantProps, LogoutReason } from './occupantsInterfaces';
 
 class Occupants extends React.Component<IOccupantProps> {
