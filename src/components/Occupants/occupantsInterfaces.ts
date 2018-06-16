@@ -6,8 +6,11 @@ export interface IOccupant extends IOccupantDetails {
     displayName: string;
 }
 
-export interface IOccupantDetails {
+export interface IOccupantDetails extends IUserDetails {
     occupantId: number;
+}
+
+export interface IUserDetails {
     userId: string;
     token: string;
 }

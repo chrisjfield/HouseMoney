@@ -1,5 +1,4 @@
-import { ActionWithPayload } from '../../helpers/actionCreator';
-import { occupantActionsTypes } from './occupantsActions';
+import { occupantActionsTypes, OccupantsActions } from './occupantsActions';
 import { IOccupantReducer } from './occupantsInterfaces';
 
 function occuapntsReducer(
@@ -14,7 +13,7 @@ function occuapntsReducer(
         },
         householdOccupantsArray: [],
     },
-    action: ActionWithPayload<occupantActionsTypes, IOccupantReducer>,
+    action: OccupantsActions,
 ) {
     let nextState: IOccupantReducer;
     switch (action.type) {
@@ -25,10 +24,10 @@ function occuapntsReducer(
             loggedInOccupant: action.payload.loggedInOccupant,
         };
         break;
-    case occupantActionsTypes.RECEIVE_OCCUPANTS_OF_HOUSEHOLD:
+    case occupantActionsTypes.GET_OCCUPANTS_OF_HOUSEHOLD_RESPONSE:
         nextState = {
             ...state,
-            householdOccupantsArray: action.payload.householdOccupantsArray,
+            householdOccupantsArray: action.payload,
         };
         break;
     default:

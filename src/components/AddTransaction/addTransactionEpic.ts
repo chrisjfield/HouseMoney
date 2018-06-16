@@ -8,13 +8,13 @@ import { ActionWithPayload } from '../../helpers/actionCreator';
 import ajaxObservable from '../../helpers/ajaxHelper';
 import { AjaxCallParams } from '../../interfaces/apiInterfaces';
 import { TransactionActions, transactionActionTypes } from './transactionsActions';
-import { ITransaction } from './transactionsInterfaces';
+import { IAddTransactionRequest } from './transactionsInterfaces';
 
 const addTransactionRequestEpic = (action$: Observable<Action>) => {
     return action$.pipe(
-        ofType(transactionActionTypes.ADD_TRANSACTION_REQUEST),
-        mergeMap((params: ActionWithPayload<transactionActionTypes.ADD_TRANSACTION_REQUEST,
-                { token: string, userId: string, transactionArray: ITransaction[] }>) => {
+        ofType<ActionWithPayload<transactionActionTypes.ADD_TRANSACTION_REQUEST, IAddTransactionRequest>>(
+            transactionActionTypes.ADD_TRANSACTION_REQUEST),
+        mergeMap((params) => {
             const addTransactionAjaxParams: AjaxCallParams = {
                 token: params.payload.token,
                 method: HTTPMethod.POST,

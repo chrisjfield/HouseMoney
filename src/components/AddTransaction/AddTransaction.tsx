@@ -14,11 +14,12 @@ import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { addError } from '../ErrorMessage/errorMessageActions';
 import { Loading } from '../Loading';
-import { IOccupant } from '../Occupants/occupantsInterfaces';
+import { OccupantsActions } from '../Occupants/occupantsActions';
+import { IOccupant, IOccupantDetails } from '../Occupants/occupantsInterfaces';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
 import { TransactionActions } from './transactionsActions';
 // tslint:disable-next-line:max-line-length
-import { IAddTransactionOccupant, IAddTransactionProps, IAddTransactionStore, IAddTransationState, ITransaction } from './transactionsInterfaces';
+import { IAddTransactionOccupant, IAddTransactionProps, IAddTransactionRequest, IAddTransactionStore, IAddTransationState, ITransaction } from './transactionsInterfaces';
 
 class AddTransaction extends React.Component<IAddTransactionProps, IAddTransationState> {
     constructor(props: IAddTransactionProps) {
@@ -34,10 +35,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     componentDidMount() {
-        // const occupant = this.props.loggedInOccupant;
-        // this.props.dispatch(getHouseholdOccupants(occupant.token, occupant.userId, occupant.occupantId));
-        // TODO: Think about this typerrr - maybe should split concepts of API calls and actions?
-        // OR maybe should send an action with a payload that sets the api call params?
+        const occupantDetails: IOccupantDetails = this.props.loggedInOccupant;
+        this.props.dispatch(OccupantsActions.getHouseholdOccupants(occupantDetails));
     }
 
     componentWillReceiveProps(nextProps: IAddTransactionProps) {
@@ -85,8 +84,13 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 dateISO, // TODO: Check dates saving down! Think the timezones are still mesing up!
                 transactionDetails.reference,
             );
+            const addTransactionRequest: IAddTransactionRequest = {
+                token: me.token,
+                userId: me.userId,
+                transactionArray: payday,
+            };
 
-            this.props.dispatch(TransactionActions.addTransaction(me.token, me.userId, payday)); // TODO: Think about this one too!
+            this.props.dispatch(TransactionActions.addTransaction(addTransactionRequest)); // TODO: Think about this one too!
         }
     }
 

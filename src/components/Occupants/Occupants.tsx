@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { getLogoutUrlWithDetails, receiveOccupant } from './occupantsActions';
+import { getLogoutUrlWithDetails, OccupantsActions } from './occupantsActions';
 import { ILoggedInOccupant, IOccupant, IOccupantProps, LogoutReason } from './occupantsInterfaces';
 
 class Occupants extends React.Component<IOccupantProps> {
@@ -36,7 +36,7 @@ class Occupants extends React.Component<IOccupantProps> {
                     isLoggedIn: true,
                 };
                 if (occupantIsValid(parsedOccpantToLogin)) {
-                    this.props.dispatch(receiveOccupant(parsedOccpantToLogin));
+                    this.props.dispatch(OccupantsActions.receiveOccupant(parsedOccpantToLogin));
                     this.props.history.push(houseMoneyRoutes.Balance);
                 } else {
                     redirectToMyHouse();

@@ -1,5 +1,5 @@
 import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
-import { IOccupant } from '../Occupants/occupantsInterfaces';
+import { IOccupant, IUserDetails } from '../Occupants/occupantsInterfaces';
 
 export interface IAddTransationState {
     occupantsArray: IAddTransactionOccupant[];
@@ -27,6 +27,10 @@ export interface ITransactionDetails {
 
 export interface ITransactionResponse extends ITransaction {
     transactionId: number;
+}
+
+export interface IAddTransactionRequest extends IUserDetails {
+    transactionArray: ITransaction[];
 }
 
 export interface IAddTransactionProps extends IAddTransactionStore, IComponentProps { }
