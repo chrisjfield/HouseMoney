@@ -4,7 +4,7 @@ import { createAction } from '../../helpers/actionCreator';
 import { ajaxPromise } from '../../helpers/ajaxHelper';
 import { AjaxCallParams } from '../../interfaces/apiInterfaces';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
-import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
+import { LoadingActions } from '../Loading/loadingActions';
 import { ITransactionSummary } from './houseSummaryInterfaces';
 
 export enum houseSummaryActionTypes {
@@ -20,15 +20,15 @@ export function getTransactionSummary(token: string, userId: string, occupantId:
     };
     const request = ajaxPromise<ITransactionSummary[]>(ajaxCallParams);
     return (dispatch: Function) => {
-        dispatch(loadingStarted());
+        dispatch(LoadingActions.loadingStarted());
         return request
             .then((response: ITransactionSummary[]) => {
                 dispatch(receiveTransactionSummary(response));
-                dispatch(loadingComplete());
+                dispatch(LoadingActions.loadingComplete());
             })
             .catch((error: Error) => {
                 dispatch(ErrorMessageActions.addError(error.message));
-                dispatch(loadingComplete());
+                dispatch(LoadingActions.loadingComplete());
                 throw error;
             });
     };
