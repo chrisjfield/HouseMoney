@@ -189,7 +189,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         value={this.state.transactionDetails.gross}
                         onChange={this.handleInputChange('gross')}
                         disabled={this.state.transactionAdding}
-                        style={addTransactionStyles.textFields}
+                        margin="normal"
                     />
                 </div>
                 <div>
@@ -200,7 +200,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         value={this.state.transactionDetails.date}
                         onChange={this.handleDateChange}
                         disabled={this.state.transactionAdding}
-                        style={addTransactionStyles.textFields}
+                        margin="normal"
                     />
                 </div>
                 <div>
@@ -214,13 +214,14 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         value={this.state.transactionDetails.reference}
                         onChange={this.handleInputChange('reference')}
                         disabled={this.state.transactionAdding}
-                        style={addTransactionStyles.textFields}
+                        margin="normal"
                     />
                 </div>
                 <Button
                     type="submit"
                     variant="outlined"
-                    disabled={this.state.transactionAdding}>
+                    disabled={this.state.transactionAdding}
+                >
                     Add
                 </Button>
                 <Snackbar

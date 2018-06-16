@@ -19,9 +19,6 @@ const styles: { [name: string]: React.CSSProperties } = {
         textAlign: 'center',
         display: 'inline-block',
     },
-    textFields: {
-        margin: '5px',
-    },
 };
 
 export default styles;
