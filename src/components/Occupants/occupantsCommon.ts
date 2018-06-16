@@ -33,6 +33,8 @@ export function logout() {
     };
     store.dispatch(OccupantsActions.receiveOccupant(removedOccupant));
     redirectToMyHouse(LogoutReason.UserTriggered);
+    // TODO: Route to Occupants and build logout path
+    // This will avoid 404 page flash
 }
 
 export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {

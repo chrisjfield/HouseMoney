@@ -1,39 +1,20 @@
-import { endpoints } from '../../enums/endpointsEnum';
-import { HTTPMethod } from '../../enums/httpEnum';
-import { createAction } from '../../helpers/actionCreator';
-import { ajaxPromise } from '../../helpers/ajaxHelper';
-import { AjaxCallParams } from '../../interfaces/apiInterfaces';
-import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
-import { LoadingActions } from '../Loading/loadingActions';
-import { ITransactionHistory } from './viewTransactionsInterfaces';
+import { ActionsUnion, createAction } from '../../helpers/actionCreator';
+import { ITransactionHistory, IViewTransactionsRequest } from './viewTransactionsInterfaces';
 
-export enum viewTransactionsActions {
-    GET_TRANSACTION_HISTORY = 'GET_TRANSACTION_HISTORY',
+export enum viewTransactionsActionTypes {
+    GET_TRANSACTION_HISTORY_REQUEST = 'GET_TRANSACTION_HISTORY_REQUEST',
+    GET_TRANSACTION_HISTORY_RESPONSE = 'GET_TRANSACTION_HISTORY_RESPONSE',
 }
 
-// TODO: Make into observable
-export function getTransactionHistory(token: string, userId: string, occupantId: number, pageSize: number, pageNumber: number) {
-    const ajaxCallParams: AjaxCallParams = {
-        token,
-        endpoint: endpoints.transactionHistory,
-        method: HTTPMethod.GET,
-        urlParams: userId + ',' + occupantId + ',' + pageSize + ',' + pageNumber,
-    };
-    const request = ajaxPromise<ITransactionHistory[]>(ajaxCallParams);
-    return (dispatch: Function) => {
-        dispatch(LoadingActions.loadingStarted());
-        return request
-            .then((response: ITransactionHistory[]) => {
-                dispatch(receiveTransactionHistory(response));
-                dispatch(LoadingActions.loadingComplete());
-            })
-            .catch((error: Error) => {
-                dispatch(ErrorMessageActions.addError(error.message));
-                dispatch(LoadingActions.loadingComplete());
-                throw error;
-            });
-    };
-}
+const getTransactionHistory = (transactionHistoryRequest: IViewTransactionsRequest) =>
+    createAction(viewTransactionsActionTypes.GET_TRANSACTION_HISTORY_REQUEST, transactionHistoryRequest);
 
 const receiveTransactionHistory = (transactionHistoryArray: ITransactionHistory[]) =>
-    createAction(viewTransactionsActions.GET_TRANSACTION_HISTORY, transactionHistoryArray);
+    createAction(viewTransactionsActionTypes.GET_TRANSACTION_HISTORY_RESPONSE, transactionHistoryArray);
+
+export const ViewTransactionsActions = {
+    getTransactionHistory,
+    receiveTransactionHistory,
+};
+
+export type ViewTransactionsActions = ActionsUnion<typeof ViewTransactionsActions>;

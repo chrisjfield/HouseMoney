@@ -1,6 +1,6 @@
 import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
 import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
-import { IOccupant } from '../Occupants/occupantsInterfaces';
+import { IOccupantDetails } from '../Occupants/occupantsInterfaces';
 
 export interface ITransactionHistory extends ITransactionResponse {
     creditorDisplayName: string;
@@ -9,8 +9,9 @@ export interface ITransactionHistory extends ITransactionResponse {
     enteredDate: Date;
 }
 
-export interface IAddTransactionOccupant extends IOccupant {
-    checked: boolean;
+export interface IViewTransactionsRequest extends IOccupantDetails {
+    pageSize: number;
+    pageNumber: number;
 }
 
 export interface IViewTransactionsState {

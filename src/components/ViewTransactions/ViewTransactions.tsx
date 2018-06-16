@@ -5,9 +5,10 @@ import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { Loading } from '../Loading';
 import { NoTransactionsFound } from './NoTransactionsFound';
+import { ViewTransactionsActions } from './viewTransactionsActions';
 import { ViewTransactionsGrid } from './ViewTransactionsGrid';
-// import { getTransactionHistory } from './viewTransactionsActions';
-import { IViewTransactionsProps, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
+// tslint:disable-next-line:max-line-length
+import { IViewTransactionsProps, IViewTransactionsRequest, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
@@ -18,8 +19,15 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     }
 
     requestTransactionHistory() {
-        // const me = this.props.loggedInOccupant;
-        // this.props.dispatch(getTransactionHistory(me.token, me.userId, me.occupantId, this.props.pageSize, this.state.pageNumber));
+        const me = this.props.loggedInOccupant;
+        const getTransactionHistoryRequest: IViewTransactionsRequest = {
+            token: me.token,
+            userId: me.userId,
+            occupantId: me.occupantId,
+            pageSize: this.props.pageSize,
+            pageNumber: this.state.pageNumber,
+        };
+        this.props.dispatch(ViewTransactionsActions.getTransactionHistory(getTransactionHistoryRequest));
     }
 
     componentDidMount() {
@@ -51,14 +59,14 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
                         onClick={this.prevPage}
                         disabled={this.state.pageNumber <= 1}
                     >
-                    Previous
+                        Previous
                     </Button>
                     <Button
                         key="Next_Button"
                         onClick={this.nextPage}
                         disabled={this.props.transactionHistoryArray.length !== this.props.pageSize}
                     >
-                    Next
+                        Next
                     </Button>
                 </ div>
             );
@@ -68,7 +76,6 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
         return result;
     }
 
-    // TODO: replace style={styles.container} on divs
     render() {
         return (
             <form name="viewTransactionsForm" style={appStyles.container}>
