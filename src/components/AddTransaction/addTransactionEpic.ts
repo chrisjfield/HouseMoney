@@ -7,6 +7,7 @@ import { HTTPMethod } from '../../enums/httpEnum';
 import { ActionWithPayload } from '../../helpers/actionCreator';
 import ajaxObservable from '../../helpers/ajaxHelper';
 import { AjaxCallParams } from '../../interfaces/apiInterfaces';
+import { LoadingActions } from '../Loading/loadingActions';
 import { TransactionActions, transactionActionTypes } from './transactionsActions';
 import { IAddTransactionRequest } from './transactionsInterfaces';
 
@@ -25,6 +26,7 @@ const addTransactionRequestEpic = (action$: Observable<Action>) => {
             return ajaxObservable<number>(addTransactionAjaxParams).pipe(
                 mergeMap(response => of(
                     TransactionActions.receiveTransaction(response),
+                    LoadingActions.loadingComplete(),
                 )),
             );
         },

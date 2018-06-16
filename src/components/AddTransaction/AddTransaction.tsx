@@ -15,6 +15,7 @@ import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { Loading } from '../Loading';
+import { LoadingActions } from '../Loading/loadingActions';
 import { OccupantsActions } from '../Occupants/occupantsActions';
 import { IOccupant, IOccupantDetails } from '../Occupants/occupantsInterfaces';
 import addTransactionStyles from './addTransactionStyles';
@@ -91,6 +92,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 transactionArray: payday,
             };
 
+            this.props.dispatch(LoadingActions.loadingStarted());
             this.props.dispatch(TransactionActions.addTransaction(addTransactionRequest));
         }
     }

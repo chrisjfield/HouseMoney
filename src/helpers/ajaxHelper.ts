@@ -3,7 +3,8 @@ import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { catchError, map } from 'rxjs/operators';
 import baseURL from '../appConfig';
 import { ErrorMessageActions } from '../components/ErrorMessage/errorMessageActions';
-import { logout } from '../components/Occupants/occupantsActions';
+import { LoadingActions } from '../components/Loading/loadingActions';
+import { logout } from '../components/Occupants/occupantsHelper';
 import { AjaxCallParams } from '../interfaces/apiInterfaces';
 import { store } from '../main/configureStore';
 
@@ -35,7 +36,10 @@ export default function ajaxObservable<R>(ajaxCallParams: AjaxCallParams): Obser
     return ajax(ajaxRequest).pipe(
         map((ajaxResponse: AjaxResponse) => {
             catchError((error: Error, errorObservable) => errorObservable.pipe(
-                map((error: Error) => ErrorMessageActions.addError(error.message)),
+                map((error: Error) => {
+                    ErrorMessageActions.addError(error.message),
+                    LoadingActions.loadingComplete();
+                }),
             )),
                 checkStatus(ajaxResponse.status);
             return ajaxResponse.response as R;
@@ -71,7 +75,6 @@ export function ajaxPromise<T>(ajaxCallParams: AjaxCallParams): Promise<T> {
     });
 }
 
-// TODO: Fix unauthorised erroring!
 export function checkStatus(ajaxResponseStatusCode: number) {
     if (ajaxResponseStatusCode === 401) {
         logout();

@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { getLogoutUrlWithDetails, logout } from '../Occupants/occupantsActions';
+import { getLogoutUrlWithDetails, logout } from '../Occupants/occupantsHelper';
 import { LogoutReason } from '../Occupants/occupantsInterfaces';
 import { INavProps, INavState } from './navInterfaces';
 
