@@ -11,6 +11,7 @@ Possible improvements:
 Offline loading with service worker
 Server side rendering for instant load
 Hot Module Replacement and webpack 4.0
+Infinite scrolling on view transaction history 
 
 V3 Bugs:
 Console error on logout

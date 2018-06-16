@@ -1,28 +1,20 @@
-import { customTheme, theme } from '../../themes';
-const baseStyles: any = { // TODO: Type this!
+
+const baseStyles: { [name: string]: React.CSSProperties } = {
     container: {
         textAlign: 'center',
-        marginTop: '20px',
-    },
-    gridHeader: {
-        backgroundColor: customTheme.backgroundColor,
-        color: theme.palette.primary,
-    },
-    gridDetail: {
-        backgroundColor: customTheme.backgroundColor,
-        color: theme.palette.text,
+        marginTop: '20em',
     },
     owesMeWidth: {
-        width: '80px',
+        width: '80em',
     },
     valueWidth: {
-        width: '60px',
+        width: '60em',
     },
     dateWidth: {
-        width: '100px',
+        width: '100em',
     },
     referenceWidth: {
-        width: '100px',
+        width: '100em',
     },
 };
 
