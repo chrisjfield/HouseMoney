@@ -1,3 +1,4 @@
+import { Divider } from '@material-ui/core';
 import Button from '@material-ui/core/Button/Button';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
@@ -6,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 import Paper from '@material-ui/core/Paper/Paper';
 import Snackbar from '@material-ui/core/Snackbar/Snackbar';
 import TextField from '@material-ui/core/TextField/TextField';
-import * as moment from 'moment';
+import DatePicker from 'material-ui-pickers/DatePicker';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
@@ -16,6 +17,7 @@ import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { Loading } from '../Loading';
 import { OccupantsActions } from '../Occupants/occupantsActions';
 import { IOccupant, IOccupantDetails } from '../Occupants/occupantsInterfaces';
+import addTransactionStyles from './addTransactionStyles';
 import { createTransactionArray, divideValueBetweenDebtors } from './transactionCalculations';
 import { TransactionActions } from './transactionsActions';
 // tslint:disable-next-line:max-line-length
@@ -27,7 +29,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
         this.state = {
             occupantsArray: [],
-            transactionDetails: { gross: 0.00, date: new Date(), reference: null },
+            transactionDetails: { gross: '', date: new Date(), reference: '' },
             allChecked: false,
             transactionAdding: false,
             transactionAdded: false,
@@ -40,8 +42,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     componentWillReceiveProps(nextProps: IAddTransactionProps) {
-        if (nextProps.householdOccupantsArray.length > 0) {
-            this.setState({ occupantsArray: nextProps.householdOccupantsArray });
+        if (nextProps.transactionOccupantsArray.length > 0) {
+            this.setState({ occupantsArray: nextProps.transactionOccupantsArray });
         }
         if (nextProps.transactionsAdded) {
             this.setState({ transactionAdded: nextProps.transactionsAdded });
@@ -75,13 +77,12 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         if (debtors.filter(item => item.occupantId !== me.occupantId).length === 0) {
             this.props.dispatch(ErrorMessageActions.addError('Please add others to divide between'));
         } else {
-            const dividedGross = divideValueBetweenDebtors(transactionDetails.gross, debtors.length);
-            const dateISO: Date = moment(transactionDetails.date).toDate();
+            const dividedGross = divideValueBetweenDebtors(transactionDetails.gross as number, debtors.length);
             const payday: ITransaction[] = createTransactionArray(
                 debtors,
                 me.occupantId,
                 dividedGross,
-                dateISO, // TODO: Check dates saving down! Think the timezones are still mesing up!
+                transactionDetails.date,
                 transactionDetails.reference,
             );
             const addTransactionRequest: IAddTransactionRequest = {
@@ -90,7 +91,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 transactionArray: payday,
             };
 
-            this.props.dispatch(TransactionActions.addTransaction(addTransactionRequest)); // TODO: Think about this one too!
+            this.props.dispatch(TransactionActions.addTransaction(addTransactionRequest));
         }
     }
 
@@ -105,16 +106,16 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         <Checkbox
                             key={'Checkbox_' + occupant.occupantId}
                             checked={occupant.checked}
-                            // style={styles.checkbox}
+                            style={addTransactionStyles.checkbox}
                             onChange={this.updateCheck.bind(this, occupant.occupantId)}
                             disabled={this.state.transactionAdding}
                         />}
-                        label={'yo'}
-                    // label={ TODO: this right
-                    //     <UserChip
-                    //         props={{occupant}}
-                    //         // styles={styles.occupantChip}
-                    //     />}
+                    label={occupant.displayName}
+                // label={ TODO: this right
+                //     <UserChip
+                //         props={{occupant}}
+                //         // styles={addTransactionStyles.occupantChip}
+                //     />}
                 />
             </ListItem>
         );
@@ -127,9 +128,13 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     handleInputChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState(prevState => ({
+        this.setState({
             transactionDetails: { ...this.state.transactionDetails, [name]: event.target.value },
-        }));
+        });
+    }
+
+    handleDateChange = (date: Date) => {
+        this.setState({ transactionDetails: { ...this.state.transactionDetails, date } });
     }
 
     handleTransactionAddedClose = () => {
@@ -152,19 +157,20 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 <div>
                     <List>
                         <Paper
-                        // style={styles.checkBoxListSheet}
+                            style={addTransactionStyles.checkBoxListSheet}
                         >
                             <ListItem key={'ListItem_checkAll'} onClick={this.updateCheckAll}>
-                            <FormControlLabel
-                                control={<Checkbox
-                                    key="checkAll"
-                                    checked={this.state.allChecked}
-                                    onChange={this.updateCheckAll}
-                                    // style={styles.checkAll}
-                                />}
-                                label={'Everyone'}
-                            />
+                                <FormControlLabel
+                                    control={<Checkbox
+                                        key="checkAll"
+                                        checked={this.state.allChecked}
+                                        onChange={this.updateCheckAll}
+                                        style={addTransactionStyles.checkAll}
+                                    />}
+                                    label={'Everyone'}
+                                />
                             </ListItem>
+                            <Divider />
                             {this.props.loading === 0 ? (
                                 this.createCheckboxList()
                             ) : (
@@ -175,35 +181,47 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 </div>
                 <div>
                     <TextField
-                        name="gross"
+                        id="gross"
                         type="number"
                         label="Value"
                         placeholder="0.00"
                         required
                         value={this.state.transactionDetails.gross}
-                        onChange={this.handleInputChange(name)}
+                        onChange={this.handleInputChange('gross')}
                         disabled={this.state.transactionAdding}
+                        style={addTransactionStyles.textFields}
                     />
                 </div>
                 <div>
-                    // TODO: REPLACE DATE FIELD HERE ED!
+                    <DatePicker
+                        id="date"
+                        label="Date"
+                        required
+                        value={this.state.transactionDetails.date}
+                        onChange={this.handleDateChange}
+                        disabled={this.state.transactionAdding}
+                        style={addTransactionStyles.textFields}
+                    />
                 </div>
                 <div>
                     <TextField
-                        name="reference"
+                        id="reference"
                         type="text"
                         label="Description"
                         placeholder="Weekly Shop"
+                        multiline
+                        rowsMax="4"
                         value={this.state.transactionDetails.reference}
-                        onChange={this.handleInputChange(name)}
+                        onChange={this.handleInputChange('reference')}
                         disabled={this.state.transactionAdding}
+                        style={addTransactionStyles.textFields}
                     />
                 </div>
                 <Button
                     type="submit"
                     variant="outlined"
                     disabled={this.state.transactionAdding}>
-                Add
+                    Add
                 </Button>
                 <Snackbar
                     open={this.state.transactionAdded}
@@ -212,7 +230,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     onClose={this.handleTransactionAddedClose}
                     action={
                         <Button key="view" color="secondary" size="small" onClick={this.handleViewTransactionClick}>
-                        View
+                            View
                         </Button>
                     }
                 />
@@ -222,12 +240,13 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 }
 
 const mapStateToProps = (store: IStore) => {
-    const householdOccupantsArray: IAddTransactionOccupant[] = store.occupantsReducer.householdOccupantsArray.map((occupant: IOccupant) => {
-        const transactionOccupant: IAddTransactionOccupant = { ...occupant, checked: false };
-        return transactionOccupant;
-    });
+    const transactionOccupantsArray: IAddTransactionOccupant[] =
+        store.occupantsReducer.householdOccupantsArray.map((occupant: IOccupant) => {
+            const transactionOccupant: IAddTransactionOccupant = { ...occupant, checked: false };
+            return transactionOccupant;
+        });
     const props: IAddTransactionStore = {
-        householdOccupantsArray,
+        transactionOccupantsArray,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
         loading: store.loadingReducer.loading,
         transactionsAdded: store.transactionsReducer.transactionsAdded,

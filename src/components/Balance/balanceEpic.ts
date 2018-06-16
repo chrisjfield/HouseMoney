@@ -13,8 +13,8 @@ import { IBalance } from './balanceInterfaces';
 
 const balanceRequestEpic = (action$: Observable<Action>) => {
     return action$.pipe(
-        ofType(balanceActionTypes.GET_BALANCE_REQUEST),
-        switchMap((params: ActionWithPayload<balanceActionTypes.GET_BALANCE_REQUEST, IOccupantDetails>) => {
+        ofType<ActionWithPayload<balanceActionTypes.GET_BALANCE_REQUEST, IOccupantDetails>>(balanceActionTypes.GET_BALANCE_REQUEST),
+        switchMap((params) => {
             const balanceAjaxParams: AjaxCallParams = {
                 token: params.payload.token,
                 method: HTTPMethod.GET,

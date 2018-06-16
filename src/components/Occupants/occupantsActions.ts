@@ -34,6 +34,7 @@ export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<
     return isLoggedIn;
 }
 
+// TODO: Fix LOGOUT! Currently not working - think this needs a cleaner solution
 export function logout() {
     return (dispatch: Function) => {
         persistStore(store).purge(); // TODO: think: Do we really want to purge on logout? Maybe?

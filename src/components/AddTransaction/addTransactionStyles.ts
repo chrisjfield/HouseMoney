@@ -1,4 +1,4 @@
-const styles: any = { // TODO: Type
+const styles: { [name: string]: React.CSSProperties } = {
     checkbox: {
         display: 'inline-flex',
     },
@@ -18,6 +18,9 @@ const styles: any = { // TODO: Type
         width: '256px',
         textAlign: 'center',
         display: 'inline-block',
+    },
+    textFields: {
+        margin: '5px',
     },
 };
 

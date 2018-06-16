@@ -1,6 +1,8 @@
 import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { ConnectedRouter } from 'connected-react-router';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -19,9 +21,11 @@ const App: React.StatelessComponent = () => {
                 <ConnectedRouter history={history}>
                     <CssBaseline >
                         <MuiThemeProvider theme={appTheme}>
-                            <Nav />
-                            <Routes />
-                            <ErrorMessage />
+                            <MuiPickersUtilsProvider utils={MomentUtils}>
+                                <Nav />
+                                <Routes />
+                                <ErrorMessage />
+                            </MuiPickersUtilsProvider>
                         </MuiThemeProvider>
                     </CssBaseline >
                 </ConnectedRouter>

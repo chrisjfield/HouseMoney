@@ -20,7 +20,7 @@ export interface ITransaction extends ITransactionDetails {
 }
 
 export interface ITransactionDetails {
-    gross: number;
+    gross: string | number;
     reference: string;
     date: Date;
 }
@@ -36,7 +36,7 @@ export interface IAddTransactionRequest extends IUserDetails {
 export interface IAddTransactionProps extends IAddTransactionStore, IComponentProps { }
 
 export interface IAddTransactionStore extends IAddTransactionReducer, IConnectedComponentProps {
-    householdOccupantsArray: IAddTransactionOccupant[];
+    transactionOccupantsArray: IAddTransactionOccupant[];
 }
 
 export interface IAddTransactionReducer {

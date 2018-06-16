@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { Observable, of } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { mergeMap, switchMap } from 'rxjs/operators';
 import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { ActionWithPayload } from '../../helpers/actionCreator';
@@ -14,7 +14,7 @@ const addTransactionRequestEpic = (action$: Observable<Action>) => {
     return action$.pipe(
         ofType<ActionWithPayload<transactionActionTypes.ADD_TRANSACTION_REQUEST, IAddTransactionRequest>>(
             transactionActionTypes.ADD_TRANSACTION_REQUEST),
-        mergeMap((params) => {
+        switchMap((params) => {
             const addTransactionAjaxParams: AjaxCallParams = {
                 token: params.payload.token,
                 method: HTTPMethod.POST,
@@ -23,7 +23,7 @@ const addTransactionRequestEpic = (action$: Observable<Action>) => {
                 body: params.payload.transactionArray,
             };
             return ajaxObservable<number>(addTransactionAjaxParams).pipe(
-                map(response => of(
+                mergeMap(response => of(
                     TransactionActions.receiveTransaction(response),
                 )),
             );
