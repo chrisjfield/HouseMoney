@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { catchError, map } from 'rxjs/operators';
 import baseURL from '../appConfig';
-import { addError } from '../components/ErrorMessage/errorMessageActions';
+import { ErrorMessageActions } from '../components/ErrorMessage/errorMessageActions';
 import { logout } from '../components/Occupants/occupantsActions';
 import { AjaxCallParams } from '../interfaces/apiInterfaces';
 import { store } from '../main/configureStore';
@@ -35,7 +35,7 @@ export default function ajaxObservable<R>(ajaxCallParams: AjaxCallParams): Obser
     return ajax(ajaxRequest).pipe(
         map((ajaxResponse: AjaxResponse) => {
             catchError((error: Error, errorObservable) => errorObservable.pipe(
-                map((error: Error) => addError(error.message)),
+                map((error: Error) => ErrorMessageActions.addError(error.message)),
             )),
                 checkStatus(ajaxResponse.status);
             return ajaxResponse.response as R;
@@ -66,7 +66,7 @@ export function ajaxPromise<T>(ajaxCallParams: AjaxCallParams): Promise<T> {
         ) : null;
         return returnedPromise;
     }).catch((error: Error) => {
-        store.dispatch(addError(error.message));
+        store.dispatch(ErrorMessageActions.addError(error.message));
         throw error;
     });
 }

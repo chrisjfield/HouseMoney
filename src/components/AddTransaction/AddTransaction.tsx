@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
 import appStyles from '../../styles';
-import { addError } from '../ErrorMessage/errorMessageActions';
+import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { Loading } from '../Loading';
 import { OccupantsActions } from '../Occupants/occupantsActions';
 import { IOccupant, IOccupantDetails } from '../Occupants/occupantsInterfaces';
@@ -73,7 +73,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         const transactionDetails = this.state.transactionDetails;
 
         if (debtors.filter(item => item.occupantId !== me.occupantId).length === 0) {
-            this.props.dispatch(addError('Please add others to divide between'));
+            this.props.dispatch(ErrorMessageActions.addError('Please add others to divide between'));
         } else {
             const dividedGross = divideValueBetweenDebtors(transactionDetails.gross, debtors.length);
             const dateISO: Date = moment(transactionDetails.date).toDate();

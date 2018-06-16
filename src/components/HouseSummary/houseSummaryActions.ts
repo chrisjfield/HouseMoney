@@ -3,7 +3,7 @@ import { HTTPMethod } from '../../enums/httpEnum';
 import { createAction } from '../../helpers/actionCreator';
 import { ajaxPromise } from '../../helpers/ajaxHelper';
 import { AjaxCallParams } from '../../interfaces/apiInterfaces';
-import { addError } from '../ErrorMessage/errorMessageActions';
+import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import { loadingComplete, loadingStarted } from '../Loading/loadingActions';
 import { ITransactionSummary } from './houseSummaryInterfaces';
 
@@ -27,7 +27,7 @@ export function getTransactionSummary(token: string, userId: string, occupantId:
                 dispatch(loadingComplete());
             })
             .catch((error: Error) => {
-                dispatch(addError(error.message));
+                dispatch(ErrorMessageActions.addError(error.message));
                 dispatch(loadingComplete());
                 throw error;
             });

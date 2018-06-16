@@ -2,7 +2,7 @@ import Snackbar from '@material-ui/core/Snackbar/Snackbar';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
-import { removeError } from './errorMessageActions';
+import { ErrorMessageActions } from './errorMessageActions';
 import { IErrorMessageProps, IErrorMessageState, IErrorMessageStore } from './errorMessageInterfaces';
 
 class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageState> {
@@ -31,7 +31,7 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
 
     handleClose = () => {
         this.setState({ errorMessageText: null });
-        this.props.dispatch(removeError());
+        this.props.dispatch(ErrorMessageActions.removeError());
     }
 
     render() {
