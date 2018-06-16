@@ -1,4 +1,5 @@
 import Button from '@material-ui/core/Button/Button';
+import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
@@ -79,7 +80,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     render() {
         return (
             <form name="viewTransactionsForm" style={appStyles.container}>
-                <h2>My Transactions</h2>
+                <Typography>My Transactions</Typography>
                 <div id="viewTransactionsTableContainer" >
                     <div className="row">
                         <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">

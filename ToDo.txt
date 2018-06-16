@@ -14,16 +14,6 @@ Hot Module Replacement and webpack 4.0
 Infinite scrolling on view transaction history 
 
 V3 Bugs:
-Console error on logout
 
-make occupant objects named, used and interfaced consistently from firebase
-
-remove unneccessary isLoggedIn s from props that are mapped to (IReducers inheritance wrong here!)
-    => Move to component interface structure (get rid of Reducer types, don't need, use & instead!)
-        ComponentState
-        ComponentProps
-        ComponentStore
-
-Figure out the way to use inline styles neatly with MUI v1.2
-
-How to make api calls as actions - complains about missing 'type' property so think something is off there
+fonts (typestyles look odd)
+clear up TODO: s in files

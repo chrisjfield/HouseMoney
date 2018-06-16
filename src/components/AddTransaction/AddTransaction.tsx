@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider, ListItemIcon } from '@material-ui/core';
+import { Avatar, Button, Divider, ListItemIcon, Typography } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
 import List from '@material-ui/core/List/List';
@@ -157,8 +157,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     render() {
         return (
             <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
-                <h2> Add Transaction </h2>
-                <h3> Divided between: </h3>
+                <Typography> Add Transaction </Typography>
+                <Typography> Divided between: </Typography>
                 <div>
                     <List>
                         <Paper
