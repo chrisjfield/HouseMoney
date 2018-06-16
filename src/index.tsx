@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import 'typeface-roboto';
 import App from './components/App';
-import './styles/css/app.css'; // TODO: Attempt removal of this! could actully have a working background
+import './styles/css/app.css';
 
 const domElement: HTMLElement = document.getElementById('root');
 

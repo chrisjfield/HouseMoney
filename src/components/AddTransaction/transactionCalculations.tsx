@@ -21,8 +21,6 @@ export function createTransactionArray(
             return transaction;
         })
         .filter(x => x.debtorOccupantId !== x.creditorOccupantId);
-
-    // TODO: Can you bind this ED!? Or maybe what is calling these two? something from Functional Programming
     return payday;
 }
 
