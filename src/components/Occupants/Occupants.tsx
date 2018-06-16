@@ -1,10 +1,10 @@
-import * as queryString from 'query-string';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import { getLogoutUrlWithDetails, OccupantsActions } from './occupantsActions';
+import { OccupantsActions } from './occupantsActions';
+import { occupantIsValid, parseOccupant, redirectToMyHouse } from './occupantsHelper';
 import { ILoggedInOccupant, IOccupant, IOccupantProps, LogoutReason } from './occupantsInterfaces';
 
 class Occupants extends React.Component<IOccupantProps> {
@@ -39,10 +39,10 @@ class Occupants extends React.Component<IOccupantProps> {
                     this.props.dispatch(OccupantsActions.receiveOccupant(parsedOccpantToLogin));
                     this.props.history.push(houseMoneyRoutes.Balance);
                 } else {
-                    redirectToMyHouse();
+                    redirectToMyHouse(LogoutReason.InvalidPassthrough);
                 }
             } else {
-                redirectToMyHouse();
+                redirectToMyHouse(LogoutReason.InvalidPassthrough);
             }
         }
     }
@@ -50,31 +50,6 @@ class Occupants extends React.Component<IOccupantProps> {
     render(): null {
         return null;
     }
-}
-
-function redirectToMyHouse() {
-    window.location.replace(getLogoutUrlWithDetails(LogoutReason.InvalidPassthrough));
-}
-
-function occupantIsValid(occupantToLogin: ILoggedInOccupant) {
-    let loggedIn: boolean = false;
-    if (occupantToLogin
-        && occupantToLogin.isLoggedIn
-        && occupantToLogin.loggedInOccupant.token
-        && occupantToLogin.loggedInOccupant.occupantId
-        && occupantToLogin.loggedInOccupant.displayName
-        && occupantToLogin.loggedInOccupant.email
-        && occupantToLogin.loggedInOccupant.userId) {
-        loggedIn = true;
-    }
-    return loggedIn;
-}
-
-function parseOccupant(occupantString: string) {
-    const occupant: IOccupant = queryString.parse(occupantString);
-    occupant.occupantId = parseInt(occupant.occupantId.toString(), 2);
-
-    return occupant;
 }
 
 function mapStateToProps(store: IStore, ownProps: RouteComponentProps<string>) {

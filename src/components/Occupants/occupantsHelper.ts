@@ -32,6 +32,7 @@ export function logout() {
         loggedInOccupant: undefined,
     };
     store.dispatch(OccupantsActions.receiveOccupant(removedOccupant));
+    redirectToMyHouse(LogoutReason.UserTriggered);
 }
 
 export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {
@@ -39,4 +40,29 @@ export function getLogoutUrlWithDetails(logoutReason: LogoutReason) {
         logoutReason,
     };
     return myHouseUrl + 'Logout?' + queryString.stringify(logoutDetails);
+}
+
+export function redirectToMyHouse(reason: LogoutReason) {
+    window.location.replace(getLogoutUrlWithDetails(reason));
+}
+
+export function occupantIsValid(occupantToLogin: ILoggedInOccupant) {
+    let loggedIn: boolean = false;
+    if (occupantToLogin
+        && occupantToLogin.isLoggedIn
+        && occupantToLogin.loggedInOccupant.token
+        && occupantToLogin.loggedInOccupant.occupantId
+        && occupantToLogin.loggedInOccupant.displayName
+        && occupantToLogin.loggedInOccupant.email
+        && occupantToLogin.loggedInOccupant.userId) {
+        loggedIn = true;
+    }
+    return loggedIn;
+}
+
+export function parseOccupant(occupantString: string) {
+    const occupant: IOccupant = queryString.parse(occupantString);
+    occupant.occupantId = parseInt(occupant.occupantId.toString(), 2);
+
+    return occupant;
 }
