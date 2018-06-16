@@ -5,7 +5,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import * as math from 'mathjs';
 import * as React from 'react';
-import { customTheme } from '../../themes';
+import appTheme from '../../themes/themes';
 import { IBalance, IBalanceOccupant, IBalanceProps } from './balanceInterfaces';
 
 const BalanceList: React.StatelessComponent<IBalanceProps> = (props) => {
@@ -25,11 +25,11 @@ const BalanceItem: React.StatelessComponent<IBalance> = (balanceItem: IBalance) 
     let colorToSet;
 
     if (debt < 0) {
-        colorToSet = customTheme.negativeColor;
+        colorToSet = appTheme.palette.error.main;
     } else if (debt > 0) {
-        colorToSet = customTheme.positiveColor;
+        colorToSet = appTheme.palette.primary.main;
     } else {
-        colorToSet = customTheme.neutralColor;
+        colorToSet = appTheme.palette.secondary.main;
     }
 
     const balanceElement = (

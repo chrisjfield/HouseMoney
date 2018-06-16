@@ -2,6 +2,7 @@ import Snackbar from '@material-ui/core/Snackbar/Snackbar';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { IStore } from '../../interfaces/storeInterface';
+import appTheme from '../../themes';
 import { ErrorMessageActions } from './errorMessageActions';
 import { IErrorMessageProps, IErrorMessageState, IErrorMessageStore } from './errorMessageInterfaces';
 
@@ -24,8 +25,8 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
                 message={<span id="negative-message-id">{this.state.errorMessageText}</span>}
                 autoHideDuration={4000}
                 onClose={this.handleClose}
+                style={{ backgroundColor: appTheme.palette.error.main }}
             />
-            // TODO: Replace styling on this!
         );
     }
 
