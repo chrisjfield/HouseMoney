@@ -39,13 +39,14 @@ const BalanceItem: React.StatelessComponent<IBalance> = (balanceItem: IBalance) 
                 color: colorToSet,
                 cursor: 'auto',
                 width: 'auto',
-                overflow: 'hidden',
-            }}>
+            }}
+        >
             <ListItemText primary={debtor.displayName + ': £' + Number(math.abs(debt)).toFixed(2)} />
             <ListItemIcon>
                 <Avatar
                     key={'Avatar_' + debtor.displayName}
-                    style={{ backgroundColor: colorToSet }}>
+                    style={{ backgroundColor: colorToSet }}
+                >
                     {debtor.displayName.charAt(0).toUpperCase()}
                 </Avatar>
             </ListItemIcon>

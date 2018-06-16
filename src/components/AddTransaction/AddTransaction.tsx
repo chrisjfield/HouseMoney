@@ -1,5 +1,4 @@
-import { Divider } from '@material-ui/core';
-import Button from '@material-ui/core/Button/Button';
+import { Avatar, Button, Divider, ListItemIcon } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
 import List from '@material-ui/core/List/List';
@@ -102,6 +101,10 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
             <ListItem
                 key={'ListItem_' + occupant.occupantId}
                 onClick={this.updateCheck.bind(this, occupant.occupantId)}
+                style={{
+                    cursor: 'auto',
+                    width: 'auto',
+                }}
             >
                 <FormControlLabel
                     control={
@@ -113,12 +116,12 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                             disabled={this.state.transactionAdding}
                         />}
                     label={occupant.displayName}
-                // label={ TODO: this right
-                //     <UserChip
-                //         props={{occupant}}
-                //         // styles={addTransactionStyles.occupantChip}
-                //     />}
                 />
+                <ListItemIcon style={{ marginLeft: 'auto' }}>
+                    <Avatar key={'Avatar_' + occupant.displayName} >
+                        {occupant.displayName.charAt(0).toUpperCase()}
+                    </Avatar>
+                </ListItemIcon>
             </ListItem>
         );
         return checkbox;
@@ -150,7 +153,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.props.history.push(houseMoneyRoutes.ViewTransactions);
     }
 
-    // TODO: Improve reference field - don't like vertical arrows!
+    // TODO: Improve reference/description field - don't like vertical arrows!
     render() {
         return (
             <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
