@@ -1,11 +1,4 @@
-import { customTheme, theme } from '../../themes';
-
-const styles: any = { // TODO: Type this
-    container: {
-        textAlign: 'center',
-        marginTop: '20px',
-        className: 'containerfluid',
-    },
+const styles: { [name: string]: React.CSSProperties } = {
     gridContainer: {
         overflow: 'auto',
     },
@@ -13,14 +6,10 @@ const styles: any = { // TODO: Type this
         tableLayout: 'fixed',
     },
     gridHeader: {
-        backgroundColor: customTheme.backgroundColor,
-        color: theme.palette.primary.main,
         width: '80px',
         textAlign: 'right',
     },
     gridDetail: {
-        backgroundColor: customTheme.backgroundColor,
-        color: theme.palette.text.primary,
         width: '80px',
         textAlign: 'right',
     },

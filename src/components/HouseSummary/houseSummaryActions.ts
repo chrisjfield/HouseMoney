@@ -1,38 +1,21 @@
-import { endpoints } from '../../enums/endpointsEnum';
-import { HTTPMethod } from '../../enums/httpEnum';
-import { createAction } from '../../helpers/actionCreator';
-import { ajaxPromise } from '../../helpers/ajaxHelper';
-import { AjaxCallParams } from '../../interfaces/apiInterfaces';
-import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
-import { LoadingActions } from '../Loading/loadingActions';
+import { ActionsUnion, createAction } from '../../helpers/actionCreator';
+import { IOccupantDetails } from '../Occupants/occupantsInterfaces';
 import { ITransactionSummary } from './houseSummaryInterfaces';
 
 export enum houseSummaryActionTypes {
-    GET_TRANSACTION_SUMMARY = 'GET_TRANSACTION_SUMMARY',
+    GET_TRANSACTION_SUMMARY_REQUEST = 'GET_TRANSACTION_SUMMARY_REQUEST',
+    GET_TRANSACTION_SUMMARY_RESPONSE = 'GET_TRANSACTION_SUMMARY_RESPONSE',
 }
 
-export function getTransactionSummary(token: string, userId: string, occupantId: number) {
-    const ajaxCallParams: AjaxCallParams = {
-        token,
-        endpoint: endpoints.transactionSummary,
-        method: HTTPMethod.GET,
-        urlParams: userId + ',' + occupantId,
-    };
-    const request = ajaxPromise<ITransactionSummary[]>(ajaxCallParams);
-    return (dispatch: Function) => {
-        dispatch(LoadingActions.loadingStarted());
-        return request
-            .then((response: ITransactionSummary[]) => {
-                dispatch(receiveTransactionSummary(response));
-                dispatch(LoadingActions.loadingComplete());
-            })
-            .catch((error: Error) => {
-                dispatch(ErrorMessageActions.addError(error.message));
-                dispatch(LoadingActions.loadingComplete());
-                throw error;
-            });
-    };
-}
+const getTransactionSummary = (occupantDetails: IOccupantDetails) =>
+    createAction(houseSummaryActionTypes.GET_TRANSACTION_SUMMARY_REQUEST, occupantDetails);
 
 const receiveTransactionSummary = (transactionSummaryArray: ITransactionSummary[]) =>
-    createAction(houseSummaryActionTypes.GET_TRANSACTION_SUMMARY, transactionSummaryArray);
+    createAction(houseSummaryActionTypes.GET_TRANSACTION_SUMMARY_RESPONSE, transactionSummaryArray);
+
+export const HouseSummaryActions = {
+    getTransactionSummary,
+    receiveTransactionSummary,
+};
+
+export type HouseSummaryActions = ActionsUnion<typeof HouseSummaryActions>;
