@@ -35,5 +35,3 @@ const addTransactionRequestEpic = (action$: Observable<Action>) => {
 };
 
 export default addTransactionRequestEpic;
-
-// TODO: Implement show error on error and loading on start then done on complete

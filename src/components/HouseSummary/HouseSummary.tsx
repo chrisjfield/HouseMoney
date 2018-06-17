@@ -26,7 +26,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
     render() {
         return (
             <form name="houseSummaryForm" style={appStyles.container}>
-                <Typography> Summary </Typography>
+                <Typography variant="headline"> Summary </Typography>
                 <div id="houseSummaryGrid" style={houseSummaryStyles.gridContainer}>
                     {this.props.loading <= 0 ?
                         this.props.transactionSummaryArray.length > 0 && this.props.householdOccupantsArray.length > 0 ? (

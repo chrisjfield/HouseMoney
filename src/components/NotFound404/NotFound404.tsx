@@ -8,8 +8,8 @@ const NotFound404: React.StatelessComponent = () => {
     return (
       <Paper style={{ textAlign: 'center', paddingBottom: '2em' }}>
         <br />
-        <Typography>It's dangerous to go alone! Take this.</Typography>
-
+        <Typography variant="headline">It's dangerous to go alone! Take this.</Typography>
+        <br />
         <Button variant="outlined" href={myHouseUrl}>
           Link
         </Button>

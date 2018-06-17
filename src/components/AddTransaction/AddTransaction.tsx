@@ -157,8 +157,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     render() {
         return (
             <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
-                <Typography> Add Transaction </Typography>
-                <Typography> Divided between: </Typography>
+                <Typography variant="headline"> Add Transaction </Typography>
+                <Typography variant="subheading"> Divided between: </Typography>
                 <div>
                     <List>
                         <Paper

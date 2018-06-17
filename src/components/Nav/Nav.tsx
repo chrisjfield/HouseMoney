@@ -138,7 +138,7 @@ class Nav extends React.Component<INavProps, INavState> {
                             <MenuIcon color="secondary" />
                         </IconButton>
                         <Link to="/" style={{ textDecoration: 'none' }}>
-                            <Typography variant="title" color="secondary">
+                            <Typography variant="headline" color="secondary">
                                 House Money
                             </Typography>
                         </Link>
@@ -171,7 +171,7 @@ class Nav extends React.Component<INavProps, INavState> {
                             paddingRight: '24px',
                             textDecoration: 'none',
                         }}>
-                            <Typography variant="title">
+                            <Typography variant="headline">
                                 House Money
                             </Typography>
                         </Link>
