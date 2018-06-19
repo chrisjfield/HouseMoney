@@ -17,3 +17,4 @@ V3 Bugs:
 
 fonts (typestyles look odd)
 clear up TODO: s in files
+Make nav bar under app bar! 
