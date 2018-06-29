@@ -1,58 +1,22 @@
-import Avatar from '@material-ui/core/Avatar/Avatar';
 import List from '@material-ui/core/List/List';
-import ListItem from '@material-ui/core/ListItem/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText/ListItemText';
-import * as math from 'mathjs';
 import * as React from 'react';
-import appTheme from '../../themes/themes';
-import { IBalance, IBalanceOccupant, IBalanceProps } from './balanceInterfaces';
+import { IBalance, IBalanceProps } from './balanceInterfaces';
+import BalanceItem from './BalanceItem';
 
 const BalanceList: React.StatelessComponent<IBalanceProps> = (props) => {
     const me = props.loggedInOccupant.occupantId;
-    const balanceList = (<List>{
-        props.balanceArray
-            .filter((balanceItem: IBalance) =>
-                balanceItem.creditorOccupantId === me && balanceItem.debtorOccupantId !== me)
-            .map(BalanceItem)}
-    </List>);
-    return balanceList;
-};
-
-const BalanceItem: React.StatelessComponent<IBalance> = (balanceItem: IBalance) => {
-    const debt = math.round(balanceItem.gross, 2);
-    const debtor: IBalanceOccupant = { displayName: balanceItem.debtorDisplayName };
-    let colorToSet;
-
-    if (debt < 0) {
-        colorToSet = appTheme.palette.error.main;
-    } else if (debt > 0) {
-        colorToSet = appTheme.palette.primary.main;
-    } else {
-        colorToSet = appTheme.palette.secondary.main;
-    }
-
-    const balanceElement = (
-        <ListItem
-            key={'Debt_' + debtor.displayName}
-            style={{
-                color: colorToSet,
-                cursor: 'auto',
-                width: 'auto',
-            }}
-        >
-            <ListItemText primary={debtor.displayName + ': £' + Number(math.abs(debt)).toFixed(2)} />
-            <ListItemIcon>
-                <Avatar
-                    key={'Avatar_' + debtor.displayName}
-                    style={{ backgroundColor: colorToSet }}
-                >
-                    {debtor.displayName.charAt(0).toUpperCase()}
-                </Avatar>
-            </ListItemIcon>
-        </ListItem>
+    const balanceList = (
+        <List>
+            <div >
+                {props.balanceArray
+                    .filter((balance: IBalance) =>
+                        balance.creditorOccupantId === me && balance.debtorOccupantId !== me)
+                    .map((balance: IBalance) => <BalanceItem balance={balance} classes={props.classes} />)
+                }
+            </div>
+        </List>
     );
-    return balanceElement;
+    return balanceList;
 };
 
 export default BalanceList;
