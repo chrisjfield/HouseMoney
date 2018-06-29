@@ -1,121 +1,22 @@
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { withStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
-import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import Typography from '@material-ui/core/Typography/Typography';
-import AccountBalance from '@material-ui/icons/AccountBalance';
-import AccountBox from '@material-ui/icons/AccountBox';
-import Add from '@material-ui/icons/Add';
-import ExitToApp from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
-import Pageview from '@material-ui/icons/Pageview';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { houseMoneyRoutes } from '../../enums/routesEnum';
+import { compose } from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
-import { getLogoutUrlWithDetails, logout } from '../Occupants/occupantsCommon';
-import { LogoutReason } from '../Occupants/occupantsInterfaces';
+import LoggedInMenuOptions from './LoggedInMenuOptions';
+import LoggedInNavItems from './LoggedInNavItems';
 import { INavProps, INavState } from './navInterfaces';
+import navStyles from './navStyles';
 
-// TODO: Refactor and move these two SFCs out into own files
 // TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse?
-const LoggedInMenuOptions: React.StatelessComponent = () => {
-    return (
-        <List>
-            <Tooltip id="tooltip-icon" title="Add a transaction" placement="top">
-                <Link to={houseMoneyRoutes.AddTransaction}
-                    style={{ textDecoration: 'none' }}
-                >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <Add color="secondary" />
-                        </ListItemIcon>
-                        <ListItemText primary="Add" />
-                    </ListItem>
-                </Link>
-            </Tooltip>
-            <Tooltip id="tooltip-icon" title="View previous transactions" placement="top">
-                <Link to={houseMoneyRoutes.ViewTransactions}
-                    style={{ textDecoration: 'none' }}
-                >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <Pageview color="secondary" />
-                        </ListItemIcon>
-                        <ListItemText primary="View" />
-                    </ListItem>
-                </Link>
-            </Tooltip>
-            <Tooltip id="tooltip-icon" title="Your balance, also the home page" placement="top">
-                <Link to={houseMoneyRoutes.Balance}
-                    style={{ textDecoration: 'none' }}
-                >
-                    <ListItem button>
-                        <ListItemIcon>
-                            <AccountBox color="secondary" />
-                        </ListItemIcon>
-                        <ListItemText primary="Balance" />
-                    </ListItem>
-                </Link>
-            </Tooltip>
-            <Divider />
-            <Tooltip id="tooltip-icon" title="An overview of all debts in the household" placement="top">
-                <Link to={houseMoneyRoutes.HouseSummary}
-                    style={{ textDecoration: 'none' }}
-                >
-                    <ListItem button>
-                        <ListItemIcon >
-                            <AccountBalance color="secondary" />
-                        </ListItemIcon>
-                        <ListItemText primary="Summary" />
-                    </ListItem>
-                </Link>
-            </Tooltip>
-            <Divider />
-            <Tooltip id="tooltip-icon" title="See you again soon" placement="top">
-                <ListItem button
-                    href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}
-                    onClick={() => logout()}
-                    style={{ textDecoration: 'none' }}
-                >
-                    <ListItemIcon>
-                        <ExitToApp color="secondary" />
-                    </ListItemIcon>
-                    <ListItemText primary="Logout" />
-                </ListItem>
-            </Tooltip>
-        </List>
-    );
-};
-
-const LoggedInNavItems: React.StatelessComponent = () => {
-    return (
-        <div style={{ marginLeft: 'auto', marginRight: '0' }}>
-            <Tooltip id="tooltip-icon" title="Add Transaction">
-                <Link to={houseMoneyRoutes.AddTransaction}>
-                    <IconButton color="secondary">
-                        <Add color="secondary" />
-                    </IconButton>
-                </Link>
-            </Tooltip>
-            <Tooltip id="tooltip-icon" title="View Transactions">
-                <Link to={houseMoneyRoutes.ViewTransactions}>
-                    <IconButton color="secondary">
-                        <Pageview color="secondary" />
-                    </IconButton>
-                </Link>
-            </Tooltip>
-        </div>
-    );
-};
-
 class Nav extends React.Component<INavProps, INavState> {
     constructor(props: INavProps) {
         super(props);
@@ -142,7 +43,7 @@ class Nav extends React.Component<INavProps, INavState> {
                                 House Money
                             </Typography>
                         </Link>
-                        {this.props.isLoggedIn ? <LoggedInNavItems /> : <div />}
+                        {this.props.isLoggedIn ? <LoggedInNavItems classes={this.props.classes} /> : <div />}
                     </Toolbar>
                 </AppBar>
                 {this.props.isLoggedIn ? <SwipeableDrawer
@@ -166,11 +67,12 @@ class Nav extends React.Component<INavProps, INavState> {
                             onClick={this.toggleDrawer}>
                             <MenuIcon />
                         </IconButton>
-                        <Link to="/" style={{
-                            display: 'inline-flex',
-                            paddingRight: '24px',
-                            textDecoration: 'none',
-                        }}>
+                        <Link to="/"
+                            className={this.props.classes.navItem}
+                            style={{
+                                display: 'inline-flex',
+                                paddingRight: '24px',
+                            }}>
                             <Typography variant="headline">
                                 House Money
                             </Typography>
@@ -191,4 +93,4 @@ const mapStateToProps = (store: IStore) => {
     };
 };
 
-export default connect(mapStateToProps)(Nav);
+export default compose(withStyles(navStyles), connect(mapStateToProps))(Nav);

@@ -1,11 +1,14 @@
+import { createStyles, Theme } from '@material-ui/core/styles';
 
-const styles: { [name: string]: React.CSSProperties } = {
+const navStyles = (theme: Theme) => createStyles({
     occupantChipItem: {
         display: 'inline-flex',
         width: '120px',
         overflow: 'hidden',
     },
-};
+    navItem: {
+        textDecoration: 'none',
+    },
+});
 
-export default styles;
-// TODO: Move to new style of styling!
+export default navStyles;
