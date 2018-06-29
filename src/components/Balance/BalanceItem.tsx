@@ -12,13 +12,17 @@ const BalanceItem: React.StatelessComponent<IBalanceItemProps> = (props) => {
     const debt = math.round(props.balance.gross, 2);
     const debtor: IBalanceOccupant = { displayName: props.balance.debtorDisplayName };
     let balanceItemClass;
+    let balanceTextClass;
 
     if (debt < 0) {
         balanceItemClass = props.classes.balanceItemNegative;
+        balanceTextClass = props.classes.balanceTextNegative;
     } else if (debt > 0) {
         balanceItemClass = props.classes.balanceItemPositive;
+        balanceTextClass = props.classes.balanceTextPositive;
     } else {
         balanceItemClass = props.classes.balanceItemNeutral;
+        balanceTextClass = props.classes.balanceTextNeutral;
     }
 
     const balanceElement = (
@@ -30,10 +34,15 @@ const BalanceItem: React.StatelessComponent<IBalanceItemProps> = (props) => {
                 display: 'inline-flex',
             }}
         >
-            <ListItemText primary={debtor.displayName} className={balanceItemClass} />
+            <ListItemText
+                primary={debtor.displayName}
+                disableTypography={true}
+                className={balanceTextClass}
+            />
             <ListItemText
                 primary={'£' + Number(math.abs(debt)).toFixed(2)}
-                className={balanceItemClass}
+                disableTypography={true}
+                className={balanceTextClass}
             />
             <ListItemIcon>
                 <Avatar

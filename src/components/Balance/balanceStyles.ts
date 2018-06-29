@@ -14,6 +14,15 @@ const balanceStyles = (theme: Theme) => createStyles({
     balanceItemNegative: {
         backgroundColor: theme.palette.error.main,
     },
+    balanceTextPositive: {
+        color: theme.palette.error.light,
+    },
+    balanceTextNeutral: {
+        color: theme.palette.secondary.main,
+    },
+    balanceTextNegative: {
+        color: theme.palette.error.main,
+    },
 });
 
 export default balanceStyles;
