@@ -26,6 +26,9 @@ const addTransactionStyles = (theme: Theme) => createStyles({
         textAlign: 'center',
         display: 'inline-block',
     },
+    avatar: {
+        backgroundColor: theme.palette.primary.main,
+    },
 });
 
 export default addTransactionStyles;

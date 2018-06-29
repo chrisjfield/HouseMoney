@@ -98,6 +98,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     // TODO: Refactor this out!
+    // TODO: Use flex-box properly here Ed!
     createCheckbox = (occupant: IAddTransactionOccupant): JSX.Element => {
         const { classes } = this.props;
         const checkbox: JSX.Element = (
@@ -121,7 +122,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     label={occupant.displayName}
                 />
                 <ListItemIcon style={{ marginLeft: 'auto' }}>
-                    <Avatar key={'Avatar_' + occupant.displayName} >
+                    <Avatar key={'Avatar_' + occupant.displayName} className={classes.avatar} >
                         {occupant.displayName.charAt(0).toUpperCase()}
                     </Avatar>
                 </ListItemIcon>
