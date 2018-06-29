@@ -27,10 +27,14 @@ const BalanceItem: React.StatelessComponent<IBalanceItemProps> = (props) => {
             style={{
                 cursor: 'auto',
                 width: 'auto',
+                display: 'inline-flex',
             }}
-            className={balanceItemClass}
         >
-            <ListItemText primary={debtor.displayName + ': £' + Number(math.abs(debt)).toFixed(2)} />
+            <ListItemText primary={debtor.displayName} className={balanceItemClass} />
+            <ListItemText
+                primary={'£' + Number(math.abs(debt)).toFixed(2)}
+                className={balanceItemClass}
+            />
             <ListItemIcon>
                 <Avatar
                     key={'Avatar_' + debtor.displayName}
