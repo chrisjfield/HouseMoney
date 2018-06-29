@@ -1,11 +1,12 @@
-html, form {
-  font-family: 'Roboto', sans-serif;
-  color: #1565C0;
-  background-color: #1b1a1a;
+html,
+form {
+    font-family: 'Roboto', sans-serif;
+    color: #1565C0;
+    background-color: #1b1a1a;
 }
 
-input:-webkit-autofill, input:-webkit-inner-spin-button {
-  box-shadow: 0 0 0 1000px #212121 inset;
-  -webkit-box-shadow: 0 0 0 1000px #212121 inset;
-  -webkit-text-fill-color: #bdbdbd;
+input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px #212121 inset;
+    -webkit-box-shadow: 0 0 0 1000px #212121 inset;
+    -webkit-text-fill-color: #bdbdbd;
 }
