@@ -1,10 +1,12 @@
 import Button from '@material-ui/core/Button/Button';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
-import appStyles from '../../styles';
-import { Loading } from '../Loading';
+import formStyles from '../../styles/styles';
+import Loading from '../Loading';
 import { NoTransactionsFound } from './NoTransactionsFound';
 import { ViewTransactionsActions } from './viewTransactionsActions';
 import { ViewTransactionsGrid } from './ViewTransactionsGrid';
@@ -78,8 +80,9 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <form name="viewTransactionsForm" style={appStyles.container}>
+            <form name="viewTransactionsForm" className={classes.container}>
                 <Typography>My Transactions</Typography>
                 <div id="viewTransactionsTableContainer" >
                     <div className="row">
@@ -104,4 +107,4 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-export default connect(mapStateToProps)(ViewTransactions);
+export default compose(withStyles(formStyles), connect(mapStateToProps))(ViewTransactions);

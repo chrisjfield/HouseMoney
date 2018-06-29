@@ -1,4 +1,5 @@
 import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
+import { IFormStyles } from '../../styles/styles';
 import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
 import { IOccupantDetails } from '../Occupants/occupantsInterfaces';
 
@@ -22,7 +23,7 @@ export interface IViewTransactionGridProps extends IViewTransactionsReducer { }
 
 export interface IViewTransactionGridRowProps extends ITransactionHistory { }
 
-export interface IViewTransactionsProps extends IViewTransactionsStore, IComponentProps { }
+export interface IViewTransactionsProps extends IViewTransactionsStore, IComponentProps, IFormStyles { }
 
 export interface IViewTransactionsStore extends IViewTransactionsReducer, IConnectedComponentProps {
     pageSize: number;

@@ -5,15 +5,17 @@ import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import Paper from '@material-ui/core/Paper/Paper';
 import Snackbar from '@material-ui/core/Snackbar/Snackbar';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField/TextField';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import appStyles from '../../styles';
+import formStyles from '../../styles/styles';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
-import { Loading } from '../Loading';
+import Loading from '../Loading';
 import { LoadingActions } from '../Loading/loadingActions';
 import { OccupantsActions } from '../Occupants/occupantsActions';
 import { IOccupant, IOccupantDetails } from '../Occupants/occupantsInterfaces';
@@ -155,8 +157,9 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
     // TODO: Improve reference/description field - don't like vertical arrows!
     render() {
+        const { classes } = this.props;
         return (
-            <form style={appStyles.container} onSubmit={this.handleFormSubmit}>
+            <form className={classes.container} onSubmit={this.handleFormSubmit}>
                 <Typography variant="headline"> Add Transaction </Typography>
                 <Typography variant="subheading"> Divided between: </Typography>
                 <div>
@@ -214,8 +217,8 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         type="text"
                         label="Description"
                         placeholder="Weekly Shop"
-                        multiline
-                        rowsMax="4"
+                        multiline={true}
+                        rowsMax="5"
                         value={this.state.transactionDetails.reference}
                         onChange={this.handleInputChange('reference')}
                         disabled={this.state.transactionAdding}
@@ -260,4 +263,4 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-export default connect(mapStateToProps)(AddTransaction);
+export default compose(withStyles(formStyles), connect(mapStateToProps))(AddTransaction);

@@ -1,12 +1,9 @@
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import appTheme from '../../themes';
+import { createStyles, Theme } from '@material-ui/core/styles';
 
-const errorMessageStyles = (theme: Theme) => {
-    return {
-        snackbar: {
-            backgroundColor: appTheme.palette.error.main,
-        },
-    };
-};
+const errorMessageStyles = (theme: Theme) => createStyles({
+    errorMessagePrompt: {
+        backgroundColor: theme.palette.error.main,
+    },
+});
 
 export default errorMessageStyles;

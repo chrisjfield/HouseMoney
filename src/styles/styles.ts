@@ -1,19 +1,10 @@
-const styles: { [name: string]: React.CSSProperties } = {
+import { createStyles, Theme, WithStyles } from '@material-ui/core/styles';
+
+const formStyles = (theme: Theme) => createStyles({
     container: {
         textAlign: 'center',
-        paddingTop: '20px',
     },
-    snackbarBody: {
-        textAlign: 'center',
-    },
-    chip: {
-        display: 'inline-flex',
-        marginRight: '4px',
-    },
-    loading: {
-        marginLeft: 'calc(50% - 40px)',
-        paddingTop: '5%',
-    },
-};
+});
 
-export default styles;
+export default formStyles;
+export interface IFormStyles extends WithStyles<typeof formStyles> { }

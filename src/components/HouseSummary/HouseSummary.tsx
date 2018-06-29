@@ -1,9 +1,11 @@
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
-import appStyles from '../../styles';
-import { Loading } from '../Loading';
+import formStyles from '../../styles/styles';
+import Loading from '../Loading';
 import { OccupantsActions } from '../Occupants/occupantsActions';
 import { IOccupantDetails } from '../Occupants/occupantsInterfaces';
 import { NoTransactionsFound } from '../ViewTransactions/NoTransactionsFound';
@@ -24,8 +26,9 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <form name="houseSummaryForm" style={appStyles.container}>
+            <form name="houseSummaryForm" className={classes.container}>
                 <Typography variant="headline"> Summary </Typography>
                 <div id="houseSummaryGrid" style={houseSummaryStyles.gridContainer}>
                     {this.props.loading <= 0 ?
@@ -50,4 +53,4 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-export default connect(mapStateToProps)(HouseSummary);
+export default compose(withStyles(formStyles), connect(mapStateToProps))(HouseSummary);

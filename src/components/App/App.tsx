@@ -10,7 +10,7 @@ import { persistor, store } from '../../main/configureStore';
 import history from '../../main/history';
 import appTheme from '../../themes';
 import ErrorMessage from '../ErrorMessage';
-import { Loading } from '../Loading';
+import Loading from '../Loading';
 import Nav from '../Nav';
 import Routes from '../Routes';
 
@@ -19,15 +19,14 @@ const App: React.StatelessComponent = () => {
         <Provider store={store}>
             <PersistGate loading={<Loading />} persistor={persistor}>
                 <ConnectedRouter history={history}>
-                    <CssBaseline >
-                        <MuiThemeProvider theme={appTheme}>
-                            <MuiPickersUtilsProvider utils={MomentUtils}>
-                                <Nav />
-                                <Routes />
-                                <ErrorMessage />
-                            </MuiPickersUtilsProvider>
-                        </MuiThemeProvider>
-                    </CssBaseline >
+                    <MuiThemeProvider theme={appTheme}>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <CssBaseline />
+                            <Nav />
+                            <Routes />
+                            <ErrorMessage />
+                        </MuiPickersUtilsProvider>
+                    </MuiThemeProvider>
                 </ConnectedRouter>
             </PersistGate>
         </Provider>

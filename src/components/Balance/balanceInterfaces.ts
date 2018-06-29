@@ -1,4 +1,5 @@
 import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
+import { IFormStyles } from '../../styles/styles';
 
 export interface IBalance {
     creditorOccupantId: number;
@@ -12,7 +13,7 @@ export interface IBalanceOccupant {
     displayName: string;
 }
 
-export interface IBalanceProps extends IComponentProps, IBalanceStore { }
+export interface IBalanceProps extends IComponentProps, IBalanceStore, IFormStyles { }
 
 export interface IBalanceStore extends IConnectedComponentProps {
     balanceArray: IBalance[];
