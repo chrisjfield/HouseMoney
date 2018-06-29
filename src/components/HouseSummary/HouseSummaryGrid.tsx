@@ -1,4 +1,4 @@
-import { Tooltip } from '@material-ui/core';
+import { Tooltip, Typography } from '@material-ui/core';
 import Table from '@material-ui/core/Table/Table';
 import TableBody from '@material-ui/core/TableBody/TableBody';
 import TableCell from '@material-ui/core/TableCell/TableCell';
@@ -51,7 +51,9 @@ const HouseSummaryColumn: React.StatelessComponent<IOccupant> = (householdOccupa
                 key={'Column' + householdOccupant.displayName}
                 style={houseSummaryStyles.gridHeader}
             >
-                {householdOccupant.displayName ? householdOccupant.displayName + ' owes' : null}
+                <Typography variant="subheading">
+                    {householdOccupant.displayName ? householdOccupant.displayName + ' owes' : null}
+                </Typography>
             </TableCell>
         </ Tooltip>
     );
@@ -71,7 +73,9 @@ const HouseSummaryRow: React.StatelessComponent<IHouseSummaryRow> = (props) => {
                 key={'RowColumn' + props.householdOccupant.occupantId}
                 style={houseSummaryStyles.gridHeader}
             >
-                {props.householdOccupant.displayName}
+                <Typography variant="subheading">
+                    {props.householdOccupant.displayName}
+                </Typography>
             </TableCell>
             {houseSummaryRowData}
         </TableRow>
@@ -86,7 +90,9 @@ const HouseSummaryRowData: React.StatelessComponent<ITransactionSummary> = (tran
             key={'Data' + transactionSummary.creditorOccupantId}
             style={houseSummaryStyles.gridDetail}
         >
-            {Number(mathJs.round(transactionSummary.gross, 2)).toFixed(2)}
+            <Typography color="textSecondary">
+                {Number(mathJs.round(transactionSummary.gross, 2)).toFixed(2)}
+            </Typography>
         </TableCell>
     );
     return rowData;

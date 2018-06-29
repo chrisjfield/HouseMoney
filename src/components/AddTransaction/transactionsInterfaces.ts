@@ -1,6 +1,6 @@
 import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
-import { IFormStyles } from '../../styles/styles';
 import { IOccupant, IUserDetails } from '../Occupants/occupantsInterfaces';
+import { IAddTransactionStyles } from './addTransactionStyles';
 
 export interface IAddTransationState {
     occupantsArray: IAddTransactionOccupant[];
@@ -34,7 +34,7 @@ export interface IAddTransactionRequest extends IUserDetails {
     transactionArray: ITransaction[];
 }
 
-export interface IAddTransactionProps extends IAddTransactionStore, IComponentProps, IFormStyles { }
+export interface IAddTransactionProps extends IAddTransactionStore, IComponentProps, IAddTransactionStyles { }
 
 export interface IAddTransactionStore extends IAddTransactionReducer, IConnectedComponentProps {
     transactionOccupantsArray: IAddTransactionOccupant[];

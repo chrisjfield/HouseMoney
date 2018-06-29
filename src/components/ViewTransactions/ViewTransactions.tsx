@@ -83,7 +83,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
         const { classes } = this.props;
         return (
             <form name="viewTransactionsForm" className={classes.container}>
-                <Typography>My Transactions</Typography>
+                <Typography variant="headline">My Transactions</Typography>
                 <div id="viewTransactionsTableContainer" >
                     <div className="row">
                         <div className="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">

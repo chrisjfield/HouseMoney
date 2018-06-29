@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { houseMoneyRoutes } from '../../enums/routesEnum';
 import { IStore } from '../../interfaces/storeInterface';
-import formStyles from '../../styles/styles';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import Loading from '../Loading';
 import { LoadingActions } from '../Loading/loadingActions';
@@ -98,7 +97,9 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         }
     }
 
+    // TODO: Refactor this out!
     createCheckbox = (occupant: IAddTransactionOccupant): JSX.Element => {
+        const { classes } = this.props;
         const checkbox: JSX.Element = (
             <ListItem
                 key={'ListItem_' + occupant.occupantId}
@@ -113,7 +114,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         <Checkbox
                             key={'Checkbox_' + occupant.occupantId}
                             checked={occupant.checked}
-                            style={addTransactionStyles.checkbox}
+                            className={classes.checkbox}
                             onChange={this.updateCheck.bind(this, occupant.occupantId)}
                             disabled={this.state.transactionAdding}
                         />}
@@ -165,7 +166,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 <div>
                     <List>
                         <Paper
-                            style={addTransactionStyles.checkBoxListSheet}
+                            className={classes.checkBoxListSheet}
                         >
                             <ListItem key={'ListItem_checkAll'} onClick={this.updateCheckAll}>
                                 <FormControlLabel
@@ -173,7 +174,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                                         key="checkAll"
                                         checked={this.state.allChecked}
                                         onChange={this.updateCheckAll}
-                                        style={addTransactionStyles.checkAll}
+                                        className={classes.checkAll}
                                     />}
                                     label={'Everyone'}
                                 />
@@ -263,4 +264,4 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-export default compose(withStyles(formStyles), connect(mapStateToProps))(AddTransaction);
+export default compose(withStyles(addTransactionStyles), connect(mapStateToProps))(AddTransaction);
