@@ -1,4 +1,5 @@
 import blue from '@material-ui/core/colors/blue';
+import green from '@material-ui/core/colors/green';
 import grey from '@material-ui/core/colors/grey';
 import red from '@material-ui/core/colors/red';
 import { createMuiTheme, Theme } from '@material-ui/core/styles';
@@ -19,7 +20,7 @@ const appTheme: Theme = createMuiTheme({
             contrastText: grey[600],
         },
         error: {
-            light: red[700],
+            light: green[600],
             main: red[800],
             dark: red[900],
             contrastText: red[400],

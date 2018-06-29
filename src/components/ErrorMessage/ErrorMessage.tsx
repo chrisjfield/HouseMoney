@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
+import MessageSnackbarContent from '../MessageSnackbarContent';
 import { ErrorMessageActions } from './errorMessageActions';
 import { IErrorMessageProps, IErrorMessageState, IErrorMessageStore } from './errorMessageInterfaces';
 import errorMessageStyles from './errorMessageStyles';
@@ -24,11 +25,17 @@ class ErrorMessage extends React.Component<IErrorMessageProps, IErrorMessageStat
         return (
             <Snackbar
                 open={this.state.errorMessageText ? true : false}
-                message={<span id="negative-message-id">{this.state.errorMessageText}</span>}
                 autoHideDuration={4000}
                 onClose={this.handleClose}
                 className={this.props.classes.errorMessagePrompt}
-            />
+            >
+                <MessageSnackbarContent
+                    className={this.props.classes.errorMessagePrompt}
+                    onClose={this.handleClose}
+                    variant="error"
+                    message={this.state.errorMessageText}
+                />
+            </Snackbar>
         );
     }
 
