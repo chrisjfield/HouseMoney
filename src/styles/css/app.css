@@ -14,13 +14,13 @@ input:-webkit-autofill {
 div::-webkit-scrollbar {
     width: 1em;
 }
- 
+
 div::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px #212121;
     box-shadow: inset 0 0 6px #212121;
 }
- 
+
 div::-webkit-scrollbar-thumb {
-  background-color: #bdbdbd;;
-  outline: 1px solid #212121;
+    background-color: #bdbdbd;
+    outline: 1px solid #212121;
 }
