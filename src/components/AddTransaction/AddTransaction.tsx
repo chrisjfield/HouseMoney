@@ -16,6 +16,7 @@ import { IStore } from '../../interfaces/storeInterface';
 import { ErrorMessageActions } from '../ErrorMessage/errorMessageActions';
 import Loading from '../Loading';
 import { LoadingActions } from '../Loading/loadingActions';
+import MessageSnackbarContent from '../MessageSnackbarContent';
 import { OccupantsActions } from '../Occupants/occupantsActions';
 import { IOccupant, IOccupantDetails } from '../Occupants/occupantsInterfaces';
 import addTransactionStyles from './addTransactionStyles';
@@ -146,7 +147,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.setState({ transactionDetails: { ...this.state.transactionDetails, date } });
     }
 
-    handleTransactionAddedClose = () => {
+    handleTransactionAddedClose() {
         this.setState({
             transactionAdded: false,
         });
@@ -236,15 +237,20 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                 </Button>
                 <Snackbar
                     open={this.state.transactionAdded}
-                    message={<span id="positive-message-id">Transaction added</span>}
                     autoHideDuration={4000}
                     onClose={this.handleTransactionAddedClose}
-                    action={
-                        <Button key="view" color="secondary" size="small" onClick={this.handleViewTransactionClick}>
-                            View
-                        </Button>
-                    }
-                />
+                >
+                    <MessageSnackbarContent
+                        onClose={this.handleTransactionAddedClose}
+                        variant="success"
+                        message="Transaction added"
+                        additionalActions={
+                            <Button key="view" color="secondary" size="small" onClick={this.handleViewTransactionClick}>
+                                View
+                            </Button>
+                        }
+                    />
+                </Snackbar>
             </form>
         );
     }

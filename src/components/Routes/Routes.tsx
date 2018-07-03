@@ -21,7 +21,8 @@ const LoggedInRoutes: React.StatelessComponent = () => {
             <Route path={houseMoneyRoutes.ViewTransactions} component={ViewTransactions} />
             <Route path={houseMoneyRoutes.AddTransaction} component={AddTransaction} />
             <Route path={houseMoneyRoutes.HouseSummary} component={HouseSummary} />
-            <Route exact path={houseMoneyRoutes.Unknown} component={NotFound404} />
+            <Route path={houseMoneyRoutes.Occupants} component={Occupants} />
+            <Route path={houseMoneyRoutes.Unknown} component={NotFound404} />
         </Switch>
     );
 };
@@ -29,8 +30,8 @@ const LoggedInRoutes: React.StatelessComponent = () => {
 const LoggedOutRoutes: React.StatelessComponent = () => {
     return (
         <Switch>
-            <Route exact path={houseMoneyRoutes.Occupants} component={Occupants} />
-            <Route exact path={houseMoneyRoutes.Unknown} component={NotFound404} />
+            <Route path={houseMoneyRoutes.Occupants} component={Occupants} />
+            <Route path={houseMoneyRoutes.Unknown} component={NotFound404} />
         </Switch>
     );
 };

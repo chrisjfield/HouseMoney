@@ -19,7 +19,7 @@ const variantIcon = {
 };
 
 const MessageSnackbarContent: React.StatelessComponent<IMessageSnackbarProps> = (props) => {
-    const { classes, className, message, onClose, variant } = props;
+    const { classes, className, message, onClose, variant, additionalActions } = props;
     const Icon = variantIcon[variant];
 
     return (
@@ -43,6 +43,7 @@ const MessageSnackbarContent: React.StatelessComponent<IMessageSnackbarProps> = 
                     <CloseIcon className={classes.icon} />
                 </IconButton>
             }
+            {...additionalActions}
         />
     );
 };
