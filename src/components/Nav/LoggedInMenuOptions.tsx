@@ -73,7 +73,7 @@ const LoggedInMenuOptions: React.StatelessComponent<INavMenuProps> = (props) => 
             <Tooltip id="tooltip-icon" title="See you again soon" placement="top">
                 <ListItem button
                     href={getLogoutUrlWithDetails(LogoutReason.UserTriggered)}
-                    onClick={() => logout()}
+                    onClick={() => logout(LogoutReason.UserTriggered)}
                     className={classes.navItem}
                 >
                     <ListItemIcon>

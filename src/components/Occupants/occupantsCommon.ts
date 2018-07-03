@@ -26,13 +26,13 @@ export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<
     return isLoggedIn;
 }
 
-export function logout() {
+export function logout(reason: LogoutReason) {
     const removedOccupant: ILoggedInOccupant = {
         isLoggedIn: false,
         loggedInOccupant: undefined,
     };
     store.dispatch(OccupantsActions.receiveOccupant(removedOccupant));
-    redirectToMyHouse(LogoutReason.UserTriggered);
+    redirectToMyHouse(reason);
     // TODO: Route to Occupants and build logout path
     // This will avoid 404 page flash
 }

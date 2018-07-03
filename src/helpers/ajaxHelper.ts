@@ -5,6 +5,7 @@ import baseURL from '../appConfig';
 import { ErrorMessageActions } from '../components/ErrorMessage/errorMessageActions';
 import { LoadingActions } from '../components/Loading/loadingActions';
 import { logout } from '../components/Occupants/occupantsCommon';
+import { LogoutReason } from '../components/Occupants/occupantsInterfaces';
 import { AjaxCallParams } from '../interfaces/apiInterfaces';
 import { store } from '../main/configureStore';
 
@@ -77,6 +78,6 @@ export function ajaxPromise<T>(ajaxCallParams: AjaxCallParams): Promise<T> {
 
 export function checkStatus(ajaxResponseStatusCode: number) {
     if (ajaxResponseStatusCode === 401) {
-        logout();
+        logout(LogoutReason.Timeout);
     }
 }
