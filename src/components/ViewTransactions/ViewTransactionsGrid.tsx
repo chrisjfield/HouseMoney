@@ -8,9 +8,9 @@ import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import * as moment from 'moment';
 import * as React from 'react';
 import { ITransactionHistory, IViewTransactionGridProps, IViewTransactionGridRowProps } from './viewTransactionsInterfaces';
-import styles from './viewTransactionsStyles';
 
 export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGridProps> = (props) => {
+    const { classes } = props;
     const transactionsGrid: JSX.Element = (
         <div style={{ overflow: 'auto', maxWidth: '100%' }}>
             <Table key="ViewTransactionsGridTable" >
@@ -19,7 +19,7 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                         <Tooltip id="tooltip-top" title="The name of the person who owes you" placement="top">
                             <TableCell
                                 key={'Column_Debtor'}
-                                style={styles.owesMeHeader}
+                                className={classes.owesMeWidth}
                             >
                                 <Typography variant="subheading">Owes Me</Typography>
                             </TableCell>
@@ -27,7 +27,7 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                         <Tooltip id="tooltip-top" title="The amount you are owed" placement="top">
                             <TableCell
                                 key={'Column_Gross'}
-                                style={styles.valueHeader}
+                                className={classes.valueWidth}
                             >
                                 <Typography variant="subheading">Value</Typography>
                             </TableCell>
@@ -35,7 +35,7 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                         <Tooltip id="tooltip-top" title="The date of the transaction" placement="top">
                             <TableCell
                                 key={'Column_Date'}
-                                style={styles.dateHeader}
+                                className={classes.dateWidth}
                             >
                                 <Typography variant="subheading">Date</Typography>
                             </TableCell>
@@ -43,7 +43,7 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                         <Tooltip id="tooltip-top" title="The transaction description" placement="top">
                             <TableCell
                                 key={'Column_Reference'}
-                                style={styles.referenceHeader}
+                                className={classes.referenceWidth}
                             >
                                 <Typography variant="subheading">Description</Typography>
                             </TableCell>
@@ -51,7 +51,7 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                         <Tooltip id="tooltip-top" title="The person who added this transaction" placement="top">
                             <TableCell
                                 key={'Column_EnteredBy'}
-                                style={styles.owesMeHeader}
+                                className={classes.owesMeWidth}
                             >
                                 <Typography variant="subheading">Added By</Typography>
                             </TableCell>
@@ -59,7 +59,7 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                         <Tooltip id="tooltip-top" title="The date when this transaction was added" placement="top">
                             <TableCell
                                 key={'Column_EnteredDate'}
-                                style={styles.dateHeader}
+                                className={classes.dateWidth}
                             >
                                 <Typography variant="subheading">Date Added</Typography>
                             </TableCell>
@@ -68,7 +68,11 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                 </TableHead>
                 <TableBody>
                     {props.transactionHistoryArray.map((transaction: ITransactionHistory) =>
-                        <ViewTransactionsGridRow key={'ViewTransactionsGridRow_' + transaction.transactionId} {...transaction} />,
+                        <ViewTransactionsGridRow
+                            key={'ViewTransactionsGridRow_' + transaction.transactionId}
+                            classes={classes}
+                            {...transaction}
+                        />,
                     )}
                 </TableBody>
             </Table>
@@ -81,41 +85,42 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
 const ViewTransactionsGridRow: React.StatelessComponent<IViewTransactionGridRowProps> = (props) => {
     const formattedDate = moment(props.date).format('Do MMM YYYY');
     const formattedEnteredDate = moment(props.enteredDate).format('hh:mm:ss Do MMM YYYY');
+    const { classes } = props;
     return (
         <TableRow key={'Row_' + props.transactionId}>
             <TableCell
                 key={'Data_' + props.transactionId + '_Debtor'}
-                style={styles.owesMeDetail}
+                className={classes.owesMeWidth}
             >
                 <Typography color="textSecondary">{props.debtorDisplayName}</Typography>
             </TableCell>
             <TableCell
                 key={'Data_' + props.transactionId + '_Gross'}
-                style={styles.valueDetail}
+                className={classes.valueWidth}
             >
                 <Typography color="textSecondary">{props.gross}</Typography>
             </TableCell>
             <TableCell
                 key={'Data_' + props.transactionId + '_Date'}
-                style={styles.dateDetail}
+                className={classes.dateWidth}
             >
                 <Typography color="textSecondary">{formattedDate}</Typography>
             </TableCell>
             <TableCell
                 key={'Data_' + props.transactionId + '_Reference'}
-                style={styles.referenceDetail}
+                className={classes.referenceWidth}
             >
                 <Typography color="textSecondary">{props.reference}</Typography>
             </TableCell>
             <TableCell
                 key={'Data_' + props.transactionId + '_EnteredBy'}
-                style={styles.owesMeDetail}
+                className={classes.owesMeWidth}
             >
                 <Typography color="textSecondary">{props.enteredByDisplayName}</Typography>
             </TableCell>
             <TableCell
                 key={'Data_' + props.transactionId + '_EnteredDate'}
-                style={styles.dateDetail}
+                className={classes.dateWidth}
             >
                 <Typography color="textSecondary">{formattedEnteredDate}</Typography>
             </TableCell>

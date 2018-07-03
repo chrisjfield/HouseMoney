@@ -5,13 +5,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
-import formStyles from '../../styles/styles';
 import Loading from '../Loading';
 import { NoTransactionsFound } from './NoTransactionsFound';
 import { ViewTransactionsActions } from './viewTransactionsActions';
 import { ViewTransactionsGrid } from './ViewTransactionsGrid';
 // tslint:disable-next-line:max-line-length
 import { IViewTransactionsProps, IViewTransactionsRequest, IViewTransactionsState, IViewTransactionsStore } from './viewTransactionsInterfaces';
+import viewTransactionsStyles from './viewTransactionsStyles';
 
 class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTransactionsState> {
     constructor(props: IViewTransactionsProps) {
@@ -56,7 +56,11 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
         } else if (this.props.transactionHistoryArray.length > 0) {
             result = (
                 <div>
-                    <ViewTransactionsGrid key="TransactionsGrid" transactionHistoryArray={this.props.transactionHistoryArray} />
+                    <ViewTransactionsGrid
+                        key="TransactionsGrid"
+                        transactionHistoryArray={this.props.transactionHistoryArray}
+                        classes={this.props.classes}
+                    />
                     <Button
                         key="Previous_Button"
                         onClick={this.prevPage}
@@ -107,4 +111,4 @@ const mapStateToProps = (store: IStore) => {
     return props;
 };
 
-export default compose(withStyles(formStyles), connect(mapStateToProps))(ViewTransactions);
+export default compose(withStyles(viewTransactionsStyles), connect(mapStateToProps))(ViewTransactions);

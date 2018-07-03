@@ -1,39 +1,27 @@
+import { createStyles, Theme, WithStyles } from '@material-ui/core/styles';
 
-const baseStyles: { [name: string]: React.CSSProperties } = {
+const viewTransactionsStyles = (theme: Theme) => createStyles({
     container: {
         textAlign: 'center',
-        marginTop: '20em',
+        marginTop: '20px',
     },
     owesMeWidth: {
-        width: '80em',
+        maxWidth: '80em',
+        minWidth: '5em',
     },
     valueWidth: {
-        width: '60em',
+        maxWidth: '60em',
+        minWidth: '5em',
     },
     dateWidth: {
-        width: '100em',
+        maxWidth: '100em',
+        minWidth: '14em',
     },
     referenceWidth: {
-        width: '100em',
-    },
-};
-
-const styles: any = Object.assign(baseStyles, {
-    owesMeHeader: { ...baseStyles.owesMeWidth, ...baseStyles.gridHeader },
-    valueHeader: { ...baseStyles.valueWidth, ...baseStyles.gridHeader },
-    dateHeader: { ...baseStyles.dateWidth, ...baseStyles.gridHeader },
-    referenceHeader: {
-        ...baseStyles.referenceWidth,
-        ...baseStyles.gridHeader,
-    },
-    owesMeDetail: { ...baseStyles.owesMeWidth, ...baseStyles.gridDetail },
-    valueDetail: { ...baseStyles.valueWidth, ...baseStyles.gridDetail },
-    dateDetail: { ...baseStyles.dateWidth, ...baseStyles.gridDetail },
-    referenceDetail: {
-        ...baseStyles.referenceWidth,
-        ...baseStyles.gridDetail,
+        maxWidth: '100em',
+        minWidth: '5em',
     },
 });
 
-export default styles;
-// TODO: Move to new style of styling!
+export default viewTransactionsStyles;
+export interface IViewTransactionsStyles extends WithStyles<typeof viewTransactionsStyles> { }

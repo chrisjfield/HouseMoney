@@ -1,7 +1,7 @@
 import { IComponentProps, IConnectedComponentProps } from '../../interfaces/componentInterfaces';
-import { IFormStyles } from '../../styles/styles';
 import { ITransactionResponse } from '../AddTransaction/transactionsInterfaces';
 import { IOccupantDetails } from '../Occupants/occupantsInterfaces';
+import { IViewTransactionsStyles } from './viewTransactionsStyles';
 
 export interface ITransactionHistory extends ITransactionResponse {
     creditorDisplayName: string;
@@ -19,11 +19,11 @@ export interface IViewTransactionsState {
     pageNumber: number;
 }
 
-export interface IViewTransactionGridProps extends IViewTransactionsReducer { }
+export interface IViewTransactionGridProps extends IViewTransactionsReducer, IViewTransactionsStyles { }
 
-export interface IViewTransactionGridRowProps extends ITransactionHistory { }
+export interface IViewTransactionGridRowProps extends ITransactionHistory, IViewTransactionsStyles { }
 
-export interface IViewTransactionsProps extends IViewTransactionsStore, IComponentProps, IFormStyles { }
+export interface IViewTransactionsProps extends IViewTransactionsStore, IComponentProps, IViewTransactionsStyles { }
 
 export interface IViewTransactionsStore extends IViewTransactionsReducer, IConnectedComponentProps {
     pageSize: number;
