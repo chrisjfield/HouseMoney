@@ -10,3 +10,17 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px #212121 inset;
     -webkit-text-fill-color: #bdbdbd;
 }
+
+div::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #212121;
+    box-shadow: inset 0 0 6px #212121;
+}
+ 
+div::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;;
+  outline: 1px solid #212121;
+}
