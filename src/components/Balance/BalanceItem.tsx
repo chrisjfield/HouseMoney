@@ -31,12 +31,15 @@ const BalanceItem: React.StatelessComponent<IBalanceItemProps> = (props) => {
     const balanceElement = (
         <ListItem
             key={'Debt_' + debtor.occupantId}
-            style={{
-                cursor: 'auto',
-                width: 'auto',
-                display: 'inline-flex',
-            }}
         >
+            <ListItemIcon>
+                <Avatar
+                    key={'Avatar_' + debtor.occupantId}
+                    className={balanceItemClass}
+                >
+                    {debtor.displayName.charAt(0).toUpperCase()}
+                </Avatar>
+            </ListItemIcon>
             <ListItemText
                 key={'Debt_' + debtor.occupantId + '_Name'}
                 primary={debtor.displayName}
@@ -49,14 +52,6 @@ const BalanceItem: React.StatelessComponent<IBalanceItemProps> = (props) => {
                 disableTypography={true}
                 className={balanceTextClass}
             />
-            <ListItemIcon>
-                <Avatar
-                    key={'Avatar_' + debtor.occupantId}
-                    className={balanceItemClass}
-                >
-                    {debtor.displayName.charAt(0).toUpperCase()}
-                </Avatar>
-            </ListItemIcon>
         </ListItem>
     );
     return balanceElement;
