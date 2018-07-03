@@ -1,6 +1,5 @@
-import { Avatar, Button, Divider, ListItemIcon, Typography } from '@material-ui/core';
+import { Avatar, Button, Divider, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel/FormControlLabel';
 import List from '@material-ui/core/List/List';
 import ListItem from '@material-ui/core/ListItem/ListItem';
 import Paper from '@material-ui/core/Paper/Paper';
@@ -99,7 +98,6 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
     }
 
     // TODO: Refactor this out!
-    // TODO: Use flex-box properly here Ed!
     createCheckbox = (occupant: IAddTransactionOccupant): JSX.Element => {
         const { classes } = this.props;
         const checkbox: JSX.Element = (
@@ -111,17 +109,14 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                     width: 'auto',
                 }}
             >
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            key={'Checkbox_' + occupant.occupantId}
-                            checked={occupant.checked}
-                            className={classes.checkbox}
-                            onChange={this.updateCheck.bind(this, occupant.occupantId)}
-                            disabled={this.state.transactionAdding}
-                        />}
-                    label={occupant.displayName}
+                <Checkbox
+                    key={'Checkbox_' + occupant.occupantId}
+                    checked={occupant.checked}
+                    className={classes.checkbox}
+                    onChange={this.updateCheck.bind(this, occupant.occupantId)}
+                    disabled={this.state.transactionAdding}
                 />
+                <ListItemText primary={occupant.displayName} />
                 <ListItemIcon style={{ marginLeft: 'auto' }}>
                     <Avatar key={'Avatar_' + occupant.displayName} className={classes.avatar} >
                         {occupant.displayName.charAt(0).toUpperCase()}
@@ -179,15 +174,13 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                             className={classes.checkBoxListSheet}
                         >
                             <ListItem key={'ListItem_checkAll'} onClick={this.updateCheckAll}>
-                                <FormControlLabel
-                                    control={<Checkbox
-                                        key="checkAll"
-                                        checked={this.state.allChecked}
-                                        onChange={this.updateCheckAll}
-                                        className={classes.checkAll}
-                                    />}
-                                    label={'Everyone'}
+                                <Checkbox
+                                    key="checkAll"
+                                    checked={this.state.allChecked}
+                                    onChange={this.updateCheckAll}
+                                    className={classes.checkAll}
                                 />
+                                <ListItemText primary="Everyone" />
                             </ListItem>
                             <Divider />
                             {this.props.loading === 0 ? (
