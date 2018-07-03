@@ -7,13 +7,15 @@ const BalanceList: React.StatelessComponent<IBalanceProps> = (props) => {
     const me = props.loggedInOccupant.occupantId;
     const balanceList = (
         <List>
-            <div >
-                {props.balanceArray
-                    .filter((balance: IBalance) =>
-                        balance.creditorOccupantId === me && balance.debtorOccupantId !== me)
-                    .map((balance: IBalance) => <BalanceItem balance={balance} classes={props.classes} />)
-                }
-            </div>
+            {props.balanceArray
+                .filter((balance: IBalance) =>
+                    balance.creditorOccupantId === me && balance.debtorOccupantId !== me)
+                .map((balance: IBalance) =>
+                    <BalanceItem
+                        key={'Debt_' + balance.debtorOccupantId}
+                        balance={balance}
+                        classes={props.classes} />,
+            )}
         </List>
     );
     return balanceList;

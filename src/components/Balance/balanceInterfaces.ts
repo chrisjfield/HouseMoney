@@ -9,10 +9,6 @@ export interface IBalance {
     gross: number;
 }
 
-export interface IBalanceOccupant {
-    displayName: string;
-}
-
 export interface IBalanceProps extends IComponentProps, IBalanceStore, IBalanceStyles { }
 
 export interface IBalanceStore extends IConnectedComponentProps {
