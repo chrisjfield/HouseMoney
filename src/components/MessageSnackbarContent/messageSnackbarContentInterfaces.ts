@@ -5,7 +5,7 @@ import messageSnackbarStyles from './messageSnackbarContentStyles';
 export interface IMessageSnackbarProps extends WithStyles<typeof messageSnackbarStyles> {
     className?: string;
     message: string;
-    onClose: (event: React.MouseEvent<HTMLElement>) => void;
+    onClose: (event: React.MouseEvent<HTMLElement>, reason?: string) => void;
     variant: 'success' | 'warning' | 'error' | 'info';
     additionalActions?: JSX.Element;
 }

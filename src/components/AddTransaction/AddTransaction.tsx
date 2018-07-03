@@ -147,7 +147,11 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
         this.setState({ transactionDetails: { ...this.state.transactionDetails, date } });
     }
 
-    handleTransactionAddedClose() {
+    handleTransactionAddedClose = (event: React.MouseEvent<HTMLElement>, reason: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
         this.setState({
             transactionAdded: false,
         });
