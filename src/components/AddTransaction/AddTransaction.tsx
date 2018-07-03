@@ -95,6 +95,12 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
             this.props.dispatch(LoadingActions.loadingStarted());
             this.props.dispatch(TransactionActions.addTransaction(addTransactionRequest));
+            this.setState({
+                transactionDetails: { gross: '', date: new Date(), reference: '' },
+                allChecked: false,
+                transactionAdding: false,
+                transactionAdded: false,
+            });
         }
     }
 
