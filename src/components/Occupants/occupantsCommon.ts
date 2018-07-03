@@ -64,7 +64,6 @@ export function occupantIsValid(occupantToLogin: ILoggedInOccupant) {
 
 export function parseOccupant(occupantString: string) {
     const occupant: IOccupant = queryString.parse(occupantString);
-    occupant.occupantId = parseInt(occupant.occupantId.toString(), 2);
 
     return occupant;
 }

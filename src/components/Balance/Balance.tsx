@@ -22,7 +22,11 @@ class Balance extends React.Component<IBalanceProps> {
             <form name="balanceForm" className={classes.container}>
                 <Typography variant="headline">My Balance</Typography>
                 <Paper>
-                    {this.props.loading === 0 ? <BalanceList {...this.props} /> : <Loading />}
+                    {this.props.loading === 0 && this.props.balanceArray
+                        && this.props.balanceArray.length > 0 ? <BalanceList {...this.props} />
+                        : this.props.balanceArray.length === 0
+                            ? <Typography variant="subheading">Invite others to your household to view balances</Typography>
+                            : <Loading />}
                 </Paper>
             </form>
         );
