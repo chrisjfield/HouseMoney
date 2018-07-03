@@ -13,9 +13,9 @@ import styles from './viewTransactionsStyles';
 export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGridProps> = (props) => {
     const transactionsGrid: JSX.Element = (
         <div style={{ overflow: 'auto', maxWidth: '100%' }}>
-            <Table >
-                <TableHead>
-                    <TableRow>
+            <Table key="ViewTransactionsGridTable" >
+                <TableHead key="TableHeader">
+                    <TableRow key="TableHeaderRow">
                         <Tooltip id="tooltip-top" title="The name of the person who owes you" placement="top">
                             <TableCell
                                 key={'Column_Debtor'}
@@ -68,7 +68,7 @@ export const ViewTransactionsGrid: React.StatelessComponent<IViewTransactionGrid
                 </TableHead>
                 <TableBody>
                     {props.transactionHistoryArray.map((transaction: ITransactionHistory) =>
-                        <ViewTransactionsGridRow {...transaction} />,
+                        <ViewTransactionsGridRow key={'ViewTransactionsGridRow_' + transaction.transactionId} {...transaction} />,
                     )}
                 </TableBody>
             </Table>

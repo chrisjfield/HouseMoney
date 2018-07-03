@@ -56,7 +56,7 @@ class ViewTransactions extends React.Component<IViewTransactionsProps, IViewTran
         } else if (this.props.transactionHistoryArray.length > 0) {
             result = (
                 <div>
-                    <ViewTransactionsGrid transactionHistoryArray={this.props.transactionHistoryArray} />
+                    <ViewTransactionsGrid key="TransactionsGrid" transactionHistoryArray={this.props.transactionHistoryArray} />
                     <Button
                         key="Previous_Button"
                         onClick={this.prevPage}
