@@ -245,7 +245,7 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         variant="success"
                         message="Transaction added"
                         additionalActions={
-                            <Button key="view" color="secondary" size="small" onClick={this.handleViewTransactionClick}>
+                            <Button key="view" size="small" onClick={this.handleViewTransactionClick}>
                                 View
                             </Button>
                         }

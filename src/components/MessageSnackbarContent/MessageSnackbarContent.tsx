@@ -33,17 +33,19 @@ const MessageSnackbarContent: React.StatelessComponent<IMessageSnackbarProps> = 
                 </span>
             }
             action={
-                <IconButton
-                    key="close"
-                    aria-label="Close"
-                    color="inherit"
-                    className={classes.close}
-                    onClick={onClose}
-                >
-                    <CloseIcon className={classes.icon} />
-                </IconButton>
+                <span>
+                    {additionalActions}
+                    <IconButton
+                        key="close"
+                        aria-label="Close"
+                        color="inherit"
+                        className={classes.close}
+                        onClick={onClose}
+                    >
+                        <CloseIcon className={classes.icon} />
+                    </IconButton>
+                </span>
             }
-            {...additionalActions}
         />
     );
 };
