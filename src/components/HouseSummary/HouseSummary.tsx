@@ -33,7 +33,7 @@ class HouseSummary extends React.Component<IHouseSummaryProps> {
                 <div id="houseSummaryGrid" style={houseSummaryStyles.gridContainer}>
                     {this.props.loading <= 0 ?
                         this.props.transactionSummaryArray.length > 0 && this.props.householdOccupantsArray.length > 0 ? (
-                            <HouseSummaryGrid {...this.props} />
+                            <HouseSummaryGrid key={'HouseSummaryGridTable'} {...this.props} />
                         ) : <div> <NoTransactionsFound /> </div> : (
                             <Loading />
                         )}

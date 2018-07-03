@@ -28,7 +28,7 @@ export const HouseSummaryGrid: React.StatelessComponent<IHouseSummaryProps> = (p
 function createColumns(householdOccupantsArray: IOccupant[]): JSX.Element[] {
     const columnData = ['', ...householdOccupantsArray];
     const columnArray: JSX.Element[] = columnData.map((householdOccupant: IOccupant) =>
-        <HouseSummaryColumn {...householdOccupant} />);
+        <HouseSummaryColumn key={'HouseSummaryGridColumn_' + householdOccupant.occupantId} {...householdOccupant} />);
     return columnArray;
 }
 
@@ -39,7 +39,7 @@ function createRows(props: IHouseSummaryProps): JSX.Element[] {
     };
     const rowArray: JSX.Element[] = props.householdOccupantsArray.map((householdOccupant) => {
         houseSummaryProps.householdOccupant = householdOccupant;
-        return <HouseSummaryRow {...houseSummaryProps} />;
+        return <HouseSummaryRow key={'HouseSummaryGridRow_' + householdOccupant.occupantId} {...houseSummaryProps} />;
     });
     return rowArray;
 }
@@ -66,7 +66,12 @@ const HouseSummaryRow: React.StatelessComponent<IHouseSummaryRow> = (props) => {
         (gridElement: ITransactionSummary) => gridElement.creditorOccupantId === props.householdOccupant.occupantId,
     );
     const houseSummaryRowData: JSX.Element[] = transactionSummaryArrayData.map((transactionSummary: ITransactionSummary) =>
-        <HouseSummaryRowData {...transactionSummary} />);
+        <HouseSummaryRowData
+            key={'HouseSummaryGridRowData'
+                + '_Creditor_' + transactionSummary.creditorOccupantId
+                + '_Debtor_' + transactionSummary.debtorOccupantId}
+            {...transactionSummary}
+        />);
     const row = (
         <TableRow key={'Row' + props.householdOccupant.occupantId}>
             <TableCell
