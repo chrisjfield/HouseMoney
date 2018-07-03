@@ -94,6 +94,10 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
 
             this.props.dispatch(LoadingActions.loadingStarted());
             this.props.dispatch(TransactionActions.addTransaction(addTransactionRequest));
+            this.setState({
+                transactionDetails: { gross: '', date: new Date(), reference: '' },
+                allChecked: false,
+            });
         }
     }
 
@@ -222,11 +226,13 @@ class AddTransaction extends React.Component<IAddTransactionProps, IAddTransatio
                         label="Description"
                         placeholder="Weekly Shop"
                         multiline={true}
+                        rows="2"
                         rowsMax="5"
                         value={this.state.transactionDetails.reference}
                         onChange={this.handleInputChange('reference')}
                         disabled={this.state.transactionAdding}
                         margin="normal"
+                        style={{ width: '174px' }}
                     />
                 </div>
                 <Button
