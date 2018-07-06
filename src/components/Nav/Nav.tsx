@@ -74,7 +74,7 @@ class Nav extends React.Component<INavProps, INavState> {
                                 paddingRight: '24px',
                             }}>
                             <Typography variant="headline">
-                                House Money
+                                Money
                             </Typography>
                         </Link>
                     </div>
