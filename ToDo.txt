@@ -15,4 +15,3 @@ Infinite scrolling on view transaction history
 
 V3 Bugs:
 clear up TODO: s in files
-fix login flow!
