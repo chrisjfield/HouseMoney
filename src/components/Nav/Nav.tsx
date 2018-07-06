@@ -40,7 +40,7 @@ class Nav extends React.Component<INavProps, INavState> {
                         </IconButton>
                         <Link to="/" style={{ textDecoration: 'none' }}>
                             <Typography variant="headline" color="secondary">
-                                House Money
+                                Money
                             </Typography>
                         </Link>
                         {this.props.isLoggedIn ? <LoggedInNavItems classes={this.props.classes} /> : <div />}
