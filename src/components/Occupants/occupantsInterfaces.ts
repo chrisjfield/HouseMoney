@@ -4,6 +4,7 @@ import { IComponentProps, IConnectedComponentProps } from '../../interfaces/comp
 export interface IOccupant extends IOccupantDetails {
     email: string;
     displayName: string;
+    photoURL?: string;
 }
 
 export interface IOccupantDetails extends IUserDetails {
