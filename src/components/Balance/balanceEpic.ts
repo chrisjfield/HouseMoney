@@ -1,3 +1,4 @@
+import * as queryString from 'query-string';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { Observable, of } from 'rxjs';
@@ -15,11 +16,15 @@ const balanceRequestEpic = (action$: Observable<Action>) => {
     return action$.pipe(
         ofType<ActionWithPayload<balanceActionTypes.GET_BALANCE_REQUEST, IOccupantDetails>>(balanceActionTypes.GET_BALANCE_REQUEST),
         switchMap((params) => {
+            const urlParams = queryString.stringify({
+                userId: params.payload.userId,
+                occupantId: params.payload.occupantId,
+            });
             const balanceAjaxParams: AjaxCallParams = {
+                urlParams,
                 token: params.payload.token,
                 method: HTTPMethod.GET,
                 endpoint: endpoints.balance,
-                urlParams: params.payload.userId + ',' + params.payload.occupantId.toString(),
             };
             return ajaxObservable<IBalance[]>(balanceAjaxParams).pipe(
                 mergeMap(response => of(

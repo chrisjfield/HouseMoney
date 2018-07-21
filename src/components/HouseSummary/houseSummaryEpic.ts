@@ -1,3 +1,4 @@
+import * as queryString from 'query-string';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { Observable, of } from 'rxjs';
@@ -17,11 +18,15 @@ const houseSummaryEpic = (action$: Observable<Action>) => {
             houseSummaryActionTypes.GET_TRANSACTION_SUMMARY_REQUEST,
         ),
         switchMap((params) => {
+            const urlParams = queryString.stringify({
+                userId: params.payload.userId,
+                occupantId: params.payload.occupantId,
+            });
             const ajaxCallParams: AjaxCallParams = {
+                urlParams,
                 token: params.payload.token,
                 endpoint: endpoints.transactionSummary,
                 method: HTTPMethod.GET,
-                urlParams: params.payload.userId + ',' + params.payload.occupantId,
             };
             return ajaxObservable<ITransactionSummary[]>(ajaxCallParams).pipe(
                 mergeMap(response => of(

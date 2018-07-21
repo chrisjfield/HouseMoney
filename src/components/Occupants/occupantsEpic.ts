@@ -1,3 +1,4 @@
+import * as queryString from 'query-string';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { Observable, of } from 'rxjs';
@@ -18,11 +19,15 @@ const getHouseholdOccupantsRequestEpic = (action$: Observable<Action>) => {
         ofType<ActionWithPayload<occupantActionsTypes.GET_OCCUPANTS_OF_HOUSEHOLD_REQUEST, IOccupantDetails>>(
             occupantActionsTypes.GET_OCCUPANTS_OF_HOUSEHOLD_REQUEST),
         switchMap((params) => {
+            const urlParams = queryString.stringify({
+                userId: params.payload.userId,
+                occupantId: params.payload.occupantId,
+            });
             const ajaxCallParams: AjaxCallParams = {
+                urlParams,
                 token: params.payload.token,
                 endpoint: endpoints.occupants,
                 method: HTTPMethod.GET,
-                urlParams: params.payload.userId + ',' + params.payload.occupantId.toString(),
             };
             return ajaxObservable<IOccupant[]>(ajaxCallParams).pipe(
                 mergeMap(response => of(

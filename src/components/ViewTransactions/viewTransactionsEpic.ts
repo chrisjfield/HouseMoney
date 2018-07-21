@@ -1,3 +1,4 @@
+import * as queryString from 'query-string';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { Observable, of } from 'rxjs';
@@ -15,12 +16,17 @@ const getTransactionHistoryEpic = (action$: Observable<Action>) => {
         ofType<ActionWithPayload<viewTransactionsActionTypes.GET_TRANSACTION_HISTORY_REQUEST, IViewTransactionsRequest>>(
             viewTransactionsActionTypes.GET_TRANSACTION_HISTORY_REQUEST),
         switchMap((params) => {
+            const urlParams = queryString.stringify({
+                userId: params.payload.userId,
+                occupantId: params.payload.occupantId,
+                pageSize: params.payload.pageSize,
+                pageNumber: params.payload.pageNumber,
+            });
             const ajaxCallParams: AjaxCallParams = {
+                urlParams,
                 token: params.payload.token,
                 endpoint: endpoints.transactionHistory,
                 method: HTTPMethod.GET,
-                urlParams: params.payload.userId + ',' + params.payload.occupantId
-                    + ',' + params.payload.pageSize + ',' + params.payload.pageNumber,
             };
             return ajaxObservable<ITransactionHistory[]>(ajaxCallParams).pipe(
                 mergeMap(response => of(
