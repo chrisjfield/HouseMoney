@@ -6,7 +6,7 @@ import { ajaxPromise } from '../../helpers/ajaxHelper';
 import { AjaxCallParams, AuthorizationResponse } from '../../interfaces/apiInterfaces';
 import { store } from '../../main/configureStore';
 import { OccupantsActions } from './occupantsActions';
-import { ILoggedInOccupant, ILogoutDetails, IOccupant, LogoutReason } from './occupantsInterfaces';
+import { ILoggedInOccupant, ILogoutDetails, IOccupant, IOccupantString, LogoutReason } from './occupantsInterfaces';
 
 // ED! Think we should probably leave this as a promise? - as actually really do want to await this - means refactor helpers!
 export async function checkHouseholdAuthorization(occupant: IOccupant): Promise<boolean> {
@@ -63,7 +63,14 @@ export function occupantIsValid(occupantToLogin: ILoggedInOccupant) {
 }
 
 export function parseOccupant(occupantString: string) {
-    const occupant: IOccupant = queryString.parse(occupantString);
+    const occupantParsed: IOccupantString = queryString.parse(occupantString);
+    const occupant: IOccupant = {
+        occupantId: parseInt(occupantParsed.occupantId, 10),
+        userId: occupantParsed.userId,
+        token: occupantParsed.token,
+        email: occupantParsed.email,
+        displayName: occupantParsed.displayName,
+    };
 
     return occupant;
 }

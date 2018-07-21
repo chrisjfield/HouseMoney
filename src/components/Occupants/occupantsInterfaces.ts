@@ -11,6 +11,15 @@ export interface IOccupantDetails extends IUserDetails {
     occupantId: number;
 }
 
+export interface IOccupantString {
+    email: string;
+    displayName: string;
+    photoURL?: string;
+    occupantId: string;
+    userId: string;
+    token: string;
+}
+
 export interface IUserDetails {
     userId: string;
     token: string;
