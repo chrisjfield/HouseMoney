@@ -3,7 +3,7 @@ export enum endpoints {
     occupants = 'Houses/Occupants?',
     newsFeeds = 'Houses/NewsFeeds?',
     balance = 'Money/Balance?',
-    transactions = 'Money/Transactions?',
+    transactionAdd = 'Money/Transactions/Add?',
     transactionHistory = 'Money/Transactions/History?',
     transactionSummary = 'Money/Transactions/Summary?',
 }

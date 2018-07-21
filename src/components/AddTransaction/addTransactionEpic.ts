@@ -1,3 +1,4 @@
+import * as queryString from 'query-string';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { Observable, of } from 'rxjs';
@@ -16,11 +17,12 @@ const addTransactionRequestEpic = (action$: Observable<Action>) => {
         ofType<ActionWithPayload<transactionActionTypes.ADD_TRANSACTION_REQUEST, IAddTransactionRequest>>(
             transactionActionTypes.ADD_TRANSACTION_REQUEST),
         switchMap((params) => {
+            const urlParams = queryString.stringify({ userId: params.payload.userId });
             const addTransactionAjaxParams: AjaxCallParams = {
+                urlParams,
                 token: params.payload.token,
                 method: HTTPMethod.POST,
-                endpoint: endpoints.transactions,
-                urlParams: params.payload.userId,
+                endpoint: endpoints.transactionAdd,
                 body: params.payload.transactionArray,
             };
             return ajaxObservable<number>(addTransactionAjaxParams).pipe(
