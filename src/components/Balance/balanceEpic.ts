@@ -27,7 +27,7 @@ const balanceRequestEpic = (action$: Observable<Action>) => {
                 endpoint: endpoints.balance,
             };
             return ajaxObservable<IBalance[]>(balanceAjaxParams).pipe(
-                mergeMap(response => of(
+                mergeMap((response: IBalance[]) => of(
                     BalanceActions.receiveBalance(response),
                 )),
             );

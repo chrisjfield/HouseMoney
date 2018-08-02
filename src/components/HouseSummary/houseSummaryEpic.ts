@@ -29,7 +29,7 @@ const houseSummaryEpic = (action$: Observable<Action>) => {
                 method: HTTPMethod.GET,
             };
             return ajaxObservable<ITransactionSummary[]>(ajaxCallParams).pipe(
-                mergeMap(response => of(
+                mergeMap((response: ITransactionSummary[]) => of(
                     HouseSummaryActions.receiveTransactionSummary(response),
                 )),
             );

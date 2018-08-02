@@ -26,7 +26,7 @@ const addTransactionRequestEpic = (action$: Observable<Action>) => {
                 body: params.payload.transactionArray,
             };
             return ajaxObservable<number>(addTransactionAjaxParams).pipe(
-                mergeMap(response => of(
+                mergeMap((response: number) => of(
                     TransactionActions.receiveTransaction(response),
                     LoadingActions.loadingComplete(),
                 )),

@@ -29,7 +29,7 @@ const getTransactionHistoryEpic = (action$: Observable<Action>) => {
                 method: HTTPMethod.GET,
             };
             return ajaxObservable<ITransactionHistory[]>(ajaxCallParams).pipe(
-                mergeMap(response => of(
+                mergeMap((response: ITransactionHistory[]) => of(
                     ViewTransactionsActions.receiveTransactionHistory(response),
                 )),
             );

@@ -1,27 +1,20 @@
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { catchError, map } from 'rxjs/operators';
 import baseURL from '../appConfig';
 import { ErrorMessageActions } from '../components/ErrorMessage/errorMessageActions';
-import { LoadingActions } from '../components/Loading/loadingActions';
 import { logout } from '../components/Occupants/occupantsCommon';
 import { LogoutReason } from '../components/Occupants/occupantsInterfaces';
 import { AjaxCallParams } from '../interfaces/apiInterfaces';
 import { store } from '../main/configureStore';
 
 // TODO: Refactor these two if keeping both! Need to decide!
-export default function ajaxObservable<R>(ajaxCallParams: AjaxCallParams): Observable<R> {
+export default function ajaxObservable<R>(ajaxCallParams: AjaxCallParams) {
     const headers = {
         Authorization: 'Bearer ' + ajaxCallParams.token,
         'Content-Type': 'application/json;charset=UTF-8',
     };
-
-    let calledUrl: string = baseURL + ajaxCallParams.endpoint;
-
-    if (ajaxCallParams.urlParams) {
-        calledUrl = calledUrl + ajaxCallParams.urlParams;
-    }
-
+    const calledUrl = getCalledUrl(ajaxCallParams);
     const ajaxRequest: AjaxRequest = {
         headers,
         url: calledUrl,
@@ -36,15 +29,12 @@ export default function ajaxObservable<R>(ajaxCallParams: AjaxCallParams): Obser
 
     return ajax(ajaxRequest).pipe(
         map((ajaxResponse: AjaxResponse) => {
-            catchError((error: Error, errorObservable) => errorObservable.pipe(
-                map((error: Error) => {
-                    ErrorMessageActions.addError(error.message),
-                    LoadingActions.loadingComplete();
-                }),
-            )),
-                checkStatus(ajaxResponse.status);
+            checkStatus(ajaxResponse.status);
             return ajaxResponse.response as R;
         }),
+        catchError((error: Error) => of(
+            alertUserOfError(error),
+        )),
     );
 }
 
@@ -52,12 +42,7 @@ export function ajaxPromise<T>(ajaxCallParams: AjaxCallParams): Promise<T> {
     const headers: Headers = new Headers();
     headers.append('Authorization', 'Bearer ' + ajaxCallParams.token);
     headers.append('Content-Type', 'application/json;charset=UTF-8');
-
-    let calledUrl: string = baseURL + ajaxCallParams.endpoint;
-
-    if (ajaxCallParams.urlParams) {
-        calledUrl = calledUrl + ajaxCallParams.urlParams;
-    }
+    const calledUrl = getCalledUrl(ajaxCallParams);
 
     return fetch(calledUrl, {
         headers,
@@ -71,7 +56,7 @@ export function ajaxPromise<T>(ajaxCallParams: AjaxCallParams): Promise<T> {
         ) : null;
         return returnedPromise;
     }).catch((error: Error) => {
-        store.dispatch(ErrorMessageActions.addError(error.message));
+        alertUserOfError(error);
         throw error;
     });
 }
@@ -80,4 +65,17 @@ export function checkStatus(ajaxResponseStatusCode: number) {
     if (ajaxResponseStatusCode === 401) {
         logout(LogoutReason.Timeout);
     }
+}
+
+function getCalledUrl(ajaxCallParams: AjaxCallParams) {
+    let calledUrl: string = baseURL + ajaxCallParams.endpoint;
+
+    if (ajaxCallParams.urlParams) {
+        calledUrl = calledUrl + ajaxCallParams.urlParams;
+    }
+    return calledUrl;
+}
+
+function alertUserOfError(error: Error) {
+    store.dispatch(ErrorMessageActions.addError(error.message));
 }

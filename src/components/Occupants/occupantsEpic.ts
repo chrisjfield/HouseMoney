@@ -30,7 +30,7 @@ const getHouseholdOccupantsRequestEpic = (action$: Observable<Action>) => {
                 method: HTTPMethod.GET,
             };
             return ajaxObservable<IOccupant[]>(ajaxCallParams).pipe(
-                mergeMap(response => of(
+                mergeMap((response: IOccupant[]) => of(
                     OccupantsActions.receiveHouseholdOccupants(response),
                 )),
             );
