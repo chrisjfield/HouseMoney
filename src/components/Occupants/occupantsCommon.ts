@@ -4,7 +4,7 @@ import { endpoints } from '../../enums/endpointsEnum';
 import { HTTPMethod } from '../../enums/httpEnum';
 import { ajaxPromise } from '../../helpers/ajaxHelper';
 import { AjaxCallParams, AuthorizationResponse } from '../../interfaces/apiInterfaces';
-import { store } from '../../main/configureStore';
+import { persistor, store } from '../../main/configureStore';
 import { OccupantsActions } from './occupantsActions';
 import { ILoggedInOccupant, ILogoutDetails, IOccupant, IOccupantString, LogoutReason } from './occupantsInterfaces';
 
@@ -32,6 +32,7 @@ export function logout(reason: LogoutReason) {
         loggedInOccupant: undefined,
     };
     store.dispatch(OccupantsActions.receiveOccupant(removedOccupant));
+    persistor.purge();
     redirectToMyHouse(reason);
     // TODO: Route to Occupants and build logout path
     // This will avoid 404 page flash
