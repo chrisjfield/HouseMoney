@@ -1,5 +1,5 @@
 // Live setting
-// const baseURL = 'http://90.252.214.72/MyHouseAPI/api/';
+// const baseURL = 'http://90.252.214.72/MyHouse_Live/api/';
 
 // Local Setting
 const baseURL: string = 'http://localhost:5000/api/';
@@ -18,4 +18,3 @@ const myHouseUrl = 'http://localhost:3000/';
 
 export default baseURL;
 export { myHouseUrl };
-
