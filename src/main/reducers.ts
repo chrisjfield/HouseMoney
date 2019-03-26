@@ -1,12 +1,13 @@
-import { combineReducers, Reducer, AnyAction } from 'redux';
-import errorMessageReducer from '../components/ErrorMessage/errorMessageReducer';
-import occupantsReducer from '../components/Occupants/occupantsReducer';
-import { IStore } from '../interfaces/storeInterface';
-import loadingReducer from '../components/Loading/loadingReducer';
-import balanceReducer from '../components/Balance/balanceReducer';
+import { AnyAction, combineReducers, Reducer } from 'redux';
 import transactionsReducer from '../components/AddTransaction/transactionsReducer';
-import viewTransactionsReducer from '../components/ViewTransactions/viewTransactionsReducer';
+import balanceReducer from '../components/Balance/balanceReducer';
+import errorMessageReducer from '../components/ErrorMessage/errorMessageReducer';
 import houseSummaryReducer from '../components/HouseSummary/houseSummaryReducer';
+import loadingReducer from '../components/Loading/loadingReducer';
+import navReducer from '../components/Nav/navReducer';
+import occupantsReducer from '../components/Occupants/occupantsReducer';
+import viewTransactionsReducer from '../components/ViewTransactions/viewTransactionsReducer';
+import { IStore } from '../interfaces/storeInterface';
 
 const combinedReducers: Reducer<IStore, AnyAction> = combineReducers({
     occupantsReducer,
@@ -16,6 +17,7 @@ const combinedReducers: Reducer<IStore, AnyAction> = combineReducers({
     transactionsReducer,
     viewTransactionsReducer,
     houseSummaryReducer,
+    navReducer,
 });
 
 export default combinedReducers;

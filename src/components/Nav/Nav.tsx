@@ -41,7 +41,7 @@ class Nav extends React.Component<INavProps, INavState> {
                     </Toolbar>
                 </AppBar>
                 {this.props.isLoggedIn ? <SwipeableDrawer
-                    open={this.state.openSidebar}
+                    open={this.props.openSidebar}
                     onClose={this.toggleDrawer}
                     onOpen={this.toggleDrawer}
                 >
