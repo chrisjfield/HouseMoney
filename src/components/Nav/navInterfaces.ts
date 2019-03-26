@@ -5,6 +5,7 @@ import navStyles from './navStyles';
 
 export interface INavProps extends ILoggedInOccupant, INavMenuProps {
     dispatch: Dispatch<Action>;
+    openSidebar: boolean;
 }
 
 export interface INavState {
@@ -12,3 +13,7 @@ export interface INavState {
 }
 
 export interface INavMenuProps extends WithStyles<typeof navStyles> { }
+
+export interface INavReducer {
+    navOpen: boolean;
+}

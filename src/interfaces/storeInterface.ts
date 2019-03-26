@@ -1,3 +1,4 @@
+import { INavReducer } from 'src/components/Nav/navInterfaces';
 import { IAddTransactionReducer } from '../components/AddTransaction/transactionsInterfaces';
 import { IBalanceReducer } from '../components/Balance/balanceInterfaces';
 import { IErrorMessageReducer } from '../components/ErrorMessage/errorMessageInterfaces';
@@ -14,4 +15,5 @@ export interface IStore {
     transactionsReducer: IAddTransactionReducer;
     viewTransactionsReducer: IViewTransactionsReducer;
     houseSummaryReducer: IHouseSummaryReducer;
+    navReducer: INavReducer;
 }

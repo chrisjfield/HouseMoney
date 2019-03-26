@@ -1,8 +1,8 @@
 // Live setting
-// const baseURL = 'http://90.252.214.72/MyHouse_Live/api/';
+const baseURL = 'http://90.252.214.72/MyHouse_Live/api/';
 
 // Local Setting
-const baseURL: string = 'http://localhost:5000/api/';
+// const baseURL: string = 'http://localhost:5000/api/';
 
 // Integration Test Setting
 // const baseURL: string = 'http://90.252.214.72/MyHouseTestAPI/api/';
@@ -16,5 +16,4 @@ const baseURL: string = 'http://localhost:5000/api/';
 // Local My House setting
 const myHouseUrl = 'http://localhost:3000/';
 
-export default baseURL;
-export { myHouseUrl };
+export { baseURL, myHouseUrl };

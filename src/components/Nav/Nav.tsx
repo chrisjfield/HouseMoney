@@ -13,21 +13,15 @@ import { compose } from 'redux';
 import { IStore } from '../../interfaces/storeInterface';
 import LoggedInMenuOptions from './LoggedInMenuOptions';
 import LoggedInNavItems from './LoggedInNavItems';
+import { NavActions } from './navActions';
 import { INavProps, INavState } from './navInterfaces';
 import navStyles from './navStyles';
 
 // TODO: Add back in user chip, but with different function, maybe this takes you to balance, home takes you to myHouse?
 class Nav extends React.Component<INavProps, INavState> {
-    constructor(props: INavProps) {
-        super(props);
-
-        this.state = {
-            openSidebar: false,
-        };
-    }
-
     toggleDrawer = (event: React.MouseEvent<HTMLElement>) => {
-        this.setState({ openSidebar: !this.state.openSidebar });
+        const newState = !this.props.openSidebar;
+        newState ? this.props.dispatch(NavActions.navOpened()) : this.props.dispatch(NavActions.navClosed());
     }
 
     render() {
@@ -90,6 +84,7 @@ const mapStateToProps = (store: IStore) => {
     return {
         isLoggedIn: store.occupantsReducer.isLoggedIn,
         loggedInOccupant: store.occupantsReducer.loggedInOccupant,
+        openSidebar: store.navReducer.navOpen,
     };
 };
 

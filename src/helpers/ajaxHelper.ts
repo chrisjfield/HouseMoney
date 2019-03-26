@@ -1,7 +1,7 @@
 import { of } from 'rxjs';
 import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { catchError, map } from 'rxjs/operators';
-import baseURL from '../appConfig';
+import { baseURL } from '../appConfig';
 import { ErrorMessageActions } from '../components/ErrorMessage/errorMessageActions';
 import { logout } from '../components/Occupants/occupantsCommon';
 import { LogoutReason } from '../components/Occupants/occupantsInterfaces';
